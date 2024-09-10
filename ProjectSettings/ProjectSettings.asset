@@ -671,11 +671,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 0
   windowsGamepadBackendHint: 0
-  cloudProjectId: d5ee389b-c351-4f80-8a09-f0800db17678
+  cloudProjectId: 7c6c4b73-c9db-4045-886d-d1997b538eb0
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: game 2024-09-10_09-08-19
-  organizationId: jasiakpasiak
+  projectName: My project
+  organizationId: enafalco
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}
