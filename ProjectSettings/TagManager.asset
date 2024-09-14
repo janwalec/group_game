@@ -41,3 +41,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Ocean
+    uniqueID: 1191491083
+    locked: 0
+  - name: Land
+    uniqueID: 2716052421
+    locked: 0
+  - name: OnLand
+    uniqueID: 4159703695
+    locked: 0
