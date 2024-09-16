@@ -41,11 +41,6 @@ public class TIleMapGenerator : MonoBehaviour
         this.y_max = bounds.yMax;
         this.x_min = bounds.xMin;
         this.x_max = bounds.xMax;
-        /*
-        Debug.Log("size" + size_x.ToString() + " " + size_y.ToString());
-        Debug.Log("min" + bounds.xMin.ToString() + " " + bounds.yMin.ToString());
-        Debug.Log("max" + bounds.xMax.ToString() + " " + bounds.yMax.ToString());
-        */
 
         tilesArray = new My_Tile[size_y, size_x];
 
@@ -61,48 +56,55 @@ public class TIleMapGenerator : MonoBehaviour
     }
 
     void CreateTileNeighbours() {
-        
         for (int i = y_min; i < y_max; i++) {
             for (int j = x_min; j < x_max; j++) {
                 int l = i - y_min;
                 int k = j - x_min;
                 My_Tile tile = tilesArray[l, k];
-                if(l+1 < size_y && k-1 > 0)
-                    tile.neighbours[0] = tilesArray[l+1, k-1];
-                if(l+1 < size_y)
-                    tile.neighbours[1] = tilesArray[l+1, k];
-                if(k-1 > 0)
-                    tile.neighbours[2] = tilesArray[l, k-1];
-                if(k+1 < size_x)
-                    tile.neighbours[3] = tilesArray[l, k+1];
-                if(l-1 > 0 && k -1 > 0)
-                    tile.neighbours[4] = tilesArray[l-1, k-1];
-                if(l-1 > 0)
-                    tile.neighbours[5] = tilesArray[l-1, k];
 
-            }
-        }
-        
-        string print = "";
-        for (int i = 0; i < size_y; i++) {
-            for(int j = 0; j < size_x; j++) {
-                if(tilesArray[i,j].tile == null) {
-                    print += "[.,.] ";
-                } else {
-                    print += "[";
-                    print += tilesArray[i,j].y.ToString();
-                    print += ",";
-                    print += tilesArray[i,j].x.ToString();
-                    print += "] ";
+                // Even row (l % 2 == 0)
+                if (l % 2 == 0) {
+                    if (l + 1 < size_y)
+                        tile.neighbours[0] = tilesArray[l + 1, k];
+                    
+                    if (l + 1 < size_y && k + 1 < size_x)
+                        tile.neighbours[1] = tilesArray[l + 1, k + 1];
+                    
+                    if (k - 1 >= 0)
+                        tile.neighbours[2] = tilesArray[l, k - 1];
+                    
+                    if (k + 1 < size_x)
+                        tile.neighbours[3] = tilesArray[l, k + 1];
+                    
+                    if (l - 1 >= 0)
+                        tile.neighbours[4] = tilesArray[l - 1, k];
+                    
+                    if (l - 1 >= 0 && k + 1 < size_x)
+                        tile.neighbours[5] = tilesArray[l - 1, k + 1];
+                } 
+                // Odd row (l % 2 != 0)
+                else {
+                    if (l + 1 < size_y && k - 1 >= 0)
+                        tile.neighbours[0] = tilesArray[l + 1, k - 1];
+                    
+                    if (l + 1 < size_y)
+                        tile.neighbours[1] = tilesArray[l + 1, k];
+                    
+                    if (k - 1 >= 0)
+                        tile.neighbours[2] = tilesArray[l, k - 1];
+                    
+                    if (k + 1 < size_x)
+                        tile.neighbours[3] = tilesArray[l, k + 1];
+                    
+                    if (l - 1 >= 0 && k - 1 >= 0)
+                        tile.neighbours[4] = tilesArray[l - 1, k - 1];
+                    
+                    if (l - 1 >= 0)
+                        tile.neighbours[5] = tilesArray[l - 1, k];
                 }
             }
-            print += "\n";
         }
-        Debug.Log(print);
-        */
-
     }
-
 
     void ChangeTiles(Vector3Int position)
     {
