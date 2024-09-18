@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
-public enum GameState {GS_GAME, GS_PAUSEMENU}
+public enum GameState { GS_PAUSEMENU, GS_GAME, GS_LEVELCOMPLETED, GS_GAME_OVER, GS_OPTIONS }
 
 public class GameManager : MonoBehaviour
 {
+    public enum Items { CANNON, DICE, COIN, NONE }
+    private TIleMapGenerator tilemap;
     public GameState currentGameState = GameState.GS_GAME;
 
     public static GameManager instance;
@@ -14,6 +17,16 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         
+    }
+
+    public void setTilemap(TIleMapGenerator tilemap_)
+    {
+        this.tilemap = tilemap_;
+    }
+
+    public TIleMapGenerator getTilemap()
+    {
+        return this.tilemap;
     }
 
     // Update is called once per frame

@@ -419,6 +419,7 @@ GameObject:
   - component: {fileID: 661583257}
   - component: {fileID: 661583256}
   - component: {fileID: 661583258}
+  - component: {fileID: 661583260}
   m_Layer: 0
   m_Name: hex_map
   m_TagString: Untagged
@@ -479,8 +480,8 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1578914875
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0.004999995, y: 0.505, z: 0}
@@ -1314,6 +1315,53 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tm: {fileID: 0}
   newTile: {fileID: 11400000, guid: 29bea1a48ec74d7dab9b9f354000a1c6, type: 2}
+  landTile: {fileID: 11400000, guid: a5c24f0dfa6d5ee48aaf1ece9d448bb5, type: 2}
+  greyTile: {fileID: 11400000, guid: 6e4a6c28b89dfc1a881bf62df7e12db9, type: 2}
+--- !u!61 &661583260
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 661583254}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.75, y: -5.1599994}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 13.51, y: 10.900001}
+  m_EdgeRadius: 0
 --- !u!1 &685899712
 GameObject:
   m_ObjectHideFlags: 0
@@ -1326,6 +1374,7 @@ GameObject:
   - component: {fileID: 685899716}
   - component: {fileID: 685899715}
   - component: {fileID: 685899714}
+  - component: {fileID: 685899717}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -1350,7 +1399,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 152.8, y: 1.6}
+  m_AnchoredPosition: {x: 2, y: 1.6}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &685899714
@@ -1397,9 +1446,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1893159475}
+      - m_Target: {fileID: 685899717}
         m_TargetAssemblyTypeName: MarketController, Assembly-CSharp
-        m_MethodName: CannonSelected
+        m_MethodName: SelectObject
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1447,6 +1496,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 685899712}
   m_CullTransparentMesh: 1
+--- !u!114 &685899717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 685899712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38f78253aa434f142a07feb2a0562661, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  frameImage: {fileID: 2132165213}
+  objectType: 0
 --- !u!1 &894870288
 GameObject:
   m_ObjectHideFlags: 0
@@ -1679,6 +1742,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1751200611}
+  - component: {fileID: 1751200612}
+  - component: {fileID: 1751200613}
   m_Layer: 5
   m_Name: CannonAdd
   m_TagString: Untagged
@@ -1703,9 +1768,68 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -50}
+  m_AnchoredPosition: {x: 101.2, y: -54.7}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1751200612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1751200610}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38f78253aa434f142a07feb2a0562661, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  frameImage: {fileID: 0}
+  objectType: 0
+--- !u!61 &1751200613
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1751200610}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -9.025894, y: -5.2921143}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 192.08365, y: 129.07042}
+  m_EdgeRadius: 0
 --- !u!1 &1850577001
 GameObject:
   m_ObjectHideFlags: 0
@@ -1795,12 +1919,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1893159473}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 38f78253aa434f142a07feb2a0562661, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cannonFrameImage: {fileID: 2132165213}
+  frameImage: {fileID: 2132165213}
+  objectType: 0
 --- !u!1 &2082552415
 GameObject:
   m_ObjectHideFlags: 0
