@@ -10,9 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 5055203137838651397}
   - component: {fileID: 3458584650516099437}
+  - component: {fileID: 8845773413829258284}
   - component: {fileID: 5901287818582646163}
+  - component: {fileID: 639624908453672679}
   m_Layer: 0
-  m_Name: Cannon_r
+  m_Name: ActiveCannon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -85,6 +87,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8845773413829258284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3060221616059092563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 779a8a18465f9be4c837c5052de847f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!61 &5901287818582646163
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -130,3 +144,24 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.01, y: 1.02}
   m_EdgeRadius: 0
+--- !u!95 &639624908453672679
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3060221616059092563}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b2a567a9b62143e419064ba01d4e550a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

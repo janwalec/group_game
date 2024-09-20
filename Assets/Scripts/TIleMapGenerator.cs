@@ -171,7 +171,7 @@ public class TIleMapGenerator : MonoBehaviour
             return;
         }
         selector.unselectObject();
-        if (selector.getObjectType() == GameManager.Items.CANNON)
+        if (selector.getObjectType() == MarketManager.Items.CANNON)
         {
             Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             

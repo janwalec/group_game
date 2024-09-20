@@ -7,7 +7,7 @@ public enum GameState { GS_PAUSEMENU, GS_GAME, GS_LEVELCOMPLETED, GS_GAME_OVER, 
 
 public class GameManager : MonoBehaviour
 {
-    public enum Items { CANNON, DICE, COIN, NONE }
+
     private TIleMapGenerator tilemap;
     public GameState currentGameState = GameState.GS_GAME;
 

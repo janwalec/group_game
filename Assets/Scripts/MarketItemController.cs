@@ -13,7 +13,7 @@ public class MarketItemController : MonoBehaviour
     
     [SerializeField]
     Image frameImage;
-    public GameManager.Items objectType;
+    public MarketManager.Items objectType;
 
 
     void Start()
@@ -26,7 +26,7 @@ public class MarketItemController : MonoBehaviour
         
     }
 
-    public GameManager.Items getObjectType()
+    public MarketManager.Items getObjectType()
     {
         return objectType;
     }
@@ -34,8 +34,11 @@ public class MarketItemController : MonoBehaviour
     
     public void SelectObject()
     {
-        GameManager.instance.getTilemap().selectObject(this);
-        frameImage.color = Color.red;
+        if (MarketManager.instance.canAfford(objectType))
+        {
+            GameManager.instance.getTilemap().selectObject(this);
+            frameImage.color = Color.red;
+        }
     }
 
     public void unselectObject()
@@ -45,14 +48,18 @@ public class MarketItemController : MonoBehaviour
 
     public void putObject(Vector3 position)
     {
-        if (objectType == GameManager.Items.CANNON)
+        if (objectType == MarketManager.Items.CANNON)
         {
             GameObject new_object = CannonPool.SharedInstance.GetPooledObject();
-            new_object.transform.position = position;
-            
-            new_object.GetComponent<SpriteRenderer>().sortingLayerID = SortingLayer.NameToID("OnLand");
-            new_object.SetActive(true);
+            if (new_object != null)
+            {
+                new_object.transform.position = position;
+
+                new_object.GetComponent<SpriteRenderer>().sortingLayerID = SortingLayer.NameToID("OnLand");
+                new_object.SetActive(true);
+            }
         }
+        MarketManager.instance.spendGold(objectType);
 
     }
 }
