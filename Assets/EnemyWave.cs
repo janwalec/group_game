@@ -1,49 +1,44 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using System.Collections.Generic;
 
-
-// algorithm to initalize how many ships we have and what the type is
-public class EnemyWave : MonoBehaviour 
+public class EnemyWave : MonoBehaviour
 {
-    //public string enemyType; // normal/advanced
-    public int waveHP; 
-    private List<int> drawnCards; // store all the numbers we get when drawing cards
-    public NormalShip ship;
+    public GameObject shipPrefab;
     public Transform spawnPoint;
+    private float minY;
+    private float maxY;
 
-
-    public void SetDrawnCards(List<int> cards)
+    public void SpawnEnemies(List<int> drawnCards)
     {
-        drawnCards = new List<int>(cards);
-        Debug.Log("Cards receivied from a wave!");
+        int numberOfBoats = drawnCards.Count;
 
-        SpawnEnemies();
-    }
+        // Get the camera bounds in world space
+        Camera mainCamera = Camera.main;
+        Vector3 bottomLeft = mainCamera.ViewportToWorldPoint(new Vector3(0, 0, mainCamera.nearClipPlane));
+        Vector3 topRight = mainCamera.ViewportToWorldPoint(new Vector3(0, 1, mainCamera.nearClipPlane));
 
-    public void SpawnEnemies()
-    {
-        if(drawnCards == null)
+        // Set the minimum and maximum Y positions based on the camera bounds
+        minY = bottomLeft.y;
+        maxY = topRight.y;
+
+        // Calculate the Y offset for evenly distributing boats
+        float yOffset = (maxY - minY) / (numberOfBoats + 1);  // +1 to add padding
+
+        for (int i = 0; i < numberOfBoats; i++)
         {
-            Debug.LogError("No cards were drawn!");
-        }
+            int card = drawnCards[i];
 
-        foreach(int card in drawnCards)
-        {
-            if (card >= 1 && card <= 10)
-            {
-                Debug.Log("Spawning normal boat for card value: " + card);
-                Instantiate(ship, spawnPoint.position, spawnPoint.rotation);
-            }
+            // Calculate the Y position for each boat
+            float yPos = minY + (i + 1) * yOffset;  // Use (i + 1) to avoid placing boats right on the edge
 
-            if(card >= 11 && card<=14 )
-            {
-                Debug.Log("Spawning mermaid");
-                // Instantiate
-            }
+            // Set the spawn position with the calculated Y position, keeping X the same as the spawn point
+            Vector3 spawnPosition = new Vector3(spawnPoint.position.x, yPos, spawnPoint.position.z);
 
-            drawnCards.Clear();
+            // Instantiate the ship at the new position
+            Instantiate(shipPrefab, spawnPosition, spawnPoint.rotation);
+
+            Debug.Log("Spawning boat at Y position: " + yPos + " for card value: " + card);
         }
     }
-
 }

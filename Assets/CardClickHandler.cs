@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
+
 public class CardClickHandler : MonoBehaviour
 {
     public GameObject cardValueTextObject;
@@ -36,12 +37,10 @@ public class CardClickHandler : MonoBehaviour
                     cardValueText.text = randomCardValue.ToString();
                     Debug.Log("Card Value: " + randomCardValue + "Total value:" + drawnTotal);
 
-                    
+
                     if (drawnTotal >= hp)
                     {
                         Debug.Log("Target HP reached. Preparing to spawn boats.");
-                        if (enemyWave != null)
-                            enemyWave.SetDrawnCards(drawnCards);
 
                     }
                 }
@@ -55,5 +54,17 @@ public class CardClickHandler : MonoBehaviour
         {
             Debug.LogError("CardValueText GameObject is not assigned in the Inspector.");
         }
+
+        if(drawnTotal == hp)
+        {
+            foreach (var card_value in drawnCards)
+            {
+                Debug.Log("Num. of boats that are spawning:" + drawnCards.Count);
+                Debug.Log("card_value:" + card_value);
+            }
+
+            enemyWave.SpawnEnemies(drawnCards);
+        }
+       
     }
 }
