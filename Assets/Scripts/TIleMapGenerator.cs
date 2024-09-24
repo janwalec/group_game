@@ -173,38 +173,36 @@ public class TIleMapGenerator : MonoBehaviour
             return;
         }
         selector.unselectObject();
-        if (selector.getObjectType() == MarketManager.Items.CANNON)
+        
+        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3Int gridPosition = tm.WorldToCell(mouseWorldPos);
+
+        int x_search = gridPosition.x - x_min;
+        int y_search = gridPosition.y - y_min;
+        MyTile tile = tilesArray[y_search, x_search];
+
+        if (tile.occupied)
         {
-            Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            
-            Vector3Int gridPosition = tm.WorldToCell(mouseWorldPos);
+            return;
+        }
 
-            int x_search = gridPosition.x - x_min;
-            int y_search = gridPosition.y - y_min;
-            MyTile tile = tilesArray[y_search, x_search];
+        Vector3 placingPosition = tm.CellToWorld(gridPosition);
 
-            if (tile.occupied)
+        placingPosition.x += 0.1f;
+        placingPosition.y += 0.1f;
+        placingPosition.z = 0.0f;
+
+        if (checkIfTilemap(gridPosition))
+        {
+            if (tilesArray[y_search, x_search].tile == landTile)
             {
-                return;
-            }
-
-            Vector3 placingPosition = tm.CellToWorld(gridPosition);
-
-            placingPosition.x += 0.1f;
-            placingPosition.y += 0.1f;
-            placingPosition.z = 0.0f;
-
-            if (checkIfTilemap(gridPosition))
-            {
-                if (tilesArray[y_search, x_search].tile == landTile)
-                {
-                    //tm.SetTile(tile.tilePosition, greyTile);
-                    tilesArray[y_search, x_search].occupied = true;
-                    selector.putObject(placingPosition);
-                    selector = null;
-                }
+                //tm.SetTile(tile.tilePosition, greyTile);
+                tilesArray[y_search, x_search].occupied = true;
+                selector.putObject(placingPosition);
+                selector = null;
             }
         }
+        
     }
 
     // Update is called once per frame

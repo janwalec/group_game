@@ -26,7 +26,9 @@ public class MarketManager : MonoBehaviour
     {
         instance = this;
         gold = GOLD_AT_BEGINNING;
+        prices.Add(Items.DICE, 20);
         prices.Add(Items.CANNON, 20);
+        prices.Add(Items.COIN, 20);
         goldAmount.text = gold.ToString();
     }
     void Update()

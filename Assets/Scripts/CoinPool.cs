@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CannonPool : MonoBehaviour
+public class CoinPool : MonoBehaviour
 {
 
-    public static CannonPool SharedInstance;
+    public static CoinPool SharedInstance;
     public List<GameObject> pooledObjects;
     public GameObject objectToPool;
     public int amountToPool;
@@ -45,4 +45,3 @@ public class CannonPool : MonoBehaviour
         
     }
 }
-
