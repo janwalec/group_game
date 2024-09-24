@@ -42,7 +42,9 @@ public class TIleMapGenerator : MonoBehaviour
     //private GameManager.Items itemSelected = GameManager.Items.NONE;
     private MarketItemController selector = null;
     // Start is called before the first frame update
+
     void Awake() {
+        
         tm = GetComponent<Tilemap>();
 
         BoundsInt bounds = tm.cellBounds;
@@ -196,7 +198,7 @@ public class TIleMapGenerator : MonoBehaviour
             {
                 if (tilesArray[y_search, x_search].tile == landTile)
                 {
-                    tm.SetTile(tile.tilePosition, greyTile);
+                    //tm.SetTile(tile.tilePosition, greyTile);
                     tilesArray[y_search, x_search].occupied = true;
                     selector.putObject(placingPosition);
                     selector = null;
