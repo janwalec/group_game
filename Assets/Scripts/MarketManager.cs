@@ -24,6 +24,7 @@ public class MarketManager : MonoBehaviour
 
     void Start()
     {
+        //sets the initial amount of gold and items' prices
         instance = this;
         gold = GOLD_AT_BEGINNING;
         prices.Add(Items.DICE, 20);

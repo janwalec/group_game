@@ -69,6 +69,7 @@ public class TIleMapGenerator : MonoBehaviour
         GameManager.instance.setTilemap(this);
     }
 
+    //finds the neighbours of a tile
     void CreateTileNeighbours() {
         for (int i = y_min; i < y_max; i++) {
             for (int j = x_min; j < x_max; j++) {
@@ -120,6 +121,7 @@ public class TIleMapGenerator : MonoBehaviour
         }
     }
 
+    //changes tile to another one
     void ChangeTiles(Vector3Int position)
     {
         int x_search = position.x - x_min;
@@ -134,6 +136,7 @@ public class TIleMapGenerator : MonoBehaviour
             }
     }
 
+    //displays all neighbours of a tile
     void DisplayNeighbours(Vector3Int position) {
         int x_search = position.x - x_min;  
         int y_search = position.y - y_min;
@@ -149,6 +152,7 @@ public class TIleMapGenerator : MonoBehaviour
     }
     
 
+    //checks if given position is a part of a tilemap
     private bool checkIfTilemap(Vector3Int gridPosition)
     {
         
@@ -159,21 +163,24 @@ public class TIleMapGenerator : MonoBehaviour
         return false;
     }
 
+    //sets current selector
     public void selectObject(MarketItemController selector_)
     {
         selector = selector_;
-        Debug.Log("SELECTED");
 
     }
 
     void OnMouseDown()
     {
+      
         if(selector == null)
         {
             return;
         }
+
+        //after clicking anywhere on the screen, the selector (market item) is no longer chosen
         selector.unselectObject();
-        
+
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector3Int gridPosition = tm.WorldToCell(mouseWorldPos);
 
@@ -181,6 +188,8 @@ public class TIleMapGenerator : MonoBehaviour
         int y_search = gridPosition.y - y_min;
         MyTile tile = tilesArray[y_search, x_search];
 
+
+        //cannot place an item on an occupied tile
         if (tile.occupied)
         {
             return;
@@ -192,6 +201,7 @@ public class TIleMapGenerator : MonoBehaviour
         placingPosition.y += 0.1f;
         placingPosition.z = 0.0f;
 
+        //places an item on specific location
         if (checkIfTilemap(gridPosition))
         {
             if (tilesArray[y_search, x_search].tile == landTile)
@@ -202,7 +212,19 @@ public class TIleMapGenerator : MonoBehaviour
                 selector = null;
             }
         }
+        selector = null;
         
+    }
+
+    //marks the tile as occupied so that nothong else can be places there
+    public void occupyTile(Vector3 position)
+    {
+        Vector3Int gridPosition = tm.WorldToCell(position);
+
+        int x_search = gridPosition.x - x_min;
+        int y_search = gridPosition.y - y_min;
+        tilesArray[y_search, x_search].occupied = true;
+
     }
 
     // Update is called once per frame

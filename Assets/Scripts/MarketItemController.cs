@@ -34,6 +34,8 @@ public class MarketItemController : MonoBehaviour
     
     public void SelectObject()
     {
+        //informs the tilemap what kind of object is currently selected 
+        //and chenges its color to inform the user
         if (MarketManager.instance.canAfford(objectType))
         {
             GameManager.instance.getTilemap().selectObject(this);
@@ -48,6 +50,7 @@ public class MarketItemController : MonoBehaviour
 
     public void putObject(Vector3 position)
     {
+        //pools the object and sets its position
         GameObject new_object = null;
         if (objectType == MarketManager.Items.CANNON)
         {
@@ -66,7 +69,6 @@ public class MarketItemController : MonoBehaviour
         }
         if (new_object != null)
         {
-            //new_object.transform.position = position;
 
             new_object.GetComponent<SpriteRenderer>().sortingLayerID = SortingLayer.NameToID("OnLand");
             new_object.SetActive(true);

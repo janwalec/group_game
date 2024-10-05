@@ -29,6 +29,7 @@ public class DicePool : MonoBehaviour
 
     public GameObject GetPooledObject()
     {
+        //allows for pooling dice modifiers
         for (int i = 0; i < amountToPool; i++)
         {
             if (!pooledObjects[i].activeInHierarchy)

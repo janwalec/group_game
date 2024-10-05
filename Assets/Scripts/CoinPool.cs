@@ -29,6 +29,7 @@ public class CoinPool : MonoBehaviour
 
     public GameObject GetPooledObject()
     {
+        //allows for pooling coin modifiers
         for (int i = 0; i < amountToPool; i++)
         {
             if (!pooledObjects[i].activeInHierarchy)

@@ -13,12 +13,16 @@ public class GameManager : MonoBehaviour
 
     public static GameManager instance;
     public Canvas inGameCanvas;
-
+    public GameObject rum;
     void Start()
     {
         
     }
-
+   
+    public Vector2 getRumPosition()
+    {
+        return rum.transform.position;
+    }
     public void setTilemap(TIleMapGenerator tilemap_)
     {
         this.tilemap = tilemap_;

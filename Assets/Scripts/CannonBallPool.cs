@@ -29,6 +29,7 @@ public class CannonBallPool : MonoBehaviour
 
     public GameObject GetPooledObject()
     {
+        //allows for pooling cannon ball objects at a runtime
         for (int i = 0; i < amountToPool; i++)
         {
             if (!pooledObjects[i].activeInHierarchy)
