@@ -24,6 +24,26 @@ public struct MyTile {
         this.occupied = false;
     }
 
+    public static bool operator ==(MyTile t1, MyTile t2) {
+        return t1.x == t2.x && t1.y == t2.y && t1.tile == t2.tile;
+    }
+
+    public static bool operator !=(MyTile t1, MyTile t2) {
+        return !(t1 == t2);
+    }
+
+    public override bool Equals(object obj) {
+        if (!(obj is MyTile)) {
+            return false;
+        }
+        MyTile other = (MyTile)obj;
+        return this == other;
+    }
+
+    public override int GetHashCode() {
+        return (x, y, tile).GetHashCode();
+    }
+
 }
 
 
@@ -40,13 +60,13 @@ public class TIleMapGenerator : MonoBehaviour
     private int y_min, x_min, y_max, x_max;
 
     //private GameManager.Items itemSelected = GameManager.Items.NONE;
-    private MarketItemController selector = null;
+    private MarketItemController selector;
     // Start is called before the first frame update
 
     void Awake() {
         
         tm = GetComponent<Tilemap>();
-
+        
         BoundsInt bounds = tm.cellBounds;
         this.size_x = bounds.size.x; 
         this.size_y = bounds.size.y;
@@ -122,14 +142,14 @@ public class TIleMapGenerator : MonoBehaviour
     }
 
     //changes tile to another one
-    void ChangeTiles(Vector3Int position)
+    void ChangeTiles(Vector3Int position, TileBase drawThis)
     {
         int x_search = position.x - x_min;
         int y_search = position.y - y_min;
         MyTile tile = tilesArray[y_search, x_search];
 
             if(tile.tile != null) {
-                tm.SetTile(tile.tilePosition, newTile);
+                tm.SetTile(tile.tilePosition, drawThis);
                 
                 TilemapRenderer renderer = tm.GetComponent<TilemapRenderer>();
                
@@ -172,7 +192,6 @@ public class TIleMapGenerator : MonoBehaviour
 
     void OnMouseDown()
     {
-      
         if(selector == null)
         {
             return;
@@ -216,6 +235,7 @@ public class TIleMapGenerator : MonoBehaviour
         
     }
 
+
     //marks the tile as occupied so that nothong else can be places there
     public void occupyTile(Vector3 position)
     {
@@ -255,5 +275,41 @@ public class TIleMapGenerator : MonoBehaviour
         }
     */
     }
+
+    public MyTile getTileFromMousePosition(Vector3 mouseWorldPos) {
+        Vector3Int gridPosition = tm.WorldToCell(mouseWorldPos);
+        int x_search = gridPosition.x - x_min;
+        int y_search = gridPosition.y - y_min;
+        return tilesArray[y_search, x_search];
+    }
+
+
+    public bool checkIfLand(MyTile t) {
+        if(t.tile == landTile)
+            return true;
+        return false;
+    }
+
+    public bool checkIfNeighbours(MyTile tile, MyTile potentialNeighbour) {
+        foreach (MyTile neighbour in tile.neighbours) {
+            if(neighbour == potentialNeighbour)
+                return true;
+        }
+        return false;
+    }
+
+    
+    //change that from many tiles (0, 1 ,2)
+    public void drawChain(TileBase head, TileBase tail, TileBase node, LinkedList<MyTile> chain) {
+
+        foreach(MyTile t in chain) {
+            ChangeTiles(t.tilePosition, node);
+        }
+
+        ChangeTiles(chain.First.Value.tilePosition, head);
+        ChangeTiles(chain.Last.Value.tilePosition, tail);
+    }
+
+
 
 }
