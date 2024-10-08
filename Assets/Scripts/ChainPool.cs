@@ -18,7 +18,7 @@ public class ChainPool : MonoBehaviour
 {
 
     public static ChainPool SharedInstance;
-    public List<PooledChain> pooledObjects;
+    public List<PooledChain> pooledObjects; // all pulled objects to be used
     public GameObject objectToPool;
     public int amountToPool;
 

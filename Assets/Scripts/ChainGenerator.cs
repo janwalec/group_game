@@ -16,9 +16,6 @@ public class ChainGenerator : MonoBehaviour
     public bool isLeftMouseButtonReleased = true;
 
     
-
-    
-    
     public TIleMapGenerator tilemap;
     private LinkedList<MyTile> tempList = new LinkedList<MyTile>();
     
@@ -54,34 +51,42 @@ public class ChainGenerator : MonoBehaviour
         OnChainComplete?.Invoke(tempList);
     }
 
-    private void createTempChain() {
-        //clear temp list if not dragging
-        if(tempList.Count != 0 &&!isLeftMouseButtonPressed && isLeftMouseButtonReleased) {
-            listOfChains.Add(tempList);
+    //clear temp list if not dragging
+    public void playerStoppedDragging() {
+        listOfChains.Add(tempList);
+        NotifyChainComplete();
+        //Debug.Log("cleared");
+        tempList.Clear();
+    }
 
-            NotifyChainComplete();
-            Debug.Log("cleared");
-            tempList.Clear();
+    //dragging mouse over board
+    public void playerIsDragging() {
+        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);    //get position
+        MyTile newTile = tilemap.getTileFromMousePosition(mouseWorldPos);   //get tile from this position
+        
+        if(checkConditionForTile(newTile)) {
+            tempList.AddLast(newTile);
+            Debug.Log("Added " + tempList.Count);
+        }
+    }
+
+    private void createTempChain() {
+        if(tempList.Count != 0 &&!isLeftMouseButtonPressed && isLeftMouseButtonReleased) {
+            playerStoppedDragging();
         }
 
-        //dragging mouse over board
+        
         if(isLeftMouseButtonPressed && !isLeftMouseButtonReleased) {
-            Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);    //get position
-            MyTile newTile = tilemap.getTileFromMousePosition(mouseWorldPos);   //get tile from this position
-            if(checkConditionForTile(newTile)) {
-                tempList.AddLast(newTile);
-                Debug.Log("Added " + tempList.Count);
-            }
-            
+            playerIsDragging();
         }   
     }
     
     private bool checkConditionForTile(MyTile checkTile) {
         
-        if(tempList.Contains(checkTile)) //already in the list
+        if(tempList.Contains(checkTile)) // already in the list
             return false;
         
-        if(!tilemap.checkIfLand(checkTile))
+        if(!tilemap.checkIfLand(checkTile)) // it is not the land
             return false;
 
         if(tempList.Count > 0)
@@ -93,6 +98,12 @@ public class ChainGenerator : MonoBehaviour
 
     public Vector3 getGenPosition(MyTile tile) {
         return tilemap.tm.CellToWorld(tile.tilePosition);
+    }
+
+    public void markUsedForChainTiles(LinkedList<MyTile> chain) {
+        foreach(MyTile t in chain) {
+            tilemap.setUsedForChain(t.y, t.x, true);
+        }
     }
 
 }

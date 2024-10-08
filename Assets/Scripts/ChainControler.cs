@@ -16,7 +16,6 @@ public struct Chain {
     }
 
     //modifiers
-
 }
 
 public class ChainControler : MonoBehaviour
@@ -39,10 +38,10 @@ public class ChainControler : MonoBehaviour
     }
 
     //be notified if Chain is added
-    private void UpdateObjectsOnChainComplete(LinkedList<MyTile> completedChain) {
-        Debug.Log("Chain completed with " + completedChain.Count + " tiles.");
+    private void UpdateObjectsOnChainComplete(LinkedList<MyTile> receivedChain) {
+        //Debug.Log("Chain completed with " + receivedChain.Count + " tiles.");
 
-        processAndSaveGivenChain(completedChain);
+        processAndSaveGivenChain(receivedChain);
     }
 
     void Update()
@@ -52,16 +51,60 @@ public class ChainControler : MonoBehaviour
             if(myChains.Count > 0) {
                 Chain tmp = myChains[myChains.Count - 1];
                 deleteChain(tmp.chainID);
-            }
-            
+            }  
         }
 
     }
 
+    private LinkedList<MyTile> searchForInteresctionsAndChangeChain(LinkedList<MyTile> receivedChain) {
+        bool removing = false;
+        MyTile intersection = new MyTile();
+        Debug.Log("NEW CHAIN");
+        
+        LinkedList<MyTile> outputChain = new LinkedList<MyTile>();
 
-    private void processAndSaveGivenChain(LinkedList<MyTile> completedChain) { // get completed Chain with its tiles
+        foreach (MyTile t in receivedChain) {
+            Debug.Log("AAA: " + t.x + " " + t.y);
+            outputChain.AddLast(t);
+            if(t.usedForChain) {
+                intersection = t;
+                removing = true;
+                Debug.Log("found intersection");
+                break;
+            }
+              
+        }
+
+        Chain chainThatContainsIntersection = new Chain();
+
+        if(removing) {
+            foreach (Chain ch in myChains) {
+                if(ch.tileChain.Contains(intersection)) {
+                    chainThatContainsIntersection = ch;
+                    break;
+                }
+            }
+
+            bool foundIntersection = false;
+
+            foreach(MyTile t in chainThatContainsIntersection.tileChain) {
+                if(t == intersection) {
+                    foundIntersection = true;
+                    continue;
+                }
+                if(foundIntersection)
+                    outputChain.AddLast(t);
+            }
+        }
+
+        return outputChain;
+    }
+
+    private void processAndSaveGivenChain(LinkedList<MyTile> _receivedChain) { // get completed Chain with its tiles
         int i = 0;
-        int amount = completedChain.Count;
+        LinkedList<MyTile> receivedChain = searchForInteresctionsAndChangeChain(_receivedChain);
+
+        int amount = receivedChain.Count;
         
         // get (transparent) object to indicate where Chain is
         List<PooledChain> pooledObjects = chainPool.GetObjects(amount);
@@ -71,7 +114,7 @@ public class ChainControler : MonoBehaviour
         int r = rnd.Next(256), g = rnd.Next(256), b = rnd.Next(256);
         Color color = new Color(r / 255f, g / 255f, b / 255f, 1f);
 
-        foreach (MyTile t in completedChain) {
+        foreach (MyTile t in receivedChain) {
             MyTile currTile = t;            
 
             // set random color
@@ -86,8 +129,9 @@ public class ChainControler : MonoBehaviour
             i += 1;
         }
 
+        chainGenerator.markUsedForChainTiles(receivedChain);
         // create new Chain, set the text to it and save
-        Chain newChain = new Chain(completedChain, pooledObjects, currID++);
+        Chain newChain = new Chain(receivedChain, pooledObjects, currID++);
         setTextForChain(newChain);
         myChains.Add(newChain);
 

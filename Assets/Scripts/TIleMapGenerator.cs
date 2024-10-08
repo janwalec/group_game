@@ -12,6 +12,8 @@ public struct MyTile {
     public Vector3Int tilePosition;
     public TileBase tile;
     public bool occupied;
+
+    public bool usedForChain;
    
     public MyTile[] neighbours;
 
@@ -22,6 +24,7 @@ public struct MyTile {
         this.tile = tile;
         this.neighbours  = new MyTile[6];
         this.occupied = false;
+        this.usedForChain = false;
     }
 
     public static bool operator ==(MyTile t1, MyTile t2) {
@@ -308,6 +311,10 @@ public class TIleMapGenerator : MonoBehaviour
 
         ChangeTiles(chain.First.Value.tilePosition, head);
         ChangeTiles(chain.Last.Value.tilePosition, tail);
+    }
+
+    public void setUsedForChain(int y, int x, bool used) {
+        this.tilesArray[y - y_min, x - x_min].usedForChain = used;
     }
 
 
