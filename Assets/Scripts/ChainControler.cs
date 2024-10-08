@@ -59,12 +59,10 @@ public class ChainControler : MonoBehaviour
     private LinkedList<MyTile> searchForInteresctionsAndChangeChain(LinkedList<MyTile> receivedChain) {
         bool removing = false;
         MyTile intersection = new MyTile();
-        Debug.Log("NEW CHAIN");
         
         LinkedList<MyTile> outputChain = new LinkedList<MyTile>();
 
         foreach (MyTile t in receivedChain) {
-            Debug.Log("AAA: " + t.x + " " + t.y);
             outputChain.AddLast(t);
             if(t.usedForChain) {
                 intersection = t;
@@ -129,7 +127,7 @@ public class ChainControler : MonoBehaviour
             i += 1;
         }
 
-        chainGenerator.markUsedForChainTiles(receivedChain);
+        chainGenerator.markUsedForChainTiles(receivedChain, true);
         // create new Chain, set the text to it and save
         Chain newChain = new Chain(receivedChain, pooledObjects, currID++);
         setTextForChain(newChain);
@@ -152,6 +150,12 @@ public class ChainControler : MonoBehaviour
         }
     }
 
+    public void updateNotDeletedChains() {
+        foreach (Chain ch in myChains) {
+            chainGenerator.markUsedForChainTiles(ch.tileChain, true); 
+        }
+    }
+
     private void deleteChain(int ID) {
         Chain toDelete = new Chain(null, null, -1);
 
@@ -169,7 +173,13 @@ public class ChainControler : MonoBehaviour
 
         int length = toDelete.pooledObjectChain.Count;
         int deletedCount = chainPool.SetChainInactive(toDelete.pooledObjectChain);
+        
+        //this generates problems
+        //updateNotDeletedChains checks chains that are still on the board and makes sure that they are active
+        chainGenerator.markUsedForChainTiles(toDelete.tileChain, false); 
+        
         myChains.Remove(toDelete);
+        updateNotDeletedChains();
 
     }
 

@@ -100,9 +100,9 @@ public class ChainGenerator : MonoBehaviour
         return tilemap.tm.CellToWorld(tile.tilePosition);
     }
 
-    public void markUsedForChainTiles(LinkedList<MyTile> chain) {
+    public void markUsedForChainTiles(LinkedList<MyTile> chain, bool used) {
         foreach(MyTile t in chain) {
-            tilemap.setUsedForChain(t.y, t.x, true);
+            tilemap.setUsedForChain(t.y, t.x, used);
         }
     }
 
