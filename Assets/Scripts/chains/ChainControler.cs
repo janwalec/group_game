@@ -2,19 +2,39 @@ using System;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.PlasticSCM.Editor.WebApi;
 
-public struct Chain {
+/*TODO
+ * new struct is created! not modified! thats why set damage not working*/
+public class Chain {
     public int chainID;
     public LinkedList<MyTile> tileChain;
     public List<PooledChain> pooledObjectChain;
+    public int chainSum;
+    
 
-    public Chain(LinkedList<MyTile> _tileChain, List<PooledChain> _pooledObjectChain, int ID) {
+
+    public Chain(LinkedList<MyTile> _tileChain, List<PooledChain> _pooledObjectChain, int ID, int chainSum_ = 0) {
         tileChain = _tileChain;
         pooledObjectChain = _pooledObjectChain;
         chainID = ID;
+        chainSum = chainSum_;
 
     }
 
+    public Chain changeSum(int newSum)
+    {
+        return new Chain(this.tileChain, this.pooledObjectChain, this.chainID, newSum);
+    }
+ 
+    /*
+    public Chain setSum(int newSum)
+    {
+        chainSum = newSum;
+        Debug.Log("Chain sum " + chainSum);
+        return this;
+    }
+    */
     //modifiers
 }
 
@@ -28,6 +48,12 @@ public class ChainControler : MonoBehaviour
     private int currID = 0;
 
     public delegate void KeyPressAction();
+
+    private float rollingDelay = 1f;
+
+    private int maxChainLeght = 0;
+
+    private float timer = 0f;
 
 
     void Start()
@@ -46,6 +72,7 @@ public class ChainControler : MonoBehaviour
 
     void Update()
     {
+        timer += Time.deltaTime;
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if(myChains.Count > 0) {
@@ -54,11 +81,26 @@ public class ChainControler : MonoBehaviour
             }  
         }
 
+        if(timer >= maxChainLeght * (rollingDelay))
+        {
+
+            findMaxLength();
+            rollAllModifiers();
+            timer = 0.0f;
+        }
+        /*
+        else if (Input.GetKeyDown(KeyCode.C))
+        {
+            findMaxLength();
+            rollAllModifiers();
+            
+        }
+        */
     }
 
     private LinkedList<MyTile> searchForInteresctionsAndChangeChain(LinkedList<MyTile> receivedChain) {
         bool removing = false;
-        MyTile intersection = new MyTile();
+        MyTile intersection = new MyTile(0,0,null,MyTile.TileType.WATER);
         
         LinkedList<MyTile> outputChain = new LinkedList<MyTile>();
 
@@ -73,7 +115,7 @@ public class ChainControler : MonoBehaviour
               
         }
 
-        Chain chainThatContainsIntersection = new Chain();
+        Chain chainThatContainsIntersection = new Chain(null, null, 0); //here
 
         if(removing) {
             foreach (Chain ch in myChains) {
@@ -132,9 +174,27 @@ public class ChainControler : MonoBehaviour
         Chain newChain = new Chain(receivedChain, pooledObjects, currID++);
         setTextForChain(newChain);
         myChains.Add(newChain);
+        if (newChain.tileChain.First.Value.tileType != MyTile.TileType.CANNON)
+        {
+            deleteChain(newChain.chainID);
+        }
+        if(newChain.tileChain.Count > maxChainLeght)
+        {
+            maxChainLeght = newChain.tileChain.Count;
+        }
 
     }
 
+    private void findMaxLength()
+    {
+        maxChainLeght = 0;
+        foreach(Chain ch in myChains) {
+            if (ch.tileChain.Count > maxChainLeght)
+            {
+                maxChainLeght = ch.tileChain.Count;
+            }
+        }
+    }
     private void setTextForChain(Chain Chain) {
         int i = 0;
         foreach (PooledChain chainPart in Chain.pooledObjectChain) {
@@ -183,5 +243,72 @@ public class ChainControler : MonoBehaviour
 
     }
 
+    public void rollAllModifiers()
+    {
 
+        foreach (Chain ch in myChains)
+        {
+            StartCoroutine(rolling(ch));
+        }
+
+    }
+    private IEnumerator rolling(Chain currChain)
+    {
+        //foreach (Chain currChain in myChains)
+        //{
+
+            //LinkedListNode<MyTile> curr = myChains[myChains.Count - 1].tileChain.First;
+            LinkedListNode<MyTile> curr = currChain.tileChain.Last;
+            while (curr != null)
+            {
+                if (curr.Value.tileType == MyTile.TileType.COIN || curr.Value.tileType == MyTile.TileType.DICE)
+                {
+                    curr.Value.modifier.Roll();
+
+                    curr.Value.modifier.calculateCurrentTotal(curr.Next == null ? null : curr.Next.Value.modifier);
+
+                    yield return new WaitForSeconds(rollingDelay);
+                }
+
+                if (curr.Previous == null)
+                {
+                if (curr.Value.tileType == MyTile.TileType.CANNON)
+                {
+                    yield return new WaitForSeconds(rollingDelay*(maxChainLeght-currChain.tileChain.Count));
+                    //curr.Value.cannon.setShootingDamage(myChains[myChains.Count - 1].chainSum);
+                    curr.Value.cannon.setShootingDamage(currChain.chainSum);
+                    StartCoroutine(curr.Value.cannon.Shoot());
+                    //curr.Value.cannon.Shoot();
+                    yield return new WaitForSeconds(rollingDelay);
+                }
+                    //curr.Value.cannon.setShootingDamage(10);
+                
+                }
+                else if (curr.Previous.Previous == null)
+                {
+                    currChain.chainSum = curr.Value.modifier.getCurrentTotal();
+                }
+                curr = curr.Previous;
+            }
+        //}
+        /*
+        foreach (LinkedListNode<MyTile> t in myChains[myChains.Count - 1].tileChain)
+        {
+            if (t.tileType == MyTile.TileType.COIN || t.tileType == MyTile.TileType.DICE)
+            {
+                t.modifier?.Roll();
+                if(t == myChains[myChains.Count - 1].tileChain.First.Value)
+                {
+                    t.modifier.setCurrentTotal(t.modifier.getCurrentValue());
+                }
+                else
+                {
+                    t.modifier.calculateCurrentTotal(t.)
+                }
+                yield return new WaitForSeconds(rollingDelay);
+            }
+        }*/
+    }
+
+    
 }

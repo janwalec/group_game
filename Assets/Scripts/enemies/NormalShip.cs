@@ -9,8 +9,9 @@ public class NormalShip : EnemyController
         //sets the starting destination on the closest waypoint and the final destination as the rum
         currentDestination = waypoints[currentWaypoint].GetComponentInParent<Transform>().position;
         finalDestination = GameManager.instance.getRumPosition();
-        this.health = 5;
+        this.health = 100;
         this.speed = 1.5f;
+        changeText(health.ToString());
     }
 
     public override void Move()

@@ -86,7 +86,7 @@ public class ChainGenerator : MonoBehaviour
         if(tempList.Contains(checkTile)) // already in the list
             return false;
         
-        if(!tilemap.checkIfLand(checkTile)) // it is not the land
+        if(!tilemap.checkIfModifier(checkTile) && !tilemap.checkIfCannon(checkTile)) // it is not the modifier
             return false;
 
         if(tempList.Count > 0)

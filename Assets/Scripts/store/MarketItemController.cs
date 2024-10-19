@@ -48,7 +48,7 @@ public class MarketItemController : MonoBehaviour
         frameImage.color = Color.white;
     }
 
-    public void putObject(Vector3 position)
+    public GameObject putObject(Vector3 position)
     {
         //pools the object and sets its position
         GameObject new_object = null;
@@ -74,5 +74,6 @@ public class MarketItemController : MonoBehaviour
             new_object.SetActive(true);
         }
         MarketManager.instance.spendGold(objectType);
+        return new_object;
     }
 }
