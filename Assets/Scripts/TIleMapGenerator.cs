@@ -6,25 +6,34 @@ using UnityEngine.Tilemaps;
 using System;
 using UnityEngine.UIElements;
 using UnityEditor.Tilemaps;
+using Unity.VisualScripting;
 
-public struct MyTile {
+public class MyTile {
+    public enum TileType { WATER, LAND, CANNON, DICE, COIN}
+
     public int y, x;
     public Vector3Int tilePosition;
     public TileBase tile;
     public bool occupied;
-
+    
     public bool usedForChain;
    
     public MyTile[] neighbours;
 
-    public MyTile(int y, int x, TileBase tile) {
+    public TileType tileType;
+    public ModifierController modifier;
+    public CannonController cannon;
+    public MyTile(int y, int x, TileBase tile, TileType tileType) {
         this.y = y;
         this.x = x;
         this.tilePosition = new Vector3Int(x, y, 0);
         this.tile = tile;
+        this.tileType = tileType;
         this.neighbours  = new MyTile[6];
         this.occupied = false;
         this.usedForChain = false;
+        this.modifier = null;
+        this.cannon = null;
     }
 
     public static bool operator ==(MyTile t1, MyTile t2) {
@@ -84,8 +93,14 @@ public class TIleMapGenerator : MonoBehaviour
             for (int j = bounds.xMin; j < bounds.xMax; j++) {
                 Vector3Int tilePosition = new Vector3Int(j, i, 0);
                 TileBase tile = tm.GetTile(tilePosition);
-
-                tilesArray[i - bounds.yMin, j - bounds.xMin] = new MyTile(i, j, tile);
+                if (tile == landTile)
+                {
+                    tilesArray[i - bounds.yMin, j - bounds.xMin] = new MyTile(i, j, tile, MyTile.TileType.LAND);
+                }
+                else
+                {
+                    tilesArray[i - bounds.yMin, j - bounds.xMin] = new MyTile(i, j, tile, MyTile.TileType.WATER);
+                }
             }
         }   
         CreateTileNeighbours();
@@ -226,11 +241,28 @@ public class TIleMapGenerator : MonoBehaviour
         //places an item on specific location
         if (checkIfTilemap(gridPosition))
         {
-            if (tilesArray[y_search, x_search].tile == landTile)
+            if (tilesArray[y_search, x_search].tileType == MyTile.TileType.LAND)
             {
+                GameObject newObject = selector.putObject(placingPosition);
                 //tm.SetTile(tile.tilePosition, greyTile);
                 tilesArray[y_search, x_search].occupied = true;
-                selector.putObject(placingPosition);
+                if (selector.objectType == MarketManager.Items.COIN)
+                {
+                    tilesArray[y_search, x_search].tileType = MyTile.TileType.COIN;
+                    tilesArray[y_search, x_search].modifier = newObject.GetComponent<CoinController>();
+                }
+                if (selector.objectType == MarketManager.Items.DICE)
+                {
+                    tilesArray[y_search, x_search].tileType = MyTile.TileType.DICE;
+                    tilesArray[y_search, x_search].modifier = newObject.GetComponent<DiceController>();
+                }
+                if (selector.objectType == MarketManager.Items.CANNON)
+                {
+                    tilesArray[y_search, x_search].tileType = MyTile.TileType.CANNON;
+                    tilesArray[y_search, x_search].cannon = newObject.GetComponentInChildren<CannonController>();
+                    Debug.Log(tilesArray[y_search, x_search].cannon == null);
+                }
+                
                 selector = null;
             }
         }
@@ -288,7 +320,21 @@ public class TIleMapGenerator : MonoBehaviour
 
 
     public bool checkIfLand(MyTile t) {
-        if(t.tile == landTile)
+        if(t.tileType == MyTile.TileType.LAND)
+            return true;
+        return false;
+    }
+
+    public bool checkIfModifier(MyTile t)
+    {
+        if (t.tileType == MyTile.TileType.COIN || t.tileType == MyTile.TileType.DICE)
+            return true;
+        return false;
+    }
+
+    public bool checkIfCannon(MyTile t)
+    {
+        if (t.tileType == MyTile.TileType.CANNON)
             return true;
         return false;
     }

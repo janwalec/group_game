@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -11,19 +13,24 @@ public class EnemyController : MonoBehaviour
     protected int currentWaypoint = 0;
     protected Vector2 finalDestination;
     protected Vector2 currentDestination;
-    protected int bulletDamage = 1;
+    public Canvas canvas;
 
     private void Start()
     {
         //sets the starting destination on the closest waypoint and the final destination as the rum
         currentDestination = waypoints[currentWaypoint].GetComponentInParent<Transform>().position;
         finalDestination = GameManager.instance.getRumPosition();
+        changeText(health.ToString());
     }
 
     private void Update()
     {
-        Move();
+        //Move();
    
+    }
+    private void FixedUpdate()
+    {
+        Move();
     }
     public virtual void Move()
     {
@@ -40,7 +47,9 @@ public class EnemyController : MonoBehaviour
                 currentDestination = waypoints[currentWaypoint].GetComponentInParent<Transform>().position;
             }
         }
-        transform.position = Vector2.MoveTowards(transform.position, currentDestination, speed * Time.deltaTime);
+        //transform.position = Vector2.MoveTowards(transform.position, currentDestination, speed * Time.deltaTime);
+        GetComponent<Rigidbody2D>().MovePosition(Vector2.MoveTowards(transform.position, currentDestination, speed * Time.deltaTime));
+        //transform.position = Vector2.MoveTowards(transform.position, currentDestination, speed * Time.deltaTime);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -48,16 +57,20 @@ public class EnemyController : MonoBehaviour
         //takes damage whenever hit by a bullet
         if (other.CompareTag("Bullet"))
         {
+            int damage = other.GetComponent<CannonBallController>().getDamage();
+
             //makes sure that the cannon ball is deactivated before destroying an enemy object
             bool finised = other.GetComponent<CannonBallController>().deactivate();
             if(finised)
-                TakeDamage(bulletDamage);
+                TakeDamage(damage);
         }
     }
 
     public virtual void TakeDamage(int dmg)
     {
+
         health -= dmg;
+        changeText(health.ToString());
         Debug.Log(health);
         if (health <= 0) {
             Die();
@@ -68,5 +81,11 @@ public class EnemyController : MonoBehaviour
     {
         Debug.Log("Enemy has died.");
         Destroy(gameObject); // Remove enemy from the scene
+    }
+
+    public void changeText(string newText)
+    {
+        TextMeshProUGUI textComponent = canvas.GetComponentInChildren<TextMeshProUGUI>();
+        textComponent.text = newText;
     }
 }

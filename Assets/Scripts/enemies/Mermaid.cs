@@ -10,6 +10,7 @@ public class Mermaid : EnemyController
     {
         health = 200;
         speed = 3f;
+        changeText(health.ToString());
     }
 
    public override void Move()
