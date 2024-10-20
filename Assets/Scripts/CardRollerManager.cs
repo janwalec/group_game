@@ -8,7 +8,6 @@ public class CardRollManager : MonoBehaviour
 {
     public Sprite[] cardSprites;  // Array to hold card sprites (2-10, A, J, Q, K)
     public Image cardDisplay;     
-    public TMP_Text cardValueText; 
     public List<int> drawnCards = new List<int>();
     public EnemyWave enemyWave = null;
     private int hp = 50;  // Target HP
@@ -28,7 +27,7 @@ public class CardRollManager : MonoBehaviour
         while (drawnTotal < hp && rollingCards)
         {
             RollCard();
-            yield return new WaitForSeconds(0.5f);  // qait for 2 seconds before the next roll
+            yield return new WaitForSeconds(1.5f);  // qait for 1 seconds before the next roll
         }
 
        
@@ -55,11 +54,6 @@ public class CardRollManager : MonoBehaviour
        
         cardDisplay.sprite = cardSprites[randomCardIndex];
 
-        // remove this 
-        if (cardValueText != null)
-        {
-            cardValueText.text = "Card Value: " + (randomCardIndex + 2);  // Add 2 since index 0 = card value 2
-        }
 
         Debug.Log("Rolled Card: " + (randomCardIndex + 2) + " | Total HP: " + drawnTotal);
     }
