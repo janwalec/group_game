@@ -11,12 +11,12 @@ public class EnemyWave : MonoBehaviour
 
     public void SpawnEnemies(List<int> drawnCards)
     {
-        int numberOfBoats = drawnCards.Count;
+        int numberOfEnemies = drawnCards.Count;
 
 
-        float yOffset = ((maxY - minY) / (numberOfBoats + 1)) * spaceMultiplier;  
+        float yOffset = ((maxY - minY) / (numberOfEnemies + 1)) * spaceMultiplier;  
 
-        for (int i = 0; i < numberOfBoats; i++)
+        for (int i = 0; i < numberOfEnemies; i++)
         {
             int card = drawnCards[i];
 

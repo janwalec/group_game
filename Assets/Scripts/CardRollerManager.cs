@@ -37,10 +37,20 @@ public class CardRollManager : MonoBehaviour
 
     void RollCard()
     {
-
         int remainingHP = hp - drawnTotal;
 
-     
+        // Special case: If remaining HP matches one of the possible card values, force that value
+        if (remainingHP >= 2 && remainingHP <= 14)
+        {
+            randomCardIndex = remainingHP - 2;  // Force the card value to exactly match the remaining HP
+            drawnCards.Add(remainingHP);
+            drawnTotal += remainingHP;
+            cardDisplay.sprite = cardSprites[randomCardIndex];
+
+            Debug.Log("Forced exact match. Rolled Card: " + remainingHP + " | Total HP: " + drawnTotal);
+            return;
+        }
+
         do
         {
             randomCardIndex = Random.Range(0, cardSprites.Length);
@@ -48,13 +58,13 @@ public class CardRollManager : MonoBehaviour
         while ((randomCardIndex + 2) > remainingHP);  
 
      
-        drawnCards.Add(randomCardIndex+2);
-        drawnTotal += (randomCardIndex + 2);  
+        drawnCards.Add(randomCardIndex + 2);
+        drawnTotal += (randomCardIndex + 2);  // Add card value (index + 2)
 
-       
+        // Display the card sprite
         cardDisplay.sprite = cardSprites[randomCardIndex];
-
 
         Debug.Log("Rolled Card: " + (randomCardIndex + 2) + " | Total HP: " + drawnTotal);
     }
+
 }

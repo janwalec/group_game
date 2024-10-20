@@ -18,7 +18,6 @@ public class NormalShip : EnemyController
     {
         // implement the movements of "normal" boats
         base.Move();
-        //Debug.Log("Normal boat is moving.");
     }
 
     public override void Die()
