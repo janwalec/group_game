@@ -147,7 +147,7 @@ Transform:
   m_GameObject: {fileID: 121941133}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.06, y: -7.04, z: -0.015815064}
+  m_LocalPosition: {x: -1.81, y: -6, z: -0.015815064}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -670,6 +670,7 @@ RectTransform:
   - {fileID: 1893159474}
   - {fileID: 1714344298}
   - {fileID: 1821001053}
+  - {fileID: 683506704}
   m_Father: {fileID: 1373375045}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -4968,6 +4969,142 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 13.51, y: 10.900001}
   m_EdgeRadius: 0
+--- !u!1 &675279742
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 675279743}
+  - component: {fileID: 675279744}
+  m_Layer: 0
+  m_Name: CardManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &675279743
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 675279742}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 14.09, y: 0, z: -0.011943363}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &675279744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 675279742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6ec2489f1bd11a4a9bb733f5bc24643, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardSprites:
+  - {fileID: 21300000, guid: d5734a66e0f47ac46ad1b8469d6ef8da, type: 3}
+  - {fileID: 21300000, guid: ddf2f6e08ada72c4483ce52094a93733, type: 3}
+  - {fileID: 21300000, guid: 89396dcb74250974aaa148f1e66936cb, type: 3}
+  - {fileID: 21300000, guid: 2a78560057cb8124da867929f7868da4, type: 3}
+  - {fileID: 21300000, guid: 5f64d70ad5fa56546bbf73b0f44d5c90, type: 3}
+  - {fileID: 21300000, guid: 49cdf7f6c6d75b147a019f3e732f0a0f, type: 3}
+  - {fileID: 21300000, guid: a565c700e84b51b48b8eac670eaab721, type: 3}
+  - {fileID: 21300000, guid: 727ec954c6b87d84780097328fd57183, type: 3}
+  - {fileID: 21300000, guid: fd9d02ad55072544f9e4d5e66bc1cb8b, type: 3}
+  - {fileID: 21300000, guid: 36cb556f8e708f8459c7c13dd3ec2bb2, type: 3}
+  - {fileID: 21300000, guid: dd3349010e78b004489eeebb853ae38e, type: 3}
+  - {fileID: 21300000, guid: 36cb556f8e708f8459c7c13dd3ec2bb2, type: 3}
+  cardDisplay: {fileID: 683506705}
+  cardValueText: {fileID: 1821001054}
+  drawnCards: 
+  enemyWave: {fileID: 2110637934}
+--- !u!1 &683506703
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 683506704}
+  - component: {fileID: 683506706}
+  - component: {fileID: 683506705}
+  m_Layer: 5
+  m_Name: CardDisplay
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &683506704
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 683506703}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.25, y: 1.62, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 552065796}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 285, y: -22}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &683506705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 683506703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &683506706
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 683506703}
+  m_CullTransparentMesh: 1
 --- !u!1 &685899712
 GameObject:
   m_ObjectHideFlags: 0
@@ -6041,7 +6178,7 @@ RectTransform:
   m_GameObject: {fileID: 1714344297}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.36266792, y: 3.8024092, z: 1}
+  m_LocalScale: {x: 0.36266792, y: 4.4488187, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1625572000}
@@ -6049,7 +6186,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 334, y: -22}
+  m_AnchoredPosition: {x: 334, y: 178}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1714344299
@@ -6971,7 +7108,7 @@ Transform:
   m_GameObject: {fileID: 2110637933}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.91, y: -7.58, z: -0.015815064}
+  m_LocalPosition: {x: -9.68, y: -7.58, z: -0.015815064}
   m_LocalScale: {x: 1, y: 0.99, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

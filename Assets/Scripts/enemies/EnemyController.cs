@@ -8,7 +8,7 @@ using UnityEngine.UIElements;
 public class EnemyController : MonoBehaviour
 {
     protected int health;
-    protected float speed; // maybe not needed? 
+    protected float speed;
     [SerializeField] protected GameObject[] waypoints;
     protected int currentWaypoint = 0;
     protected Vector2 finalDestination;
