@@ -14,17 +14,27 @@ public class EnemyController : MonoBehaviour
     protected Vector2 finalDestination;
     protected Vector2 currentDestination;
     public Canvas canvas;
-
+    protected AudioSource audioSource;
+    [SerializeField] protected AudioClip onDeathSound;
+    private float delay = 1f;
     private void Start()
     {
-        //sets the starting destination on the closest waypoint and the final destination as the rum
+      
         
+    }
+
+    protected virtual void Prepare()
+    {
+        waypoints = EnemyPathManager.Instance.getRandomPath();
         currentDestination = waypoints[currentWaypoint].GetComponentInParent<Transform>().position;
         finalDestination = GameManager.instance.getRumPosition();
         changeText(health.ToString());
         
     }
-
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
     private void Update()
     {
         //Move();
@@ -72,17 +82,21 @@ public class EnemyController : MonoBehaviour
     {
 
         health -= dmg;
+        health = health < 0 ? 0 : health;
         changeText(health.ToString());
         Debug.Log(health);
         if (health <= 0) {
-            Die();
+            StartCoroutine(Die());
         }
     }
     
-    public virtual void Die()
+    public virtual IEnumerator Die()
     {
+        audioSource.PlayOneShot(onDeathSound, audioSource.volume);
         Debug.Log("Enemy has died.");
+        yield return new WaitForSeconds(delay);
         Destroy(gameObject); // Remove enemy from the scene
+
     }
 
     public void changeText(string newText)

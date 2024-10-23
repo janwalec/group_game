@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using System.Collections;
+using TMPro;
 
 public class CannonController : MonoBehaviour
 {
@@ -15,9 +16,11 @@ public class CannonController : MonoBehaviour
     [SerializeField] private LayerMask enemyMask;
     private float delay = 0.2f;
     private int shootingDamage;
+    public Canvas canvas;
     void Start()
     {
         shootingDamage = 2;
+        deactivateCanvas();
     }
 
    void Awake()
@@ -174,9 +177,24 @@ public class CannonController : MonoBehaviour
     public void setShootingDamage(int shootingDamage_)
     {
         this.shootingDamage = shootingDamage_;
-        Debug.Log("Set damage to " + shootingDamage + " " + this.GetHashCode());    
+        Debug.Log("Set damage to " + shootingDamage + " " + this.GetHashCode());
+        this.updateText();
 
     }
+    public void updateText()
+    {
+        TextMeshProUGUI textComponent = canvas.GetComponentInChildren<TextMeshProUGUI>();
+        textComponent.text = shootingDamage.ToString();
+    }
+    public void activateCanvas()
+    {
+        canvas.gameObject.SetActive(true);
+    }
+    public void deactivateCanvas()
+    {
+        canvas.gameObject.SetActive(false);
+    }
+
     //.
 }
 

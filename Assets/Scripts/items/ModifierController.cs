@@ -15,6 +15,8 @@ public abstract class ModifierController : MonoBehaviour
     public Canvas canvas;
     public GameObject multiplicationSigns;
     public GameObject additionSigns;
+    protected AudioSource audioSource;
+    [SerializeField] protected AudioClip onRollingSound;
     public ModifierController(int min, int max) {
         minVal = min;
         maxVal = max;
@@ -28,6 +30,10 @@ public abstract class ModifierController : MonoBehaviour
         EraseOperations();
         //SetOperation(ChainGenerator.Direction.TOP_RIGHT, ChainGenerator.Operation.MULTIPLICATION);
     }
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     private void Update()
     {
@@ -37,6 +43,7 @@ public abstract class ModifierController : MonoBehaviour
     {
         currentValue = rand.Next(minVal, maxVal);
         //updateText();
+        audioSource.PlayOneShot(onRollingSound, AudioListener.volume);
     }
     public void updateText()
     {

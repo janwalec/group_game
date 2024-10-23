@@ -17,10 +17,10 @@ public class Mermaid : EnemyController
    {
         base.Move();
    }
-
+    /*
     public override void Die()
     { 
         Debug.Log("Destroying advanced ship");
         base.Die();
-    }
+    }*/
 }

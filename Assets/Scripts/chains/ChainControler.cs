@@ -255,10 +255,7 @@ public class ChainControler : MonoBehaviour
     }
     private IEnumerator rolling(Chain currChain)
     {
-        //foreach (Chain currChain in myChains)
-        //{
 
-            //LinkedListNode<MyTile> curr = myChains[myChains.Count - 1].tileChain.First;
             LinkedListNode<MyTile> curr = currChain.tileChain.Last;
             while (curr != null)
             {
@@ -282,7 +279,9 @@ public class ChainControler : MonoBehaviour
                     curr.Value.cannon.setShootingDamage(currChain.chainSum);
                     StartCoroutine(curr.Value.cannon.Shoot());
                     //curr.Value.cannon.Shoot();
+                    curr.Value.cannon.activateCanvas();
                     yield return new WaitForSeconds(rollingDelay);
+                    curr.Value.cannon.deactivateCanvas();
                 }
                     //curr.Value.cannon.setShootingDamage(10);
                 

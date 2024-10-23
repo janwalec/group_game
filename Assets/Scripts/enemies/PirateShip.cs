@@ -7,13 +7,10 @@ public class NormalShip : EnemyController
     private void Start()
     {
         //sets the starting destination on the closest waypoint and the final destination as the rum
-        waypoints = EnemyPathManager.Instance.getRandomPath();
-        currentDestination = waypoints[currentWaypoint].GetComponentInParent<Transform>().position;
-        finalDestination = GameManager.instance.getRumPosition();
-        this.health = 100;
+        this.health = 5;
         this.speed = 1.5f;
-        changeText(health.ToString());
-        
+        Prepare();
+       
     }
 
     public override void Move()
@@ -21,11 +18,12 @@ public class NormalShip : EnemyController
         // implement the movements of "normal" boats
         base.Move();
     }
-
-    public override void Die()
+    /*
+    public override IEnumerator Die()
     {
         // Add additional logic for when a normal boat dies
         Debug.Log("Normal boat has been destroyed.");
         base.Die(); // Call base class's Die() to destroy the object
-    }
+        yield return new WaitForSeconds(0);
+    }*/
 }
