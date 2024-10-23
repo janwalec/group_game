@@ -9,7 +9,7 @@ public class EnemyController : MonoBehaviour
 {
     protected int health;
     protected float speed;
-    [SerializeField] protected GameObject[] waypoints;
+    protected GameObject[] waypoints;
     protected int currentWaypoint = 0;
     protected Vector2 finalDestination;
     protected Vector2 currentDestination;
@@ -18,9 +18,11 @@ public class EnemyController : MonoBehaviour
     private void Start()
     {
         //sets the starting destination on the closest waypoint and the final destination as the rum
+        
         currentDestination = waypoints[currentWaypoint].GetComponentInParent<Transform>().position;
         finalDestination = GameManager.instance.getRumPosition();
         changeText(health.ToString());
+        
     }
 
     private void Update()

@@ -7,8 +7,9 @@ public class EnemyWave : MonoBehaviour
     public Transform spawnPoint;
     private float minY = -8f;  
     private float maxY = 0.5f;   // manually adjust
-    public float spaceMultiplier = 2f;  
-
+    public float spaceMultiplier = 2f;
+    float minX;
+    float xOffset = 7.0f;
     public void SpawnEnemies(List<int> drawnCards)
     {
         int numberOfEnemies = drawnCards.Count;
@@ -16,15 +17,17 @@ public class EnemyWave : MonoBehaviour
 
         float yOffset = ((maxY - minY) / (numberOfEnemies + 1)) * spaceMultiplier;  
 
+        minX = spawnPoint.position.x;
+
         for (int i = 0; i < numberOfEnemies; i++)
         {
             int card = drawnCards[i];
 
             // Calculate the Y position for each boat
             float yPos = minY + (i + 1) * yOffset;
-
+            float xPos = minX + (i + 1) * xOffset;
             // Set the spawn position with the calculated Y position keeping X the same as the spawn point
-            Vector3 spawnPosition = new Vector3(spawnPoint.position.x, yPos, spawnPoint.position.z);
+            Vector3 spawnPosition = new Vector3(xPos, yPos, spawnPoint.position.z);
 
             Instantiate(shipPrefab, spawnPosition, spawnPoint.rotation);
 

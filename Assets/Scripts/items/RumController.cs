@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class RumController : MonoBehaviour
 {
-    double HP = 100;
+    double HP = 10;
     [SerializeField] private LayerMask enemyMask;
     public Canvas canvas;
     private float range = 2.0f;
@@ -30,8 +30,13 @@ public class RumController : MonoBehaviour
     {
         HP -= enemiesNum * 0.01;
         changeText(((int)HP).ToString());
+        if(HP <= 0)
+        {
+            GameManager.instance.GameLost();
+        }
     }
 
+   
     public void changeText(string newText)
     {
         TextMeshProUGUI textComponent = canvas.GetComponentInChildren<TextMeshProUGUI>();

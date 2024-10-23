@@ -4,8 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.PlasticSCM.Editor.WebApi;
 
-/*TODO
- * new struct is created! not modified! thats why set damage not working*/
 public class Chain {
     public int chainID;
     public LinkedList<MyTile> tileChain;
@@ -167,6 +165,7 @@ public class ChainControler : MonoBehaviour
             pooledObjects[i].canvas.transform.position = position;
 
             i += 1;
+
         }
 
         chainGenerator.markUsedForChainTiles(receivedChain, true);
@@ -231,6 +230,8 @@ public class ChainControler : MonoBehaviour
         if(toDelete.chainID == -1)
             return;
 
+        RemoveOperationSigns(toDelete);
+
         int length = toDelete.pooledObjectChain.Count;
         int deletedCount = chainPool.SetChainInactive(toDelete.pooledObjectChain);
         
@@ -266,8 +267,10 @@ public class ChainControler : MonoBehaviour
                     curr.Value.modifier.Roll();
 
                     curr.Value.modifier.calculateCurrentTotal(curr.Next == null ? null : curr.Next.Value.modifier);
+                curr.Value.modifier.activateCanvas();
 
                     yield return new WaitForSeconds(rollingDelay);
+                curr.Value.modifier.deactivateCanvas();
                 }
 
                 if (curr.Previous == null)
@@ -310,5 +313,29 @@ public class ChainControler : MonoBehaviour
         }*/
     }
 
-    
+    private void ManageTransitions(Chain currChain)
+    {
+        LinkedListNode<MyTile> curr = currChain.tileChain.Last;
+        while (curr != null)
+        {
+            if (curr.Value.tileType == MyTile.TileType.COIN || curr.Value.tileType == MyTile.TileType.DICE)
+            {
+                
+            }            
+            curr = curr.Previous;
+        }
+
+    }
+
+    private void RemoveOperationSigns(Chain chain)
+    {
+        foreach (MyTile tile in chain.tileChain)
+        {
+            if (tile.tileType == MyTile.TileType.DICE || tile.tileType == MyTile.TileType.COIN)
+            {
+                tile.modifier.EraseOperations();
+            }
+        }
+    }
+
 }

@@ -56,6 +56,11 @@ public class MyTile {
         return (x, y, tile).GetHashCode();
     }
 
+    public MyTile GetNeighbourAt(int idx)
+    {
+        return neighbours[idx];
+    }
+
 }
 
 
@@ -118,42 +123,42 @@ public class TIleMapGenerator : MonoBehaviour
                 // Even row (l % 2 == 0)
                 if (l % 2 == 0) {
                     if (l + 1 < size_y)
-                        tile.neighbours[0] = tilesArray[l + 1, k];
+                        tile.neighbours[0] = tilesArray[l + 1, k]; //top left
                     
                     if (l + 1 < size_y && k + 1 < size_x)
-                        tile.neighbours[1] = tilesArray[l + 1, k + 1];
+                        tile.neighbours[1] = tilesArray[l + 1, k + 1]; //top right
                     
                     if (k - 1 >= 0)
-                        tile.neighbours[2] = tilesArray[l, k - 1];
+                        tile.neighbours[2] = tilesArray[l, k - 1]; //middle left
                     
                     if (k + 1 < size_x)
-                        tile.neighbours[3] = tilesArray[l, k + 1];
+                        tile.neighbours[3] = tilesArray[l, k + 1]; //middle right
                     
                     if (l - 1 >= 0)
-                        tile.neighbours[4] = tilesArray[l - 1, k];
+                        tile.neighbours[4] = tilesArray[l - 1, k]; //bottom left
                     
                     if (l - 1 >= 0 && k + 1 < size_x)
-                        tile.neighbours[5] = tilesArray[l - 1, k + 1];
+                        tile.neighbours[5] = tilesArray[l - 1, k + 1]; //bottom right
                 } 
                 // Odd row (l % 2 != 0)
                 else {
                     if (l + 1 < size_y && k - 1 >= 0)
-                        tile.neighbours[0] = tilesArray[l + 1, k - 1];
+                        tile.neighbours[0] = tilesArray[l + 1, k - 1]; //top left
                     
                     if (l + 1 < size_y)
-                        tile.neighbours[1] = tilesArray[l + 1, k];
+                        tile.neighbours[1] = tilesArray[l + 1, k]; //top right
                     
                     if (k - 1 >= 0)
-                        tile.neighbours[2] = tilesArray[l, k - 1];
+                        tile.neighbours[2] = tilesArray[l, k - 1]; //middle left
                     
                     if (k + 1 < size_x)
-                        tile.neighbours[3] = tilesArray[l, k + 1];
+                        tile.neighbours[3] = tilesArray[l, k + 1];// middle right
                     
                     if (l - 1 >= 0 && k - 1 >= 0)
-                        tile.neighbours[4] = tilesArray[l - 1, k - 1];
+                        tile.neighbours[4] = tilesArray[l - 1, k - 1]; //bottom left
                     
                     if (l - 1 >= 0)
-                        tile.neighbours[5] = tilesArray[l - 1, k];
+                        tile.neighbours[5] = tilesArray[l - 1, k]; //bottom right
                 }
             }
         }
@@ -362,6 +367,8 @@ public class TIleMapGenerator : MonoBehaviour
     public void setUsedForChain(int y, int x, bool used) {
         this.tilesArray[y - y_min, x - x_min].usedForChain = used;
     }
+
+    
 
 
 

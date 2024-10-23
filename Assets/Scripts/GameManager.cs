@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
 public enum GameState { GS_PAUSEMENU, GS_GAME, GS_LEVELCOMPLETED, GS_GAME_OVER, GS_OPTIONS }
@@ -12,7 +13,7 @@ public class GameManager : MonoBehaviour
     public GameState currentGameState = GameState.GS_GAME;
 
     public static GameManager instance;
-    public Canvas inGameCanvas;
+    //public Canvas inGameCanvas;
     public GameObject rum;
     void Start()
     {
@@ -48,11 +49,11 @@ public class GameManager : MonoBehaviour
     {
         currentGameState = state;
 
-        if (currentGameState == GameState.GS_GAME)
+        /*if (currentGameState == GameState.GS_GAME)
             inGameCanvas.enabled = true;
         else
             inGameCanvas.enabled = false;
-        
+        */
     }
 
     private void PauseMenu()
@@ -63,5 +64,17 @@ public class GameManager : MonoBehaviour
     private void InGame()
     {
         SetGameState(GameState.GS_GAME);
+    }
+    
+    public void GameLost()
+    {
+        SceneManager.LoadScene("GameLost");
+        SetGameState(GameState.GS_GAME_OVER);
+    }
+
+    public void PlayAgain()
+    {
+        SetGameState(GameState.GS_GAME);
+        SceneManager.LoadScene("Scene");
     }
 }

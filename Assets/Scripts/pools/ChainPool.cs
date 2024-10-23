@@ -60,8 +60,9 @@ public class ChainPool : MonoBehaviour
             {
                 tmp.Add(pooledObjects[i]);
                 pooledObjects[i].gameObject.SetActive(true);
-                pooledObjects[i].gameObject.GetComponent<SpriteRenderer>().sortingLayerID = SortingLayer.NameToID("OnLand");
-                pooledObjects[i].canvas.sortingLayerID = SortingLayer.NameToID("OnLand");                
+                pooledObjects[i].gameObject.GetComponent<SpriteRenderer>().sortingLayerID = SortingLayer.NameToID("Land");
+                pooledObjects[i].canvas.sortingLayerID = SortingLayer.NameToID("Ocean");
+                //pooledObjects[i].canvas.gameObject.SetActive(false);
             }
             
         }

@@ -23,6 +23,8 @@ public class ChainGenerator : MonoBehaviour
 
     private MyTile lastTile;
 
+    public enum Direction { TOP_LEFT, TOP_RIGHT, MIDDLE_LEFT, MIDDLE_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT }
+    public enum Operation { MULTIPLICATION, ADDITION}
     private void Start() {
         tilemap = GameManager.instance.getTilemap();
         
@@ -54,10 +56,54 @@ public class ChainGenerator : MonoBehaviour
     //clear temp list if not dragging
     public void playerStoppedDragging() {
         listOfChains.Add(tempList);
+        AddOperationSigns();
         NotifyChainComplete();
         //Debug.Log("cleared");
+        
         tempList.Clear();
     }
+
+    private void AddOperationSigns()
+    {
+        LinkedListNode<MyTile> curr = tempList.Last;
+        Direction direction = Direction.TOP_LEFT;
+        Operation operation = Operation.ADDITION;
+        while(curr.Previous != null)
+        {
+            if(curr.Previous.Value.tileType == MyTile.TileType.CANNON)
+                break;
+          
+            if (curr.Value.tileType == MyTile.TileType.DICE && curr.Previous.Value.tileType == MyTile.TileType.DICE)
+                operation = Operation.ADDITION;
+            else
+                operation = Operation.MULTIPLICATION;
+            
+
+            if(curr.Value.tileType == MyTile.TileType.DICE || curr.Value.tileType == MyTile.TileType.COIN)
+            {
+
+                if (curr.Previous.Value == curr.Value.GetNeighbourAt(0))
+                    direction = Direction.TOP_LEFT;
+                else if (curr.Previous.Value == curr.Value.GetNeighbourAt(1))
+                    direction = Direction.TOP_RIGHT;
+                else if (curr.Previous.Value == curr.Value.GetNeighbourAt(2))
+                    direction = Direction.MIDDLE_LEFT;
+                else if (curr.Previous.Value == curr.Value.GetNeighbourAt(3))
+                    direction = Direction.MIDDLE_RIGHT;
+                else if (curr.Previous.Value == curr.Value.GetNeighbourAt(4))
+                    direction = Direction.BOTTOM_LEFT;
+                else
+                    direction = Direction.BOTTOM_RIGHT;
+            }
+            curr.Value.modifier.SetOperation(direction, operation);
+
+            curr = curr.Previous;
+        }
+    }
+
+   
+
+
 
     //dragging mouse over board
     public void playerIsDragging() {
@@ -105,5 +151,6 @@ public class ChainGenerator : MonoBehaviour
             tilemap.setUsedForChain(t.y, t.x, used);
         }
     }
-
+   
+    
 }
