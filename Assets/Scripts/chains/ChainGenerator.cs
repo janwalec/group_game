@@ -23,6 +23,10 @@ public class ChainGenerator : MonoBehaviour
 
     private MyTile lastTile;
 
+    private AudioSource audioSource;
+    [SerializeField] private AudioClip onChainCreatedSound;
+    [SerializeField] private AudioClip onTileAddedSound;
+
     public enum Direction { TOP_LEFT, TOP_RIGHT, MIDDLE_LEFT, MIDDLE_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT }
     public enum Operation { MULTIPLICATION, ADDITION}
     private void Start() {
@@ -49,12 +53,17 @@ public class ChainGenerator : MonoBehaviour
         createTempChain(); 
     }
 
+    public void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
     private void NotifyChainComplete() {
         OnChainComplete?.Invoke(tempList);
     }
 
     //clear temp list if not dragging
     public void playerStoppedDragging() {
+        audioSource.PlayOneShot(onChainCreatedSound);
         listOfChains.Add(tempList);
         AddOperationSigns();
         NotifyChainComplete();
@@ -112,6 +121,7 @@ public class ChainGenerator : MonoBehaviour
         
         if(checkConditionForTile(newTile)) {
             tempList.AddLast(newTile);
+            audioSource.PlayOneShot(onTileAddedSound, audioSource.volume);
             Debug.Log("Added " + tempList.Count);
         }
     }

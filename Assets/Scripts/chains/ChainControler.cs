@@ -79,7 +79,7 @@ public class ChainControler : MonoBehaviour
             }  
         }
 
-        if(timer >= maxChainLeght * (rollingDelay))
+        if(timer >= (maxChainLeght + 1) * (rollingDelay))
         {
 
             findMaxLength();
@@ -253,45 +253,56 @@ public class ChainControler : MonoBehaviour
         }
 
     }
+
+    //for now: cannons base damage works if it is only the cannon in the chain
+    //otherwise damage is computed ignoring cannon base damage
+
     private IEnumerator rolling(Chain currChain)
     {
 
-            LinkedListNode<MyTile> curr = currChain.tileChain.Last;
-            while (curr != null)
+    
+        LinkedListNode<MyTile> curr = currChain.tileChain.Last;
+        while (curr != null)
+        {
+            if (curr.Value.tileType == MyTile.TileType.COIN || curr.Value.tileType == MyTile.TileType.DICE)
             {
-                if (curr.Value.tileType == MyTile.TileType.COIN || curr.Value.tileType == MyTile.TileType.DICE)
-                {
-                    curr.Value.modifier.Roll();
+                curr.Value.modifier.Roll();
 
-                    curr.Value.modifier.calculateCurrentTotal(curr.Next == null ? null : curr.Next.Value.modifier);
+                curr.Value.modifier.calculateCurrentTotal(curr.Next == null ? null : curr.Next.Value.modifier);
                 curr.Value.modifier.activateCanvas();
 
-                    yield return new WaitForSeconds(rollingDelay);
+                yield return new WaitForSeconds(rollingDelay);
                 curr.Value.modifier.deactivateCanvas();
-                }
+            }
 
-                if (curr.Previous == null)
-                {
+            if (curr.Previous == null)
+            {
                 if (curr.Value.tileType == MyTile.TileType.CANNON)
                 {
-                    yield return new WaitForSeconds(rollingDelay*(maxChainLeght-currChain.tileChain.Count));
-                    //curr.Value.cannon.setShootingDamage(myChains[myChains.Count - 1].chainSum);
-                    curr.Value.cannon.setShootingDamage(currChain.chainSum);
-                    StartCoroutine(curr.Value.cannon.Shoot());
+                    yield return new WaitForSeconds(rollingDelay * (maxChainLeght + 1 - currChain.tileChain.Count));
+                //curr.Value.cannon.setShootingDamage(myChains[myChains.Count - 1].chainSum);
+
+                    if (currChain.tileChain.Count == 1)
+                        curr.Value.cannon.setDamageAsBaseDamage();
+                    else
+                        curr.Value.cannon.setShootingDamage(currChain.chainSum);
+                    //StartCoroutine(curr.Value.cannon.Shoot());
                     //curr.Value.cannon.Shoot();
                     curr.Value.cannon.activateCanvas();
+                    StartCoroutine(curr.Value.cannon.Shoot());
                     yield return new WaitForSeconds(rollingDelay);
                     curr.Value.cannon.deactivateCanvas();
                 }
-                    //curr.Value.cannon.setShootingDamage(10);
-                
-                }
-                else if (curr.Previous.Previous == null)
-                {
-                    currChain.chainSum = curr.Value.modifier.getCurrentTotal();
-                }
-                curr = curr.Previous;
+                //curr.Value.cannon.setShootingDamage(10);
+
             }
+            else if (curr.Previous.Previous == null)
+            {
+                currChain.chainSum = curr.Value.modifier.getCurrentTotal();
+            }
+            curr = curr.Previous;
+        }
+        
         //}
         /*
         foreach (LinkedListNode<MyTile> t in myChains[myChains.Count - 1].tileChain)

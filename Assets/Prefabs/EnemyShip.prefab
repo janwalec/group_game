@@ -298,6 +298,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 2281326635688146084}
+  onHitSound: {fileID: 8300000, guid: e2ae6d03766d6b942b557552bfa1fefe, type: 3}
   onDeathSound: {fileID: 8300000, guid: 49ceca12ff5649548bfd728fafe18c5d, type: 3}
 --- !u!82 &1795512289641629181
 AudioSource:

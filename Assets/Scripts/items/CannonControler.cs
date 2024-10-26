@@ -16,7 +16,12 @@ public class CannonController : MonoBehaviour
     [SerializeField] private LayerMask enemyMask;
     private float delay = 0.2f;
     private int shootingDamage;
+    private int baseDamage = 4;
     public Canvas canvas;
+    protected AudioSource audioSource;
+    [SerializeField] protected AudioClip shotFlot;
+    [SerializeField] protected AudioClip shotMedium;
+    [SerializeField] protected AudioClip shotHard;
     void Start()
     {
         shootingDamage = 2;
@@ -26,7 +31,7 @@ public class CannonController : MonoBehaviour
    void Awake()
     {
         animator = GetComponent<Animator>();
-     
+        audioSource = GetComponent<AudioSource>();
         findTarget();
 
     }
@@ -69,6 +74,15 @@ public class CannonController : MonoBehaviour
         
     }
     
+    public int getBaseDamage()
+    {
+        return baseDamage;
+    }
+    public void setDamageAsBaseDamage()
+    {
+        shootingDamage = baseDamage;
+        this.updateText();
+    }
     private void Aim(/*Vector2 shootingDirection*/)
     {
         findTarget();
@@ -98,6 +112,7 @@ public class CannonController : MonoBehaviour
     private int getShootingDamage()
     {
         return shootingDamage;
+
     }
     
     public IEnumerator Shoot()
@@ -112,24 +127,36 @@ public class CannonController : MonoBehaviour
             //Aim(/*target.position*/);
             //wait for the animation to change
             yield return new WaitForSeconds(0.2f) ;
-            GameObject new_object = CannonBallPool.SharedInstance.GetPooledObject();
-            if (new_object != null)
+            if (shootingDamage != 0)
             {
-                new_object.transform.position = this.transform.position;
-                new_object.GetComponent<SpriteRenderer>().sortingLayerID = SortingLayer.NameToID("OnLand");
-
-                CannonBallController cb = new_object.GetComponent<CannonBallController>();
-                if (cb != null && target != null)
+                if (shootingDamage > 30)
+                    audioSource.PlayOneShot(shotHard, audioSource.volume);
+                else
+                    audioSource.PlayOneShot(shotMedium, audioSource.volume);
+                GameObject new_object = CannonBallPool.SharedInstance.GetPooledObject();
+                if (new_object != null)
                 {
-                    cb.setDirection(target.position);
-                    cb.setDamage(getShootingDamage());
-                    Debug.Log("Damage of shot " + getShootingDamage() + " " + this.GetHashCode());
-                    Debug.Log("Position: " + target.position);
+                    new_object.transform.position = this.transform.position;
+                    new_object.GetComponent<SpriteRenderer>().sortingLayerID = SortingLayer.NameToID("OnLand");
+
+                    CannonBallController cb = new_object.GetComponent<CannonBallController>();
+                    if (cb != null && target != null)
+                    {
+                        cb.setDirection(target.position);
+                        cb.setDamage(getShootingDamage());
+                        Debug.Log("Damage of shot " + getShootingDamage() + " " + this.GetHashCode());
+                        Debug.Log("Position: " + target.position);
+                    }
+
+
+                    new_object.SetActive(true);
+
+
                 }
-
-                new_object.SetActive(true);
-
-
+            }
+            else
+            {
+                audioSource.PlayOneShot(shotFlot, audioSource.volume);
             }
             //wait few seconds before the next shot
             yield return new WaitForSeconds(delay);

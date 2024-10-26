@@ -15,7 +15,8 @@ public class MarketItemController : MonoBehaviour
     Image frameImage;
     public MarketManager.Items objectType;
 
-
+    protected AudioSource audioSource;
+    [SerializeField] protected AudioClip onSelectSound;
     void Start()
     {
         
@@ -25,7 +26,12 @@ public class MarketItemController : MonoBehaviour
     {
         
     }
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
 
+        
+    }
     public MarketManager.Items getObjectType()
     {
         return objectType;
@@ -34,6 +40,7 @@ public class MarketItemController : MonoBehaviour
     
     public void SelectObject()
     {
+        audioSource.PlayOneShot(onSelectSound, audioSource.volume); 
         //informs the tilemap what kind of object is currently selected 
         //and chenges its color to inform the user
         if (MarketManager.instance.canAfford(objectType))

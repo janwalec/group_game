@@ -9,6 +9,7 @@ public class CannonBallController : MonoBehaviour
     private int range = 50;
     private Vector3 direction = new Vector3(1, 0, 0);
     private int damage = 1;
+    private float timer;
     void Start()
     {
 
@@ -22,6 +23,18 @@ public class CannonBallController : MonoBehaviour
         if (transform.position.magnitude > range)
         {
             gameObject.SetActive(false);
+        }
+
+
+        if (Vector2.Distance(transform.position, direction) < 1f)
+        {
+            timer += Time.deltaTime;
+            if (timer >= 1f)
+            {
+                deactivate();
+                timer = 0f;
+            }
+
         }
     }
 

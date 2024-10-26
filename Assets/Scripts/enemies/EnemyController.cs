@@ -15,6 +15,7 @@ public class EnemyController : MonoBehaviour
     protected Vector2 currentDestination;
     public Canvas canvas;
     protected AudioSource audioSource;
+    [SerializeField] protected AudioClip onHitSound;
     [SerializeField] protected AudioClip onDeathSound;
     private float delay = 1f;
     private void Start()
@@ -47,6 +48,8 @@ public class EnemyController : MonoBehaviour
     public virtual void Move()
     {
         //moves towards waypoints specified in the waypoints[] array
+      
+
         if (Vector2.Distance(this.transform.position, waypoints[currentWaypoint].transform.position) < 0.1f)
         {
             if (currentWaypoint == waypoints.Length - 1)
@@ -80,7 +83,7 @@ public class EnemyController : MonoBehaviour
 
     public virtual void TakeDamage(int dmg)
     {
-
+        audioSource.PlayOneShot(onHitSound, audioSource.volume);
         health -= dmg;
         health = health < 0 ? 0 : health;
         changeText(health.ToString());

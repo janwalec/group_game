@@ -23,6 +23,7 @@ public class MyTile {
     public TileType tileType;
     public ModifierController modifier;
     public CannonController cannon;
+ 
     public MyTile(int y, int x, TileBase tile, TileType tileType) {
         this.y = y;
         this.x = x;
@@ -75,13 +76,15 @@ public class TIleMapGenerator : MonoBehaviour
     private MyTile[,] tilesArray;
     private int size_x = 0, size_y = 0;
     private int y_min, x_min, y_max, x_max;
+    private AudioSource audioSource;
+    [SerializeField] public AudioClip onPlacingItemSound;
 
     //private GameManager.Items itemSelected = GameManager.Items.NONE;
     private MarketItemController selector;
     // Start is called before the first frame update
 
     void Awake() {
-        
+        audioSource = GetComponent<AudioSource>();
         tm = GetComponent<Tilemap>();
         
         BoundsInt bounds = tm.cellBounds;
@@ -248,6 +251,8 @@ public class TIleMapGenerator : MonoBehaviour
         {
             if (tilesArray[y_search, x_search].tileType == MyTile.TileType.LAND)
             {
+                audioSource.PlayOneShot(onPlacingItemSound, audioSource.volume);
+                
                 GameObject newObject = selector.putObject(placingPosition);
                 //tm.SetTile(tile.tilePosition, greyTile);
                 tilesArray[y_search, x_search].occupied = true;

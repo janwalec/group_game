@@ -14,6 +14,8 @@ public class CardRollManager : MonoBehaviour
     private int drawnTotal = 0;  // Total drawn value so far
     private int randomCardIndex = 0; 
     private bool rollingCards = true; // Flag to control when to stop rolling
+    AudioSource audioSource;
+    [SerializeField] protected AudioClip cardFlip;
 
     void Start()
     {
@@ -21,6 +23,10 @@ public class CardRollManager : MonoBehaviour
         StartCoroutine(StartCardRolling());
     }
 
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
     IEnumerator StartCardRolling()
     {
       
@@ -33,10 +39,13 @@ public class CardRollManager : MonoBehaviour
        
         Debug.Log("Finished rolling cards. Total HP reached: " + drawnTotal);
         enemyWave.SpawnEnemies(drawnCards);
+        cardDisplay.gameObject.SetActive(false);
     }
 
     void RollCard()
     {
+        audioSource.PlayOneShot(cardFlip, audioSource.volume);
+
         int remainingHP = hp - drawnTotal;
 
         // Special case: If remaining HP matches one of the possible card values, force that value

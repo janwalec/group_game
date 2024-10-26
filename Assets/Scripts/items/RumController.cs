@@ -5,15 +5,19 @@ using UnityEngine;
 
 public class RumController : MonoBehaviour
 {
-    double HP = 10;
+    double HPLoss = 0;
+    int HPInt = 10;
+
     [SerializeField] private LayerMask enemyMask;
     public Canvas canvas;
     private float range = 2.0f;
+    AudioSource audioSource;
+    [SerializeField] AudioClip onDamageSound;
     void Start()
     {
         //occupy tiles so that a cannon or a modifier cannot be placed there
         GameManager.instance.getTilemap().occupyTile(transform.position);
-        changeText(((int)HP).ToString());
+        changeText(HPInt.ToString());
     }
 
 
@@ -26,11 +30,23 @@ public class RumController : MonoBehaviour
             TakeDamage(hits.Length);
         }
     }
+
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
     void TakeDamage(int enemiesNum)
     {
-        HP -= enemiesNum * 0.01;
-        changeText(((int)HP).ToString());
-        if(HP <= 0)
+        HPLoss += enemiesNum * 0.01;
+        if(HPLoss >= 1)
+        {
+            audioSource.PlayOneShot(onDamageSound);
+            HPInt--;
+            HPLoss = 0;
+            changeText(HPInt.ToString());
+        }
+        
+        if(HPInt <= 0)
         {
             GameManager.instance.GameLost();
         }
