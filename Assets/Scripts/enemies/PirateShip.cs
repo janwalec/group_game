@@ -7,23 +7,32 @@ public class NormalShip : EnemyController
     private void Start()
     {
         //sets the starting destination on the closest waypoint and the final destination as the rum
-        this.health = 5;
         this.speed = 1.5f;
         Prepare();
-       
     }
 
     public override void Move()
     {
-        // implement the movements of "normal" boats
+
         base.Move();
     }
-    /*
-    public override IEnumerator Die()
+
+    public  int GetHealth()
     {
-        // Add additional logic for when a normal boat dies
+        return base.health;
+    }
+    public void InitializeHealth(int card_value)
+    {
+        health = 5 + card_value;
+        changeText(health.ToString());
+        Debug.Log("Initialized health with card value " + card_value + ". New health: " + health);
+    }
+
+
+   /* public override void Die()
+    {
+
         Debug.Log("Normal boat has been destroyed.");
-        base.Die(); // Call base class's Die() to destroy the object
-        yield return new WaitForSeconds(0);
+        base.Die();
     }*/
 }

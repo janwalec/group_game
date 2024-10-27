@@ -17,6 +17,7 @@ public class Mermaid : EnemyController
 
         health = 10;
         speed = 1.5f;
+        Prepare();
         changeText(health.ToString());
 
 

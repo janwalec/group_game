@@ -24,6 +24,7 @@ public class EnemyController : MonoBehaviour
         
     }
 
+  
     protected virtual void Prepare()
     {
         waypoints = EnemyPathManager.Instance.getRandomPath();

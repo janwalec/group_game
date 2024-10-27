@@ -10760,6 +10760,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shipPrefab: {fileID: 363901193533818090, guid: 951e26852c28fcf4391e54d94be2d91c, type: 3}
+  mermaidPrefab: {fileID: 6789827278423058501, guid: 267d0a0f59ef4a94594a61274d19ac9d, type: 3}
   spawnPoint: {fileID: 121941134}
   spaceMultiplier: 2
 --- !u!4 &2110637935
