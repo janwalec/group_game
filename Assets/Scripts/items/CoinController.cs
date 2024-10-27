@@ -6,15 +6,17 @@ using Unity.VisualScripting;
 
 public class CoinController: ModifierController
 {
+    
+
+
     public CoinController() : base(0, 2)
     {
 
     }
 
-
     private void Update()
-    {
-        
+    {   
+       
     }
     public override int influenceOutput(int nextValue)
     {
@@ -35,9 +37,14 @@ public class CoinController: ModifierController
         updateText();
     }
 
+    
+
     public override void Roll()
     {
         base.Roll();        //sets currentValue to 0 or 1
         currentValue *= 2;  //scales to 0 or 2
+        
     }
+
+
 }

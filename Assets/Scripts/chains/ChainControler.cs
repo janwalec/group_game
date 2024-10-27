@@ -266,13 +266,19 @@ public class ChainControler : MonoBehaviour
         {
             if (curr.Value.tileType == MyTile.TileType.COIN || curr.Value.tileType == MyTile.TileType.DICE)
             {
+                
                 curr.Value.modifier.Roll();
 
                 curr.Value.modifier.calculateCurrentTotal(curr.Next == null ? null : curr.Next.Value.modifier);
+                curr.Value.modifier.ChangeAnimation();
                 curr.Value.modifier.activateCanvas();
 
+
                 yield return new WaitForSeconds(rollingDelay);
+
+                curr.Value.modifier.ChangeAnimation();
                 curr.Value.modifier.deactivateCanvas();
+                
             }
 
             if (curr.Previous == null)

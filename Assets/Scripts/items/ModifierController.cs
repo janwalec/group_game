@@ -16,6 +16,8 @@ public abstract class ModifierController : MonoBehaviour
     public GameObject multiplicationSigns;
     public GameObject additionSigns;
     protected AudioSource audioSource;
+
+    protected Animator animator;
     [SerializeField] protected AudioClip onRollingSound;
     public ModifierController(int min, int max) {
         minVal = min;
@@ -33,18 +35,25 @@ public abstract class ModifierController : MonoBehaviour
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
+        animator = GetComponent<Animator>();
     }
 
     private void Update()
-    {
-
+    {   
+        
     }
+
+    public virtual void ChangeAnimation() {
+        animator.SetTrigger("Flip");
+    }
+
     public virtual void Roll()
     {
         currentValue = rand.Next(minVal, maxVal);
         //updateText();
         audioSource.PlayOneShot(onRollingSound, AudioListener.volume);
     }
+
     public void updateText()
     {
         TextMeshProUGUI textComponent = canvas.GetComponentInChildren<TextMeshProUGUI>();
