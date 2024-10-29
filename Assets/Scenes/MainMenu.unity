@@ -122,6 +122,50 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &870840545
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 870840547}
+  - component: {fileID: 870840548}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &870840547
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 870840545}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &870840548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 870840545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2146c0d540c162e49994dbbdea4951a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1220664133
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,6 +313,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1892148513}
   - component: {fileID: 1892148512}
+  - component: {fileID: 1892148514}
   m_Layer: 5
   m_Name: UIMainMenu
   m_TagString: Untagged
@@ -307,6 +352,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1892148514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1892148511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ace9524730395244ebf5db58f6bda122, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2021295231
 GameObject:
   m_ObjectHideFlags: 0
@@ -4526,3 +4583,4 @@ SceneRoots:
   - {fileID: 1220664136}
   - {fileID: 1892148513}
   - {fileID: 1808704852}
+  - {fileID: 870840547}

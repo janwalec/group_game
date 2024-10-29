@@ -260,55 +260,58 @@ public class ChainControler : MonoBehaviour
     private IEnumerator rolling(Chain currChain)
     {
 
-    
-        LinkedListNode<MyTile> curr = currChain.tileChain.Last;
-        while (curr != null)
+        if (GameManager.instance.currentGameState == GameState.GS_GAME)
         {
-            if (curr.Value.tileType == MyTile.TileType.COIN || curr.Value.tileType == MyTile.TileType.DICE)
+
+
+            LinkedListNode<MyTile> curr = currChain.tileChain.Last;
+            while (curr != null)
             {
-                
-                curr.Value.modifier.Roll();
-
-                curr.Value.modifier.calculateCurrentTotal(curr.Next == null ? null : curr.Next.Value.modifier);
-                curr.Value.modifier.ChangeAnimation();
-                curr.Value.modifier.activateCanvas();
-
-
-                yield return new WaitForSeconds(rollingDelay);
-
-                curr.Value.modifier.ChangeAnimation();
-                curr.Value.modifier.deactivateCanvas();
-                
-            }
-
-            if (curr.Previous == null)
-            {
-                if (curr.Value.tileType == MyTile.TileType.CANNON)
+                if (curr.Value.tileType == MyTile.TileType.COIN || curr.Value.tileType == MyTile.TileType.DICE)
                 {
-                    yield return new WaitForSeconds(rollingDelay * (maxChainLeght + 1 - currChain.tileChain.Count));
-                //curr.Value.cannon.setShootingDamage(myChains[myChains.Count - 1].chainSum);
 
-                    if (currChain.tileChain.Count == 1)
-                        curr.Value.cannon.setDamageAsBaseDamage();
-                    else
-                        curr.Value.cannon.setShootingDamage(currChain.chainSum);
-                    //StartCoroutine(curr.Value.cannon.Shoot());
-                    //curr.Value.cannon.Shoot();
-                    curr.Value.cannon.activateCanvas();
-                    StartCoroutine(curr.Value.cannon.Shoot());
+                    curr.Value.modifier.Roll();
+
+                    curr.Value.modifier.calculateCurrentTotal(curr.Next == null ? null : curr.Next.Value.modifier);
+                    curr.Value.modifier.ChangeAnimation();
+                    curr.Value.modifier.activateCanvas();
+
+
                     yield return new WaitForSeconds(rollingDelay);
-                    curr.Value.cannon.deactivateCanvas();
-                }
-                //curr.Value.cannon.setShootingDamage(10);
 
+                    curr.Value.modifier.ChangeAnimation();
+                    curr.Value.modifier.deactivateCanvas();
+
+                }
+
+                if (curr.Previous == null)
+                {
+                    if (curr.Value.tileType == MyTile.TileType.CANNON)
+                    {
+                        yield return new WaitForSeconds(rollingDelay * (maxChainLeght + 1 - currChain.tileChain.Count));
+                        //curr.Value.cannon.setShootingDamage(myChains[myChains.Count - 1].chainSum);
+
+                        if (currChain.tileChain.Count == 1)
+                            curr.Value.cannon.setDamageAsBaseDamage();
+                        else
+                            curr.Value.cannon.setShootingDamage(currChain.chainSum);
+                        //StartCoroutine(curr.Value.cannon.Shoot());
+                        //curr.Value.cannon.Shoot();
+                        curr.Value.cannon.activateCanvas();
+                        StartCoroutine(curr.Value.cannon.Shoot());
+                        yield return new WaitForSeconds(rollingDelay);
+                        curr.Value.cannon.deactivateCanvas();
+                    }
+                    //curr.Value.cannon.setShootingDamage(10);
+
+                }
+                else if (curr.Previous.Previous == null)
+                {
+                    currChain.chainSum = curr.Value.modifier.getCurrentTotal();
+                }
+                curr = curr.Previous;
             }
-            else if (curr.Previous.Previous == null)
-            {
-                currChain.chainSum = curr.Value.modifier.getCurrentTotal();
-            }
-            curr = curr.Previous;
         }
-        
         //}
         /*
         foreach (LinkedListNode<MyTile> t in myChains[myChains.Count - 1].tileChain)

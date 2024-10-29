@@ -36,7 +36,7 @@ public class ImageSequenceController : MonoBehaviour
         {
             if (currentImageIndex > images.Length - 1)
             {
-                //loadScene
+                MainMenuGameManager.instance.Play();
                 return;
             }
 
@@ -46,6 +46,7 @@ public class ImageSequenceController : MonoBehaviour
 
     void ShowNextImage()
     {
+        
         if (currentImageIndex >= 0)
         {
             // Start the fade-out coroutine for the current image
@@ -58,7 +59,7 @@ public class ImageSequenceController : MonoBehaviour
         {
             // Start the coroutine to show the next image
             StartCoroutine(FadeInImage(images[currentImageIndex]));
-            
+
             // Play the corresponding audio clip
             if (audioSource != null && audioClips[currentImageIndex] != null)
             {
@@ -66,6 +67,7 @@ public class ImageSequenceController : MonoBehaviour
                 audioSource.Play();
             }
         }
+     
     }
 
     IEnumerator FadeOutImage(Image img)

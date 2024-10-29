@@ -17,6 +17,10 @@ public class CannonBallController : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.instance.currentGameState != GameState.GS_GAME)
+        {
+            return;
+        }
         //moves in the direction specified by the direction variable
         transform.position = Vector2.MoveTowards(transform.position, direction, speed * Time.deltaTime);
 

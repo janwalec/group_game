@@ -16,10 +16,25 @@ public class CardRollManager : MonoBehaviour
     private bool rollingCards = true; // Flag to control when to stop rolling
     AudioSource audioSource;
     [SerializeField] protected AudioClip cardFlip;
+    bool rolled = false;
 
     void Start()
     {
         // automatically roll cards when the game starts with a delay between each roll
+        //StartCoroutine(StartCardRolling());
+    }
+
+    private void Update()
+    {
+       if(GameManager.instance.currentGameState == GameState.GS_GAME && !rolled)
+        {
+            rolled = true;
+            StartRolling();
+        }
+    }
+
+    public void StartRolling()
+    {
         StartCoroutine(StartCardRolling());
     }
 
@@ -29,17 +44,18 @@ public class CardRollManager : MonoBehaviour
     }
     IEnumerator StartCardRolling()
     {
-      
-        while (drawnTotal < hp && rollingCards)
-        {
-            RollCard();
-            yield return new WaitForSeconds(1.5f);  // qait for 1 seconds before the next roll
-        }
+        
+            while (drawnTotal < hp && rollingCards)
+            {
+                RollCard();
+                yield return new WaitForSeconds(1.5f);  // qait for 1 seconds before the next roll
+            }
 
-       
-        Debug.Log("Finished rolling cards. Total HP reached: " + drawnTotal);
-        enemyWave.SpawnEnemies(drawnCards);
-        cardDisplay.gameObject.SetActive(false);
+
+            Debug.Log("Finished rolling cards. Total HP reached: " + drawnTotal);
+            enemyWave.SpawnEnemies(drawnCards);
+            cardDisplay.gameObject.SetActive(false);
+        
     }
 
     void RollCard()

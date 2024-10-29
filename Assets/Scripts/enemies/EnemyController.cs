@@ -48,6 +48,11 @@ public class EnemyController : MonoBehaviour
     }
     public virtual void Move()
     {
+
+        if(GameManager.instance.currentGameState != GameState.GS_GAME)
+        {
+            return;
+        }
         //moves towards waypoints specified in the waypoints[] array
       
 
