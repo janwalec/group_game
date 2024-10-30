@@ -12,7 +12,10 @@ public class CannonController : MonoBehaviour
     private Vector3 shootingDirection = new Vector3 (0f, 0f, 0f);
     //private ArrayList enemies = new ArrayList();
     private Transform target;
-    private float range = 20f;
+    private GameObject enemyTargeted;
+    private float wideRange = 20f;
+    private float narrowRange = 7f;
+    private float mediumRange = 13f;
     [SerializeField] private LayerMask enemyMask;
     private float delay = 0.2f;
     private int shootingDamage;
@@ -56,19 +59,24 @@ public class CannonController : MonoBehaviour
     {
         target = null;
         //finds the enemies in the given range around the cannon
-        RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, range, transform.position, 0f, enemyMask);
-        
-        if(hits.Length > 0)
+        RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, narrowRange, transform.position, 0f, enemyMask);
+        if(hits.Length == 0)
+            hits = Physics2D.CircleCastAll(transform.position, mediumRange, transform.position, 0f, enemyMask);
+        if(hits.Length == 0)
+            hits = Physics2D.CircleCastAll(transform.position, wideRange, transform.position, 0f, enemyMask);
+
+        if (hits.Length > 0)
         {
-            for (int i = 0; i < hits.Length; i++)
-            {
-                Debug.Log("Positioon: " +( hits[i].point.x));
-                if (hits[i].point.x > 0.0f)
-                {
-                    target = hits[i].transform;
-                    return;
-                }
-            }
+            //for (int i = 0; i < hits.Length; i++)
+            //{
+            //    Debug.Log("Positioon: " +( hits[i].point.x));
+                //if (hits[i].point.x > 0.0f)
+         //       {
+                    target = hits[0].transform;
+                    
+           //         return;
+          //      }
+          //  }
             
         }
         
@@ -142,7 +150,7 @@ public class CannonController : MonoBehaviour
                     CannonBallController cb = new_object.GetComponent<CannonBallController>();
                     if (cb != null && target != null)
                     {
-                        cb.setDirection(target.position);
+                        cb.setDirection(target);
                         cb.setDamage(getShootingDamage());
                         Debug.Log("Damage of shot " + getShootingDamage() + " " + this.GetHashCode());
                         Debug.Log("Position: " + target.position);

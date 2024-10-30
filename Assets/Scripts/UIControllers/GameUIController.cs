@@ -29,7 +29,28 @@ class GameUIController : MonoBehaviour
     private void OnReadyButtonClick()
     {
         Debug.Log("READY");
+        disableReadyButton();
         GameManager.instance.InGame();
     }
-    
+
+    public void disableReadyButton()
+    {
+        root = GetComponent<UIDocument>().rootVisualElement;
+
+        Debug.Log(root);
+        // Find the button by its name
+        VisualElement readyButton = root.Q<VisualElement>("ReadyButton");
+
+        //PrintAllElements(root);
+
+        // Add a click event listener to the button
+        if (readyButton != null)
+        {
+            readyButton.SetEnabled(false);
+        }
+
+
+
+    }
+
 }

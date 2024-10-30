@@ -124,7 +124,7 @@ public class TIleMapGenerator : MonoBehaviour
                 MyTile tile = tilesArray[l, k];
 
                 // Even row (l % 2 == 0)
-                if (l % 2 == 0) {
+                if (l % 2 != 0) {
                     if (l + 1 < size_y)
                         tile.neighbours[0] = tilesArray[l + 1, k]; //top left
                     
@@ -295,7 +295,8 @@ public class TIleMapGenerator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       /* 
+        /*
+       
         if (Input.GetMouseButtonDown(0))
         {
             Debug.Log("click");
@@ -305,7 +306,8 @@ public class TIleMapGenerator : MonoBehaviour
             int xx = gridPosition.x;
             int yy = gridPosition.y;
             Debug.Log("y: " + yy.ToString() + "  x: " + xx.ToString());*/
-          /*  if(!checkIfTilemap(gridPosition))
+        /*
+            if(!checkIfTilemap(gridPosition))
             {
                 return;
             }
@@ -318,7 +320,7 @@ public class TIleMapGenerator : MonoBehaviour
             }
             //ChangeTiles(gridPosition);
         }
-    */
+            */
     }
 
     public MyTile getTileFromMousePosition(Vector3 mouseWorldPos) {

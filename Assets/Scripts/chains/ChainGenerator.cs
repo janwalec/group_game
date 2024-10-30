@@ -148,7 +148,7 @@ public class ChainGenerator : MonoBehaviour
         if(tempList.Count > 0)
             if(!tilemap.checkIfNeighbours(tempList.Last.Value, checkTile))
                 return false;
-
+        
         return true;
     }
 

@@ -7,9 +7,11 @@ public class CannonBallController : MonoBehaviour
 
     private float speed = 8f;
     private int range = 50;
-    private Vector3 direction = new Vector3(1, 0, 0);
+    
+    private Transform enemyToFollow;
     private int damage = 1;
     private float timer;
+    public LayerMask enemyMask;
     void Start()
     {
 
@@ -21,30 +23,47 @@ public class CannonBallController : MonoBehaviour
         {
             return;
         }
-        //moves in the direction specified by the direction variable
-        transform.position = Vector2.MoveTowards(transform.position, direction, speed * Time.deltaTime);
+        Move();
+        
+     
+    }
 
+    private void Move()
+    {
+        if (enemyToFollow == null || enemyToFollow.gameObject.active == false)
+        {
+            FindNewEnemy();
+        }
+        else
+        {
+            //moves in the direction specified by the direction variable
+            transform.position = Vector2.MoveTowards(transform.position, enemyToFollow.position, speed * Time.deltaTime);
+            Debug.Log("to " + enemyToFollow.position);
+        }
         if (transform.position.magnitude > range)
         {
             gameObject.SetActive(false);
         }
+    }
 
+    private void FindNewEnemy()
+    {
+        RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, range, transform.position, 0f, enemyMask);
 
-        if (Vector2.Distance(transform.position, direction) < 1f)
+        if (hits.Length > 0)
         {
-            timer += Time.deltaTime;
-            if (timer >= 1f)
-            {
-                deactivate();
-                timer = 0f;
-            }
-
+            enemyToFollow = hits[0].transform;
+            return;
+        }
+        else
+        {
+            deactivate();
         }
     }
 
-    public void setDirection(Vector3 newDirection)
+    public void setDirection(Transform enemy)
     {
-        direction = newDirection;
+        enemyToFollow = enemy;
     }
     public bool deactivate()
     {

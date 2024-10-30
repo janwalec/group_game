@@ -16,21 +16,21 @@ public class CardRollManager : MonoBehaviour
     private bool rollingCards = true; // Flag to control when to stop rolling
     AudioSource audioSource;
     [SerializeField] protected AudioClip cardFlip;
-    bool rolled = false;
+    //bool rolled = false;
 
     void Start()
     {
         // automatically roll cards when the game starts with a delay between each roll
-        //StartCoroutine(StartCardRolling());
+        StartCoroutine(StartCardRolling());
     }
 
     private void Update()
     {
-       if(GameManager.instance.currentGameState == GameState.GS_GAME && !rolled)
-        {
-            rolled = true;
-            StartRolling();
-        }
+       //if(GameManager.instance.currentGameState == GameState.GS_PREPARE && !rolled)
+        //{
+        //    rolled = true;
+        //  StartRolling();
+        //}
     }
 
     public void StartRolling()
