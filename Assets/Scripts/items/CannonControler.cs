@@ -141,7 +141,7 @@ public class CannonController : MonoBehaviour
                     audioSource.PlayOneShot(shotHard, audioSource.volume);
                 else
                     audioSource.PlayOneShot(shotMedium, audioSource.volume);
-                GameObject new_object = CannonBallPool.SharedInstance.GetPooledObject();
+                GameObject new_object = ItemPool.SharedInstance.GetPooledCannonBall();
                 if (new_object != null)
                 {
                     new_object.transform.position = this.transform.position;

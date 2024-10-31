@@ -386,6 +386,65 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f46a542a198d30d41a73075ae2495756, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &344465319
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 344465321}
+  - component: {fileID: 344465320}
+  m_Layer: 0
+  m_Name: ItemPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &344465320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 344465319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f65ca3e9d4ffabb49aebd2cb2319f295, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pooledDice: []
+  pooledCoin: []
+  pooledCannon: []
+  pooledCannonBall: []
+  pooledLineRenderer: []
+  coinToPool: {fileID: 5954576721936697034, guid: cc2e1b38a82335248b0c58f19a3b8c82, type: 3}
+  diceToPool: {fileID: 4854072362337634921, guid: f1463c8619454bb4e9d896fdda959144, type: 3}
+  cannonToPool: {fileID: 4036371560807442510, guid: 678b1c9fa12e0e44ca6f056bb34e21b7, type: 3}
+  cannonBallToPool: {fileID: 4557232327468985940, guid: 607b65c95c6a8884fb0b650c79827645, type: 3}
+  lineRendererToPool: {fileID: 3992387084176347461, guid: 2bb823f58b5f29047897bbdaa71a5b4b, type: 3}
+  coinAmountToPool: 10
+  diceAmountToPool: 10
+  cannonAmountToPool: 10
+  cannonBallAmountToPool: 20
+  lineRenderAmountToPool: 10
+--- !u!4 &344465321
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 344465319}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.1117346, y: 0.33131167, z: 0.45251188}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &375341694
 GameObject:
   m_ObjectHideFlags: 0
@@ -427,53 +486,6 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &392697478
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 392697480}
-  - component: {fileID: 392697479}
-  m_Layer: 0
-  m_Name: CannonBallPool
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &392697479
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 392697478}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 064a3f3a1ef69d948980d92f5680d956, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pooledObjects: []
-  objectToPool: {fileID: 4557232327468985940, guid: 607b65c95c6a8884fb0b650c79827645, type: 3}
-  amountToPool: 100
---- !u!4 &392697480
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 392697478}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.8375154, y: -0.35825682, z: -0.033439446}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2186,8 +2198,8 @@ Tilemap:
   - first: {x: -6, y: -16, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 1
-      m_TileSpriteIndex: 1
+      m_TileIndex: 2
+      m_TileSpriteIndex: 2
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -9027,16 +9039,16 @@ Tilemap:
   m_TileAssetArray:
   - m_RefCount: 7
     m_Data: {fileID: 11400000, guid: 67afec36875de51d9a9d6a0e10000cae, type: 2}
-  - m_RefCount: 767
+  - m_RefCount: 766
     m_Data: {fileID: 11400000, guid: 4fda0aeb463eb3a2b9e76804da49d4ae, type: 2}
-  - m_RefCount: 13
+  - m_RefCount: 14
     m_Data: {fileID: 11400000, guid: a5c24f0dfa6d5ee48aaf1ece9d448bb5, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 7
     m_Data: {fileID: 21300000, guid: fd47ed2e94f19fc418708439763cd5b6, type: 3}
-  - m_RefCount: 767
+  - m_RefCount: 766
     m_Data: {fileID: 21300000, guid: 04933c178eaa7636ba4bd9f2eb698b3f, type: 3}
-  - m_RefCount: 13
+  - m_RefCount: 14
     m_Data: {fileID: 21300000, guid: b1af0cadbb3fb2d4b8cf45be8fe1e0ca, type: 3}
   m_TileMatrixArray:
   - m_RefCount: 787
@@ -10441,53 +10453,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2013144570}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1370173537
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1370173538}
-  - component: {fileID: 1370173539}
-  m_Layer: 0
-  m_Name: CannonPool
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1370173538
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1370173537}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 463.423, y: 195.09294, z: -0.8518351}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1370173539
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1370173537}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c12a14012a2a8ad44a66fba1bcea49c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pooledObjects: []
-  objectToPool: {fileID: 4036371560807442510, guid: 678b1c9fa12e0e44ca6f056bb34e21b7, type: 3}
-  amountToPool: 10
 --- !u!1 &1373375044
 GameObject:
   m_ObjectHideFlags: 0
@@ -10734,53 +10699,6 @@ Transform:
   - {fileID: 655011827}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1633799915
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1633799917}
-  - component: {fileID: 1633799916}
-  m_Layer: 0
-  m_Name: DicePool
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1633799916
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1633799915}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a4d027e1c1eebc43afbffec3b2f6c4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pooledObjects: []
-  objectToPool: {fileID: 4854072362337634921, guid: f1463c8619454bb4e9d896fdda959144, type: 3}
-  amountToPool: 10
---- !u!4 &1633799917
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1633799915}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 463.423, y: 195.09294, z: -0.8518351}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1646812142
 GameObject:
   m_ObjectHideFlags: 0
@@ -10910,53 +10828,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1799979775}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1732184412
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1732184414}
-  - component: {fileID: 1732184413}
-  m_Layer: 0
-  m_Name: CoinPool
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1732184413
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1732184412}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37b3a36db0300cc4ead9bf0525834993, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pooledObjects: []
-  objectToPool: {fileID: 5954576721936697034, guid: cc2e1b38a82335248b0c58f19a3b8c82, type: 3}
-  amountToPool: 10
---- !u!4 &1732184414
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1732184412}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 463.423, y: 195.09294, z: -0.8518351}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1751200610
 GameObject:
@@ -11606,7 +11477,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38f78253aa434f142a07feb2a0562661, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frameImage: {fileID: 0}
+  frameImage: {fileID: 683506705}
   objectType: 0
   onSelectSound: {fileID: 0}
 --- !u!1 &1918908094
@@ -12065,12 +11936,8 @@ SceneRoots:
   - {fileID: 1373375045}
   - {fileID: 1646812145}
   - {fileID: 407846232}
-  - {fileID: 1370173538}
-  - {fileID: 1633799917}
-  - {fileID: 1732184414}
   - {fileID: 1850577003}
   - {fileID: 1601653991}
-  - {fileID: 392697480}
   - {fileID: 1156020536}
   - {fileID: 5969411330716892144}
   - {fileID: 2110637935}
@@ -12082,3 +11949,4 @@ SceneRoots:
   - {fileID: 970602321}
   - {fileID: 305949294}
   - {fileID: 1993430783}
+  - {fileID: 344465321}

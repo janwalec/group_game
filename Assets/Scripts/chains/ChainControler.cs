@@ -3,12 +3,14 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.PlasticSCM.Editor.WebApi;
+using System.Linq;
 
 public class Chain {
     public int chainID;
     public LinkedList<MyTile> tileChain;
     public List<PooledChain> pooledObjectChain;
     public int chainSum;
+    private LineRendererController lineRenderer;
     
 
 
@@ -17,7 +19,26 @@ public class Chain {
         pooledObjectChain = _pooledObjectChain;
         chainID = ID;
         chainSum = chainSum_;
+        if (_tileChain != null)
+        {
+            lineRenderer = ItemPool.SharedInstance.GetPooledLineRenderer().GetComponent<LineRendererController>();
+            lineRenderer.gameObject.SetActive(true);
+            Debug.Log("Line rendered pooling");
+            RenderLine();
+        }
+    }
 
+    public void RenderLine()
+    {
+        if (lineRenderer != null)
+        {
+            Vector3[] points = new Vector3[tileChain.Count];
+            for(int i = 0; i < tileChain.Count; i++) 
+            {
+                points[i] = GameManager.instance.getTilemap().getWorldPosition(tileChain.ElementAt(i).tilePosition);
+            }
+            lineRenderer.SetUpLine(points);
+        }
     }
 
     public Chain changeSum(int newSum)

@@ -61,17 +61,17 @@ public class MarketItemController : MonoBehaviour
         GameObject new_object = null;
         if (objectType == MarketManager.Items.CANNON)
         {
-            new_object = CannonPool.SharedInstance.GetPooledObject();
+            new_object = ItemPool.SharedInstance.GetPooledCannon();
             new_object.transform.position = position;
         }
         else if (objectType == MarketManager.Items.DICE)
         {
-            new_object = DicePool.SharedInstance.GetPooledObject();
+            new_object = ItemPool.SharedInstance.GetPooledDice();
             new_object.transform.position = new Vector3(position.x-0.1f, position.y-0.05f, position.z);
         }
         else if (objectType == MarketManager.Items.COIN)
         {
-            new_object = CoinPool.SharedInstance.GetPooledObject();
+            new_object = ItemPool.SharedInstance.GetPooledCoin();
             new_object.transform.position = new Vector3(position.x-0.1f, position.y-0.05f, position.z);
         }
         if (new_object != null)

@@ -7,6 +7,7 @@ using System;
 using UnityEngine.UIElements;
 using UnityEditor.Tilemaps;
 using Unity.VisualScripting;
+using System.ComponentModel;
 
 public class MyTile {
     public enum TileType { WATER, LAND, CANNON, DICE, COIN}
@@ -214,6 +215,11 @@ public class TIleMapGenerator : MonoBehaviour
     {
         selector = selector_;
 
+    }
+
+    public Vector3 getWorldPosition(Vector3Int gridPosition)
+    {
+        return tm.CellToWorld(gridPosition);
     }
 
     void OnMouseDown()
