@@ -27,6 +27,9 @@ public class ChainGenerator : MonoBehaviour
     [SerializeField] private AudioClip onChainCreatedSound;
     [SerializeField] private AudioClip onTileAddedSound;
 
+    [SerializeField] LineRendererController currentlyCreated;
+    private List<Vector3> currentPoints = new List<Vector3>();
+
     public enum Direction { TOP_LEFT, TOP_RIGHT, MIDDLE_LEFT, MIDDLE_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT }
     public enum Operation { MULTIPLICATION, ADDITION}
     private void Start() {
@@ -63,6 +66,8 @@ public class ChainGenerator : MonoBehaviour
 
     //clear temp list if not dragging
     public void playerStoppedDragging() {
+        currentPoints.Clear();
+        currentlyCreated.SetUpLine(currentPoints);
         audioSource.PlayOneShot(onChainCreatedSound);
         listOfChains.Add(tempList);
         AddOperationSigns();
@@ -120,6 +125,8 @@ public class ChainGenerator : MonoBehaviour
         MyTile newTile = tilemap.getTileFromMousePosition(mouseWorldPos);   //get tile from this position
         
         if(checkConditionForTile(newTile)) {
+            currentPoints.Add(GameManager.instance.getTilemap().getWorldPosition(newTile.tilePosition));
+            currentlyCreated.SetUpLine(currentPoints);
             tempList.AddLast(newTile);
             audioSource.PlayOneShot(onTileAddedSound, audioSource.volume);
             Debug.Log("Added " + tempList.Count);

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class LineRendererController : MonoBehaviour
@@ -25,6 +26,21 @@ public class LineRendererController : MonoBehaviour
 
         Debug.Log(renderer.positionCount + " position count");
         foreach(Vector3 point in points_)
+        {
+            Debug.Log(point + " point");
+        }
+    }
+
+    public void SetUpLine(List<Vector3> points_)
+    {
+        renderer.positionCount = points_.Count;
+        for (int i = 0; i < points_.Count; i++)
+        {
+            renderer.SetPosition(i, points_[i]);
+        }
+
+        Debug.Log(renderer.positionCount + " position count");
+        foreach (Vector3 point in points_)
         {
             Debug.Log(point + " point");
         }

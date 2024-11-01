@@ -10,7 +10,7 @@ public class Chain {
     public LinkedList<MyTile> tileChain;
     public List<PooledChain> pooledObjectChain;
     public int chainSum;
-    private LineRendererController lineRenderer;
+    public LineRendererController lineRenderer;
     
 
 
@@ -246,11 +246,13 @@ public class ChainControler : MonoBehaviour
                 break;
             }
         }
+        
 
         // no chain with this ID found
         if(toDelete.chainID == -1)
             return;
 
+        toDelete.lineRenderer.gameObject.SetActive(false);
         RemoveOperationSigns(toDelete);
 
         int length = toDelete.pooledObjectChain.Count;
