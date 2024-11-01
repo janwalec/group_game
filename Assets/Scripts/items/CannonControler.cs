@@ -25,6 +25,8 @@ public class CannonController : MonoBehaviour
     [SerializeField] protected AudioClip shotFlot;
     [SerializeField] protected AudioClip shotMedium;
     [SerializeField] protected AudioClip shotHard;
+
+    public ParticleSystem shootingParticles;
     void Start()
     {
         shootingDamage = 2;
@@ -136,7 +138,8 @@ public class CannonController : MonoBehaviour
             //wait for the animation to change
             yield return new WaitForSeconds(0.2f) ;
             if (shootingDamage != 0)
-            {
+            {   
+                
                 if (shootingDamage > 30)
                     audioSource.PlayOneShot(shotHard, audioSource.volume);
                 else
@@ -144,6 +147,7 @@ public class CannonController : MonoBehaviour
                 GameObject new_object = ItemPool.SharedInstance.GetPooledCannonBall();
                 if (new_object != null)
                 {
+                    Instantiate(shootingParticles, this.transform.position, Quaternion.identity);
                     new_object.transform.position = this.transform.position;
                     new_object.GetComponent<SpriteRenderer>().sortingLayerID = SortingLayer.NameToID("OnLand");
 
@@ -155,7 +159,7 @@ public class CannonController : MonoBehaviour
                         Debug.Log("Damage of shot " + getShootingDamage() + " " + this.GetHashCode());
                         Debug.Log("Position: " + target.position);
                     }
-
+                    
 
                     new_object.SetActive(true);
 

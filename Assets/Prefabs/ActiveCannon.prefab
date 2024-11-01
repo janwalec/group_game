@@ -99,6 +99,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 779a8a18465f9be4c837c5052de847f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 0
+  canvas: {fileID: 0}
+  shotFlot: {fileID: 0}
+  shotMedium: {fileID: 0}
+  shotHard: {fileID: 0}
+  shootingParticles: {fileID: 3679879074604123835, guid: 8aa29f2d3ea193bc2ad4addd4f733b0e, type: 3}
 --- !u!61 &5901287818582646163
 BoxCollider2D:
   m_ObjectHideFlags: 0

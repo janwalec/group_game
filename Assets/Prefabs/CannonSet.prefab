@@ -632,6 +632,7 @@ MonoBehaviour:
   shotFlot: {fileID: 8300000, guid: f1d668ea96d74d14a91616e202214012, type: 3}
   shotMedium: {fileID: 8300000, guid: 3e3106ddb9f9e85488f08d47a3448c2f, type: 3}
   shotHard: {fileID: 8300000, guid: aee13110528edff438bfdcb67dba7e3a, type: 3}
+  shootingParticles: {fileID: 3679879074604123835, guid: 8aa29f2d3ea193bc2ad4addd4f733b0e, type: 3}
 --- !u!82 &2661462611063674128
 AudioSource:
   m_ObjectHideFlags: 0

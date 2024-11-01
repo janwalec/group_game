@@ -73,6 +73,7 @@ public class TIleMapGenerator : MonoBehaviour
     public Tile landTile;
     public TileBase greyTile;
 
+    public GameObject tileCollider;
 
     private MyTile[,] tilesArray;
     private int size_x = 0, size_y = 0;
@@ -105,6 +106,11 @@ public class TIleMapGenerator : MonoBehaviour
                 if (tile == landTile)
                 {
                     tilesArray[i - bounds.yMin, j - bounds.xMin] = new MyTile(i, j, tile, MyTile.TileType.LAND);
+                    
+                    Vector3 worldPos = getWorldPosition(tilePosition);
+                    Debug.Log("Tile position: " + tilePosition + ", World position: " + worldPos);
+                    GameObject colliderObject = Instantiate(tileCollider, worldPos, Quaternion.identity);
+                    colliderObject.SetActive(true); 
                 }
                 else
                 {
