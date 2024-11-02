@@ -21,9 +21,10 @@ public class CardRollManager : MonoBehaviour
     void Start()
     {
         // automatically roll cards when the game starts with a delay between each roll
-        StartCoroutine(StartCardRolling());
+        StartRolling();
     }
 
+  
     private void Update()
     {
        //if(GameManager.instance.currentGameState == GameState.GS_PREPARE && !rolled)
@@ -33,8 +34,16 @@ public class CardRollManager : MonoBehaviour
         //}
     }
 
+    public void ResetCardRoller()
+    {
+        drawnCards.Clear();
+        drawnTotal = 0;
+        rollingCards = true;
+        cardDisplay.gameObject.SetActive(true);
+    }
     public void StartRolling()
     {
+        ResetCardRoller();
         StartCoroutine(StartCardRolling());
     }
 

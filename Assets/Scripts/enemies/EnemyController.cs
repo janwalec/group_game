@@ -49,7 +49,7 @@ public class EnemyController : MonoBehaviour
     public virtual void Move()
     {
 
-        if(GameManager.instance.currentGameState != GameState.GS_GAME)  
+        if(GameManager.instance.currentGameState != GameState.GS_BATTLE)  
         {
             return;
         }

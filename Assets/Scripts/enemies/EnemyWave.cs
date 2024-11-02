@@ -11,7 +11,31 @@ public class EnemyWave : MonoBehaviour
     public float spaceMultiplier = 2f;
     private float minX;
     private float xOffset = 7.0f;
+    List<Transform> enemies = new List<Transform>();
 
+    private void Update()
+    {
+        if (GameManager.instance.currentGameState == GameState.GS_BATTLE && areAllEnemiesDefeated())
+        {
+            GameManager.instance.Prepare();
+            GameManager.instance.WaveOver();
+        }
+    }
+
+    private bool areAllEnemiesDefeated()
+    {
+        int counter = 0;
+        foreach(Transform enemy in enemies)
+        {
+            if(enemy != null )
+            {
+                counter++;
+                Debug.Log(enemy.ToString());
+            }
+        }
+        Debug.Log("Enemies alive " + counter);
+        return counter == 0;
+    }
     public void SpawnEnemies(List<int> drawnCards)
     {
         int numberOfEnemies = drawnCards.Count;
@@ -35,6 +59,7 @@ public class EnemyWave : MonoBehaviour
             {
                 newEnemy = Instantiate(mermaidPrefab, spawnPosition, spawnPoint.rotation);
                 Debug.Log("Spawning mermaid at position: " + spawnPosition + " for card value: " + card);
+                enemies.Add(newEnemy.transform.Find("Mermaid"));
             }
             else
             {
@@ -42,6 +67,7 @@ public class EnemyWave : MonoBehaviour
 
                 // Get the NormalShip component from the Pirate_Boat child
                 Transform pirateBoat = newEnemy.transform.Find("Pirate_Boat");
+                enemies.Add(pirateBoat);
                 if (pirateBoat != null)
                 {
                     NormalShip normalShip = pirateBoat.GetComponent<NormalShip>();
@@ -59,6 +85,7 @@ public class EnemyWave : MonoBehaviour
                 {
                     Debug.LogError("Pirate_Boat child not found on the instantiated EnemyShip prefab!");
                 }
+                
             }
         }
     }

@@ -283,7 +283,7 @@ public class ChainControler : MonoBehaviour
     private IEnumerator rolling(Chain currChain)
     {
 
-        if (GameManager.instance.currentGameState == GameState.GS_GAME)
+        if (GameManager.instance.currentGameState == GameState.GS_BATTLE)
         {
 
 
@@ -300,7 +300,10 @@ public class ChainControler : MonoBehaviour
                     curr.Value.modifier.activateCanvas();
 
 
-                    yield return new WaitForSeconds(rollingDelay);
+                    do
+                    {
+                        yield return new WaitForSeconds(rollingDelay);
+                    } while (GameManager.instance.currentGameState != GameState.GS_BATTLE);
 
                     curr.Value.modifier.ChangeAnimation();
                     curr.Value.modifier.deactivateCanvas();
@@ -311,8 +314,11 @@ public class ChainControler : MonoBehaviour
                 {
                     if (curr.Value.tileType == MyTile.TileType.CANNON)
                     {
-                        yield return new WaitForSeconds(rollingDelay * (maxChainLeght + 1 - currChain.tileChain.Count));
-                        //curr.Value.cannon.setShootingDamage(myChains[myChains.Count - 1].chainSum);
+                        do
+                        {
+                            yield return new WaitForSeconds(rollingDelay * (maxChainLeght + 1 - currChain.tileChain.Count));
+                        } while (GameManager.instance.currentGameState != GameState.GS_BATTLE);
+                            //curr.Value.cannon.setShootingDamage(myChains[myChains.Count - 1].chainSum);
 
                         if (currChain.tileChain.Count == 1)
                             curr.Value.cannon.setDamageAsBaseDamage();
@@ -322,7 +328,10 @@ public class ChainControler : MonoBehaviour
                         //curr.Value.cannon.Shoot();
                         curr.Value.cannon.activateCanvas();
                         StartCoroutine(curr.Value.cannon.Shoot());
-                        yield return new WaitForSeconds(rollingDelay);
+                        do
+                        {
+                            yield return new WaitForSeconds(rollingDelay);
+                        } while (GameManager.instance.currentGameState != GameState.GS_BATTLE);
                         curr.Value.cannon.deactivateCanvas();
                     }
                     //curr.Value.cannon.setShootingDamage(10);

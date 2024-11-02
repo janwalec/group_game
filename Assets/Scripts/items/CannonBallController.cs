@@ -19,7 +19,7 @@ public class CannonBallController : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.instance.currentGameState != GameState.GS_GAME)
+        if (GameManager.instance.currentGameState != GameState.GS_BATTLE)
         {
             return;
         }

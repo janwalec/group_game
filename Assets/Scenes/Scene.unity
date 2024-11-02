@@ -526,6 +526,7 @@ MonoBehaviour:
   rum: {fileID: 1875844354}
   inGameUI: {fileID: 305949292}
   pauseUI: {fileID: 1993430781}
+  cardRollManager: {fileID: 675279744}
 --- !u!4 &407846232
 Transform:
   m_ObjectHideFlags: 0
