@@ -10,7 +10,7 @@ using Unity.VisualScripting;
 using System.ComponentModel;
 
 public class MyTile {
-    public enum TileType { WATER, LAND, CANNON, DICE, COIN}
+    public enum TileType { WATER, LAND, ROCK, CANNON, DICE, COIN}
 
     public int y, x;
     public Vector3Int tilePosition;
@@ -73,6 +73,8 @@ public class TIleMapGenerator : MonoBehaviour
     public Tile landTile;
     public TileBase greyTile;
 
+    public TileBase rockTile;
+
     public GameObject tileCollider;
 
     private MyTile[,] tilesArray;
@@ -107,6 +109,13 @@ public class TIleMapGenerator : MonoBehaviour
                 {
                     tilesArray[i - bounds.yMin, j - bounds.xMin] = new MyTile(i, j, tile, MyTile.TileType.LAND);
                     
+                    Vector3 worldPos = getWorldPosition(tilePosition);
+                    Debug.Log("Tile position: " + tilePosition + ", World position: " + worldPos);
+                    GameObject colliderObject = Instantiate(tileCollider, worldPos, Quaternion.identity);
+                    colliderObject.SetActive(true); 
+                }
+                else if (tile == rockTile) {
+                    tilesArray[i - bounds.yMin, j - bounds.xMin] = new MyTile(i, j, tile, MyTile.TileType.ROCK);
                     Vector3 worldPos = getWorldPosition(tilePosition);
                     Debug.Log("Tile position: " + tilePosition + ", World position: " + worldPos);
                     GameObject colliderObject = Instantiate(tileCollider, worldPos, Quaternion.identity);
