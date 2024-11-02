@@ -27,6 +27,7 @@ public class CannonController : MonoBehaviour
     [SerializeField] protected AudioClip shotHard;
 
     public ParticleSystem shootingParticles;
+
     void Start()
     {
         shootingDamage = 2;
@@ -124,6 +125,20 @@ public class CannonController : MonoBehaviour
         return shootingDamage;
 
     }
+
+    private Vector3 calculateParticlePosition(Vector3 cannonPosition) {
+        Vector3 particlePosition = cannonPosition;
+        if (this.myState == STATE.UP) {
+            particlePosition.y = cannonPosition.y + 0.2f;
+        } 
+        else if (this.myState == STATE.DOWN) {
+            particlePosition.y = cannonPosition.y - 0.2f;
+        }
+
+        particlePosition.x = cannonPosition.x + 0.4f;
+        return particlePosition;
+
+    }
     
     public IEnumerator Shoot()
     {
@@ -146,8 +161,10 @@ public class CannonController : MonoBehaviour
                     audioSource.PlayOneShot(shotMedium, audioSource.volume);
                 GameObject new_object = ItemPool.SharedInstance.GetPooledCannonBall();
                 if (new_object != null)
-                {
-                    Instantiate(shootingParticles, this.transform.position, Quaternion.identity);
+                {   
+                    Vector3 particlePosition = calculateParticlePosition(this.transform.position);
+
+                    Instantiate(shootingParticles, particlePosition, Quaternion.identity);
                     new_object.transform.position = this.transform.position;
                     new_object.GetComponent<SpriteRenderer>().sortingLayerID = SortingLayer.NameToID("OnLand");
 
