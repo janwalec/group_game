@@ -7,7 +7,7 @@ public class CannonBallController : MonoBehaviour
 
     private float speed = 8f;
     private int range = 50;
-    
+    private float newSlowedSpeed;
     private Transform enemyToFollow;
     private int damage = 1;
     private float timer;
@@ -26,6 +26,16 @@ public class CannonBallController : MonoBehaviour
         Move();
         
      
+    }
+
+    public void setSlowingEffect(float newSpeed)
+    {
+        this.newSlowedSpeed = newSpeed;
+    }
+
+    public float getSlowingEffect()
+    {
+        return this.newSlowedSpeed;
     }
 
     private void Move()
