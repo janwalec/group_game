@@ -3,7 +3,13 @@ guid: aedee919b2233c0ddb41af4bc7631910
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - tm: {instanceID: 0}
+  - newTile: {instanceID: 0}
+  - landTile: {instanceID: 0}
+  - greyTile: {instanceID: 0}
+  - tileCollider: {fileID: 2547322336174700487, guid: b2601502ada2b748495dee169373692c, type: 3}
+  - onPlacingItemSound: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

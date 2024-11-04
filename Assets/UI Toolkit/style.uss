@@ -1,0 +1,110 @@
+.Button {
+    border-top-width: 4px;
+    border-right-width: 4px;
+    border-bottom-width: 4px;
+    border-left-width: 4px;
+    color: rgb(255, 255, 255);
+}
+
+.shop_button:hover {
+    background-color: rgb(224, 178, 39);
+}
+
+.shop_button {
+    background-color: rgb(161, 133, 21);
+    border-left-color: rgb(195, 161, 0);
+    border-right-color: rgb(195, 161, 0);
+    border-top-color: rgb(195, 161, 0);
+    border-bottom-color: rgb(195, 161, 0);
+}
+
+.ready_button {
+    background-color: rgb(46, 135, 56);
+    border-left-color: rgb(53, 190, 48);
+    border-right-color: rgb(53, 190, 48);
+    border-top-color: rgb(53, 190, 48);
+    border-bottom-color: rgb(53, 190, 48);
+}
+
+.ready_button:hover {
+    background-color: rgb(39, 168, 15);
+}
+
+.menu_button {
+    background-color: rgb(43, 46, 82);
+    border-left-color: rgb(25, 133, 212);
+    border-right-color: rgb(25, 133, 212);
+    border-top-color: rgb(25, 133, 212);
+    border-bottom-color: rgb(25, 133, 212);
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+}
+
+.menu_button:hover {
+    background-color: rgb(47, 74, 123);
+}
+
+.gunpowder {
+    background-color: rgb(44, 51, 130);
+    border-left-color: rgb(25, 133, 212);
+    border-right-color: rgb(25, 133, 212);
+    border-top-color: rgb(25, 133, 212);
+    border-bottom-color: rgb(25, 133, 212);
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+}
+
+.info {
+    flex-grow: 0;
+    flex-shrink: 0;
+    background-color: rgb(195, 192, 177);
+    margin-top: 2px;
+    margin-right: 4px;
+    margin-bottom: 2px;
+    margin-left: 4px;
+    height: 64px;
+    width: 54px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 12px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    align-self: stretch;
+    color: rgb(34, 32, 32);
+    border-top-width: 4px;
+    border-right-width: 4px;
+    border-bottom-width: 4px;
+    border-left-width: 4px;
+    border-left-color: rgb(147, 139, 131);
+    border-right-color: rgb(147, 139, 131);
+    border-top-color: rgb(147, 139, 131);
+    border-bottom-color: rgb(147, 139, 131);
+}
+
+.list_menu_button {
+    margin-bottom: 8px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.icon {
+    flex-grow: 0;
+    background-image: url("project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-4521532143779581420&guid=f73e7ce3f91da984e92d152941124eae&type=3#arrow-right");
+    -unity-background-scale-mode: stretch-to-fill;
+    flex-shrink: 1;
+    flex-direction: row;
+    width: 54px;
+    height: 75%;
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    position: relative;
+    margin-left: 12px;
+    margin-right: 8px;
+}
