@@ -291,7 +291,7 @@ public class ChainControler : MonoBehaviour
             LinkedListNode<MyTile> temp = currChain.tileChain.Last;
             float minSlowingFactor = 0.2f;
             float maxSlowingFactor = 0.8f;
-            float newSpeed = 0.0f;
+            float newSpeed = 1.5f;
 
             while (curr != null)
             {
