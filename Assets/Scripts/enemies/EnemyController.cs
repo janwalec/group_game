@@ -33,6 +33,16 @@ public class EnemyController : MonoBehaviour
         changeText(health.ToString());
         
     }
+    private IEnumerator SlowDown(float newSpeed)
+    {
+        //float originalSpeed = 1.5f;
+        speed = newSpeed;  // Apply slowing effect factor to speed
+        Debug.Log("Enemy speed: " + speed);
+        yield return new WaitForSeconds(1f);  // Slow effect lasts for 3 seconds
+
+        // Restore original speed after effect ends
+        //speed = originalSpeed;
+    }
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
@@ -79,11 +89,16 @@ public class EnemyController : MonoBehaviour
         if (other.CompareTag("Bullet"))
         {
             int damage = other.GetComponent<CannonBallController>().getDamage();
+            float newSpeed = other.GetComponent<CannonBallController>().getSlowingEffect();
 
             //makes sure that the cannon ball is deactivated before destroying an enemy object
             bool finised = other.GetComponent<CannonBallController>().deactivate();
-            if(finised)
+            if (finised)
+            {
                 TakeDamage(damage);
+                StartCoroutine(SlowDown(newSpeed));
+            }
+
         }
     }
 

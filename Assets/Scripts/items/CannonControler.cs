@@ -20,6 +20,7 @@ public class CannonController : MonoBehaviour
     private float delay = 0.2f;
     private int shootingDamage;
     private int baseDamage = 4;
+    private float slowedSpeed;
     public Canvas canvas;
     protected AudioSource audioSource;
     [SerializeField] protected AudioClip shotFlot;
@@ -58,6 +59,7 @@ public class CannonController : MonoBehaviour
         //Shoot();
     }
 
+
     private void findTarget()
     {
         target = null;
@@ -84,7 +86,14 @@ public class CannonController : MonoBehaviour
         }
         
     }
-    
+
+    public void setSlowingEffect(float newSpeed)
+    {
+
+        this.slowedSpeed = newSpeed;
+        Debug.Log("Slowing enemy for:" + newSpeed);
+    }
+
     public int getBaseDamage()
     {
         return baseDamage;
@@ -173,6 +182,7 @@ public class CannonController : MonoBehaviour
                     {
                         cb.setDirection(target);
                         cb.setDamage(getShootingDamage());
+                        cb.setSlowingEffect(slowedSpeed);
                         Debug.Log("Damage of shot " + getShootingDamage() + " " + this.GetHashCode());
                         Debug.Log("Position: " + target.position);
                     }

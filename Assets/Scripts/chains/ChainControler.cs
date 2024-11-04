@@ -286,15 +286,42 @@ public class ChainControler : MonoBehaviour
         if (GameManager.instance.currentGameState == GameState.GS_BATTLE)
         {
 
-
+            float slowing_effect;
             LinkedListNode<MyTile> curr = currChain.tileChain.Last;
+            LinkedListNode<MyTile> temp = currChain.tileChain.Last;
+            float minSlowingFactor = 0.2f;
+            float maxSlowingFactor = 0.8f;
+            float newSpeed = 0.0f;
+
             while (curr != null)
             {
+
                 if (curr.Value.tileType == MyTile.TileType.COIN || curr.Value.tileType == MyTile.TileType.DICE)
                 {
 
                     curr.Value.modifier.Roll();
 
+
+                    if (curr != null && curr.Next != null)
+                    {
+                        if (curr.Value.tileType == MyTile.TileType.DICE && curr.Next.Value.tileType == MyTile.TileType.DICE)
+                        {
+                            Debug.Log("Found 2 dice");
+                        }
+                        slowing_effect = (float)currChain.chainSum;
+
+                        float slowingFactor = Mathf.Lerp(minSlowingFactor, maxSlowingFactor, (slowing_effect - 2) / 10.0f);
+                        if (slowing_effect == 0)
+                        {
+                            newSpeed = 1.5f;
+                        }
+                        else
+                        {
+                            newSpeed = 1.5f * (1.0f - slowingFactor);
+                        }
+                        // this shouldn't be hardcoded
+                        Debug.Log($"Dice sum:{slowing_effect}, new speed:{newSpeed}");
+                    }
                     curr.Value.modifier.calculateCurrentTotal(curr.Next == null ? null : curr.Next.Value.modifier);
                     curr.Value.modifier.ChangeAnimation();
                     curr.Value.modifier.activateCanvas();
@@ -318,12 +345,17 @@ public class ChainControler : MonoBehaviour
                         {
                             yield return new WaitForSeconds(rollingDelay * (maxChainLeght + 1 - currChain.tileChain.Count));
                         } while (GameManager.instance.currentGameState != GameState.GS_BATTLE);
-                            //curr.Value.cannon.setShootingDamage(myChains[myChains.Count - 1].chainSum);
+                        //curr.Value.cannon.setShootingDamage(myChains[myChains.Count - 1].chainSum);
 
                         if (currChain.tileChain.Count == 1)
+                        {
                             curr.Value.cannon.setDamageAsBaseDamage();
+                        }
                         else
+                        {
                             curr.Value.cannon.setShootingDamage(currChain.chainSum);
+                            curr.Value.cannon.setSlowingEffect(newSpeed);
+                        }
                         //StartCoroutine(curr.Value.cannon.Shoot());
                         //curr.Value.cannon.Shoot();
                         curr.Value.cannon.activateCanvas();
