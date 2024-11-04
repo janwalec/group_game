@@ -30,10 +30,9 @@ public class EnemyWave : MonoBehaviour
             if(enemy != null )
             {
                 counter++;
-                Debug.Log(enemy.ToString());
             }
         }
-        Debug.Log("Enemies alive " + counter);
+        
         return counter == 0;
     }
     public void SpawnEnemies(List<int> drawnCards)

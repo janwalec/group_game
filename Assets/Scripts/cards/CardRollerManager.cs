@@ -34,6 +34,10 @@ public class CardRollManager : MonoBehaviour
         //}
     }
 
+    public void setTotalHp(int totalHp)
+    {
+        this.hp = totalHp;
+    }
     public void ResetCardRoller()
     {
         drawnCards.Clear();

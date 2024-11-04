@@ -581,7 +581,7 @@ MonoBehaviour:
   currentGameState: 0
   inGameCanvas: {fileID: 552065799}
   rum: {fileID: 1875844354}
-  inGameUI: {fileID: 305949292}
+  inGameUI: {fileID: 305949295}
   pauseUI: {fileID: 1993430781}
   cardRollManager: {fileID: 675279744}
 --- !u!4 &407846232
@@ -11004,6 +11004,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goldAmount: {fileID: 1940667636}
+  gameUIController: {fileID: 305949295}
 --- !u!4 &1601653991
 Transform:
   m_ObjectHideFlags: 0

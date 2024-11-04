@@ -18,6 +18,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] protected AudioClip onHitSound;
     [SerializeField] protected AudioClip onDeathSound;
     private float delay = 1f;
+    private int priceForKill = 20;
     private void Start()
     {
       
@@ -104,11 +105,12 @@ public class EnemyController : MonoBehaviour
 
     public virtual void TakeDamage(int dmg)
     {
-        audioSource.PlayOneShot(onHitSound, audioSource.volume);
+        if(onHitSound != null)
+            audioSource.PlayOneShot(onHitSound, audioSource.volume);
         health -= dmg;
         health = health < 0 ? 0 : health;
         changeText(health.ToString());
-        Debug.Log(health);
+        
         if (health <= 0) {
             StartCoroutine(Die());
         }
@@ -116,10 +118,14 @@ public class EnemyController : MonoBehaviour
     
     public virtual IEnumerator Die()
     {
-        audioSource.PlayOneShot(onDeathSound, audioSource.volume);
+
+        MarketManager.instance.earnGold(priceForKill);
+        if(onDeathSound != null)
+            audioSource.PlayOneShot(onDeathSound, audioSource.volume);
         Debug.Log("Enemy has died.");
         yield return new WaitForSeconds(delay);
         Destroy(gameObject); // Remove enemy from the scene
+       
 
     }
 

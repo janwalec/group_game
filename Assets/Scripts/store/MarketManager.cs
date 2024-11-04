@@ -11,11 +11,12 @@ public class MarketManager : MonoBehaviour
     private int gold;
     public TMP_Text goldAmount;
 
+    [SerializeField] private GameUIController gameUIController;
     public int Gold
     {
         get => gold;
     }
-    private const int GOLD_AT_BEGINNING = 1000;
+    private const int GOLD_AT_BEGINNING = 100;
     private Dictionary<Items, int> prices = new Dictionary<Items, int>();
     public Dictionary<Items, int> Prices
     {
@@ -31,6 +32,7 @@ public class MarketManager : MonoBehaviour
         prices.Add(Items.CANNON, 20);
         prices.Add(Items.COIN, 20);
         goldAmount.text = gold.ToString();
+        gameUIController.UpdateGoldAmount(Gold);
     }
     void Update()
     {
@@ -39,13 +41,15 @@ public class MarketManager : MonoBehaviour
     public void spendGold(Items item)
     {
         gold -= prices[item];
-        goldAmount.text = gold.ToString();
+        gameUIController.UpdateGoldAmount(Gold);
+        //goldAmount.text = gold.ToString();
     }
     public void earnGold(int amount)
     {
         gold += amount;
-        goldAmount.text = gold.ToString();
-        goldAmount.text = gold.ToString();
+        gameUIController.UpdateGoldAmount(Gold);
+        //goldAmount.text = gold.ToString();
+        //goldAmount.text = gold.ToString();
     }
 
     public bool canAfford(Items item)

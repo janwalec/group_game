@@ -113,9 +113,12 @@ public class Mermaid : EnemyController
 
     public override void TakeDamage(int dmg)
     {
+        Debug.Log("In take damage");
         if (!isStealthActive)
         {
+            Debug.Log("Mermaid Taking damage");
             base.TakeDamage(dmg);
+            
         }
         else
         {

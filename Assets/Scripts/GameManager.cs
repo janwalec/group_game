@@ -17,20 +17,31 @@ public class GameManager : MonoBehaviour
     public Canvas inGameCanvas;
     public GameObject rum;
 
-    public GameObject inGameUI;
+    [SerializeField] private GameUIController inGameUI;
     public GameObject pauseUI;
 
     private const int levelsNum = 1;
     private int currentLevel = 0;
+    private int currentWave = 0;
     private int[] waves = new int[levelsNum];
+    private List<List<int>> enemiesHp = new List<List<int>>();      //to set the power of each wave in each level
 
     [SerializeField] private CardRollManager cardRollManager;
 
 
     void Start()
     {
+        for(int i = 0; i <  levelsNum; i++)
+        {
+            Debug.Log("i" + i);
+            enemiesHp.Add(new List<int>());
+        }
         SetGameState(GameState.GS_PREPARE);
         waves[0] = 2;
+        enemiesHp[0].Add(5);
+        enemiesHp[0].Add(70);
+        cardRollManager.setTotalHp(enemiesHp[0][0]);
+
     }
 
 
@@ -77,11 +88,12 @@ public class GameManager : MonoBehaviour
         currentGameState = state;
  
         pauseUI.SetActive(currentGameState == GameState.GS_PAUSEMENU);
-        inGameUI.SetActive(currentGameState == GameState.GS_BATTLE || currentGameState == GameState.GS_PREPARE);
+       
+        inGameUI.gameObject.SetActive(currentGameState == GameState.GS_BATTLE || currentGameState == GameState.GS_PREPARE);
         inGameCanvas.enabled = (currentGameState == GameState.GS_PREPARE || currentGameState == GameState.GS_PREPARE);
     }
    
-    private void PauseMenu()
+    public void PauseMenu()
     {
         SetGameState(GameState.GS_PAUSEMENU);
     }
@@ -132,7 +144,9 @@ public class GameManager : MonoBehaviour
 
     private void NextWave()
     {
+        currentWave++;
         Prepare();
+        cardRollManager.setTotalHp(enemiesHp[currentLevel][currentWave]);
         cardRollManager.StartRolling();
         
     }
@@ -143,10 +157,12 @@ public class GameManager : MonoBehaviour
         if (waves[currentLevel] == 0)
         {
             NextLevel();
+            inGameUI.UpdateRound(currentLevel, currentWave);
         }
         else
         {
             NextWave();
+            inGameUI.UpdateRound(currentLevel, currentWave);
         }
     }
 }

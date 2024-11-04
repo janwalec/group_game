@@ -49,7 +49,7 @@ public class CannonBallController : MonoBehaviour
         {
             //moves in the direction specified by the direction variable
             transform.position = Vector2.MoveTowards(transform.position, enemyToFollow.position, speed * Time.deltaTime);
-            Debug.Log("to " + enemyToFollow.position);
+ 
         }
         if (transform.position.magnitude > range)
         {

@@ -4,24 +4,30 @@ using UnityEngine.UIElements;
 class GameUIController : MonoBehaviour
 {
     private VisualElement root;  // Root element of the UI Document
+    Label goldAmount;
+    Label roundNumber;
+    Button pauseButton;
+    VisualElement readyButton;
+
 
     private void OnEnable()
     {
-        // Get the root of the visual tree from the UIDocument component
         root = GetComponent<UIDocument>().rootVisualElement;
 
-        Debug.Log(root);
-        // Find the button by its name
-        VisualElement readyButton = root.Q<VisualElement>("ReadyButton");
-
-        //PrintAllElements(root);
+        goldAmount = root.Q<Label>("GoldAmountLabel");
+        roundNumber = root.Q<Label>("RoundNumber");
+        readyButton = root.Q<VisualElement>("ReadyButton");
+        pauseButton = root.Q<Button>("PauseButton");
 
         // Add a click event listener to the button
         if (readyButton != null)
         {
             readyButton.RegisterCallback<ClickEvent>(ev => OnReadyButtonClick());
         }
-        
+        if (pauseButton != null)
+        {
+            pauseButton.RegisterCallback<ClickEvent>(ev => OnPauseButtonClick());
+        }
 
 
     }
@@ -34,18 +40,20 @@ class GameUIController : MonoBehaviour
         GameManager.instance.InGame();
     }
 
-   /* private void OnDisable()
+    private void OnPauseButtonClick()
     {
-        DisableReadyButton();
-    }*/
+        GameManager.instance.PauseMenu();
+    }
+
+ 
     public void DisableReadyButton()
     {
-        root = GetComponent<UIDocument>().rootVisualElement;
+        /*root = GetComponent<UIDocument>().rootVisualElement;
 
         Debug.Log(root);
         // Find the button by its name
         VisualElement readyButton = root.Q<VisualElement>("ReadyButton");
-
+        */
         // Add a click event listener to the button
         if (readyButton != null)
         {
@@ -56,12 +64,12 @@ class GameUIController : MonoBehaviour
 
     public void EnableReadyButton()
     {
-        root = GetComponent<UIDocument>().rootVisualElement;
+/*        root = GetComponent<UIDocument>().rootVisualElement;
 
         Debug.Log(root);
         // Find the button by its name
         VisualElement readyButton = root.Q<VisualElement>("ReadyButton");
-
+*/
         // Add a click event listener to the button
         if (readyButton != null)
         {
@@ -70,4 +78,13 @@ class GameUIController : MonoBehaviour
 
     }
 
+    public void UpdateGoldAmount(int value)
+    {
+        goldAmount.text = value.ToString();
+    }
+
+    public void UpdateRound(int level, int wave)
+    {
+        roundNumber.text = (level+1).ToString() + "-" + (wave+1).ToString();
+    }
 }
