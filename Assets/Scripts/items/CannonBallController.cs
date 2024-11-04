@@ -21,7 +21,8 @@ public class CannonBallController : MonoBehaviour
     {
         if (GameManager.instance.currentGameState != GameState.GS_BATTLE)
         {
-            return;
+            deactivate();
+            
         }
         Move();
         
