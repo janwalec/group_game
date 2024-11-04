@@ -54,7 +54,7 @@ public class EnemyWave : MonoBehaviour
             GameObject newEnemy;
 
             // Spawn based on card value: mermaid for special cards, ship otherwise
-            if (card == 13)
+            if (card >=9 && card<=15)
             {
                 newEnemy = Instantiate(mermaidPrefab, spawnPosition, spawnPoint.rotation);
                 Debug.Log("Spawning mermaid at position: " + spawnPosition + " for card value: " + card);
