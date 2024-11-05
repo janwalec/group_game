@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
         }
         SetGameState(GameState.GS_PREPARE);
         waves[0] = 2;
-        enemiesHp[0].Add(5);
+        enemiesHp[0].Add(20);
         enemiesHp[0].Add(70);
         cardRollManager.setTotalHp(enemiesHp[0][0]);
 
