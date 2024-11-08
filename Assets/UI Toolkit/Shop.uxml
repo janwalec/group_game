@@ -1,0 +1,17 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/style.uss?fileID=7433441132597879392&amp;guid=f6abb682f41d696439e525c3d82ded5b&amp;type=3#style" />
+    <ui:VisualElement name="ShopPanel" style="flex-grow: 1; width: 450px; height: 700px;">
+        <ui:VisualElement name="HeaderBar" style="flex-grow: 0; flex-direction: row; background-color: rgb(84, 30, 30); padding-right: 8px; padding-left: 8px;">
+            <ui:VisualElement name="ShopTitle" style="flex-grow: 1;">
+                <ui:Label tabindex="-1" text="Shop" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Shop" style="-unity-font: url(&quot;project://database/Assets/UI%20Toolkit/YoungSerif-Regular.ttf?fileID=12800000&amp;guid=d538b234d2501fd4882ee19c6359c13b&amp;type=3#YoungSerif-Regular&quot;); -unity-font-definition: initial; font-size: 24px; color: rgb(255, 255, 255);" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Money" style="flex-grow: 1; flex-direction: row; align-items: auto; justify-content: flex-end; align-self: stretch;">
+                <ui:VisualElement name="CoinIcon" class="icon" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/UI%20Toolkit/Icons/Gold_outlined.png?fileID=2800000&amp;guid=57ee7fb91f2722a41baee3514e56566a&amp;type=3#Gold_outlined&quot;); -unity-background-scale-mode: scale-to-fit; justify-content: flex-start; align-items: center; align-self: center;" />
+                <ui:Label tabindex="-1" text="money" parse-escape-sequences="true" display-tooltip-when-elided="true" name="MoneyAmt" style="color: rgb(255, 255, 255); -unity-font: url(&quot;project://database/Assets/UI%20Toolkit/YoungSerif-Regular.ttf?fileID=12800000&amp;guid=d538b234d2501fd4882ee19c6359c13b&amp;type=3#YoungSerif-Regular&quot;); -unity-font-definition: initial; flex-shrink: 1; align-self: center;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="ItemsPanel" style="flex-grow: 0; flex-direction: row; background-color: rgb(219, 213, 203);">
+            <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" name="ShopScrollView" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,0 +1,20 @@
+.card {
+    height: 100px;
+    width: 100%;
+    background-color: lightgray;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.item-root {
+    flex-direction: column;
+    padding: 10px;
+    border: 1px solid black;
+    margin: 5px;
+    flex-basis: 40%;
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: auto;
+    box-sizing: border-box;
+}

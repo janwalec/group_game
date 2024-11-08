@@ -8,6 +8,9 @@ class GameUIController : MonoBehaviour
     Label roundNumber;
     Button pauseButton;
     VisualElement readyButton;
+    VisualElement shopButton;
+    
+    public GameObject shopUIDocument;
 
 
     private void OnEnable()
@@ -18,6 +21,7 @@ class GameUIController : MonoBehaviour
         roundNumber = root.Q<Label>("RoundNumber");
         readyButton = root.Q<VisualElement>("ReadyButton");
         pauseButton = root.Q<Button>("PauseButton");
+        shopButton = root.Q<VisualElement>("GoldAmt");
 
         // Add a click event listener to the button
         if (readyButton != null)
@@ -27,6 +31,11 @@ class GameUIController : MonoBehaviour
         if (pauseButton != null)
         {
             pauseButton.RegisterCallback<ClickEvent>(ev => OnPauseButtonClick());
+        }
+
+        if (shopButton != null)
+        {
+            shopButton.RegisterCallback<ClickEvent>(ev => OnShopButtonClick());
         }
 
 
@@ -45,7 +54,12 @@ class GameUIController : MonoBehaviour
         GameManager.instance.PauseMenu();
     }
 
- 
+    private void OnShopButtonClick()
+    {
+        shopUIDocument.SetActive(!shopUIDocument.activeSelf);
+    }
+
+
     public void DisableReadyButton()
     {
         /*root = GetComponent<UIDocument>().rootVisualElement;
