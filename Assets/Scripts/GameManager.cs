@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
             enemiesHp.Add(new List<int>());
         }
         SetGameState(GameState.GS_WAIT);
-        waves[0] = 3;
+        waves[0] = 1;
         waves[1] = 2;
         enemiesHp[0].Add(10);
         enemiesHp[0].Add(10);
@@ -180,10 +180,15 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            currentLevel++;
+            Debug.Log(currentLevel + " now");
+            ++currentLevel;
+            Debug.Log(currentLevel + " now2");
             currentWave = 0;
+            Wait();
+            inGameUI.UpdateRound(currentLevel, currentWave);
             cardRollManager.setTotalHp(enemiesHp[currentLevel][currentWave]);
             cardRollManager.StartRolling();
+            
         }
         
     }
@@ -191,6 +196,7 @@ public class GameManager : MonoBehaviour
     private void NextWave()
     {
         currentWave++;
+        inGameUI.UpdateRound(currentLevel, currentWave);
         cardRollManager.setTotalHp(enemiesHp[currentLevel][currentWave]);
         cardRollManager.StartRolling();
         
@@ -205,7 +211,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("Not display");
             Debug.Log(currentWave);
             LevelCompleted();
-            inGameUI.UpdateRound(currentLevel, currentWave);
+         //   inGameUI.UpdateRound(currentLevel, currentWave);
         }
         else
         {
@@ -217,7 +223,7 @@ public class GameManager : MonoBehaviour
 
 
             NextWave();
-            inGameUI.UpdateRound(currentLevel, currentWave);
+           // inGameUI.UpdateRound(currentLevel, currentWave);
 
         }
         

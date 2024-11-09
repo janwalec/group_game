@@ -106,6 +106,7 @@ class GameUIController : MonoBehaviour
 
     public void UpdateRound(int level, int wave)
     {
+        //Debug.Log("updating " + level + wave);
         roundNumber.text = (level+1).ToString() + "-" + (wave+1).ToString();
     }
 }

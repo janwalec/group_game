@@ -15,6 +15,8 @@ public class MarketItemController : MonoBehaviour
     Image frameImage;
     public MarketManager.Items objectType;
 
+    bool selected = false;
+
     protected AudioSource audioSource;
     [SerializeField] protected AudioClip onSelectSound;
     void Start()
@@ -40,19 +42,25 @@ public class MarketItemController : MonoBehaviour
     
     public void SelectObject()
     {
-        audioSource.PlayOneShot(onSelectSound, audioSource.volume); 
-        //informs the tilemap what kind of object is currently selected 
-        //and chenges its color to inform the user
-        if (MarketManager.instance.canAfford(objectType))
+        if (!selected)
         {
-            GameManager.instance.getTilemap().selectObject(this);
-            frameImage.color = new Color(frameImage.color.r-0.1f, frameImage.color.g, frameImage.color.b-0.1f);
+            selected = true;
+            audioSource.PlayOneShot(onSelectSound, audioSource.volume);
+            //informs the tilemap what kind of object is currently selected 
+            //and chenges its color to inform the user
+            if (MarketManager.instance.canAfford(objectType))
+            {
+                GameManager.instance.getTilemap().selectObject(this);
+                frameImage.color = new Color(frameImage.color.r - 0.1f, frameImage.color.g, frameImage.color.b - 0.1f);
+            }
         }
     }
 
     public void unselectObject()
     {
+        
         frameImage.color = Color.white;
+        selected = false;
     }
 
     public GameObject putObject(Vector3 position)
