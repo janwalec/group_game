@@ -11,7 +11,7 @@ public class DragUI : MonoBehaviour
 
     public UIDocument uiDocument;  // Reference to the UIDocument
 
-    void Start()
+    void OnEnable()
     {
         // Get the root VisualElement from the UIDocument
         var root = uiDocument.rootVisualElement;

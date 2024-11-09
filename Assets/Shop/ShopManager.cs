@@ -9,13 +9,37 @@ public class ShopManager : MonoBehaviour
     public VisualTreeAsset itemTemplate;
     private ScrollView shopScrollView;
     public UIDocument shopUIDocument; // Reference to the overall shop UI document
-    void Awake()
+    private Button closeButton;
+    
+    public GameObject shop;
+    Label goldAmount;
+    void OnEnable()
     {
         // Reference to the root of the UI
         var root = shopUIDocument.rootVisualElement;
         shopScrollView = root.Q<ScrollView>("ShopScrollView");
 
         PopulateShop();
+        
+        //Setup xclose button
+        closeButton = root.Q<Button>("XClose");
+        if (closeButton != null)
+        {
+            closeButton.RegisterCallback<ClickEvent>(ev => OnCloseShopButtonClick());
+        }
+        
+        //Find goldAmount Label in the shop
+        goldAmount = root.Q<Label>("GoldAmountLabel");
+    }
+    
+    private void OnCloseShopButtonClick()
+    {
+        shop.SetActive(!shop.activeSelf);
+    }
+    
+    public void UpdateGoldAmount(int value)
+    {
+        goldAmount.text = value.ToString();
     }
 
     void PopulateShop()

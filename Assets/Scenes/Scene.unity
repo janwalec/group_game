@@ -612,7 +612,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 127ba822a9aafe949a7cf733de430639, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.6
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1214,6 +1214,7 @@ MonoBehaviour:
   currentItemCollection: {fileID: 11400000, guid: ec9cb605029febd4c8c57340887dda2e, type: 2}
   itemTemplate: {fileID: 9197481963319205126, guid: 26465439a4b72474d81c8f7e2f363950, type: 3}
   shopUIDocument: {fileID: 461877437}
+  shop: {fileID: 461877436}
 --- !u!4 &622088106
 Transform:
   m_ObjectHideFlags: 0

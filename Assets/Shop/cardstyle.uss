@@ -1,10 +1,14 @@
 .card {
-    height: 100px;
-    width: 100%;
+    height: auto;
+    width: 90%;
     background-color: lightgray;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+    margin-top: 4px;
+    margin-right: 4px;
+    margin-bottom: 4px;
+    margin-left: 4px;
 }
 
 .item-root {
@@ -12,9 +16,32 @@
     padding: 10px;
     border: 1px solid black;
     margin: 5px;
-    flex-basis: 40%;
+    flex-basis: auto;
     flex-grow: 0;
     flex-shrink: 0;
     width: auto;
     box-sizing: border-box;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+}
+
+.card:hover {
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-left-color: rgb(207, 194, 36);
+    border-right-color: rgb(207, 194, 36);
+    border-top-color: rgb(207, 194, 36);
+    border-bottom-color: rgb(207, 194, 36);
 }

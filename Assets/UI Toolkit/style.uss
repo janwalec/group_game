@@ -97,7 +97,7 @@
 
 .icon {
     flex-grow: 0;
-    background-image: url("project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-4521532143779581420&guid=f73e7ce3f91da984e92d152941124eae&type=3#arrow-right");
+    background-image: url('project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-4521532143779581420&guid=f73e7ce3f91da984e92d152941124eae&type=3#arrow-right');
     -unity-background-scale-mode: stretch-to-fill;
     flex-shrink: 1;
     flex-direction: row;
@@ -107,4 +107,12 @@
     position: relative;
     margin-left: 12px;
     margin-right: 8px;
+}
+
+.xclose {
+}
+
+.xclose:hover {
+    cursor: initial;
+    background-color: rgb(0, 0, 0);
 }
