@@ -17,13 +17,16 @@ public class EnemyWave : MonoBehaviour
     {
         if (GameManager.instance.currentGameState == GameState.GS_BATTLE && areAllEnemiesDefeated())
         {
-            GameManager.instance.Prepare();
-            GameManager.instance.WaveOver();
+            GameManager.instance.Wait();
+            StartCoroutine(GameManager.instance.WaveOver());
+            Debug.Log("Call wait3");
+            
         }
     }
 
     private bool areAllEnemiesDefeated()
     {
+
         int counter = 0;
         foreach(Transform enemy in enemies)
         {

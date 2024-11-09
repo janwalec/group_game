@@ -45,8 +45,13 @@ class GameUIController : MonoBehaviour
         GameManager.instance.PauseMenu();
     }
 
- 
-    public void DisableReadyButton()
+    public void SetReadyButtonActive(bool active)
+    {
+        if (active) { EnableReadyButton(); }
+        else { DisableReadyButton(); }
+    }
+
+    private void DisableReadyButton()
     {
         /*root = GetComponent<UIDocument>().rootVisualElement;
 
@@ -62,7 +67,7 @@ class GameUIController : MonoBehaviour
 
     }
 
-    public void EnableReadyButton()
+    private void EnableReadyButton()
     {
 /*        root = GetComponent<UIDocument>().rootVisualElement;
 

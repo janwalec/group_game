@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
-public enum GameState { GS_PAUSEMENU, GS_BATTLE, GS_LEVEL_COMPLETED, GS_GAME_LOST, GS_GAME_WON, GS_OPTIONS, GS_PREPARE }
+public enum GameState { GS_PAUSEMENU, GS_BATTLE, GS_LEVEL_COMPLETED, GS_GAME_LOST, GS_GAME_WON, GS_SETTINGS, GS_PREPARE, GS_WAIT }
 
 public class GameManager : MonoBehaviour
 {
@@ -14,20 +14,24 @@ public class GameManager : MonoBehaviour
     public GameState currentGameState = GameState.GS_PREPARE;
 
     public static GameManager instance;
+
     public Canvas inGameCanvas;
-    public GameObject rum;
-
+    public Canvas roundWonCanvas;
     [SerializeField] private GameUIController inGameUI;
+    [SerializeField] private GameObject levelWonUI;
     public GameObject pauseUI;
+    public GameObject settingsUI;
 
-    private const int levelsNum = 1;
+
+    private const int levelsNum = 2;
     private int currentLevel = 0;
     private int currentWave = 0;
     private int[] waves = new int[levelsNum];
     private List<List<int>> enemiesHp = new List<List<int>>();      //to set the power of each wave in each level
 
     [SerializeField] private CardRollManager cardRollManager;
-
+    private GameState prevState = GameState.GS_PREPARE;
+    public GameObject rum;
 
     void Start()
     {
@@ -36,11 +40,17 @@ public class GameManager : MonoBehaviour
             Debug.Log("i" + i);
             enemiesHp.Add(new List<int>());
         }
-        SetGameState(GameState.GS_PREPARE);
-        waves[0] = 2;
-        enemiesHp[0].Add(20);
-        enemiesHp[0].Add(70);
+        SetGameState(GameState.GS_WAIT);
+        waves[0] = 3;
+        waves[1] = 2;
+        enemiesHp[0].Add(10);
+        enemiesHp[0].Add(10);
+        enemiesHp[0].Add(10);
+        enemiesHp[1].Add(20);
+        enemiesHp[1].Add(20);
+
         cardRollManager.setTotalHp(enemiesHp[0][0]);
+        roundWonCanvas.enabled = false;
 
     }
 
@@ -85,12 +95,25 @@ public class GameManager : MonoBehaviour
 
     private void SetGameState(GameState state)
     {
+        /*if(prevState == GameState.GS_PREPARE && state != GameState.GS_PREPARE)
+        {
+            inGameUI.DisableReadyButton();
+        }*/
+        if(currentGameState != GameState.GS_PAUSEMENU && currentGameState != GameState.GS_SETTINGS)
+            prevState = currentGameState;
         currentGameState = state;
- 
+        Debug.Log(currentGameState);
         pauseUI.SetActive(currentGameState == GameState.GS_PAUSEMENU);
-       
-        inGameUI.gameObject.SetActive(currentGameState == GameState.GS_BATTLE || currentGameState == GameState.GS_PREPARE);
+        inGameUI.gameObject.SetActive(currentGameState == GameState.GS_BATTLE || currentGameState == GameState.GS_PREPARE || currentGameState == GameState.GS_WAIT);
         inGameCanvas.enabled = (currentGameState == GameState.GS_PREPARE || currentGameState == GameState.GS_PREPARE);
+        inGameUI.SetReadyButtonActive(currentGameState == GameState.GS_PREPARE);
+        levelWonUI.SetActive(currentGameState == GameState.GS_LEVEL_COMPLETED);
+        settingsUI.SetActive(currentGameState == GameState.GS_SETTINGS);
+    }
+
+    public void SetPreviousState()
+    {
+        SetGameState(prevState);
     }
    
     public void PauseMenu()
@@ -103,14 +126,30 @@ public class GameManager : MonoBehaviour
         SetGameState(GameState.GS_BATTLE);
     }
 
+    public void Wait()
+    {
+        SetGameState(GameState.GS_WAIT);
+    }
+
+    public void Settings()
+    {
+        SetGameState(GameState.GS_SETTINGS);
+    }
+
     public void Prepare()
     {
         SetGameState(GameState.GS_PREPARE);
-        inGameUI.GetComponent<GameUIController>().EnableReadyButton();
+        //inGameUI.GetComponent<GameUIController>().EnableReadyButton();
         
     }
 
-    
+    public void LevelCompleted()
+    {
+        if (currentLevel < levelsNum - 1)
+            SetGameState(GameState.GS_LEVEL_COMPLETED);
+        else
+            GameWon();
+    }
     
     public void GameLost()
     {
@@ -130,8 +169,11 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("Scene");
     }
 
-    private void NextLevel()
+    //TODO
+
+    public void NextLevel()
     {
+        Debug.Log("Call wait");
         if(currentLevel == levelsNum - 1)
         {
             GameWon();
@@ -139,30 +181,55 @@ public class GameManager : MonoBehaviour
         else
         {
             currentLevel++;
+            currentWave = 0;
+            cardRollManager.setTotalHp(enemiesHp[currentLevel][currentWave]);
+            cardRollManager.StartRolling();
         }
+        
     }
 
     private void NextWave()
     {
         currentWave++;
-        Prepare();
         cardRollManager.setTotalHp(enemiesHp[currentLevel][currentWave]);
         cardRollManager.StartRolling();
         
     }
  
-    public void WaveOver()
+    public IEnumerator WaveOver()
     {
-        waves[currentLevel]--;
-        if (waves[currentLevel] == 0)
+        Wait();
+        Debug.Log("here2");
+        if (waves[currentLevel] == currentWave + 1)
         {
-            NextLevel();
+            Debug.Log("Not display");
+            Debug.Log(currentWave);
+            LevelCompleted();
             inGameUI.UpdateRound(currentLevel, currentWave);
         }
         else
         {
+            //display "Round won!" info
+            Debug.Log("Try to display");
+            roundWonCanvas.enabled = true;
+            yield return new WaitForSeconds(1.5f);
+            roundWonCanvas.enabled = false;
+
+
             NextWave();
             inGameUI.UpdateRound(currentLevel, currentWave);
+
         }
+        
     }
+
+    /*
+    private IEnumerator DisplayWaveWon()
+    {
+        
+        roundWonCanvas.enabled = true;
+        yield return new WaitForSeconds(1.5f);
+        roundWonCanvas.enabled = false;
+        
+    }*/
 }

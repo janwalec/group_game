@@ -13,7 +13,7 @@ class PauseUIController : MonoBehaviour
         Debug.Log(root);
         // Find the button by its name
         VisualElement resumeButton = root.Q<VisualElement>("ResumeButton");
-
+        VisualElement settingsButton = root.Q<VisualElement>("SettingsButton");
         //PrintAllElements(root);
 
         // Add a click event listener to the button
@@ -21,7 +21,10 @@ class PauseUIController : MonoBehaviour
         {
             resumeButton.RegisterCallback<ClickEvent>(ev => OnResumeButtonClick());
         }
-        
+        if (settingsButton != null)
+        {
+            settingsButton.RegisterCallback<ClickEvent>(ev => OnSettingsButtonClick());
+        }
 
 
     }
@@ -29,7 +32,11 @@ class PauseUIController : MonoBehaviour
     private void OnResumeButtonClick()
     {
         Debug.Log("RESUME");
-        GameManager.instance.InGame();
+        GameManager.instance.SetPreviousState();
+    }
+    private void OnSettingsButtonClick()
+    {
+        GameManager.instance.Settings();
     }
     
 }

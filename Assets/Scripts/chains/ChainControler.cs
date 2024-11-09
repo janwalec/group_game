@@ -76,7 +76,6 @@ public class ChainControler : MonoBehaviour
 
     private float timer = 0f;
 
-
     void Start()
     {
         chainPool = ChainPool.SharedInstance;
@@ -90,6 +89,7 @@ public class ChainControler : MonoBehaviour
         //Debug.Log("Chain completed with " + receivedChain.Count + " tiles.");
 
         processAndSaveGivenChain(receivedChain);
+        AddOperationSigns(receivedChain);
     }
 
     void Update()
@@ -438,6 +438,44 @@ public class ChainControler : MonoBehaviour
             curr = curr.Previous;
         }
 
+    }
+
+    private void AddOperationSigns(LinkedList<MyTile> tempList)
+    {
+        LinkedListNode<MyTile> curr = tempList.Last;
+        ChainGenerator.Direction direction = ChainGenerator.Direction.TOP_LEFT;
+        ChainGenerator.Operation operation = ChainGenerator.Operation.ADDITION;
+        while (curr.Previous != null)
+        {
+            if (curr.Previous.Value.tileType == MyTile.TileType.CANNON)
+                break;
+
+            if (curr.Value.tileType == MyTile.TileType.DICE && curr.Previous.Value.tileType == MyTile.TileType.DICE)
+                operation = ChainGenerator.Operation.ADDITION;
+            else
+                operation = ChainGenerator.Operation.MULTIPLICATION;
+
+
+            if (curr.Value.tileType == MyTile.TileType.DICE || curr.Value.tileType == MyTile.TileType.COIN)
+            {
+
+                if (curr.Previous.Value == curr.Value.GetNeighbourAt(0))
+                    direction = ChainGenerator.Direction.TOP_LEFT;
+                else if (curr.Previous.Value == curr.Value.GetNeighbourAt(1))
+                    direction = ChainGenerator.Direction.TOP_RIGHT;
+                else if (curr.Previous.Value == curr.Value.GetNeighbourAt(2))
+                    direction = ChainGenerator.Direction.MIDDLE_LEFT;
+                else if (curr.Previous.Value == curr.Value.GetNeighbourAt(3))
+                    direction = ChainGenerator.Direction.MIDDLE_RIGHT;
+                else if (curr.Previous.Value == curr.Value.GetNeighbourAt(4))
+                    direction = ChainGenerator.Direction.BOTTOM_LEFT;
+                else
+                    direction = ChainGenerator.Direction.BOTTOM_RIGHT;
+            }
+            curr.Value.modifier.SetOperation(direction, operation);
+
+            curr = curr.Previous;
+        }
     }
 
     private void RemoveOperationSigns(Chain chain)
