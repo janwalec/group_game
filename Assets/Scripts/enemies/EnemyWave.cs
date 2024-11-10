@@ -5,6 +5,7 @@ public class EnemyWave : MonoBehaviour
 {
     public GameObject shipPrefab;
     public GameObject mermaidPrefab;
+    public GameObject sharkPrefab;
     public Transform spawnPoint;
     private float minY = -8f;
     private float maxY = 0.5f;
@@ -57,13 +58,19 @@ public class EnemyWave : MonoBehaviour
             GameObject newEnemy;
 
             // Spawn based on card value: mermaid for special cards, ship otherwise
-            if (card == 13)
+            if (card == 11) // shark
+            {
+                newEnemy = Instantiate(sharkPrefab, spawnPosition, spawnPoint.rotation);
+                Debug.Log("Spawning shark at position: " + spawnPosition + " for card value: " + card);
+                enemies.Add(newEnemy.transform.Find("Shark"));
+            }
+            else if (card == 12)
             {
                 newEnemy = Instantiate(mermaidPrefab, spawnPosition, spawnPoint.rotation);
                 Debug.Log("Spawning mermaid at position: " + spawnPosition + " for card value: " + card);
                 enemies.Add(newEnemy.transform.Find("Mermaid"));
             }
-            else
+            else 
             {
                 newEnemy = Instantiate(shipPrefab, spawnPosition, spawnPoint.rotation);
 

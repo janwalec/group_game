@@ -34,7 +34,7 @@ public class EnemyController : MonoBehaviour
         changeText(health.ToString());
         
     }
-    private IEnumerator SlowDown(float newSpeed)
+    protected virtual IEnumerator SlowDown(float newSpeed)
     {
         //float originalSpeed = 1.5f;
         speed = newSpeed;  // Apply slowing effect factor to speed
