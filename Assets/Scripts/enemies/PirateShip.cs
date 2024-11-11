@@ -25,7 +25,7 @@ public class NormalShip : EnemyController
     {
         health = 5 + card_value;
         changeText(health.ToString());
-        Debug.Log("Initialized health with card value " + card_value + ". New health: " + health);
+        //Debug.Log("Initialized health with card value " + card_value + ". New health: " + health);
     }
 
 

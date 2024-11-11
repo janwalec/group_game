@@ -25,10 +25,11 @@ public class LineRendererController : MonoBehaviour
         }
 
         //Debug.Log(renderer.positionCount + " position count");
+        /*
         foreach(Vector3 point in points_)
         {
             Debug.Log(point + " point");
-        }
+        }*/
     }
 
     public void SetUpLine(List<Vector3> points_)
@@ -39,11 +40,11 @@ public class LineRendererController : MonoBehaviour
             renderer.SetPosition(i, points_[i]);
         }
 
-        Debug.Log(renderer.positionCount + " position count");
+        /*Debug.Log(renderer.positionCount + " position count");
         foreach (Vector3 point in points_)
         {
             Debug.Log(point + " point");
-        }
+        }*/
     }
     private void Update()
     {

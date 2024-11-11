@@ -39,6 +39,12 @@ public class MyTile {
     }
 
     public static bool operator ==(MyTile t1, MyTile t2) {
+        if (ReferenceEquals(t1, null) && ReferenceEquals(t2, null)) {
+            return true;
+        }
+        if (ReferenceEquals(t1, null) || ReferenceEquals(t2, null)) {
+            return false;
+        }
         return t1.x == t2.x && t1.y == t2.y && t1.tile == t2.tile;
     }
 
@@ -110,14 +116,14 @@ public class TIleMapGenerator : MonoBehaviour
                     tilesArray[i - bounds.yMin, j - bounds.xMin] = new MyTile(i, j, tile, MyTile.TileType.LAND);
                     
                     Vector3 worldPos = getWorldPosition(tilePosition);
-                    Debug.Log("Tile position: " + tilePosition + ", World position: " + worldPos);
+                    //Debug.Log("Tile position: " + tilePosition + ", World position: " + worldPos);
                     GameObject colliderObject = Instantiate(tileCollider, worldPos, Quaternion.identity);
                     colliderObject.SetActive(true); 
                 }
                 else if (tile == rockTile) {
                     tilesArray[i - bounds.yMin, j - bounds.xMin] = new MyTile(i, j, tile, MyTile.TileType.ROCK);
                     Vector3 worldPos = getWorldPosition(tilePosition);
-                    Debug.Log("Tile position: " + tilePosition + ", World position: " + worldPos);
+                    //Debug.Log("Tile position: " + tilePosition + ", World position: " + worldPos);
                     GameObject colliderObject = Instantiate(tileCollider, worldPos, Quaternion.identity);
                     colliderObject.SetActive(true); 
                 }
@@ -305,7 +311,7 @@ public class TIleMapGenerator : MonoBehaviour
                 {
                     tilesArray[y_search, x_search].tileType = MyTile.TileType.CANNON;
                     tilesArray[y_search, x_search].cannon = newObject.GetComponentInChildren<CannonController>();
-                    Debug.Log(tilesArray[y_search, x_search].cannon == null);
+                    //Debug.Log(tilesArray[y_search, x_search].cannon == null);
                 }
                 selector.unselectObject();
                 selector = null;

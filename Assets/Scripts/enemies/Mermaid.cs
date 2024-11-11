@@ -6,7 +6,7 @@ using UnityEngine;
 public class Mermaid : EnemyController
 {
     private bool stealth;
-    private float stealthDuration = 1f;  // 2 seconds in stealth
+    private float stealthDuration = 1f;  // 1 seconds in stealth
     private float nonStealthDuration = 3f; // 3 seconds out of stealth
     private float fadeAmount = 0.3f;
     private SpriteRenderer spriteRenderer;
@@ -16,7 +16,7 @@ public class Mermaid : EnemyController
     {
 
         health = 10;
-        speed = 1.5f;
+        speed = 1.2f;
         Prepare();
         changeText(health.ToString());
 

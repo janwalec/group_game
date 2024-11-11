@@ -17,7 +17,7 @@ class EnemyPathManager : MonoBehaviour
 
     public GameObject[] getRandomPath()
     {
-        Debug.Log("Method called");
+        //Debug.Log("Method called");
         int pathsNum = allPaths.Length;
         System.Random rand = new System.Random();
         int idx = rand.Next(0, pathsNum);
@@ -28,7 +28,7 @@ class EnemyPathManager : MonoBehaviour
         {
             chosenPath[i] = allPaths[idx].transform.GetChild(i).gameObject;
         }
-        Debug.Log("Idx: " + idx + " Length " + chosenPath.Length);
+        //Debug.Log("Idx: " + idx + " Length " + chosenPath.Length);
         return chosenPath;
     }
 

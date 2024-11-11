@@ -82,7 +82,7 @@ public class CannonController : MovableItem
     {
 
         this.slowedSpeed = newSpeed;
-        Debug.Log("Slowing enemy for:" + newSpeed);
+        //Debug.Log("Slowing enemy for:" + newSpeed);
     }
 
     public int getBaseDamage()
@@ -174,8 +174,8 @@ public class CannonController : MovableItem
                         cb.setDirection(target);
                         cb.setDamage(getShootingDamage());
                         cb.setSlowingEffect(slowedSpeed);
-                        Debug.Log("Damage of shot " + getShootingDamage() + " " + this.GetHashCode());
-                        Debug.Log("Position: " + target.position);
+                        //Debug.Log("Damage of shot " + getShootingDamage() + " " + this.GetHashCode());
+                        //Debug.Log("Position: " + target.position);
                     }
                     
 

@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
     {
         for(int i = 0; i <  levelsNum; i++)
         {
-            Debug.Log("i" + i);
+            //Debug.Log("i" + i);
             enemiesHp.Add(new List<int>());
         }
         SetGameState(GameState.GS_WAIT);
@@ -102,7 +102,7 @@ public class GameManager : MonoBehaviour
         if(currentGameState != GameState.GS_PAUSEMENU && currentGameState != GameState.GS_SETTINGS)
             prevState = currentGameState;
         currentGameState = state;
-        Debug.Log(currentGameState);
+        //Debug.Log(currentGameState);
         pauseUI.SetActive(currentGameState == GameState.GS_PAUSEMENU);
         inGameUI.gameObject.SetActive(currentGameState == GameState.GS_BATTLE || currentGameState == GameState.GS_PREPARE || currentGameState == GameState.GS_WAIT);
         inGameCanvas.enabled = (currentGameState == GameState.GS_PREPARE || currentGameState == GameState.GS_PREPARE);
