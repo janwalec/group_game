@@ -25,7 +25,7 @@ public class Chain
         {
             lineRenderer = ItemPool.SharedInstance.GetPooledLineRenderer().GetComponent<LineRendererController>();
             lineRenderer.gameObject.SetActive(true);
-            Debug.Log("Line rendered pooling");
+            //Debug.Log("Line rendered pooling");
             RenderLine();
         }
     }

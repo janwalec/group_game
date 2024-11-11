@@ -110,14 +110,14 @@ public class TIleMapGenerator : MonoBehaviour
                     tilesArray[i - bounds.yMin, j - bounds.xMin] = new MyTile(i, j, tile, MyTile.TileType.LAND);
                     
                     Vector3 worldPos = getWorldPosition(tilePosition);
-                    Debug.Log("Tile position: " + tilePosition + ", World position: " + worldPos);
+                    //Debug.Log("Tile position: " + tilePosition + ", World position: " + worldPos);
                     GameObject colliderObject = Instantiate(tileCollider, worldPos, Quaternion.identity);
                     colliderObject.SetActive(true); 
                 }
                 else if (tile == rockTile) {
                     tilesArray[i - bounds.yMin, j - bounds.xMin] = new MyTile(i, j, tile, MyTile.TileType.ROCK);
                     Vector3 worldPos = getWorldPosition(tilePosition);
-                    Debug.Log("Tile position: " + tilePosition + ", World position: " + worldPos);
+                    //Debug.Log("Tile position: " + tilePosition + ", World position: " + worldPos);
                     GameObject colliderObject = Instantiate(tileCollider, worldPos, Quaternion.identity);
                     colliderObject.SetActive(true); 
                 }
@@ -291,7 +291,7 @@ public class TIleMapGenerator : MonoBehaviour
                 {
                     tilesArray[y_search, x_search].tileType = MyTile.TileType.CANNON;
                     tilesArray[y_search, x_search].cannon = newObject.GetComponentInChildren<CannonController>();
-                    Debug.Log(tilesArray[y_search, x_search].cannon == null);
+                    //Debug.Log(tilesArray[y_search, x_search].cannon == null);
                 }
                 
                 selector = null;

@@ -59,7 +59,7 @@ public class CardRollManager : MonoBehaviour
     IEnumerator StartCardRolling()
     {
         GameManager.instance.Wait();
-        Debug.Log("Call wait2");
+        //Debug.Log("Call wait2");
         while (drawnTotal < hp && rollingCards)
         {
             RollCard();
@@ -89,7 +89,7 @@ public class CardRollManager : MonoBehaviour
             drawnTotal += remainingHP;
             cardDisplay.sprite = cardSprites[randomCardIndex];
 
-            Debug.Log("Forced exact match. Rolled Card: " + remainingHP + " | Total HP: " + drawnTotal);
+            //Debug.Log("Forced exact match. Rolled Card: " + remainingHP + " | Total HP: " + drawnTotal);
             return;
         }
 

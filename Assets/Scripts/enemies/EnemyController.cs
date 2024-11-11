@@ -38,7 +38,7 @@ public class EnemyController : MonoBehaviour
     {
         //float originalSpeed = 1.5f;
         speed = newSpeed;  // Apply slowing effect factor to speed
-        Debug.Log("Enemy speed: " + speed);
+        //Debug.Log("Enemy speed: " + speed);
         yield return new WaitForSeconds(1f);  // Slow effect lasts for 3 seconds
 
         // Restore original speed after effect ends

@@ -33,9 +33,9 @@ public class ItemPool : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("a" + pooledCoin.Count);
+        //Debug.Log("a" + pooledCoin.Count);
         InitializePooling(pooledCoin, coinAmountToPool, coinToPool);
-        Debug.Log("b" + pooledCoin.Count);
+        //Debug.Log("b" + pooledCoin.Count);
         InitializePooling(pooledDice, diceAmountToPool, diceToPool);
         InitializePooling(pooledCannon, cannonAmountToPool, cannonToPool);
         InitializePooling(pooledCannonBall, cannonBallAmountToPool, cannonBallToPool);
@@ -46,8 +46,8 @@ public class ItemPool : MonoBehaviour
     {
         //pooledObjects = new List<GameObject>();
         GameObject tmp;
-        Debug.Log(pooledObjects.GetHashCode() + "a1");
-        Debug.Log(this.pooledCoin.GetHashCode() + "a2s");
+        //Debug.Log(pooledObjects.GetHashCode() + "a1");
+        //Debug.Log(this.pooledCoin.GetHashCode() + "a2s");
         for (int i = 0; i < amountToPool; i++)
         {
             tmp = Instantiate(objectToPool);
@@ -81,7 +81,7 @@ public class ItemPool : MonoBehaviour
     public GameObject GetPooledObject(List<GameObject> pooledObjects, int amountToPool)
     {
         //allows for pooling dice modifiers
-        Debug.Log(pooledObjects.Count);
+        //Debug.Log(pooledObjects.Count);
         for (int i = 0; i < amountToPool; i++)
         {
             if (!pooledObjects[i].activeInHierarchy)

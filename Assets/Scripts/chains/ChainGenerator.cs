@@ -79,11 +79,6 @@ public class ChainGenerator : MonoBehaviour
         tempList.Clear();
     }
 
-    
-
-   
-
-
 
     //dragging mouse over board
     public void playerIsDragging() {
@@ -112,8 +107,8 @@ public class ChainGenerator : MonoBehaviour
     
     private bool checkConditionForTile(MyTile checkTile) {
         
-        if(tempList.Count == 0 && !tilemap.checkIfCannon(checkTile))
-            return false;
+        //if(tempList.Count == 0 && !tilemap.checkIfCannon(checkTile))
+        //    return false;
 
         if(tempList.Contains(checkTile)) // already in the list
             return false;
