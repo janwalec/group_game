@@ -245,8 +245,15 @@ public class TIleMapGenerator : MonoBehaviour
         }
 
         //after clicking anywhere on the screen, the selector (market item) is no longer chosen
-        selector.unselectObject();
+        
 
+        PlaceAnItem();
+      
+            
+    }
+
+    public bool PlaceAnItem(GameObject newObject = null)
+    {
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector3Int gridPosition = tm.WorldToCell(mouseWorldPos);
 
@@ -258,7 +265,9 @@ public class TIleMapGenerator : MonoBehaviour
         //cannot place an item on an occupied tile
         if (tile.occupied)
         {
-            return;
+            selector.unselectObject();
+            selector = null;
+            return false;
         }
 
         Vector3 placingPosition = tm.CellToWorld(gridPosition);
@@ -273,8 +282,13 @@ public class TIleMapGenerator : MonoBehaviour
             if (tilesArray[y_search, x_search].tileType == MyTile.TileType.LAND)
             {
                 audioSource.PlayOneShot(onPlacingItemSound, audioSource.volume);
-                
-                GameObject newObject = selector.putObject(placingPosition);
+
+                if(newObject == null)
+                    newObject = selector.putObject(placingPosition);
+                else
+                {
+                    newObject.transform.position = selector.adjustPosition(placingPosition);
+                }
                 //tm.SetTile(tile.tilePosition, greyTile);
                 tilesArray[y_search, x_search].occupied = true;
                 if (selector.objectType == MarketManager.Items.COIN)
@@ -293,12 +307,14 @@ public class TIleMapGenerator : MonoBehaviour
                     tilesArray[y_search, x_search].cannon = newObject.GetComponentInChildren<CannonController>();
                     Debug.Log(tilesArray[y_search, x_search].cannon == null);
                 }
-                
+                selector.unselectObject();
                 selector = null;
+                return true;
             }
         }
+        selector.unselectObject();
         selector = null;
-        
+        return false;
     }
 
 
@@ -351,6 +367,15 @@ public class TIleMapGenerator : MonoBehaviour
         return tilesArray[y_search, x_search];
     }
 
+    public void releaseTile(MyTile tile)
+    {
+        tile.occupied = false;
+        tile.usedForChain = false;
+        tile.tileType = MyTile.TileType.LAND;
+        tile.cannon = null;
+        tile.modifier = null;
+
+    }
 
     public bool checkIfLand(MyTile t) {
         if(t.tileType == MyTile.TileType.LAND)

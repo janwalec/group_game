@@ -14,10 +14,7 @@ public class CoinController: ModifierController
 
     }
 
-    private void Update()
-    {   
-       
-    }
+ 
     public override int influenceOutput(int nextValue)
     {
         return currentTotal * nextValue;

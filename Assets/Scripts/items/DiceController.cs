@@ -11,10 +11,6 @@ public class DiceController : ModifierController
     }
    
 
-    private void Update()
-    {
-
-    }
     public override int influenceOutput(int nextValue)
     {
         return currentTotal + nextValue;

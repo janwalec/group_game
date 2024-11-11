@@ -327,6 +327,7 @@ GameObject:
   - component: {fileID: 4737441754094569052}
   - component: {fileID: 291911013424170067}
   - component: {fileID: -3812936834373941228}
+  - component: {fileID: 3970281101183459988}
   m_Layer: 0
   m_Name: Dice
   m_TagString: Untagged
@@ -420,6 +421,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e582ef0d95fc6b74ba401ddb45fc0b4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selector: {fileID: 3572342227572207387, guid: 0a9e1684434521743b8b43ebc397cbcd, type: 3}
   canvas: {fileID: 3675563485018762612}
   multiplicationSigns: {fileID: 6017043961549668805}
   additionSigns: {fileID: 6980284271852370520}
@@ -452,7 +454,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 0.35620117
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -549,6 +551,41 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!58 &3970281101183459988
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4854072362337634921}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.3914042
 --- !u!1 &5712043122564463787
 GameObject:
   m_ObjectHideFlags: 0

@@ -45,21 +45,26 @@ public class MarketItemController : MonoBehaviour
         if (!selected)
         {
             selected = true;
-            audioSource.PlayOneShot(onSelectSound, audioSource.volume);
+            if(audioSource != null)
+                audioSource.PlayOneShot(onSelectSound, audioSource.volume);
             //informs the tilemap what kind of object is currently selected 
             //and chenges its color to inform the user
             if (MarketManager.instance.canAfford(objectType))
             {
                 GameManager.instance.getTilemap().selectObject(this);
-                frameImage.color = new Color(frameImage.color.r - 0.1f, frameImage.color.g, frameImage.color.b - 0.1f);
+                if(frameImage != null)
+                    frameImage.color = new Color(frameImage.color.r - 0.1f, frameImage.color.g, frameImage.color.b - 0.1f);
             }
         }
     }
 
     public void unselectObject()
     {
-        
-        frameImage.color = Color.white;
+
+        if (frameImage != null)
+        {
+            frameImage.color = Color.white;
+        }
         selected = false;
     }
 
@@ -90,5 +95,19 @@ public class MarketItemController : MonoBehaviour
         }
         MarketManager.instance.spendGold(objectType);
         return new_object;
+    }
+
+    public Vector3 adjustPosition(Vector3 position)
+    {
+       
+        if (objectType == MarketManager.Items.DICE)
+        {
+            return new Vector3(position.x - 0.1f, position.y - 0.05f, position.z);
+        }
+        else if (objectType == MarketManager.Items.COIN)
+        {
+            return new Vector3(position.x - 0.1f, position.y - 0.05f, position.z);
+        }
+        return position;
     }
 }

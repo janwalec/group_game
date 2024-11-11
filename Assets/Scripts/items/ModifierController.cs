@@ -5,7 +5,7 @@ using UnityEngine.Rendering;
 using TMPro;
 using Unity.VisualScripting;
 
-public abstract class ModifierController : MonoBehaviour
+public abstract class ModifierController : MovableItem
 {
     protected int currentValue = 0;
     protected int currentTotal = 0;
@@ -25,6 +25,7 @@ public abstract class ModifierController : MonoBehaviour
     }
     protected void Start()
     {
+        base.Start();
         updateText();
         canvas.gameObject.SetActive(false);
         
@@ -38,10 +39,7 @@ public abstract class ModifierController : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    private void Update()
-    {   
-        
-    }
+ 
 
     public virtual void ChangeAnimation() {
         animator.SetTrigger("Flip");
@@ -126,4 +124,6 @@ public abstract class ModifierController : MonoBehaviour
         }
 
     }
+
+ 
 }

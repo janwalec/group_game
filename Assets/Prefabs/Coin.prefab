@@ -375,6 +375,7 @@ GameObject:
   - component: {fileID: 4196549865470318490}
   - component: {fileID: 1903210099895679766}
   - component: {fileID: 8719688799963909350}
+  - component: {fileID: 4094075647339531447}
   m_Layer: 0
   m_Name: Coin
   m_TagString: Untagged
@@ -438,8 +439,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -135263601
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 99f6aec10a9a68968b1cda087ed6301d, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -464,6 +465,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4de30a5b9f7134443b964a5312cb4c87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selector: {fileID: 3572342227572207387, guid: 18a0b3e5599873d4b87be0aacbc8c4b7, type: 3}
   canvas: {fileID: 7897629243301922034}
   multiplicationSigns: {fileID: 3421890970971000331}
   additionSigns: {fileID: 704124710437248647}
@@ -488,7 +490,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 0.29309082
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -585,6 +587,41 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!58 &4094075647339531447
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5954576721936697034}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.3497854
 --- !u!1 &7788093722706904185
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,12 +3,13 @@ using UnityEngine;
 using System.Collections;
 using TMPro;
 
-public class CannonController : MonoBehaviour
+public class CannonController : MovableItem
 {
 
     public enum STATE {RIGHT = 1, UP=2, DOWN=3};
     private STATE myState = STATE.RIGHT;
     private Animator animator;
+    [SerializeField] private GameObject animatedObject;
     private Vector3 shootingDirection = new Vector3 (0f, 0f, 0f);
     //private ArrayList enemies = new ArrayList();
     private Transform target;
@@ -29,35 +30,25 @@ public class CannonController : MonoBehaviour
 
     public ParticleSystem shootingParticles;
 
+
     void Start()
     {
+        base.Start();
         shootingDamage = 2;
         deactivateCanvas();
     }
 
    void Awake()
     {
-        animator = GetComponent<Animator>();
+        animator = animatedObject.GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
         findTarget();
 
     }
 
-    void Update()
-    {
-        //finds the target at shoots at it every few seconds
-        
-        //Aim();
-        //if(Input.GetMouseButtonDown(0)){
-        //    Shoot();
-        //}
-    }
 
-    private void OnMouseDown()
-    {
-        //Debug.Log("Mouse down on cannon");
-        //Shoot();
-    }
+
+
 
 
     private void findTarget()
