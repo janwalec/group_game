@@ -110,7 +110,7 @@ public class ChainGenerator : MonoBehaviour
         //if(tempList.Count == 0 && !tilemap.checkIfCannon(checkTile))
         //    return false;
 
-        if(tempList.Contains(checkTile)) // already in the list
+        if(tempList.Contains(checkTile)) // already in the current templist
             return false;
         
         if(!tilemap.checkIfModifier(checkTile) && !tilemap.checkIfCannon(checkTile)) // it is not the modifier

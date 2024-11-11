@@ -13,14 +13,17 @@ public class Chain
     public int chainSum;
     public LineRendererController lineRenderer;
 
+    public Color? color;
 
 
-    public Chain(LinkedList<MyTile> _tileChain, List<PooledChain> _pooledObjectChain, int ID, int chainSum_ = 0)
+    public Chain(LinkedList<MyTile> _tileChain, List<PooledChain> _pooledObjectChain, int ID, Color? color_ = null, int chainSum_ = 0)
     {
         tileChain = _tileChain;
         pooledObjectChain = _pooledObjectChain;
         chainID = ID;
         chainSum = chainSum_;
+        color = color_;
+
         if (_tileChain != null)
         {
             lineRenderer = ItemPool.SharedInstance.GetPooledLineRenderer().GetComponent<LineRendererController>();
@@ -29,6 +32,9 @@ public class Chain
             RenderLine();
         }
     }
+
+
+    
 
     public void RenderLine()
     {
@@ -45,7 +51,7 @@ public class Chain
 
     public Chain changeSum(int newSum)
     {
-        return new Chain(this.tileChain, this.pooledObjectChain, this.chainID, newSum);
+        return new Chain(this.tileChain, this.pooledObjectChain, this.chainID, this.color, newSum);
     }
 
     /*
@@ -88,8 +94,8 @@ public class ChainControler : MonoBehaviour
     {
         //Debug.Log("Chain completed with " + receivedChain.Count + " tiles.");
 
-        processAndSaveGivenChain(receivedChain);
-        AddOperationSigns(receivedChain);
+        processChain(receivedChain);
+        
     }
 
     void Update()
@@ -121,78 +127,156 @@ public class ChainControler : MonoBehaviour
         */
     }
 
-    private LinkedList<MyTile> searchForInteresctionsAndChangeChain(LinkedList<MyTile> receivedChain)
-    {
-        bool removing = false;
-        MyTile intersection = new MyTile(0, 0, null, MyTile.TileType.WATER);
+    private MyTile searchForIntersection(LinkedList<MyTile> receivedChain) {
+        foreach (MyTile t in receivedChain) {
+            if (t.usedForChain) {
+                return t;
+            }
+        }
+        
+        return null;
+    }
 
+    private Chain searchForChainWithGivenTile(MyTile intersection) {
+        foreach (Chain ch in myChains) {
+            if (ch.tileChain.Contains(intersection)) {
+                return ch;
+            }
+        }
+        return null;
+    }
+
+    private LinkedList<MyTile> connectChainsWithIntersection(LinkedList<MyTile> receivedChain, Chain chainThatContainsIntersection, MyTile intersection) {
         LinkedList<MyTile> outputChain = new LinkedList<MyTile>();
-
-        foreach (MyTile t in receivedChain)
-        {
-            outputChain.AddLast(t);
-            if (t.usedForChain)
-            {
-                intersection = t;
-                removing = true;
-                Debug.Log("found intersection");
+        
+        // first part - chain drawn on the screen
+        foreach (MyTile tile in receivedChain) {
+            if (tile != intersection)
+                outputChain.AddLast(tile);
+            else
                 break;
-            }
-
         }
 
-        Chain chainThatContainsIntersection = new Chain(null, null, 0); //here
+        // second part - chain that contains intersetion
 
-        if (removing)
-        {
-            foreach (Chain ch in myChains)
-            {
-                if (ch.tileChain.Contains(intersection))
-                {
-                    chainThatContainsIntersection = ch;
-                    break;
-                }
-            }
+        bool foundIntersection = false;
 
-            bool foundIntersection = false;
-
-            foreach (MyTile t in chainThatContainsIntersection.tileChain)
-            {
-                if (t == intersection)
-                {
-                    foundIntersection = true;
-                    continue;
-                }
-                if (foundIntersection)
-                    outputChain.AddLast(t);
-            }
+        foreach (MyTile tile in chainThatContainsIntersection.tileChain) {
+            if (tile == intersection)
+                foundIntersection = true;
+            
+            if (foundIntersection)
+                outputChain.AddLast(tile);
         }
-
+        Debug.Log(outputChain.Count);
         return outputChain;
     }
 
-    private void processAndSaveGivenChain(LinkedList<MyTile> _receivedChain)
-    { // get completed Chain with its tiles
-        int i = 0;
-        LinkedList<MyTile> receivedChain = searchForInteresctionsAndChangeChain(_receivedChain);
 
+     private bool checkIfCannonIsFirstInTheChain(LinkedList<MyTile> receivedChain) {
+        if (receivedChain.First.Value.tileType != MyTile.TileType.CANNON) {
+            return false;
+        }
+        return true;
+    }
+
+    private bool checkIfAddedAtTheEnd(MyTile intersection, Chain chainThatContainsIntersection) {
+        if (chainThatContainsIntersection.tileChain.Last.Value == intersection)
+            return true;
+        return false;
+    }
+
+    public void extendPooledObjectsInChain(Chain chainToExtend, LinkedList<MyTile> receivedChain) {
+        Color? c = chainToExtend.color;
+        LinkedList<MyTile> withoutFirst = new LinkedList<MyTile>(receivedChain.Skip(1)); //skip first element
+        List<PooledChain> pooled = poolObjects(withoutFirst, c ?? new Color(1, 1, 1));
+
+        foreach (PooledChain p in pooled) {
+            chainToExtend.pooledObjectChain.Add(p);
+        }
+
+    }
+
+    
+
+    public void extendChain(Chain chainToExtend, LinkedList<MyTile> receivedChain) {
+        foreach(MyTile tile in receivedChain) {
+            if(!chainToExtend.tileChain.Contains(tile)) {
+                chainToExtend.tileChain.AddLast(tile);
+                
+            }
+        }
+        chainGenerator.markUsedForChainTiles(receivedChain, true);
+        RemoveOperationSigns(chainToExtend);
+        AddOperationSigns(chainToExtend.tileChain);
+        chainToExtend.RenderLine();
+        extendPooledObjectsInChain(chainToExtend, receivedChain);
+    }
+
+    private bool checkIfChainsIntersectCompletely(LinkedList<MyTile> receivedChain, Chain chainThatContainsIntersection) {
+        int i = 0;
+        foreach(MyTile t in receivedChain) {
+            if (chainThatContainsIntersection.tileChain.Contains(t))
+                i += 1;
+        }
+
+        if (i > 1 && receivedChain.Count > 1)
+            return true;
+        else if (i == 1 && receivedChain.Count == 1)
+            return true;
+        return false;
+    }
+
+    private void processChain(LinkedList<MyTile> receivedChain) {
+        MyTile intersection = searchForIntersection(receivedChain);
+        LinkedList<MyTile> outputChain = new LinkedList<MyTile>(); // idk why, but without it, doesnt work
+
+
+        if (intersection != null) {
+            Debug.Log("found intersection");
+            Chain chainThatContainsIntersection = searchForChainWithGivenTile(intersection);
+
+            if(checkIfChainsIntersectCompletely(receivedChain, chainThatContainsIntersection))
+                return;
+
+            if (!checkIfAddedAtTheEnd(intersection, chainThatContainsIntersection)) {
+                outputChain = connectChainsWithIntersection(receivedChain, chainThatContainsIntersection, intersection);
+                saveNewChain(outputChain);
+            } else {
+                if (checkIfCannonIsFirstInTheChain(receivedChain)) {
+                    outputChain = connectChainsWithIntersection(receivedChain, chainThatContainsIntersection, intersection);
+                    saveNewChain(outputChain);
+                } else {
+                    extendChain(chainThatContainsIntersection, receivedChain);
+                }
+            }
+            
+            
+
+        } else {
+            Debug.Log("did not find intersection");
+            foreach(MyTile t in receivedChain)
+                outputChain.AddLast(t);
+
+            saveNewChain(outputChain);
+        }
+        
+    }
+
+    public List<PooledChain> poolObjects(LinkedList<MyTile> receivedChain, Color color) {
         int amount = receivedChain.Count;
 
         // get (transparent) object to indicate where Chain is
         List<PooledChain> pooledObjects = chainPool.GetObjects(amount);
 
-        // init random color for a Chain
-        System.Random rnd = new System.Random();
-        int r = rnd.Next(256), g = rnd.Next(256), b = rnd.Next(256);
-        Color color = new Color(r / 255f, g / 255f, b / 255f, 1f);
 
-        foreach (MyTile t in receivedChain)
-        {
-            MyTile currTile = t;
+        int i = 0;
+        foreach (MyTile t in receivedChain) {
+            MyTile currTile = t;            
 
             // set random color
             SpriteRenderer spriteRenderer = pooledObjects[i].gameObject.GetComponent<SpriteRenderer>();
-            spriteRenderer.color = color;
+            spriteRenderer.color = color; 
 
             // transform position of game object and its canvas (text on object)
             Vector3 position = chainGenerator.getGenPosition(currTile);
@@ -203,15 +287,35 @@ public class ChainControler : MonoBehaviour
 
         }
 
+        return pooledObjects;
+    }
+   
+
+    private void saveNewChain(LinkedList<MyTile> receivedChain)
+    { // get completed Chain with its tiles
+        //LinkedList<MyTile> receivedChain = searchForInteresctionsAndChangeChain(_receivedChain);
+
+        if (!checkIfCannonIsFirstInTheChain(receivedChain))
+            return;
+        
+
+        
+        AddOperationSigns(receivedChain);
+        
+        // init random color for a Chain
+        System.Random rnd = new System.Random();
+        int r = rnd.Next(256), g = rnd.Next(256), b = rnd.Next(256);
+        Color color = new Color(r / 255f, g / 255f, b / 255f, 1f);
+
+        List<PooledChain> pooledObjects = poolObjects(receivedChain, color); 
+        
         chainGenerator.markUsedForChainTiles(receivedChain, true);
         // create new Chain, set the text to it and save
-        Chain newChain = new Chain(receivedChain, pooledObjects, currID++);
-        setTextForChain(newChain);
+        Chain newChain = new Chain(receivedChain, pooledObjects, currID++, color);
+        //setTextForChain(newChain);
+        
         myChains.Add(newChain);
-        if (newChain.tileChain.First.Value.tileType != MyTile.TileType.CANNON)
-        {
-            deleteChain(newChain.chainID);
-        }
+        
         if (newChain.tileChain.Count > maxChainLeght)
         {
             maxChainLeght = newChain.tileChain.Count;

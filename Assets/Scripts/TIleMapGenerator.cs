@@ -39,6 +39,12 @@ public class MyTile {
     }
 
     public static bool operator ==(MyTile t1, MyTile t2) {
+        if (ReferenceEquals(t1, null) && ReferenceEquals(t2, null)) {
+            return true;
+        }
+        if (ReferenceEquals(t1, null) || ReferenceEquals(t2, null)) {
+            return false;
+        }
         return t1.x == t2.x && t1.y == t2.y && t1.tile == t2.tile;
     }
 
