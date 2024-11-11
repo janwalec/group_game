@@ -38,6 +38,7 @@ public class MyTile {
         this.cannon = null;
     }
 
+
     public static bool operator ==(MyTile t1, MyTile t2) {
         if (ReferenceEquals(t1, null) && ReferenceEquals(t2, null)) {
             return true;
@@ -245,8 +246,26 @@ public class TIleMapGenerator : MonoBehaviour
 
     void OnMouseDown()
     {
+        Debug.Log("grid clicked");
         if(selector == null)
         {
+            Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3Int gridPosition = tm.WorldToCell(mouseWorldPos);
+
+            int x_search = gridPosition.x - x_min;
+            int y_search = gridPosition.y - y_min;
+            MyTile tile = tilesArray[y_search, x_search];
+            if (tile.occupied)
+            {
+                if(tile.tileType == MyTile.TileType.COIN || tile.tileType == MyTile.TileType.DICE)
+                {
+                    tile.modifier.OnMouseDown();
+                }
+                else
+                {
+                    tile.cannon.OnMouseDown();
+                }
+            }
             return;
         }
 
