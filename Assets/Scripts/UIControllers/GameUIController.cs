@@ -10,7 +10,7 @@ class GameUIController : MonoBehaviour
     VisualElement readyButton;
     VisualElement shopButton;
     
-    public GameObject shopUIDocument;
+    public UIDocument shopUIDocument;
 
 
     private void OnEnable()
@@ -63,7 +63,8 @@ class GameUIController : MonoBehaviour
 
     private void OnShopButtonClick()
     {
-        shopUIDocument.SetActive(!shopUIDocument.activeSelf);
+        //shopUIDocument.SetActive(!shopUIDocument.activeSelf);
+        shopUIDocument.rootVisualElement.style.display = DisplayStyle.Flex;
     }
 
 

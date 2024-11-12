@@ -11,10 +11,14 @@ public class ShopManager : MonoBehaviour
     public UIDocument shopUIDocument; // Reference to the overall shop UI document
     private Button closeButton;
     
+
+
     public GameObject shop;
 
     private MarketItemController marketItemController;
     Label goldAmount;
+
+
     void OnEnable()
     {
         this.marketItemController = GameManager.instance.getMarketController();
@@ -34,16 +38,28 @@ public class ShopManager : MonoBehaviour
         }
         
         //Find goldAmount Label in the shop
-        goldAmount = root.Q<Label>("GoldAmountLabel");
+        goldAmount = root.Q<Label>("MoneyAmt");
+        root.style.display = DisplayStyle.None;
     }
     
     private void OnCloseShopButtonClick()
     {
-        shop.SetActive(!shop.activeSelf);
+        //shop.SetActive(!shop.activeSelf);
+        var root = shopUIDocument.rootVisualElement;
+        root.style.display = DisplayStyle.None;
+        //transform.localScale = Vector3.zero;
     }
-    
+
+  /*  public void OnOpened()
+    {
+        var root = shopUIDocument.rootVisualElement;
+        root.style.display = DisplayStyle.Flex;
+    }
+    */
     public void UpdateGoldAmount(int value)
     {
+        if (goldAmount == null)
+            Debug.Log("null");
         goldAmount.text = value.ToString();
     }
 
