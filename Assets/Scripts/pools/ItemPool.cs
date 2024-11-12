@@ -13,12 +13,24 @@ public class ItemPool : MonoBehaviour
     public List<GameObject> pooledCannon = new List<GameObject>();
     public List<GameObject> pooledCannonBall = new List<GameObject>();
     public List<GameObject> pooledLineRenderer = new List<GameObject>();
+
+    public List<GameObject> pooledCannonCards = new List<GameObject>();
+    public List<GameObject> pooledCoinCards = new List<GameObject>();
+    public List<GameObject>  pooledDiceCards = new List<GameObject>();
     
     public GameObject coinToPool;
     public GameObject diceToPool;
     public GameObject cannonToPool;
     public GameObject cannonBallToPool;
     public GameObject lineRendererToPool;
+
+    public GameObject cannonCard;
+    public GameObject coinCard;
+    public GameObject diceCard;
+
+    public int coinCardAmountToPool;
+    public int diceCardAmountToPool;
+    public int cannonCardAmountToPool;
 
     public int coinAmountToPool;
     public int diceAmountToPool;
@@ -40,6 +52,10 @@ public class ItemPool : MonoBehaviour
         InitializePooling(pooledCannon, cannonAmountToPool, cannonToPool);
         InitializePooling(pooledCannonBall, cannonBallAmountToPool, cannonBallToPool);
         InitializePooling(pooledLineRenderer, lineRenderAmountToPool, lineRendererToPool);
+        
+        InitializePooling(pooledCannonCards, cannonCardAmountToPool, cannonCard);
+        InitializePooling(pooledCoinCards, coinCardAmountToPool, coinCard);
+        InitializePooling(pooledDiceCards, diceCardAmountToPool, diceCard);
     }
 
     private void InitializePooling(List<GameObject> pooledObjects, int amountToPool, GameObject objectToPool)
@@ -77,6 +93,20 @@ public class ItemPool : MonoBehaviour
     {
         return GetPooledObject(pooledLineRenderer, lineRenderAmountToPool);
     }
+
+    public GameObject GetPooledCannonCard() {
+        return GetPooledObject(pooledCannonCards, cannonCardAmountToPool);
+    }
+
+    public GameObject GetPooledDiceCard() {
+        return GetPooledObject(pooledDiceCards, diceCardAmountToPool);
+    }
+
+    public GameObject GetPooledCoinCard() {
+        return GetPooledObject(pooledCoinCards, coinCardAmountToPool);
+    }
+
+    
 
     public GameObject GetPooledObject(List<GameObject> pooledObjects, int amountToPool)
     {

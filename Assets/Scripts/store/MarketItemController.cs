@@ -32,7 +32,6 @@ public class MarketItemController : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
 
-        GameManager.instance.setMarketController(this);
 
     }
     public MarketManager.Items getObjectType()
