@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
     public GameObject pauseUI;
     public GameObject settingsUI;
 
+    private MarketItemController marketItemController;
+
 
     private const int levelsNum = 2;
     private int currentLevel = 0;
@@ -59,6 +61,15 @@ public class GameManager : MonoBehaviour
     public Vector2 getRumPosition()
     {
         return rum.transform.position;
+    }
+    public void setMarketController(MarketItemController _mc)
+    {
+        this.marketItemController = _mc;
+    }
+
+
+    public MarketItemController getMarketController() {
+        return this.marketItemController;
     }
     public void setTilemap(TIleMapGenerator tilemap_)
     {

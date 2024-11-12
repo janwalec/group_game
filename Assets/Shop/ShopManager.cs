@@ -12,9 +12,14 @@ public class ShopManager : MonoBehaviour
     private Button closeButton;
     
     public GameObject shop;
+
+    private MarketItemController marketItemController;
     Label goldAmount;
     void OnEnable()
     {
+        this.marketItemController = GameManager.instance.getMarketController();
+
+
         // Reference to the root of the UI
         var root = shopUIDocument.rootVisualElement;
         shopScrollView = root.Q<ScrollView>("ShopScrollView");
@@ -89,5 +94,6 @@ public class ShopManager : MonoBehaviour
     {
         Debug.Log("Purchased " + item.itemName + " for " + item.price);
         // Add purchase logic here
+        Debug.Log(this.marketItemController);
     }
 }
