@@ -5,7 +5,9 @@ public class EnemyWave : MonoBehaviour
 {
     public GameObject shipPrefab;
     public GameObject mermaidPrefab;
+    public GameObject krakenPrefab;
     public GameObject sharkPrefab;
+    public GameObject captainShipPrefab;
     public Transform spawnPoint;
     private float minY = -8f;
     private float maxY = 0.5f;
@@ -18,27 +20,42 @@ public class EnemyWave : MonoBehaviour
     {
         if (GameManager.instance.currentGameState == GameState.GS_BATTLE && areAllEnemiesDefeated())
         {
+            Debug.Log("All enemies defeated. Ending wave.");
             GameManager.instance.Wait();
             StartCoroutine(GameManager.instance.WaveOver());
-            Debug.Log("Call wait3");
-            
+        }
+        else
+        {
+            Debug.Log("Enemies remaining: " + enemies.Count);
         }
     }
 
+
+
+    public void RemoveEnemy(Transform enemy)
+    {
+        if (enemies.Contains(enemy))
+        {
+            enemies.Remove(enemy);
+            Debug.Log("Removed enemy from EnemyWave. Remaining enemies: " + enemies.Count);
+        }
+    }
+
+    public List<Transform> getEnemies()
+    {
+        return this.enemies;
+    }
+
+    public void AddEnemy(Transform enemy)
+    {
+        this.enemies.Add(enemy);   
+    }
     private bool areAllEnemiesDefeated()
     {
-
-        int counter = 0;
-        foreach(Transform enemy in enemies)
-        {
-            if(enemy != null )
-            {
-                counter++;
-            }
-        }
-        
-        return counter == 0;
+        enemies.RemoveAll(enemy => enemy == null); // Clean up destroyed enemies
+        return enemies.Count == 0;
     }
+
     public void SpawnEnemies(List<int> drawnCards)
     {
         int numberOfEnemies = drawnCards.Count;
@@ -57,8 +74,27 @@ public class EnemyWave : MonoBehaviour
 
             GameObject newEnemy;
 
-            // Spawn based on card value: mermaid for special cards, ship otherwise
-            if (card == 11) // shark
+            if (card == 40) // for captainship it should be when equal to 13 but doesn't work atm
+            {
+                newEnemy = Instantiate(captainShipPrefab, spawnPosition, spawnPoint.rotation);
+                Transform captainShip = newEnemy.transform.Find("CaptainShip");
+                enemies.Add(captainShip);
+                if(captainShip != null)
+                {
+                    Debug.Log("Instantiated captain ship");
+                    CaptainShip captainShip2 = captainShip.GetComponent<CaptainShip>();
+                    if(captainShip2 != null)
+                    {
+                        captainShip2.Initialize(this);
+                        Debug.Log($"Enemy wave initialized to captain ship");
+                    }
+                    else
+                    {
+                        Debug.LogError("CaptainShip script not found on the Pirate_Boat child!");
+                    }
+                }           
+            }
+            else if (card == 11)
             {
                 newEnemy = Instantiate(sharkPrefab, spawnPosition, spawnPoint.rotation);
                 Debug.Log("Spawning shark at position: " + spawnPosition + " for card value: " + card);
@@ -70,7 +106,13 @@ public class EnemyWave : MonoBehaviour
                 Debug.Log("Spawning mermaid at position: " + spawnPosition + " for card value: " + card);
                 enemies.Add(newEnemy.transform.Find("Mermaid"));
             }
-            else 
+            else if (card == 14)
+            {
+                newEnemy = Instantiate(krakenPrefab, spawnPosition, spawnPoint.rotation);
+                Debug.Log("Spawning kraken at position: " + spawnPosition + " for card value: " + card);
+                enemies.Add(newEnemy.transform.Find("Kraken"));
+            }
+            else
             {
                 newEnemy = Instantiate(shipPrefab, spawnPosition, spawnPoint.rotation);
 
@@ -94,7 +136,7 @@ public class EnemyWave : MonoBehaviour
                 {
                     Debug.LogError("Pirate_Boat child not found on the instantiated EnemyShip prefab!");
                 }
-                
+
             }
         }
     }

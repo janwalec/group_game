@@ -13,6 +13,7 @@ public class RumController : MonoBehaviour
     private float range = 2.0f;
     AudioSource audioSource;
     [SerializeField] AudioClip onDamageSound;
+    private double krakenMultiplier = 2.0;  // Kraken consumes rum at twice the normal rate
     void Start()
     {
         //occupy tiles so that a cannon or a modifier cannot be placed there
@@ -23,11 +24,32 @@ public class RumController : MonoBehaviour
 
     void Update()
     {
-        RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, range, transform.position, 0f, enemyMask);
+        RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, range, Vector2.zero, 0f, enemyMask);
 
         if (hits.Length > 0)
         {
-            TakeDamage(hits.Length);
+            int regularEnemies = 0;
+            int krakenEnemies = 0;
+
+          
+            foreach (RaycastHit2D hit in hits)
+            {
+                if (hit.collider != null)
+                {
+                    
+                    if (hit.collider.GetComponent<Kraken>() != null)
+                    {
+                        krakenEnemies++;
+                    }
+                    else
+                    {
+                        regularEnemies++;
+                    }
+                }
+            }
+
+
+            TakeDamage(regularEnemies, krakenEnemies);
         }
     }
 
@@ -35,10 +57,16 @@ public class RumController : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
     }
-    void TakeDamage(int enemiesNum)
+    void TakeDamage(int enemiesNum, int krakenEnemies)
     {
         HPLoss += enemiesNum * 0.01;
-        if(HPLoss >= 1)
+
+        // Calculate additional HPLoss for Kraken enemies with a higher rate
+
+        HPLoss += krakenEnemies * 0.01 * krakenMultiplier;
+
+
+        if (HPLoss >= 1)
         {
             audioSource.PlayOneShot(onDamageSound);
             HPInt--;

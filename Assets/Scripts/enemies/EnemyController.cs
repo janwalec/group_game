@@ -19,6 +19,9 @@ public class EnemyController : MonoBehaviour
     [SerializeField] protected AudioClip onDeathSound;
     private float delay = 1f;
     private int priceForKill = 20;
+
+    // add generic speed
+
     private void Start()
     {
       

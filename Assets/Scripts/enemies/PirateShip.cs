@@ -11,6 +11,11 @@ public class NormalShip : EnemyController
         Prepare();
     }
 
+    public void setHealth(int hp)
+    {
+        this.health = hp;
+    }
+
     public override void Move()
     {
 
