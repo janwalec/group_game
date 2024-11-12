@@ -12,6 +12,7 @@ public class MarketManager : MonoBehaviour
     public TMP_Text goldAmount;
 
     [SerializeField] private GameUIController gameUIController;
+    [SerializeField] private ShopManager shopManager;
     public int Gold
     {
         get => gold;
@@ -42,12 +43,14 @@ public class MarketManager : MonoBehaviour
     {
         gold -= prices[item];
         gameUIController.UpdateGoldAmount(Gold);
+        shopManager.UpdateGoldAmount(Gold);
         //goldAmount.text = gold.ToString();
     }
     public void earnGold(int amount)
     {
         gold += amount;
         gameUIController.UpdateGoldAmount(Gold);
+        shopManager.UpdateGoldAmount(Gold);
         //goldAmount.text = gold.ToString();
         //goldAmount.text = gold.ToString();
     }
