@@ -10,6 +10,9 @@ class GameUIController : MonoBehaviour
     VisualElement readyButton;
     VisualElement shopButton;
     
+    public AudioSource audioSource;
+    [SerializeField] AudioClip onBattleStartSound;
+    
     public UIDocument shopUIDocument;
 
 
@@ -37,7 +40,8 @@ class GameUIController : MonoBehaviour
         {
             shopButton.RegisterCallback<ClickEvent>(ev => OnShopButtonClick());
         }
-
+        
+        audioSource = GetComponent<AudioSource>();
 
     }
  
@@ -46,6 +50,8 @@ class GameUIController : MonoBehaviour
         Debug.Log("READY");
         DisableReadyButton();
         //this.OnDisable();
+        audioSource.PlayOneShot(onBattleStartSound);
+        
         GameManager.instance.InGame();
     }
 
