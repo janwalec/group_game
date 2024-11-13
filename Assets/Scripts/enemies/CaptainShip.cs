@@ -52,11 +52,25 @@ public class CaptainShip : EnemyController
 
         while (health > 0)  // Continue spawning as long as CaptainShip is alive
         {
-            Debug.Log("Spawning a new pirate ship at time: " + Time.time);
-            SpawnEnemy();
+            // Check if the game is in the battle state before spawning
+            if (GameManager.instance.currentGameState == GameState.GS_BATTLE)
+            {
+                Debug.Log("Spawning a new pirate ship at time: " + Time.time);
+                SpawnEnemy();
+            }
+            else
+            {
+                // Wait a short time before checking the game state again
+                Debug.Log("Game is not in battle state. Pausing spawning...");
+                yield return new WaitForSeconds(0.5f);
+                continue; // Skip to the next iteration
+            }
+
+            // Wait for the spawn interval before attempting to spawn again
             yield return new WaitForSeconds(spawnInterval);
         }
     }
+
 
     public int GetHealth()
     {
