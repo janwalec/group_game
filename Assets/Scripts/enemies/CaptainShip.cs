@@ -13,14 +13,19 @@ public class CaptainShip : EnemyController
     private EnemyWave wave;
     private GameObject shipPrefab;
 
-    public void Initialize(EnemyWave wave)
+    public void Start()
     {
-        this.wave = wave; // Set the reference to EnemyWave
+        //this.wave = wave; // Set the reference to EnemyWave
         health = 10;
         this.speed = 1f;
         Prepare();
         StartCoroutine(SpawnEnemyRoutine());  // Start spawning minions
     }
+    public void StartSpawningEnemies()
+    {
+        StartCoroutine(SpawnEnemyRoutine());  // Start spawning minions
+    }
+
     protected override IEnumerator SlowDown(float newSpeed)
     {
         if (newSpeed >= this.speed)
@@ -66,21 +71,18 @@ public class CaptainShip : EnemyController
             GameObject newPirateShip = Instantiate(pirateShipPrefab, spawnPosition, Quaternion.identity);
             Transform pirateBoat = newPirateShip.transform.Find("Pirate_Boat");
             NormalShip normalShip = pirateBoat.GetComponent<NormalShip>();
-
+            EnemyWave.Instance.AddEnemy(pirateBoat);
             if (normalShip != null)
             {
                 normalShip.InitializeHealth(5);
+                
             }
             else
             {
                 Debug.LogError("NormalShip component not found on the PirateShip prefab.");
             }
 
-            if (wave != null)
-            {
-                wave.AddEnemy(newPirateShip.transform);
-                Debug.Log("Added PirateShip to EnemyWave's tracking list.");
-            }
+            
         }
         else
         {

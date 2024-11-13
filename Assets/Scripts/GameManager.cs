@@ -90,7 +90,23 @@ public class GameManager : MonoBehaviour
     public void Awake()
     {
         instance = this;
-    }    
+    }
+
+    public void StartGame()
+    {
+        SetGameState(GameState.GS_BATTLE);
+
+        // Find the CaptainShip instance and start its spawn routine
+        CaptainShip captainShip = FindObjectOfType<CaptainShip>();
+        if (captainShip != null)
+        {
+            captainShip.StartSpawningEnemies();
+        }
+        else
+        {
+            Debug.LogError("CaptainShip not found in the scene.");
+        }
+    }
 
     private void SetGameState(GameState state)
     {

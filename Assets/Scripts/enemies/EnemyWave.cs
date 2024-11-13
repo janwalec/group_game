@@ -16,6 +16,37 @@ public class EnemyWave : MonoBehaviour
     private float xOffset = 7.0f;
     List<Transform> enemies = new List<Transform>();
 
+    private static EnemyWave _instance;
+
+    public static EnemyWave Instance
+    {
+        get
+        {
+            if(_instance == null)
+            {
+                _instance = new EnemyWave();
+                _instance = FindObjectOfType<EnemyWave>();
+                if (_instance == null)
+                {
+                    Debug.LogError("No instance of MySingleton found in the scene!");
+                }
+            }
+            return _instance;
+            
+        }
+    }
+
+    private void Awake()
+    {
+        // Ensure there is only one instance
+        if (_instance != null && _instance != this)
+        {
+            Destroy(gameObject); // Destroy any duplicate
+            return;
+        }
+
+        _instance = this;
+    }
     private void Update()
     {
         if (GameManager.instance.currentGameState == GameState.GS_BATTLE && areAllEnemiesDefeated())
@@ -48,7 +79,7 @@ public class EnemyWave : MonoBehaviour
 
     public void AddEnemy(Transform enemy)
     {
-        this.enemies.Add(enemy);   
+        enemies.Add(enemy);   
     }
     private bool areAllEnemiesDefeated()
     {
@@ -74,8 +105,9 @@ public class EnemyWave : MonoBehaviour
 
             GameObject newEnemy;
 
-            if (card == 40) // for captainship it should be when equal to 13 but doesn't work atm
+            if (card >=1 && card<=16) // for captainship it should be when equal to 13 but doesn't work atm
             {
+                xPos = minX + xOffset * 0f; // Spawn closer to the left side (modify as needed)
                 newEnemy = Instantiate(captainShipPrefab, spawnPosition, spawnPoint.rotation);
                 Transform captainShip = newEnemy.transform.Find("CaptainShip");
                 enemies.Add(captainShip);
@@ -83,7 +115,7 @@ public class EnemyWave : MonoBehaviour
                 {
                     Debug.Log("Instantiated captain ship");
                     CaptainShip captainShip2 = captainShip.GetComponent<CaptainShip>();
-                    if(captainShip2 != null)
+                    /*if(captainShip2 != null)
                     {
                         captainShip2.Initialize(this);
                         Debug.Log($"Enemy wave initialized to captain ship");
@@ -91,7 +123,7 @@ public class EnemyWave : MonoBehaviour
                     else
                     {
                         Debug.LogError("CaptainShip script not found on the Pirate_Boat child!");
-                    }
+                    }*/
                 }           
             }
             else if (card == 11)
