@@ -77,6 +77,9 @@ public class ChainControler : MonoBehaviour
     public delegate void KeyPressAction();
 
     private float rollingDelay = 1f;
+    private float singleCannonExtraDelay = 2.5f;
+
+
 
     private int maxChainLeght = 0;
 
@@ -87,6 +90,7 @@ public class ChainControler : MonoBehaviour
         chainPool = ChainPool.SharedInstance;
         chainGenerator = FindObjectOfType<ChainGenerator>();
         chainGenerator.OnChainComplete += UpdateObjectsOnChainComplete;
+       
     }
 
     //be notified if Chain is added
@@ -95,11 +99,13 @@ public class ChainControler : MonoBehaviour
         //Debug.Log("Chain completed with " + receivedChain.Count + " tiles.");
 
         processChain(receivedChain);
-        
+        rollAllModifiers();
+
     }
 
     void Update()
     {
+        /*
         timer += Time.deltaTime;
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -116,7 +122,8 @@ public class ChainControler : MonoBehaviour
             findMaxLength();
             rollAllModifiers();
             timer = 0.0f;
-        }
+        }*/
+
         /*
         else if (Input.GetKeyDown(KeyCode.C))
         {
@@ -321,6 +328,8 @@ public class ChainControler : MonoBehaviour
             maxChainLeght = newChain.tileChain.Count;
         }
 
+        //StartCoroutine(rolling(newChain));
+
     }
 
     private void findMaxLength()
@@ -397,6 +406,28 @@ public class ChainControler : MonoBehaviour
 
     }
 
+
+    public void deleteChainByElement(MovableItem item)
+    {
+        bool breaking = false;
+        foreach(Chain ch in myChains)
+        {
+            foreach (MyTile tile in ch.tileChain)
+            {
+                if(tile.tileType == MyTile.TileType.CANNON)
+                {
+                    if(tile.cannon == item)
+                    {
+                        deleteChain(ch.chainID);
+                        breaking = true;
+                        break;
+                    }
+                }
+            }
+            if (breaking)
+                break;
+        }
+    }
     public void rollAllModifiers()
     {
 
@@ -412,9 +443,12 @@ public class ChainControler : MonoBehaviour
 
     private IEnumerator rolling(Chain currChain)
     {
-
-        if (GameManager.instance.currentGameState == GameState.GS_BATTLE)
+        while (true)
         {
+            while (GameManager.instance.currentGameState != GameState.GS_BATTLE)
+            {
+                yield return (rollingDelay);
+            }
 
             float slowing_effect;
             LinkedListNode<MyTile> curr = currChain.tileChain.Last;
@@ -426,13 +460,9 @@ public class ChainControler : MonoBehaviour
 
             while (curr != null)
             {
-
                 if (curr.Value.tileType == MyTile.TileType.COIN || curr.Value.tileType == MyTile.TileType.DICE)
                 {
-
                     curr.Value.modifier.Roll();
-
-
                     if (curr != null && curr.Next != null)
                     {
                         if (curr.Value.tileType == MyTile.TileType.DICE && curr.Next.Value.tileType == MyTile.TileType.DICE)
@@ -455,6 +485,7 @@ public class ChainControler : MonoBehaviour
                             Debug.Log($"Dice sum:{slowing_effect}, new speed:{newSpeed}");
                         }
                     }
+
                     curr.Value.modifier.calculateCurrentTotal(curr.Next == null ? null : curr.Next.Value.modifier);
                     curr.Value.modifier.ChangeAnimation();
                     curr.Value.modifier.activateCanvas();
@@ -467,7 +498,6 @@ public class ChainControler : MonoBehaviour
 
                     curr.Value.modifier.ChangeAnimation();
                     curr.Value.modifier.deactivateCanvas();
-
                 }
 
                 if (curr.Previous == null)
@@ -476,18 +506,21 @@ public class ChainControler : MonoBehaviour
                     {
                         do
                         {
-                            yield return new WaitForSeconds(rollingDelay * (maxChainLeght + 1 - currChain.tileChain.Count));
+                            //yield return new WaitForSeconds(rollingDelay * (maxChainLeght + 1 - currChain.tileChain.Count));
+                            yield return new WaitForSeconds(rollingDelay);
                         } while (GameManager.instance.currentGameState != GameState.GS_BATTLE);
                         //curr.Value.cannon.setShootingDamage(myChains[myChains.Count - 1].chainSum);
 
                         if (currChain.tileChain.Count == 1)
                         {
+                            Debug.Log("Just one");
+                            yield return new WaitForSeconds(singleCannonExtraDelay);
                             curr.Value.cannon.setDamageAsBaseDamage();
                             curr.Value.cannon.setSlowingEffect(newSpeed);
                         }
                         else
                         {
-                            curr.Value.cannon.setShootingDamage(currChain.chainSum);
+                            curr.Value.cannon.setExtraShootingDamage(currChain.chainSum);
                             curr.Value.cannon.setSlowingEffect(newSpeed);
                         }
                         //StartCoroutine(curr.Value.cannon.Shoot());
@@ -510,6 +543,7 @@ public class ChainControler : MonoBehaviour
                 curr = curr.Previous;
             }
         }
+        
         //}
         /*
         foreach (LinkedListNode<MyTile> t in myChains[myChains.Count - 1].tileChain)

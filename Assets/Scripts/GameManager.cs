@@ -32,6 +32,8 @@ public class GameManager : MonoBehaviour
     private GameState prevState = GameState.GS_PREPARE;
     public GameObject rum;
 
+    public ChainControler chainControler;
+
     void Start()
     {
         for(int i = 0; i <  levelsNum; i++)
@@ -42,7 +44,7 @@ public class GameManager : MonoBehaviour
         SetGameState(GameState.GS_WAIT);
         waves[0] = 2;
         waves[1] = 2;
-        enemiesHp[0].Add(10);
+        enemiesHp[0].Add(30);
         enemiesHp[0].Add(10);
        // enemiesHp[0].Add(10);
         enemiesHp[1].Add(20);

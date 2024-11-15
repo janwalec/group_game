@@ -20,7 +20,7 @@ public class CannonController : MovableItem
     [SerializeField] private LayerMask enemyMask;
     private float delay = 0.2f;
     private int shootingDamage;
-    private int baseDamage = 4;
+    private int baseDamage = 1;
     private float slowedSpeed;
     public Canvas canvas;
     protected AudioSource audioSource;
@@ -224,9 +224,9 @@ public class CannonController : MovableItem
 
     }*/
 
-    public void setShootingDamage(int shootingDamage_)
+    public void setExtraShootingDamage(int shootingDamage_)
     {
-        this.shootingDamage = shootingDamage_;
+        this.shootingDamage = shootingDamage_ + baseDamage;
         Debug.Log("Set damage to " + shootingDamage + " " + this.GetHashCode());
         this.updateText();
 

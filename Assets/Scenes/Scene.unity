@@ -648,9 +648,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f46a542a198d30d41a73075ae2495756, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< HEAD
-  shopUIDocument: {fileID: 461877437}
-=======
   audioSource: {fileID: 305949296}
   onBattleStartSound: {fileID: 8300000, guid: e312ef3199376de4b9d9f04d80658041, type: 3}
   shopUIDocument: {fileID: 461877437}
@@ -750,7 +747,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
->>>>>>> 5bfcc84989b57f5a5d6938460696b574e158c838
 --- !u!1 &344465319
 GameObject:
   m_ObjectHideFlags: 0

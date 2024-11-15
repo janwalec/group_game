@@ -30,6 +30,7 @@ public abstract class MovableItem : MonoBehaviour
     {
         if(moving)
         {
+            GameManager.instance.chainControler.deleteChainByElement(this);
             Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mouseWorldPos.z += Camera.main.nearClipPlane;
             transform.position = mouseWorldPos;
@@ -41,6 +42,7 @@ public abstract class MovableItem : MonoBehaviour
 
     private void PutDown()
     {
+
         TIleMapGenerator tm = GameManager.instance.getTilemap();
         tm.selectObject(selector);
         if (!tm.PlaceAnItem(this.gameObject))
