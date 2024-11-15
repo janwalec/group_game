@@ -99,7 +99,7 @@ public class ChainControler : MonoBehaviour
         //Debug.Log("Chain completed with " + receivedChain.Count + " tiles.");
 
         processChain(receivedChain);
-        rollAllModifiers();
+        //rollAllModifiers();
 
     }
 
@@ -268,6 +268,7 @@ public class ChainControler : MonoBehaviour
             saveNewChain(outputChain);
         }
         
+        
     }
 
     public List<PooledChain> poolObjects(LinkedList<MyTile> receivedChain, Color color) {
@@ -374,6 +375,7 @@ public class ChainControler : MonoBehaviour
 
     private void deleteChain(int ID)
     {
+        
         Chain toDelete = new Chain(null, null, -1);
 
         // search for a chain with given ID
@@ -401,6 +403,7 @@ public class ChainControler : MonoBehaviour
         //updateNotDeletedChains checks chains that are still on the board and makes sure that they are active
         chainGenerator.markUsedForChainTiles(toDelete.tileChain, false);
 
+        StopCoroutine(rolling(toDelete));
         myChains.Remove(toDelete);
         updateNotDeletedChains();
 
@@ -409,23 +412,33 @@ public class ChainControler : MonoBehaviour
 
     public void deleteChainByElement(MovableItem item)
     {
-        bool breaking = false;
+        List<int> chainsToDelete = new List<int>();
         foreach(Chain ch in myChains)
         {
             foreach (MyTile tile in ch.tileChain)
             {
-                if(tile.tileType == MyTile.TileType.CANNON)
+                if (tile.tileType == MyTile.TileType.CANNON)
                 {
-                    if(tile.cannon == item)
+                    if (tile.cannon == item)
                     {
-                        deleteChain(ch.chainID);
-                        breaking = true;
+                        chainsToDelete.Add(ch.chainID);
+                        break;
+                    }
+                }
+                else
+                {
+                    if (tile.modifier == item)
+                    {
+                        chainsToDelete.Add(ch.chainID);
                         break;
                     }
                 }
             }
-            if (breaking)
-                break;
+        }
+        foreach(int id in chainsToDelete)
+        {
+            Debug.Log("Deleting chain");
+            deleteChain(id);
         }
     }
     public void rollAllModifiers()
@@ -434,6 +447,7 @@ public class ChainControler : MonoBehaviour
         foreach (Chain ch in myChains)
         {
             StartCoroutine(rolling(ch));
+           
         }
 
     }

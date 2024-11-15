@@ -51,13 +51,13 @@ public class EnemyWave : MonoBehaviour
     {
         if (GameManager.instance.currentGameState == GameState.GS_BATTLE && areAllEnemiesDefeated())
         {
-            Debug.Log("All enemies defeated. Ending wave.");
+            //Debug.Log("All enemies defeated. Ending wave.");
             GameManager.instance.Wait();
             StartCoroutine(GameManager.instance.WaveOver());
         }
         else
         {
-            Debug.Log("Enemies remaining: " + enemies.Count);
+            //Debug.Log("Enemies remaining: " + enemies.Count);
         }
     }
 

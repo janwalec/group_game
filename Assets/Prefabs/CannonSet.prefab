@@ -650,7 +650,6 @@ GameObject:
   - component: {fileID: 1765936012243782398}
   - component: {fileID: 7019843131976744089}
   - component: {fileID: 5912174251267614765}
-  - component: {fileID: 7756489664901921560}
   - component: {fileID: 2076907911881555466}
   - component: {fileID: 2430935586085972829}
   m_Layer: 0
@@ -748,28 +747,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &7756489664901921560
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7407523534206894118}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 779a8a18465f9be4c837c5052de847f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  selector: {fileID: 0}
-  animatedObject: {fileID: 0}
-  enemyMask:
-    serializedVersion: 2
-    m_Bits: 64
-  canvas: {fileID: 7146336947221993522}
-  shotFlot: {fileID: 8300000, guid: f1d668ea96d74d14a91616e202214012, type: 3}
-  shotMedium: {fileID: 8300000, guid: 3e3106ddb9f9e85488f08d47a3448c2f, type: 3}
-  shotHard: {fileID: 8300000, guid: aee13110528edff438bfdcb67dba7e3a, type: 3}
-  shootingParticles: {fileID: 3679879074604123835, guid: 8aa29f2d3ea193bc2ad4addd4f733b0e, type: 3}
 --- !u!82 &2076907911881555466
 AudioSource:
   m_ObjectHideFlags: 0

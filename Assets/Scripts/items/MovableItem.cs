@@ -30,19 +30,17 @@ public abstract class MovableItem : MonoBehaviour
     {
         if(moving)
         {
-            GameManager.instance.chainControler.deleteChainByElement(this);
+            
             Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mouseWorldPos.z += Camera.main.nearClipPlane;
             transform.position = mouseWorldPos;
-
-            //Vector3Int gridPosition = tm.WorldToCell(mouseWorldPos);
 
         }
     }
 
     private void PutDown()
     {
-
+        
         TIleMapGenerator tm = GameManager.instance.getTilemap();
         tm.selectObject(selector);
         if (!tm.PlaceAnItem(this.gameObject))
@@ -51,6 +49,7 @@ public abstract class MovableItem : MonoBehaviour
         }
         else
         {
+            GameManager.instance.chainControler.deleteChainByElement(this);
             tm.releaseTile(tm.getTileFromMousePosition(prevPosition));
         }
         //Vector3Int gridPosition = tm.WorldToCell(mouseWorldPos);

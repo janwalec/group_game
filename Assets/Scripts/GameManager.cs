@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
         SetGameState(GameState.GS_WAIT);
         waves[0] = 2;
         waves[1] = 2;
-        enemiesHp[0].Add(30);
+        enemiesHp[0].Add(10);
         enemiesHp[0].Add(10);
        // enemiesHp[0].Add(10);
         enemiesHp[1].Add(20);
@@ -94,8 +94,13 @@ public class GameManager : MonoBehaviour
         instance = this;
     }
 
+    public void StartRolling()
+    {
+        chainControler.rollAllModifiers();
+    }
     public void StartGame()
     {
+        //chainControler.rollAllModifiers();
         SetGameState(GameState.GS_BATTLE);
 
         // Find the CaptainShip instance and start its spawn routine
