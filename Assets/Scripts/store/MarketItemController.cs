@@ -32,7 +32,7 @@ public class MarketItemController : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
 
-        
+
     }
     public MarketManager.Items getObjectType()
     {

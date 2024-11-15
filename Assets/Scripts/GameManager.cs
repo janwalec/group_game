@@ -22,7 +22,6 @@ public class GameManager : MonoBehaviour
     public GameObject pauseUI;
     public GameObject settingsUI;
 
-
     private const int levelsNum = 2;
     private int currentLevel = 0;
     private int currentWave = 0;
@@ -91,7 +90,23 @@ public class GameManager : MonoBehaviour
     public void Awake()
     {
         instance = this;
-    }    
+    }
+
+    public void StartGame()
+    {
+        SetGameState(GameState.GS_BATTLE);
+
+        // Find the CaptainShip instance and start its spawn routine
+        CaptainShip captainShip = FindObjectOfType<CaptainShip>();
+        if (captainShip != null)
+        {
+            captainShip.StartSpawningEnemies();
+        }
+        else
+        {
+            Debug.LogError("CaptainShip not found in the scene.");
+        }
+    }
 
     private void SetGameState(GameState state)
     {
@@ -204,6 +219,7 @@ public class GameManager : MonoBehaviour
  
     public IEnumerator WaveOver()
     {
+
         Wait();
         Debug.Log("here2");
         if (waves[currentLevel] == currentWave + 1)

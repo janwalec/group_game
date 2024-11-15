@@ -11,14 +11,16 @@ public class ShopManager : MonoBehaviour
     public UIDocument shopUIDocument; // Reference to the overall shop UI document
     private Button closeButton;
     
-
-
     public GameObject shop;
+
     Label goldAmount;
+
 
 
     void OnEnable()
     {
+        
+
         // Reference to the root of the UI
         var root = shopUIDocument.rootVisualElement;
         shopScrollView = root.Q<ScrollView>("ShopScrollView");
@@ -101,9 +103,37 @@ public class ShopManager : MonoBehaviour
         }
     }
 
+    private GameObject getObject(string itemName) {
+        GameObject pooledObject = null;
+        
+        switch(itemName) {
+            case "Coin":
+                pooledObject = ItemPool.SharedInstance.GetPooledCoinCard();
+                //Debug.Log("COIN COIN COIN ");
+                break;
+            case "Dice":
+                pooledObject = ItemPool.SharedInstance.GetPooledDiceCard();
+                //Debug.Log("DICE DICE DICE");
+                break;
+            case "Cannon":
+                pooledObject = ItemPool.SharedInstance.GetPooledCannonCard();
+                //Debug.Log("CANNON CANNON CANNON");
+                break;
+        }
+
+        return pooledObject;
+    }
+
+    private void spawnACard(GameObject pooledObject) {
+        pooledObject.SetActive(true);
+    }
+    
     void PurchaseItem(ShopItem item)
     {
         Debug.Log("Purchased " + item.itemName + " for " + item.price);
         // Add purchase logic here
+        GameObject obj = getObject(item.itemName);
+        spawnACard(obj);
+
     }
 }
