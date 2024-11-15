@@ -29,6 +29,7 @@ public class CannonController : MovableItem
     [SerializeField] protected AudioClip shotHard;
 
     public ParticleSystem shootingParticles;
+    protected System.Random rand = new System.Random();
 
 
     void Start()
@@ -61,19 +62,11 @@ public class CannonController : MovableItem
         if(hits.Length == 0)
             hits = Physics2D.CircleCastAll(transform.position, wideRange, transform.position, 0f, enemyMask);
 
+
         if (hits.Length > 0)
         {
-            //for (int i = 0; i < hits.Length; i++)
-            //{
-            //    Debug.Log("Positioon: " +( hits[i].point.x));
-                //if (hits[i].point.x > 0.0f)
-         //       {
-                    target = hits[0].transform;
-                    
-           //         return;
-          //      }
-          //  }
-            
+            int idx = rand.Next(0,hits.Length-1);
+            target = hits[idx].transform;   
         }
         
     }

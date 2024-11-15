@@ -41,11 +41,11 @@ public class GameManager : MonoBehaviour
             enemiesHp.Add(new List<int>());
         }
         SetGameState(GameState.GS_WAIT);
-        waves[0] = 1;
+        waves[0] = 2;
         waves[1] = 2;
         enemiesHp[0].Add(10);
         enemiesHp[0].Add(10);
-        enemiesHp[0].Add(10);
+       // enemiesHp[0].Add(10);
         enemiesHp[1].Add(20);
         enemiesHp[1].Add(20);
 

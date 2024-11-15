@@ -647,7 +647,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f46a542a198d30d41a73075ae2495756, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shopUIDocument: {fileID: 461877436}
+  shopUIDocument: {fileID: 461877437}
 --- !u!1 &344465319
 GameObject:
   m_ObjectHideFlags: 0
@@ -920,7 +920,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &461877437
 MonoBehaviour:
   m_ObjectHideFlags: 0
