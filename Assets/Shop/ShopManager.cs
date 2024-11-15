@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using TMPro;
+
 
 public class ShopManager : MonoBehaviour
 {
@@ -13,8 +15,35 @@ public class ShopManager : MonoBehaviour
     
     public GameObject shop;
 
+    public GameObject cannonCard;
+    public GameObject diceCard;
+    public GameObject coinCard;
+
+    private TextMeshProUGUI cannonCardText;
+    private TextMeshProUGUI diceCardText;
+
+    private TextMeshProUGUI coinCardText;
+
+
+
+    public int cannonsBought = 0, diceBought = 0, coinsBought = 0;
+
     Label goldAmount;
 
+
+    void Awake() {
+        cannonCard.SetActive(false);
+        diceCard.SetActive(false);
+        coinCard.SetActive(false);
+        
+        this.cannonCardText = cannonCard.GetComponentInChildren<TextMeshProUGUI>();
+        this.diceCardText = diceCard.GetComponentInChildren<TextMeshProUGUI>();
+        this.coinCardText = coinCard.GetComponentInChildren<TextMeshProUGUI>();
+        
+        Debug.Log(cannonCardText);
+
+        GameManager.instance.setShopManager(this);
+    }
 
 
     void OnEnable()
@@ -103,37 +132,60 @@ public class ShopManager : MonoBehaviour
         }
     }
 
-    private GameObject getObject(string itemName) {
-        GameObject pooledObject = null;
-        
-        switch(itemName) {
-            case "Coin":
-                pooledObject = ItemPool.SharedInstance.GetPooledCoinCard();
-                //Debug.Log("COIN COIN COIN ");
-                break;
-            case "Dice":
-                pooledObject = ItemPool.SharedInstance.GetPooledDiceCard();
-                //Debug.Log("DICE DICE DICE");
-                break;
-            case "Cannon":
-                pooledObject = ItemPool.SharedInstance.GetPooledCannonCard();
-                //Debug.Log("CANNON CANNON CANNON");
-                break;
-        }
 
-        return pooledObject;
-    }
-
-    private void spawnACard(GameObject pooledObject) {
-        pooledObject.SetActive(true);
-    }
     
+
     void PurchaseItem(ShopItem item)
     {
         Debug.Log("Purchased " + item.itemName + " for " + item.price);
         // Add purchase logic here
-        GameObject obj = getObject(item.itemName);
-        spawnACard(obj);
+        switch (item.itemName) {
+            case "Cannon":
+                this.cannonsBought += 1;
+                this.cannonCard.SetActive(true);
+                
+                this.cannonCardText.text = cannonsBought.ToString();
+                MarketManager.instance.spendGold(MarketManager.Items.CANNON);
+                break;
+            case "Dice":
+                this.diceBought += 1;
+                this.diceCard.SetActive(true);
 
+                this.diceCardText.text = diceBought.ToString();
+                MarketManager.instance.spendGold(MarketManager.Items.DICE);
+                break;
+            case "Coin":
+                this.coinsBought += 1;
+                this.coinCard.SetActive(true);
+
+                this.coinCardText.text = coinsBought.ToString();
+                MarketManager.instance.spendGold(MarketManager.Items.COIN);
+                break;
+        }
+        
+
+    }
+
+    public void useCard(string name) {
+        switch (name) {
+            case "Cannon":
+                this.cannonsBought -= 1;
+                if (cannonsBought == 0)
+                    this.cannonCard.SetActive(false);
+                this.coinCardText.text = cannonsBought.ToString();
+                break;
+            case "Dice":
+                this.diceBought -= 1;
+                if(diceBought == 0)
+                    this.diceCard.SetActive(false);
+                this.diceCardText.text = diceBought.ToString();
+                break;
+            case "Coin":
+                this.coinsBought -= 1;
+                if (coinsBought == 0)
+                    this.coinCard.SetActive(false);
+                this.coinCardText.text = coinsBought.ToString();
+                break;
+        }
     }
 }
