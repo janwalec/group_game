@@ -57,11 +57,7 @@ public class EnemyWave : MonoBehaviour
         }
         else
         {
-<<<<<<< HEAD
 //            Debug.Log("Enemies remaining: " + enemies.Count);
-=======
-            //Debug.Log("Enemies remaining: " + enemies.Count);
->>>>>>> 9ab9adb1f8752ba434d22bd4215fa4bfc6d1d9d0
         }
     }
 

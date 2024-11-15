@@ -998,8 +998,8 @@ MonoBehaviour:
   settingsUI: {fileID: 1595945495}
   cardRollManager: {fileID: 675279744}
   rum: {fileID: 1875844354}
-  chainControler: {fileID: 0}
-  shopManager: {fileID: 0}
+  chainControler: {fileID: 647878485}
+  shopManager: {fileID: 622088105}
 --- !u!4 &407846232
 Transform:
   m_ObjectHideFlags: 0
