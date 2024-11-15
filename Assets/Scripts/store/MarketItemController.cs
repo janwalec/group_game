@@ -19,9 +19,11 @@ public class MarketItemController : MonoBehaviour
 
     protected AudioSource audioSource;
     [SerializeField] protected AudioClip onSelectSound;
+
+    private ShopManager shopManager;
     void Start()
     {
-        
+        this.shopManager = GameManager.instance.getShopManager();
     }
 
     void Update()
@@ -76,16 +78,19 @@ public class MarketItemController : MonoBehaviour
         {
             new_object = ItemPool.SharedInstance.GetPooledCannon();
             new_object.transform.position = position;
+            shopManager.useCard("Cannon");
         }
         else if (objectType == MarketManager.Items.DICE)
         {
             new_object = ItemPool.SharedInstance.GetPooledDice();
             new_object.transform.position = new Vector3(position.x-0.1f, position.y-0.05f, position.z);
+            shopManager.useCard("Dice");
         }
         else if (objectType == MarketManager.Items.COIN)
         {
             new_object = ItemPool.SharedInstance.GetPooledCoin();
             new_object.transform.position = new Vector3(position.x-0.1f, position.y-0.05f, position.z);
+            shopManager.useCard("Coin");
         }
         if (new_object != null)
         {
@@ -93,7 +98,10 @@ public class MarketItemController : MonoBehaviour
             new_object.GetComponent<SpriteRenderer>().sortingLayerID = SortingLayer.NameToID("OnLand");
             new_object.SetActive(true);
         }
-        MarketManager.instance.spendGold(objectType);
+        //MarketManager.instance.spendGold(objectType);
+        
+        
+
         return new_object;
     }
 

@@ -34,6 +34,8 @@ public class GameManager : MonoBehaviour
 
     public ChainControler chainControler;
 
+    public ShopManager shopManager;
+
     void Start()
     {
         for(int i = 0; i <  levelsNum; i++)
@@ -66,9 +68,18 @@ public class GameManager : MonoBehaviour
         this.tilemap = tilemap_;
     }
 
+
     public TIleMapGenerator getTilemap()
     {
         return this.tilemap;
+    }
+
+    public void setShopManager(ShopManager shopManager_) {
+        this.shopManager = shopManager_;
+    }
+
+    public ShopManager getShopManager() {
+        return this.shopManager;
     }
 
     // Update is called once per frame
