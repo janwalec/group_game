@@ -51,7 +51,8 @@ class GameUIController : MonoBehaviour
         DisableReadyButton();
         //this.OnDisable();
         audioSource.PlayOneShot(onBattleStartSound);
-        
+
+        GameManager.instance.StartRolling();
         GameManager.instance.InGame();
     }
 

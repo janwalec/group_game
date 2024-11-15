@@ -41,21 +41,26 @@ public class ChainGenerator : MonoBehaviour
     }
 
     void Update() {
-        if (Input.GetMouseButtonDown(1))
-        {
-            Debug.Log("Right pressed");
-            isLeftMouseButtonPressed = true;
-            isLeftMouseButtonReleased = false;  
-        }
-        
-        if (Input.GetMouseButtonUp(1))
-        {
-            Debug.Log("Right released");
-            isLeftMouseButtonPressed = false;
-            isLeftMouseButtonReleased = true;
+        if (GameManager.instance.currentGameState == GameState.GS_PREPARE) {
             
-        }
-        createTempChain(); 
+
+
+                if (Input.GetMouseButtonDown(1))
+                {
+                    Debug.Log("Right pressed");
+                    isLeftMouseButtonPressed = true;
+                    isLeftMouseButtonReleased = false;
+                }
+
+                if (Input.GetMouseButtonUp(1))
+                {
+                    Debug.Log("Right released");
+                    isLeftMouseButtonPressed = false;
+                    isLeftMouseButtonReleased = true;
+
+                }
+                createTempChain();
+            }
     }
 
     public void Awake()
@@ -82,6 +87,7 @@ public class ChainGenerator : MonoBehaviour
 
     //dragging mouse over board
     public void playerIsDragging() {
+
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);    //get position
         MyTile newTile = tilemap.getTileFromMousePosition(mouseWorldPos);   //get tile from this position
         
