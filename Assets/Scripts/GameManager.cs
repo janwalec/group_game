@@ -132,7 +132,14 @@ public class GameManager : MonoBehaviour
         {
             inGameUI.DisableReadyButton();
         }*/
-        if(currentGameState != GameState.GS_PAUSEMENU && currentGameState != GameState.GS_SETTINGS)
+
+        // Clear cards when entering BATTLE state
+        if (currentGameState == GameState.GS_BATTLE)
+        {
+            cardRollManager.ClearCards();
+        }
+
+        if (currentGameState != GameState.GS_PAUSEMENU && currentGameState != GameState.GS_SETTINGS)
             prevState = currentGameState;
         currentGameState = state;
         //Debug.Log(currentGameState);
