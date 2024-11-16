@@ -17,6 +17,8 @@ public class EnemyController : MonoBehaviour
     protected AudioSource audioSource;
     [SerializeField] protected AudioClip onHitSound;
     [SerializeField] protected AudioClip onDeathSound;
+
+    [SerializeField]  protected ParticleSystem damageParticles;
     private float delay = 1f;
     private int priceForKill = 20;
 
@@ -113,7 +115,7 @@ public class EnemyController : MonoBehaviour
         health -= dmg;
         health = health < 0 ? 0 : health;
         changeText(health.ToString());
-        
+        Instantiate(damageParticles, this.transform.position, Quaternion.identity);
         if (health <= 0) {
             StartCoroutine(Die());
         }

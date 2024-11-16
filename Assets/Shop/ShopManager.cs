@@ -172,7 +172,7 @@ public class ShopManager : MonoBehaviour
                 this.cannonsBought -= 1;
                 if (cannonsBought == 0)
                     this.cannonCard.SetActive(false);
-                this.coinCardText.text = cannonsBought.ToString();
+                this.cannonCardText.text = cannonsBought.ToString();
                 break;
             case "Dice":
                 this.diceBought -= 1;
