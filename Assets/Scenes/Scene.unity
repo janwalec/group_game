@@ -11925,7 +11925,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 1518868163146938194, guid: 181095fe62d2a5d4f83e51a828a64d5b, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -12763,9 +12763,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4831531353965716011, guid: 0a411bfa04797e848baaed45b88e610c, type: 3}
-      propertyPath: onDamageSound
+      propertyPath: onLossSound
       value: 
       objectReference: {fileID: 8300000, guid: c9b6a15d71be7ad4b9cf45a81523d421, type: 3}
+    - target: {fileID: 4831531353965716011, guid: 0a411bfa04797e848baaed45b88e610c, type: 3}
+      propertyPath: onDamageSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 6e0691df1f175b545b60806d6c38c2ce, type: 3}
+    - target: {fileID: 4831531353965716011, guid: 0a411bfa04797e848baaed45b88e610c, type: 3}
+      propertyPath: pitchIncrement
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 9114654380883393293, guid: 0a411bfa04797e848baaed45b88e610c, type: 3}
       propertyPath: m_Name
       value: Rum

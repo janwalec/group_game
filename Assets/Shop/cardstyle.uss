@@ -31,17 +31,8 @@
     padding-left: 0;
 }
 
-.card:hover {
-    border-top-width: 2px;
-    border-right-width: 2px;
-    border-bottom-width: 2px;
-    border-left-width: 2px;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
-    border-bottom-left-radius: 20px;
-    border-left-color: rgb(207, 194, 36);
-    border-right-color: rgb(207, 194, 36);
-    border-top-color: rgb(207, 194, 36);
-    border-bottom-color: rgb(207, 194, 36);
+.item-root:hover {
+    -unity-background-image-tint-color: rgba(255, 255, 255, 0.5);
+    transition-duration: 200ms;
+    transition-property: -unity-background-image-tint-color;
 }

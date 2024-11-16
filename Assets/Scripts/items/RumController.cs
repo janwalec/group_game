@@ -13,7 +13,15 @@ public class RumController : MonoBehaviour
     private float range = 2.0f;
     AudioSource audioSource;
     [SerializeField] AudioClip onDamageSound;
+    [SerializeField] AudioClip onLossSound;
     private double krakenMultiplier = 2.0;  // Kraken consumes rum at twice the normal rate
+    
+    //SFX
+    public float pitchIncrement = 0.5f;   // Amount by which to increase the pitch each time
+    public float maxPitch = 3.0f;         // Maximum pitch value to prevent it from increasing indefinitely
+
+    private float initialPitch = 1.0f;           // Store the initial pitch to reset
+    
     void Start()
     {
         //occupy tiles so that a cannon or a modifier cannot be placed there
@@ -51,6 +59,10 @@ public class RumController : MonoBehaviour
 
             TakeDamage(regularEnemies, krakenEnemies);
         }
+        else
+        {
+            audioSource.pitch = initialPitch;
+        }
     }
 
     private void Awake()
@@ -69,6 +81,8 @@ public class RumController : MonoBehaviour
         if (HPLoss >= 1)
         {
             audioSource.PlayOneShot(onDamageSound);
+            audioSource.pitch = Mathf.Min(audioSource.pitch + pitchIncrement, maxPitch); // Increase pitch but do not exceed maxPitch
+            audioSource.PlayOneShot(onDamageSound);
             HPInt--;
             HPLoss = 0;
             changeText(HPInt.ToString());
@@ -76,6 +90,8 @@ public class RumController : MonoBehaviour
         
         if(HPInt <= 0)
         {
+            audioSource.pitch = initialPitch;
+            audioSource.PlayOneShot(onLossSound);
             GameManager.instance.GameLost();
         }
     }
