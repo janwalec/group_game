@@ -45,6 +45,10 @@ public abstract class ModifierController : MovableItem
         animator.SetTrigger("Flip");
     }
 
+    public virtual void resetAnimation() {
+        animator.ResetTrigger("Flip");
+    }
+
     public virtual void Roll()
     {
         currentValue = rand.Next(minVal, maxVal);
