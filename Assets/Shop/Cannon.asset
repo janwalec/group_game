@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Cannon
   price: 30
-  icon: {fileID: 21300000, guid: e29324c256ecbb642a177938355e8f84, type: 3}
+  icon: {fileID: 21300000, guid: 0bb9ca8f31b7afa40b555bb3d6f8d644, type: 3}
