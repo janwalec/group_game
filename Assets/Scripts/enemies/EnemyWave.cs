@@ -100,7 +100,7 @@ public class EnemyWave : MonoBehaviour
 
             // Calculate positions for each boat or mermaid
             float yPos = minY + (i + 1) * yOffset;
-            float xPos = minX + (i + 1) * xOffset;
+            float xPos = minX + (i + 1) * 12;
             Vector3 spawnPosition = new Vector3(xPos, yPos, spawnPoint.position.z);
 
             GameObject newEnemy;
@@ -121,24 +121,32 @@ public class EnemyWave : MonoBehaviour
             }
             else if (card == 11)
             {
+                xPos = minX + xOffset * 0.02f;
+                spawnPosition = new Vector3(xPos, yPos, spawnPoint.position.z);
                 newEnemy = Instantiate(sharkPrefab, spawnPosition, spawnPoint.rotation);
                 Debug.Log("Spawning shark at position: " + spawnPosition + " for card value: " + card);
                 enemies.Add(newEnemy.transform.Find("Shark"));
             }
             else if (card == 12)
             {
+                xPos = minX + xOffset * 0.02f;
+                spawnPosition = new Vector3(xPos, yPos, spawnPoint.position.z);
                 newEnemy = Instantiate(mermaidPrefab, spawnPosition, spawnPoint.rotation);
                 Debug.Log("Spawning mermaid at position: " + spawnPosition + " for card value: " + card);
                 enemies.Add(newEnemy.transform.Find("Mermaid"));
             }
             else if (card == 14)
             {
+                xPos = minX + xOffset * 0.02f;
+                spawnPosition = new Vector3(xPos, yPos, spawnPoint.position.z);
                 newEnemy = Instantiate(krakenPrefab, spawnPosition, spawnPoint.rotation);
                 Debug.Log("Spawning kraken at position: " + spawnPosition + " for card value: " + card);
                 enemies.Add(newEnemy.transform.Find("Kraken"));
             }
             else
             {
+                //xPos = minX + 8 * 0.01f;
+                //spawnPosition = new Vector3(xPos, yPos, spawnPoint.position.z);
                 newEnemy = Instantiate(shipPrefab, spawnPosition, spawnPoint.rotation);
 
                 // Get the NormalShip component from the Pirate_Boat child
