@@ -447,15 +447,39 @@ public class ChainControler : MonoBehaviour
             deleteChain(id);
         }
     }
+
+    private Dictionary<Chain, Coroutine> activeCoroutines = new Dictionary<Chain, Coroutine>();
+
     public void rollAllModifiers()
     {
 
         foreach (Chain ch in myChains)
         {
-            StartCoroutine(rolling(ch));
-           
+            //StartCoroutine(rolling(ch));
+            Coroutine coroutine = StartCoroutine(rolling(ch));
+            activeCoroutines[ch] = coroutine;
         }
 
+    }
+
+    public void clearCourtine() {
+        foreach (var coroutine in activeCoroutines.Values)
+        {
+            StopCoroutine(coroutine);
+        }
+        activeCoroutines.Clear();
+    }
+
+    public void resetAnimations() {
+        foreach (Chain ch in myChains) {
+            foreach (MyTile curr in ch.tileChain) {
+                if (curr.tileType == MyTile.TileType.COIN || curr.tileType == MyTile.TileType.DICE) {
+                    curr.modifier.resetAnimation();
+                    Debug.Log(curr.modifier + "RESET");
+                }
+
+            }
+        }
     }
 
     //for now: cannons base damage works if it is only the cannon in the chain
@@ -467,8 +491,10 @@ public class ChainControler : MonoBehaviour
         {
             while (GameManager.instance.currentGameState != GameState.GS_BATTLE)
             {
+                resetAnimations();
                 yield return (rollingDelay);
             }
+
 
             float slowing_effect;
             LinkedListNode<MyTile> curr = currChain.tileChain.Last;

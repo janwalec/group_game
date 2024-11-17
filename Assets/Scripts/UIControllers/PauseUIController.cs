@@ -6,7 +6,7 @@ class PauseUIController : MonoBehaviour
     private VisualElement root;  // Root element of the UI Document
 
     private void OnEnable()
-    {
+    {        
         // Get the root of the visual tree from the UIDocument component
         root = GetComponent<UIDocument>().rootVisualElement;
 

@@ -141,6 +141,7 @@ public class GameManager : MonoBehaviour
 
         if (currentGameState != GameState.GS_PAUSEMENU && currentGameState != GameState.GS_SETTINGS)
             prevState = currentGameState;
+        
         currentGameState = state;
         //Debug.Log(currentGameState);
         pauseUI.SetActive(currentGameState == GameState.GS_PAUSEMENU);
@@ -212,7 +213,7 @@ public class GameManager : MonoBehaviour
     //TODO
 
     public void NextLevel()
-    {
+    {   
         Debug.Log("Call wait");
         if(currentLevel == levelsNum - 1)
         {
@@ -220,6 +221,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            //chainControler.resetAnimations();
             Debug.Log(currentLevel + " now");
             ++currentLevel;
             Debug.Log(currentLevel + " now2");
@@ -235,6 +237,7 @@ public class GameManager : MonoBehaviour
 
     private void NextWave()
     {
+        //chainControler.resetAnimations();
         currentWave++;
         inGameUI.UpdateRound(currentLevel, currentWave);
         cardRollManager.setTotalHp(enemiesHp[currentLevel][currentWave]);
