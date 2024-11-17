@@ -35,6 +35,8 @@ public class EnemyController : MonoBehaviour
     {
         waypoints = EnemyPathManager.Instance.getRandomPath();
         currentDestination = waypoints[currentWaypoint].GetComponentInParent<Transform>().position;
+    
+
         finalDestination = GameManager.instance.getRumPosition();
         changeText(health.ToString());
         

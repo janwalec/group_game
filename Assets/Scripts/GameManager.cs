@@ -30,15 +30,21 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private CardRollManager cardRollManager;
     private GameState prevState = GameState.GS_PREPARE;
-    public GameObject rum;
+    public GameObject[] rums;
+
+
 
     public ChainControler chainControler;
 
     public ShopManager shopManager;
 
+    [SerializeField] private GameObject[] levelsLayout;
+
     void Start()
     {
-        for(int i = 0; i <  levelsNum; i++)
+        levelsLayout[0].SetActive(true);
+        Debug.Log("Start");
+        for (int i = 0; i <  levelsNum; i++)
         {
             //Debug.Log("i" + i);
             enemiesHp.Add(new List<int>());
@@ -55,13 +61,15 @@ public class GameManager : MonoBehaviour
         cardRollManager.setTotalHp(enemiesHp[0][0]);
         roundWonCanvas.enabled = false;
 
+        //NextLevel();
+
     }
 
 
    
     public Vector2 getRumPosition()
     {
-        return rum.transform.position;
+        return rums[currentLevel].transform.position;
     }
     public void setTilemap(TIleMapGenerator tilemap_)
     {
@@ -102,6 +110,7 @@ public class GameManager : MonoBehaviour
 
     public void Awake()
     {
+        Debug.Log("Awake");
         instance = this;
     }
 
@@ -223,7 +232,11 @@ public class GameManager : MonoBehaviour
         {
             //chainControler.resetAnimations();
             Debug.Log(currentLevel + " now");
+            levelsLayout[currentLevel].SetActive(false);
             ++currentLevel;
+            levelsLayout[currentLevel].SetActive(true);
+            chainControler.RemoveAll();
+            EnemyPathManager.Instance.NextLevel();
             Debug.Log(currentLevel + " now2");
             currentWave = 0;
             Wait();

@@ -29,7 +29,6 @@ public abstract class ModifierController : MovableItem
         updateText();
         canvas.gameObject.SetActive(false);
         
-
         EraseOperations();
         //SetOperation(ChainGenerator.Direction.TOP_RIGHT, ChainGenerator.Operation.MULTIPLICATION);
     }

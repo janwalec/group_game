@@ -675,6 +675,38 @@ public class ChainControler : MonoBehaviour
 
     }
 
+    public void RemoveAll()
+    {
+        List<int> toDelete = new List<int>();
+        foreach (Chain ch in myChains)
+        {
+            foreach (MyTile tile in ch.tileChain)
+            {
+                if (tile != null)
+                {
+                    if (tile.cannon != null)
+                    {
+                        tile.cannon.gameObject.SetActive(false);
+                        tile.cannon.deactivateCanvas();
+                    }
+
+                    else if (tile.modifier != null)
+                    {
+                        tile.modifier.gameObject.SetActive(false);
+                        tile.modifier.deactivateCanvas();
+                    }
+                }
+                toDelete.Add(ch.chainID);
+            }
+            
+        }
+        foreach(int id in toDelete)
+        {
+            deleteChain(id);
+        }
+       
+    }
+
     private void AddOperationSigns(LinkedList<MyTile> tempList)
     {
         LinkedListNode<MyTile> curr = tempList.Last;

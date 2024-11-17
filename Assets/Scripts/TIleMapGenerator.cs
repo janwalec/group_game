@@ -94,7 +94,7 @@ public class TIleMapGenerator : MonoBehaviour
     private MarketItemController selector;
     // Start is called before the first frame update
 
-    void Awake() {
+    void Start() {
         audioSource = GetComponent<AudioSource>();
         tm = GetComponent<Tilemap>();
         
@@ -135,6 +135,7 @@ public class TIleMapGenerator : MonoBehaviour
             }
         }   
         CreateTileNeighbours();
+        Debug.Log("instance in tilemap" + (GameManager.instance == null));
         GameManager.instance.setTilemap(this);
     }
 

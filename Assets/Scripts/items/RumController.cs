@@ -21,17 +21,32 @@ public class RumController : MonoBehaviour
     public float maxPitch = 3.0f;         // Maximum pitch value to prevent it from increasing indefinitely
 
     private float initialPitch = 1.0f;           // Store the initial pitch to reset
+
+    bool tileOccupied = false;
     
     void Start()
     {
         //occupy tiles so that a cannon or a modifier cannot be placed there
-        GameManager.instance.getTilemap().occupyTile(transform.position);
+        Debug.Log("instamce" + GameManager.instance == null);
+        Debug.Log("tilemap" + GameManager.instance.getTilemap() == null);
+        if (GameManager.instance.getTilemap() != null)
+        {
+            GameManager.instance.getTilemap().occupyTile(transform.position);
+            tileOccupied = true;
+        }
         changeText(HPInt.ToString());
     }
 
 
     void Update()
     {
+        if (!tileOccupied)
+        {
+            
+                GameManager.instance.getTilemap().occupyTile(transform.position);
+                tileOccupied = true;
+        }
+
         RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, range, Vector2.zero, 0f, enemyMask);
 
         if (hits.Length > 0)

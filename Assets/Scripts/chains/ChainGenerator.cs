@@ -16,7 +16,7 @@ public class ChainGenerator : MonoBehaviour
     public bool isLeftMouseButtonReleased = true;
 
     
-    public TIleMapGenerator tilemap;
+    private TIleMapGenerator tilemap;
     private LinkedList<MyTile> tempList = new LinkedList<MyTile>();
     
     private List<LinkedList<MyTile>> listOfChains = new List<LinkedList<MyTile>>();
@@ -41,6 +41,7 @@ public class ChainGenerator : MonoBehaviour
     }
 
     void Update() {
+        tilemap = GameManager.instance.getTilemap();
         if (GameManager.instance.currentGameState == GameState.GS_PREPARE) {
             
 
