@@ -38,17 +38,19 @@ public abstract class ModifierController : MovableItem
         animator = GetComponent<Animator>();
     }
 
- 
 
     public virtual void ChangeAnimation() {
         animator.SetTrigger("Flip");
         Debug.Log("change animation (modifier)");
     }
 
-    public virtual void resetAnimation() {
-        animator.ResetTrigger("Flip");
-        Debug.Log("reset animation (modifier)");
+    public virtual void ResetAnimation() {
+        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("default")) {
+            animator.SetTrigger("Flip"); // return to default animation
+        }
     }
+
+
 
     public virtual void Roll()
     {

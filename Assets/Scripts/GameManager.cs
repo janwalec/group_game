@@ -137,29 +137,40 @@ public class GameManager : MonoBehaviour
 
     private void SetGameState(GameState state)
     {
-        /*if(prevState == GameState.GS_PREPARE && state != GameState.GS_PREPARE)
-        {
-            inGameUI.DisableReadyButton();
-        }*/
+        Debug.Log($"Game State Changing: {currentGameState} -> {state}");
 
-        // Clear cards when entering BATTLE state
-        if (currentGameState == GameState.GS_BATTLE)
+        // Handle visibility of CardColumn
+        if (state == GameState.GS_BATTLE)
         {
-            cardRollManager.ClearCards();
+            Debug.Log("Entering GS_BATTLE: Hiding column.");
+            cardRollManager.ClearCards(); // This hides the column
+            cardRollManager.cardColumn.gameObject.SetActive(false); // Explicitly hide it
+        }
+        else if (state == GameState.GS_PREPARE || state == GameState.GS_WAIT)
+        {
+            Debug.Log("Entering GS_PREPARE or GS_WAIT: Showing column.");
+            cardRollManager.cardColumn.gameObject.SetActive(true); // Ensure column is visible
         }
 
+        // Save the previous state if transitioning from non-pause and non-settings
         if (currentGameState != GameState.GS_PAUSEMENU && currentGameState != GameState.GS_SETTINGS)
+        {
             prevState = currentGameState;
-        
+        }
+
         currentGameState = state;
-        //Debug.Log(currentGameState);
+
+        // Update UI based on the state
         pauseUI.SetActive(currentGameState == GameState.GS_PAUSEMENU);
         inGameUI.gameObject.SetActive(currentGameState == GameState.GS_BATTLE || currentGameState == GameState.GS_PREPARE || currentGameState == GameState.GS_WAIT);
-        inGameCanvas.enabled = (currentGameState == GameState.GS_PREPARE || currentGameState == GameState.GS_PREPARE);
+        inGameCanvas.enabled = (currentGameState == GameState.GS_PREPARE || currentGameState == GameState.GS_WAIT);
         inGameUI.SetReadyButtonActive(currentGameState == GameState.GS_PREPARE);
         levelWonUI.SetActive(currentGameState == GameState.GS_LEVEL_COMPLETED);
         settingsUI.SetActive(currentGameState == GameState.GS_SETTINGS);
     }
+
+
+
 
     public void SetPreviousState()
     {
@@ -262,6 +273,7 @@ public class GameManager : MonoBehaviour
     {
         
         Wait();
+        chainControler.resetAnimations();
         chainControler.StopRolling();
         Debug.Log("here2");
         if (waves[currentLevel] == currentWave + 1)

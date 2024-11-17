@@ -492,7 +492,7 @@ public class ChainControler : MonoBehaviour
         foreach (Chain ch in myChains) {
             foreach (MyTile curr in ch.tileChain) {
                 if (curr.tileType == MyTile.TileType.COIN || curr.tileType == MyTile.TileType.DICE) {
-                    curr.modifier.resetAnimation();
+                    curr.modifier.ResetAnimation();
                     Debug.Log(curr.modifier + "RESET");
                 }
 
@@ -521,7 +521,7 @@ public class ChainControler : MonoBehaviour
             if(GameManager.instance.currentGameState != GameState.GS_BATTLE)
             {
                 Debug.Log("Waiting");
-                //resetAnimations();
+                resetAnimations();
                 while (GameManager.instance.currentGameState != GameState.GS_BATTLE)
                 {
                     yield return (rollingDelay);
@@ -569,31 +569,32 @@ public class ChainControler : MonoBehaviour
                     curr.Value.modifier.ChangeAnimation();
                     curr.Value.modifier.activateCanvas();
 
-
+                    
                     yield return new WaitForSeconds(rollingDelay);
                     if (GameManager.instance.currentGameState != GameState.GS_BATTLE)
                     {
                         Debug.Log("Waiting");
-                        //resetAnimations();
+                        resetAnimations();
                         while (GameManager.instance.currentGameState != GameState.GS_BATTLE)
                         {
                             yield return (rollingDelay);
                         }
                     }
 
-                    curr.Value.modifier.ChangeAnimation();
+                    curr.Value.modifier.ResetAnimation();
                     curr.Value.modifier.deactivateCanvas();
                 }
-
+                resetAnimations();
                 if (curr.Previous == null)
                 {
                     if (curr.Value.tileType == MyTile.TileType.CANNON)
                     {
+                        
                         yield return new WaitForSeconds(rollingDelay);
                         if (GameManager.instance.currentGameState != GameState.GS_BATTLE)
                         {
                             Debug.Log("Waiting");
-                           // resetAnimations();
+                            resetAnimations();
                             while (GameManager.instance.currentGameState != GameState.GS_BATTLE)
                             {
                                 yield return (rollingDelay);
@@ -622,7 +623,7 @@ public class ChainControler : MonoBehaviour
                         if (GameManager.instance.currentGameState != GameState.GS_BATTLE)
                         {
                             Debug.Log("Waiting");
-                            //resetAnimations();
+                            resetAnimations();
                             while (GameManager.instance.currentGameState != GameState.GS_BATTLE)
                             {
                                 yield return (rollingDelay);
