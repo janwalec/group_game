@@ -43,10 +43,12 @@ public abstract class ModifierController : MovableItem
 
     public virtual void ChangeAnimation() {
         animator.SetTrigger("Flip");
+        Debug.Log("change animation (modifier)");
     }
 
     public virtual void resetAnimation() {
         animator.ResetTrigger("Flip");
+        Debug.Log("reset animation (modifier)");
     }
 
     public virtual void Roll()

@@ -448,6 +448,24 @@ public class ChainControler : MonoBehaviour
         }
     }
 
+    public void DeleteSingleElementChain(MovableItem item)
+    {
+        List<int> chainsToDelete = new List<int>();
+        foreach (Chain ch in myChains)
+        {
+            
+            if(ch.tileChain.Count == 1&& ch.tileChain.First.Value.cannon == item)
+            {
+                chainsToDelete.Add(ch.chainID);
+            }
+        }
+        foreach (int id in chainsToDelete)
+        {
+            Debug.Log("Deleting chain");
+            deleteChain(id);
+        }
+    }
+
     private Dictionary<Chain, Coroutine> activeCoroutines = new Dictionary<Chain, Coroutine>();
 
     public void rollAllModifiers()
@@ -485,16 +503,31 @@ public class ChainControler : MonoBehaviour
     //for now: cannons base damage works if it is only the cannon in the chain
     //otherwise damage is computed ignoring cannon base damage
 
+    /*
+    private IEnumerator WaitForGameStateChange()
+    {
+        Debug.Log("Waiting");
+        resetAnimations();
+        while (GameManager.instance.currentGameState != GameState.GS_BATTLE)
+        {
+            yield return (rollingDelay);
+        }
+    }*/
     private IEnumerator rolling(Chain currChain)
     {
         while (true)
         {
-            while (GameManager.instance.currentGameState != GameState.GS_BATTLE)
+            Debug.Log(GameManager.instance.currentGameState);
+            if(GameManager.instance.currentGameState != GameState.GS_BATTLE)
             {
-                resetAnimations();
-                yield return (rollingDelay);
+                Debug.Log("Waiting");
+                //resetAnimations();
+                while (GameManager.instance.currentGameState != GameState.GS_BATTLE)
+                {
+                    yield return (rollingDelay);
+                }
             }
-
+                
 
             float slowing_effect;
             LinkedListNode<MyTile> curr = currChain.tileChain.Last;
@@ -537,10 +570,16 @@ public class ChainControler : MonoBehaviour
                     curr.Value.modifier.activateCanvas();
 
 
-                    do
+                    yield return new WaitForSeconds(rollingDelay);
+                    if (GameManager.instance.currentGameState != GameState.GS_BATTLE)
                     {
-                        yield return new WaitForSeconds(rollingDelay);
-                    } while (GameManager.instance.currentGameState != GameState.GS_BATTLE);
+                        Debug.Log("Waiting");
+                        //resetAnimations();
+                        while (GameManager.instance.currentGameState != GameState.GS_BATTLE)
+                        {
+                            yield return (rollingDelay);
+                        }
+                    }
 
                     curr.Value.modifier.ChangeAnimation();
                     curr.Value.modifier.deactivateCanvas();
@@ -550,11 +589,16 @@ public class ChainControler : MonoBehaviour
                 {
                     if (curr.Value.tileType == MyTile.TileType.CANNON)
                     {
-                        do
+                        yield return new WaitForSeconds(rollingDelay);
+                        if (GameManager.instance.currentGameState != GameState.GS_BATTLE)
                         {
-                            //yield return new WaitForSeconds(rollingDelay * (maxChainLeght + 1 - currChain.tileChain.Count));
-                            yield return new WaitForSeconds(rollingDelay);
-                        } while (GameManager.instance.currentGameState != GameState.GS_BATTLE);
+                            Debug.Log("Waiting");
+                           // resetAnimations();
+                            while (GameManager.instance.currentGameState != GameState.GS_BATTLE)
+                            {
+                                yield return (rollingDelay);
+                            }
+                        }
                         //curr.Value.cannon.setShootingDamage(myChains[myChains.Count - 1].chainSum);
 
                         if (currChain.tileChain.Count == 1)
@@ -573,10 +617,17 @@ public class ChainControler : MonoBehaviour
                         //curr.Value.cannon.Shoot();
                         curr.Value.cannon.activateCanvas();
                         StartCoroutine(curr.Value.cannon.Shoot());
-                        do
+                        yield return new WaitForSeconds(rollingDelay);
+
+                        if (GameManager.instance.currentGameState != GameState.GS_BATTLE)
                         {
-                            yield return new WaitForSeconds(rollingDelay);
-                        } while (GameManager.instance.currentGameState != GameState.GS_BATTLE);
+                            Debug.Log("Waiting");
+                            //resetAnimations();
+                            while (GameManager.instance.currentGameState != GameState.GS_BATTLE)
+                            {
+                                yield return (rollingDelay);
+                            }
+                        }
                         curr.Value.cannon.deactivateCanvas();
                     }
                     //curr.Value.cannon.setShootingDamage(10);

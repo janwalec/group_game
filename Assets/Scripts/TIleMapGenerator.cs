@@ -330,6 +330,7 @@ public class TIleMapGenerator : MonoBehaviour
                 {
                     tilesArray[y_search, x_search].tileType = MyTile.TileType.CANNON;
                     tilesArray[y_search, x_search].cannon = newObject.GetComponentInChildren<CannonController>();
+                    ChainGenerator.SharedInstance.addSingleElementChain(Camera.main.ScreenToWorldPoint(Input.mousePosition));
                     //Debug.Log(tilesArray[y_search, x_search].cannon == null);
                 }
                 selector.unselectObject();

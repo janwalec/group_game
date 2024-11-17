@@ -84,6 +84,14 @@ public class ChainGenerator : MonoBehaviour
         tempList.Clear();
     }
 
+    public void addSingleElementChain(Vector3 mouseWorldPos)
+    {
+        MyTile newTile = tilemap.getTileFromMousePosition(mouseWorldPos);
+        tempList.AddLast(newTile);
+        listOfChains.Add(tempList);
+        NotifyChainComplete();
+        tempList.Clear();
+    }
 
     //dragging mouse over board
     public void playerIsDragging() {
@@ -92,6 +100,10 @@ public class ChainGenerator : MonoBehaviour
         MyTile newTile = tilemap.getTileFromMousePosition(mouseWorldPos);   //get tile from this position
         
         if(checkConditionForTile(newTile)) {
+            if(newTile.tileType == MyTile.TileType.CANNON)
+            {
+                GameManager.instance.chainControler.DeleteSingleElementChain(newTile.cannon);
+            }
             currentPoints.Add(GameManager.instance.getTilemap().getWorldPosition(newTile.tilePosition));
             currentlyCreated.SetUpLine(currentPoints);
             tempList.AddLast(newTile);
