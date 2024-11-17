@@ -244,8 +244,9 @@ public class GameManager : MonoBehaviour
  
     public IEnumerator WaveOver()
     {
-
+        
         Wait();
+        chainControler.StopRolling();
         Debug.Log("here2");
         if (waves[currentLevel] == currentWave + 1)
         {

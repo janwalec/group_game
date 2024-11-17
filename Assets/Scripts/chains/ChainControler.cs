@@ -49,6 +49,7 @@ public class Chain
         }
     }
 
+ 
     public Chain changeSum(int newSum)
     {
         return new Chain(this.tileChain, this.pooledObjectChain, this.chainID, this.color, newSum);
@@ -101,6 +102,11 @@ public class ChainControler : MonoBehaviour
         processChain(receivedChain);
         //rollAllModifiers();
 
+    }
+
+    public void StopRolling()
+    {
+        StopAllCoroutines();
     }
 
     void Update()
