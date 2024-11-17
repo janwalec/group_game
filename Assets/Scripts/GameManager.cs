@@ -249,6 +249,7 @@ public class GameManager : MonoBehaviour
     {
         
         Wait();
+        chainControler.resetAnimations();
         chainControler.StopRolling();
         Debug.Log("here2");
         if (waves[currentLevel] == currentWave + 1)
