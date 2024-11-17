@@ -60,28 +60,22 @@ public class CardRollManager : MonoBehaviour
 
     public void ClearCards()
     {
-        // Hide the CardDisplay
-        cardDisplay.gameObject.SetActive(false);
+        // Hide the CardColumn
         cardColumn.gameObject.SetActive(false);
 
-
-
-
-        // Clear all cards from the CardColumn
+        // Clear all instantiated cards from the column
         foreach (Transform child in cardColumn)
         {
             Destroy(child.gameObject);
-            //child.gameObject.SetActive(false);
         }
 
-
-        // Clear the drawnCards list
+        // Clear data
         drawnCards.Clear();
         drawnTotal = 0;
 
-
-        Debug.Log("Cards cleared!");
+        Debug.Log("Card column cleared and hidden.");
     }
+
 
 
     public void UpdateCardVisibility(bool isVisible)
@@ -146,23 +140,22 @@ public class CardRollManager : MonoBehaviour
             int cardIndex = cardValue - 2; // Convert card value to sprite index
 
 
-            // Step 1: Show the card in the CardDisplay
             cardDisplay.sprite = cardSprites[cardIndex];
             cardDisplay.gameObject.SetActive(true); // Ensure the CardDisplay is visible
             audioSource.PlayOneShot(cardFlip, audioSource.volume);
             Debug.Log("Showing Card in Display: " + cardValue);
 
 
-            // Wait for the card to be visible in the CardDisplay
+    
             yield return new WaitForSeconds(1.0f);
 
 
-            // Step 2: Move the card to the CardColumn
+     
             GameObject newCard = Instantiate(cardPrefab, cardColumn); // Create a new card
             Image cardImage = newCard.GetComponent<Image>();
             if (cardImage != null)
             {
-                cardImage.sprite = cardSprites[cardIndex]; // Set the same sprite as the preview
+                cardImage.sprite = cardSprites[cardIndex]; 
             }
 
 
