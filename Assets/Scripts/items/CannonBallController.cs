@@ -19,13 +19,16 @@ public class CannonBallController : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.instance.currentGameState != GameState.GS_BATTLE)
+        if (GameManager.instance.currentGameState != GameState.GS_PAUSEMENU)
         {
-            deactivate();
-            
+            if (GameManager.instance.currentGameState != GameState.GS_BATTLE)
+            {
+                deactivate();
+
+            }
+
+            Move();
         }
-        Move();
-        
      
     }
 

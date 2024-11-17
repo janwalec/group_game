@@ -144,7 +144,10 @@ public class CannonController : MovableItem
         {
             //Aim(/*target.position*/);
             //wait for the animation to change
-            yield return new WaitForSeconds(0.2f) ;
+            do
+            {
+                yield return new WaitForSeconds(0.2f);
+            }while(GameManager.instance.currentGameState != GameState.GS_BATTLE);
             if (shootingDamage != 0)
             {   
                 
