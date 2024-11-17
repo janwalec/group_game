@@ -349,7 +349,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 683506704}
-  - {fileID: 81478296}
   m_Father: {fileID: 1373375045}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -10362,7 +10361,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 59b2b4a6468db9e4d865aa2f558122ae, type: 3}
   - {fileID: 21300000, guid: 36cb556f8e708f8459c7c13dd3ec2bb2, type: 3}
   cardDisplay: {fileID: 683506705}
-  cardColumn: {fileID: 81478296}
+  cardColumn: {fileID: 675279743}
   cardPrefab: {fileID: 2311513019763302355, guid: bf3711124c24f834e9dc8302b9e00f4b, type: 3}
   drawnCards: 
   enemyWave: {fileID: 2110637934}
@@ -10817,11 +10816,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6175091510839928961, guid: 399d2a4c5c1ef221a9fcea660ab0b2fa, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.5
+      value: -7.94
       objectReference: {fileID: 0}
     - target: {fileID: 6175091510839928961, guid: 399d2a4c5c1ef221a9fcea660ab0b2fa, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.51
+      value: 1.91
       objectReference: {fileID: 0}
     - target: {fileID: 6175091510839928961, guid: 399d2a4c5c1ef221a9fcea660ab0b2fa, type: 3}
       propertyPath: m_LocalPosition.z
@@ -21730,6 +21729,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 115df826b41f7e54d94a77eb09d0ee63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onHit: {fileID: 8300000, guid: 90c6cf9669b7c9f40b37b7fd147240f2, type: 3}
+  onHitParticles: {fileID: 3679879074604123835, guid: c786c1458dd93529fb64666b0e0c1582, type: 3}
 --- !u!19719996 &1939101546
 TilemapCollider2D:
   m_ObjectHideFlags: 0
