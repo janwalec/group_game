@@ -9919,7 +9919,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aedee919b2233c0ddb41af4bc7631910, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tm: {fileID: 0}
+  tm: {fileID: 661583257}
   newTile: {fileID: 11400000, guid: 29bea1a48ec74d7dab9b9f354000a1c6, type: 2}
   landTile: {fileID: 11400000, guid: a5c24f0dfa6d5ee48aaf1ece9d448bb5, type: 2}
   greyTile: {fileID: 11400000, guid: 6e4a6c28b89dfc1a881bf62df7e12db9, type: 2}
@@ -12837,7 +12837,6 @@ GameObject:
   - component: {fileID: 2099813245}
   - component: {fileID: 2099813250}
   - component: {fileID: 2099813249}
-  - component: {fileID: 2099813248}
   - component: {fileID: 2099813247}
   - component: {fileID: 2099813246}
   - component: {fileID: 2099813251}
@@ -12996,25 +12995,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &2099813248
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2099813244}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aedee919b2233c0ddb41af4bc7631910, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tm: {fileID: 0}
-  newTile: {fileID: 11400000, guid: 29bea1a48ec74d7dab9b9f354000a1c6, type: 2}
-  landTile: {fileID: 11400000, guid: a5c24f0dfa6d5ee48aaf1ece9d448bb5, type: 2}
-  greyTile: {fileID: 11400000, guid: 6e4a6c28b89dfc1a881bf62df7e12db9, type: 2}
-  rockTile: {fileID: 11400000, guid: 67afec36875de51d9a9d6a0e10000cae, type: 2}
-  tileCollider: {fileID: 370860150211780211, guid: 50faeff7619ef31eca754df7a85c7076, type: 3}
-  onPlacingItemSound: {fileID: 8300000, guid: 81dc9a6fb50f4e54f981aae006e62389, type: 3}
 --- !u!483693784 &2099813249
 TilemapRenderer:
   m_ObjectHideFlags: 0
