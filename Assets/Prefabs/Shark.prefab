@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 6014927680750303093}
   - component: {fileID: 1952678197749285046}
   - component: {fileID: 803352409882064178}
+  - component: {fileID: 2438946775115272504}
   - component: {fileID: 682483955052230125}
   m_Layer: 6
   m_Name: Shark
@@ -199,6 +200,20 @@ MonoBehaviour:
   onHitSound: {fileID: 8300000, guid: e2ae6d03766d6b942b557552bfa1fefe, type: 3}
   onDeathSound: {fileID: 8300000, guid: 911165b9f363e984aad88f4f5cfd7174, type: 3}
   damageParticles: {fileID: 3679879074604123835, guid: 8eac88283efba0fd291797443ba121eb, type: 3}
+--- !u!114 &2438946775115272504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1760270132676407727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f26039205bd7f2448f6c2a5e52ee7f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashMaterial: {fileID: 2100000, guid: bf861704e1a99d64f8b457ccfe69a09a, type: 2}
+  duration: 1
 --- !u!82 &682483955052230125
 AudioSource:
   m_ObjectHideFlags: 0

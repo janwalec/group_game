@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Kraken : EnemyController
 {
-    private int threshold = 7;
+    private int threshold = 10;
     private bool canTakeDmg; 
     private void Start()
     {

@@ -19,11 +19,11 @@ public class CaptainShip : EnemyController
         health = 10;
         this.speed = 1f;
         Prepare();
-        StartCoroutine(SpawnEnemyRoutine());  // Start spawning minions
+        StartCoroutine(SpawnEnemyRoutine());  
     }
     public void StartSpawningEnemies()
     {
-        StartCoroutine(SpawnEnemyRoutine());  // Start spawning minions
+        StartCoroutine(SpawnEnemyRoutine());  
     }
 
     protected override IEnumerator SlowDown(float newSpeed)

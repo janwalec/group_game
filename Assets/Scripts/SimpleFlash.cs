@@ -41,8 +41,16 @@ namespace BarthaSzabolcs.Tutorial_SpriteFlash
         {
             // Get the SpriteRenderer to be used,
             // alternatively you could set it from the inspector.
-            spriteRenderer = GetComponent<SpriteRenderer>();
-
+            spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+            if (spriteRenderer == null)
+            {
+                Debug.Log("Sprite rendered is null ");
+            }
+            else
+            {
+                Debug.Log("Sprite found");
+            }
+            
             // Get the material that the SpriteRenderer uses, 
             // so we can switch back to it after the flash ended.
             originalMaterial = spriteRenderer.material;
@@ -66,8 +74,10 @@ namespace BarthaSzabolcs.Tutorial_SpriteFlash
 
         private IEnumerator FlashRoutine()
         {
-            // Swap to the flashMaterial.
+            Debug.Log("Switching to flash material.");
             spriteRenderer.material = flashMaterial;
+            Debug.Log("Flash material applied.");
+
 
             // Pause the execution of this function for "duration" seconds.
             yield return new WaitForSeconds(duration);

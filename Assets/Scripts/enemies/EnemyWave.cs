@@ -150,7 +150,7 @@ public class EnemyWave : MonoBehaviour
                 newEnemy = Instantiate(shipPrefab, spawnPosition, spawnPoint.rotation);
 
                 // Get the NormalShip component from the Pirate_Boat child
-                Transform pirateBoat = newEnemy.transform.Find("Pirate_Boat");
+                Transform pirateBoat = newEnemy.transform.Find("EnemyShip");
                 enemies.Add(pirateBoat);
                 if (pirateBoat != null)
                 {
