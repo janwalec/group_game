@@ -46,6 +46,14 @@ public class MarketManager : MonoBehaviour
         shopManager.UpdateGoldAmount(Gold);
         //goldAmount.text = gold.ToString();
     }
+
+    public void sellItemForGold(Items item, float modifier) {
+        
+        gold += (int)(modifier *prices[item]);
+        gameUIController.UpdateGoldAmount(Gold);
+        shopManager.UpdateGoldAmount(Gold);
+    }
+
     public void earnGold(int amount)
     {
         gold += amount;
