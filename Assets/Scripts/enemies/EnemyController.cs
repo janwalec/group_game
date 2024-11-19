@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UIElements;
 using static UnityEngine.InputManagerEntry;
 
@@ -18,6 +19,7 @@ public class EnemyController : MonoBehaviour
     public Canvas canvas;
     private SpriteRenderer spriteRenderer; // Reference to the SpriteRenderer
     protected AudioSource audioSource;
+    public AudioMixerGroup sfxMixerGroup;
     [SerializeField] protected AudioClip onHitSound;
     [SerializeField] protected AudioClip onDeathSound;
     [SerializeField]  protected ParticleSystem damageParticles;
@@ -25,6 +27,8 @@ public class EnemyController : MonoBehaviour
     private int priceForKill = 20;
 
     // add generic speed
+    
+    //add generic base_HP
 
     private void Start()
     {
@@ -56,9 +60,15 @@ public class EnemyController : MonoBehaviour
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
-
+        // Assign the Audio Mixer Group to the AudioSource
+        if (audioSource != null && sfxMixerGroup != null)
+        {
+            audioSource.outputAudioMixerGroup = sfxMixerGroup;
+        }
 
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        
+        
         if (spriteRenderer == null)
         {
             Debug.LogError("SpriteRenderer not found in Enemy or its children!");
@@ -122,15 +132,7 @@ public class EnemyController : MonoBehaviour
 
     public virtual void TakeDamage(int dmg)
     {
-        if (onHitSound != null)
-            audioSource.PlayOneShot(onHitSound, audioSource.volume);
-
-
-        if (spriteRenderer != null)
-        {
-            //StartCoroutine(FlashColor(Color.red, 0.1f)); // Flash to red for 0.1 seconds uncomment if you want to try this one out and comment the other one
-            StartCoroutine(FadeEffect(0.3f));
-        }
+        
 
 
         health -= dmg;
@@ -142,15 +144,37 @@ public class EnemyController : MonoBehaviour
         {
             StartCoroutine(Die());
         }
+        else
+        {
+            if (onHitSound != null)
+                audioSource.PlayOneShot(onHitSound, audioSource.volume);
+
+
+            if (spriteRenderer != null)
+            {
+                StartCoroutine(FlashColor(Color.red, 0.1f)); // Flash to red for 0.1 seconds uncomment if you want to try this one out and comment the other one
+                //StartCoroutine(FadeEffect(0.3f));
+            }
+        }
+        
+        
     }
 
 
     public virtual IEnumerator Die()
     {
-
+        //Slow down
+        StartCoroutine(SlowDown(0f));
+        
+        //Fade out
+        StartCoroutine(FadeEffect(0.5f));
+        
+        //Drop gold
         MarketManager.instance.earnGold(priceForKill);
         if(onDeathSound != null)
             audioSource.PlayOneShot(onDeathSound, audioSource.volume);
+        
+        
         Debug.Log("Enemy has died.");
         yield return new WaitForSeconds(delay);
         Destroy(gameObject); // Remove enemy from the scene
@@ -177,19 +201,36 @@ public class EnemyController : MonoBehaviour
     // flash version 2, just to fade in fade out quickly
     private IEnumerator FadeEffect(float duration)
     {
-    
+        // Get the original color of the sprite
         Color originalColor = spriteRenderer.color;
+    
+        // Set the starting alpha value to 1 (fully opaque)
+        float startAlpha = 1.0f;
+        // Set the ending alpha value to 0 (fully transparent)
+        float endAlpha = 0.0f;
 
-        spriteRenderer.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0.5f);
+        // Store the current time
+        float startTime = Time.time;
 
-        // Wait for half of the duration
-        yield return new WaitForSeconds(duration / 2);
+        while (Time.time < startTime + duration)
+        {
+            // Calculate the elapsed time as a fraction of the total duration
+            float elapsed = (Time.time - startTime) / duration;
+        
+            // Interpolate the alpha value based on the elapsed time
+            float newAlpha = Mathf.Lerp(startAlpha, endAlpha, elapsed);
+        
+            // Update the sprite's color with the new alpha value
+            spriteRenderer.color = new Color(originalColor.r, originalColor.g, originalColor.b, newAlpha);
+        
+            // Wait until the next frame before continuing the loop
+            yield return null;
+        }
 
-       
-        spriteRenderer.color = new Color(originalColor.r, originalColor.g, originalColor.b, 1);
-
- 
+        // Ensure the final alpha value is set to 0 (completely transparent)
+        spriteRenderer.color = new Color(originalColor.r, originalColor.g, originalColor.b, endAlpha);
     }
+
 
     public void changeText(string newText)
     {
