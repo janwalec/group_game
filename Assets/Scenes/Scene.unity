@@ -1766,7 +1766,7 @@ MonoBehaviour:
   diceCard: {fileID: 710972289}
   coinCard: {fileID: 140121523}
   startingCannons: 1
-  startingDice: 1
+  startingDice: 0
   startingCoins: 1
   cannonsBought: 0
   diceBought: 0
@@ -21211,6 +21211,7 @@ MonoBehaviour:
   frameImage: {fileID: 683506705}
   objectType: 0
   onSelectSound: {fileID: 0}
+  onSellSound: {fileID: 0}
 --- !u!1 &1917839350 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6771443158487007283, guid: 91a1ec60ebc37cb00aa3b65a4a783507, type: 3}
