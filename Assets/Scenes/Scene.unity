@@ -19436,11 +19436,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6175091510839928961, guid: 399d2a4c5c1ef221a9fcea660ab0b2fa, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.24
+      value: -6.48
       objectReference: {fileID: 0}
     - target: {fileID: 6175091510839928961, guid: 399d2a4c5c1ef221a9fcea660ab0b2fa, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -8.53
+      value: -10.1
       objectReference: {fileID: 0}
     - target: {fileID: 6175091510839928961, guid: 399d2a4c5c1ef221a9fcea660ab0b2fa, type: 3}
       propertyPath: m_LocalPosition.z
@@ -21731,7 +21731,7 @@ GameObject:
   - component: {fileID: 1939101546}
   - component: {fileID: 1939101545}
   - component: {fileID: 1939101544}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: rocks_hex_map
   m_TagString: Rock
   m_Icon: {fileID: 0}
