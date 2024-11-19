@@ -254,8 +254,10 @@ public class GameManager : MonoBehaviour
             inGameUI.UpdateRound(currentLevel, currentWave);
             cardRollManager.setTotalHp(enemiesHp[currentLevel][currentWave]);
             cardRollManager.StartRolling();
+            inGameUI.UpdateGoldAmount(MarketManager.instance.Gold);
             
         }
+        
         
     }
 
