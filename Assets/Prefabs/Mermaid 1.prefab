@@ -28,7 +28,7 @@ RectTransform:
   m_GameObject: {fileID: 5257256946459797143}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4742415066076387390}
@@ -37,7 +37,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 3.61, y: 1.76}
+  m_AnchoredPosition: {x: 2, y: 1}
   m_SizeDelta: {x: 2.536, y: 1.955}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &7089516869166743682
@@ -267,6 +267,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 7089516869166743682}
+  sfxMixerGroup: {fileID: 0}
   onHitSound: {fileID: 8300000, guid: 90c6cf9669b7c9f40b37b7fd147240f2, type: 3}
   onDeathSound: {fileID: 8300000, guid: 911165b9f363e984aad88f4f5cfd7174, type: 3}
   damageParticles: {fileID: 3679879074604123835, guid: 8eac88283efba0fd291797443ba121eb, type: 3}

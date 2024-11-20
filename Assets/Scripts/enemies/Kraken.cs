@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Kraken : EnemyController
 {
-    private int threshold = 10;
+    private int threshold = 8;
     private bool canTakeDmg;
     public AudioClip krakenDeflectSound;
     private void Start()
     {
-        this.speed = 1.5f;
-        health = 10;
+        base.speed = 1f;
+        base.health = 20;
         Prepare();
     }
 

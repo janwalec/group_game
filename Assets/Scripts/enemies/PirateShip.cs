@@ -7,7 +7,7 @@ public class NormalShip : EnemyController
     private void Start()
     {
         //sets the starting destination on the closest waypoint and the final destination as the rum
-        this.speed = 1.5f;
+        base.speed = 1.25f;
         Prepare();
     }
 
@@ -29,6 +29,7 @@ public class NormalShip : EnemyController
     public void InitializeHealth(int card_value)
     {
         health = 5 + card_value;
+        base.health = health;
         changeText(health.ToString());
         //Debug.Log("Initialized health with card value " + card_value + ". New health: " + health);
     }

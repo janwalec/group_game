@@ -8,8 +8,9 @@ public class Shark : EnemyController
     private void Start()
     {
         //sets the starting destination on the closest waypoint and the final destination as the rum
-        health = 10;
-        this.speed = 1.5f;
+        base.health = 15;
+        base.speed = 1.15f;
+        //base.adjust_base_HP();
         Prepare();
     }
 

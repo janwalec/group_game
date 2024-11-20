@@ -26,17 +26,38 @@ public class EnemyController : MonoBehaviour
     private float delay = 1f;
     private int priceForKill = 20;
 
-    // add generic speed
-    
-    //add generic base_HP
 
     private void Start()
     {
-      
+
         
     }
 
-  
+    protected void adjust_base_HP(bool isIncreased)
+    {
+        if (isIncreased == false)
+        {
+            this.health = Mathf.RoundToInt(this.health - (this.health * 10 / 100.0f)); // Decrease by 10% and round to nearest whole number
+        }
+        else
+        {
+            this.health = Mathf.RoundToInt(this.health - (this.health * 10 / 100.0f)); // Increase by 10% and round to nearest whole number
+        }
+    }
+
+    protected void adjust_base_sped(bool isIncreased)
+    {
+        if (isIncreased == false)
+        {
+            this.speed = this.speed - (this.speed * 10 / 100.0f); // Decrease by 10% 
+        }
+        else
+        {
+            this.speed = this.speed - (this.speed * 10 / 100.0f); // Increase by 10% 
+        }
+    }
+
+
     protected virtual void Prepare()
     {
         waypoints = EnemyPathManager.Instance.getRandomPath();
@@ -49,13 +70,11 @@ public class EnemyController : MonoBehaviour
     }
     protected virtual IEnumerator SlowDown(float newSpeed)
     {
-        //float originalSpeed = 1.5f;
-        speed = newSpeed;  // Apply slowing effect factor to speed
+        
+        speed = newSpeed; 
         //Debug.Log("Enemy speed: " + speed);
-        yield return new WaitForSeconds(1f);  // Slow effect lasts for 3 seconds
+        yield return new WaitForSeconds(1f);  
 
-        // Restore original speed after effect ends
-        //speed = originalSpeed;
     }
     private void Awake()
     {
@@ -132,9 +151,6 @@ public class EnemyController : MonoBehaviour
 
     public virtual void TakeDamage(int dmg)
     {
-        
-
-
         health -= dmg;
         health = health < 0 ? 0 : health;
         changeText(health.ToString());
@@ -156,7 +172,6 @@ public class EnemyController : MonoBehaviour
                 //StartCoroutine(FadeEffect(0.3f));
             }
         }
-        
         
     }
 

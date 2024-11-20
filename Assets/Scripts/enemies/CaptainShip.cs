@@ -16,8 +16,8 @@ public class CaptainShip : EnemyController
     public void Start()
     {
         //this.wave = wave; // Set the reference to EnemyWave
-        health = 10;
-        this.speed = 1f;
+        base.health = 12;
+        base.speed = 0.8f;
         Prepare();
         StartCoroutine(SpawnEnemyRoutine());  
     }
