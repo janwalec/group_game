@@ -34,10 +34,13 @@ public class Kraken : EnemyController
     public override void TakeDamage(int dmg)
     {
         checkDamage(dmg);
+        
         if(canTakeDmg == true)
         {
             base.TakeDamage(dmg);
+            
         }
+
     }
 
     /* public override void Die()
