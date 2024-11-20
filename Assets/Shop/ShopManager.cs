@@ -29,6 +29,9 @@ public class ShopManager : MonoBehaviour
     public int cannonsBought = 0, diceBought = 0, coinsBought = 0;
 
     Label goldAmount;
+    
+    AudioSource audioSource;
+    [SerializeField] AudioClip onBuySound;
 
     void initStarting() {
         if (startingCannons > 0) {
@@ -61,6 +64,8 @@ public class ShopManager : MonoBehaviour
 
         GameManager.instance.setShopManager(this);
         initStarting();
+        
+        audioSource = GetComponent<AudioSource>();
     }
 
 
@@ -156,6 +161,8 @@ public class ShopManager : MonoBehaviour
     void PurchaseItem(ShopItem item)
     {
         Debug.Log("Purchased " + item.itemName + " for " + item.price);
+        audioSource.PlayOneShot(onBuySound);
+        
         // Add purchase logic here
         switch (item.itemName) {
             case "Cannon":
