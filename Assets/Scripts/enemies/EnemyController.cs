@@ -22,11 +22,11 @@ public class EnemyController : MonoBehaviour
     public AudioMixerGroup sfxMixerGroup;
     [SerializeField] protected AudioClip onHitSound;
     [SerializeField] protected AudioClip onDeathSound;
-    [SerializeField]  protected ParticleSystem damageParticles;
-    [SerializeField] protected float speedMultiplier;
-    [SerializeField] protected int healthAddition;
+    [SerializeField] protected ParticleSystem damageParticles;
+    [SerializeField] protected float speedMultiplier = 1.0f;
+    [SerializeField] protected int healthAddition = 10;
     private float delay = 1f;
-    private int priceForKill = 20;
+    public int priceForKill = 20;
 
     protected void adjust_base_speed()
     {
