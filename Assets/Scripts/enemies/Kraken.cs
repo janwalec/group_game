@@ -5,7 +5,8 @@ using UnityEngine;
 public class Kraken : EnemyController
 {
     private int threshold = 10;
-    private bool canTakeDmg; 
+    private bool canTakeDmg;
+    public AudioClip krakenDeflectSound;
     private void Start()
     {
         this.speed = 1.5f;
@@ -40,7 +41,10 @@ public class Kraken : EnemyController
             base.TakeDamage(dmg);
             
         }
-
+        else
+        {
+            audioSource.PlayOneShot(krakenDeflectSound);
+        }
     }
 
     /* public override void Die()

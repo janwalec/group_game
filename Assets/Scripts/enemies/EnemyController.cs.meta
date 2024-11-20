@@ -3,7 +3,12 @@ guid: 6e6ac46233eab654eafca912e6b49c03
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - canvas: {instanceID: 0}
+  - sfxMixerGroup: {fileID: 1518868163146938194, guid: 181095fe62d2a5d4f83e51a828a64d5b, type: 2}
+  - onHitSound: {instanceID: 0}
+  - onDeathSound: {instanceID: 0}
+  - damageParticles: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

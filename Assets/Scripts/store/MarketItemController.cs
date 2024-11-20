@@ -20,6 +20,8 @@ public class MarketItemController : MonoBehaviour
     protected AudioSource audioSource;
     [SerializeField] protected AudioClip onSelectSound;
 
+    [SerializeField] protected AudioClip onSellSound;
+
     private ShopManager shopManager;
     void Start()
     {
@@ -58,6 +60,27 @@ public class MarketItemController : MonoBehaviour
                     frameImage.color = new Color(frameImage.color.r - 0.1f, frameImage.color.g, frameImage.color.b - 0.1f);
             }
         }
+    }
+
+    public void Sell() {
+        float modifier = 0.7f;
+
+        //TODO
+        audioSource.PlayOneShot(onSellSound, audioSource.volume);
+        
+        if (objectType == MarketManager.Items.CANNON) {
+            shopManager.useCard("Cannon");
+        }
+        if (objectType == MarketManager.Items.COIN) {
+            shopManager.useCard("Coin");
+        }
+        if (objectType == MarketManager.Items.DICE) {
+            shopManager.useCard("Dice");
+        }
+        MarketManager.instance.sellItemForGold(objectType, modifier);
+   
+        
+
     }
 
     public void unselectObject()

@@ -50,10 +50,7 @@ namespace BarthaSzabolcs.Tutorial_SpriteFlash
             {
                 Debug.Log("Sprite found");
             }
-            
-            // Get the material that the SpriteRenderer uses, 
-            // so we can switch back to it after the flash ended.
-            originalMaterial = spriteRenderer.material;
+
         }
 
         #endregion

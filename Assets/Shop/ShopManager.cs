@@ -25,11 +25,31 @@ public class ShopManager : MonoBehaviour
     private TextMeshProUGUI coinCardText;
 
 
-
+    public int startingCannons, startingDice, startingCoins;
     public int cannonsBought = 0, diceBought = 0, coinsBought = 0;
 
     Label goldAmount;
+    
+    AudioSource audioSource;
+    [SerializeField] AudioClip onBuySound;
 
+    void initStarting() {
+        if (startingCannons > 0) {
+            cannonCard.SetActive(true);
+            cannonsBought += startingCannons;
+            this.cannonCardText.text = cannonsBought.ToString();
+        }
+        if (startingDice > 0) {
+            diceCard.SetActive(true);
+            diceBought += startingDice;
+            this.diceCardText.text = diceBought.ToString();
+        }
+        if (startingCoins > 0) {
+            coinCard.SetActive(true);
+            coinsBought += startingCoins;
+            this.coinCardText.text = coinsBought.ToString();
+        }
+    }
 
     void Awake() {
         cannonCard.SetActive(false);
@@ -43,6 +63,9 @@ public class ShopManager : MonoBehaviour
         Debug.Log(cannonCardText);
 
         GameManager.instance.setShopManager(this);
+        initStarting();
+        
+        audioSource = GetComponent<AudioSource>();
     }
 
 
@@ -138,6 +161,8 @@ public class ShopManager : MonoBehaviour
     void PurchaseItem(ShopItem item)
     {
         Debug.Log("Purchased " + item.itemName + " for " + item.price);
+        audioSource.PlayOneShot(onBuySound);
+        
         // Add purchase logic here
         switch (item.itemName) {
             case "Cannon":
