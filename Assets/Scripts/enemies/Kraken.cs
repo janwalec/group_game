@@ -11,6 +11,11 @@ public class Kraken : EnemyController
     {
         base.speed = 1f;
         base.health = 20;
+        if (speedMultiplier != 0)
+        {
+            base.adjust_base_speed();
+        }
+        base.adjust_base_health();
         Prepare();
     }
 

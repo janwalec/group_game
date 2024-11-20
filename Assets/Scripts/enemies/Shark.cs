@@ -10,7 +10,11 @@ public class Shark : EnemyController
         //sets the starting destination on the closest waypoint and the final destination as the rum
         base.health = 15;
         base.speed = 1.15f;
-        //base.adjust_base_HP();
+        if (speedMultiplier != 0)
+        {
+            base.adjust_base_speed();
+        }
+        base.adjust_base_health();
         Prepare();
     }
 

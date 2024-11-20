@@ -23,9 +23,32 @@ public class EnemyController : MonoBehaviour
     [SerializeField] protected AudioClip onHitSound;
     [SerializeField] protected AudioClip onDeathSound;
     [SerializeField]  protected ParticleSystem damageParticles;
+    [SerializeField] protected float speedMultiplier;
+    [SerializeField] protected int healthAddition;
     private float delay = 1f;
     private int priceForKill = 20;
 
+    protected void adjust_base_speed()
+    {
+      
+        this.speed = this.speed * speedMultiplier;
+    }
+    protected void adjust_base_health()
+    {
+
+        this.health = this.health + healthAddition;
+    }
+
+
+    private void OnValidate()
+    {
+        
+        this.speed = this.speed * speedMultiplier;
+        Debug.Log("Speed after adjusting in game is:" + this.speed);
+        this.health = this.health + healthAddition;
+        Debug.Log("Health after adjusting in game is:" + this.health);
+
+    }
 
     private void Start()
     {
@@ -33,30 +56,7 @@ public class EnemyController : MonoBehaviour
         
     }
 
-    protected void adjust_base_HP(bool isIncreased)
-    {
-        if (isIncreased == false)
-        {
-            this.health = Mathf.RoundToInt(this.health - (this.health * 10 / 100.0f)); // Decrease by 10% and round to nearest whole number
-        }
-        else
-        {
-            this.health = Mathf.RoundToInt(this.health - (this.health * 10 / 100.0f)); // Increase by 10% and round to nearest whole number
-        }
-    }
-
-    protected void adjust_base_sped(bool isIncreased)
-    {
-        if (isIncreased == false)
-        {
-            this.speed = this.speed - (this.speed * 10 / 100.0f); // Decrease by 10% 
-        }
-        else
-        {
-            this.speed = this.speed - (this.speed * 10 / 100.0f); // Increase by 10% 
-        }
-    }
-
+ 
 
     protected virtual void Prepare()
     {

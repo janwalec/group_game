@@ -8,6 +8,13 @@ public class NormalShip : EnemyController
     {
         //sets the starting destination on the closest waypoint and the final destination as the rum
         base.speed = 1.25f;
+        if (speedMultiplier != 0)
+        { 
+            base.adjust_base_speed();
+        }
+
+        base.adjust_base_health();
+
         Prepare();
     }
 

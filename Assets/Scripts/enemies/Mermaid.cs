@@ -17,6 +17,11 @@ public class Mermaid : EnemyController
 
         base.health = 10;
         base.speed = 1f;
+        if (speedMultiplier != 0)
+        {
+            base.adjust_base_speed();
+        }
+        base.adjust_base_health();
         Prepare();
         changeText(health.ToString());
 

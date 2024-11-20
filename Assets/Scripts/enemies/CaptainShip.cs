@@ -18,6 +18,11 @@ public class CaptainShip : EnemyController
         //this.wave = wave; // Set the reference to EnemyWave
         base.health = 12;
         base.speed = 0.8f;
+        if (speedMultiplier != 0)
+        {
+            base.adjust_base_speed();
+        }
+        base.adjust_base_health();
         Prepare();
         StartCoroutine(SpawnEnemyRoutine());  
     }

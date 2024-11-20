@@ -271,6 +271,8 @@ MonoBehaviour:
   onHitSound: {fileID: 8300000, guid: 90c6cf9669b7c9f40b37b7fd147240f2, type: 3}
   onDeathSound: {fileID: 8300000, guid: 911165b9f363e984aad88f4f5cfd7174, type: 3}
   damageParticles: {fileID: 3679879074604123835, guid: 8eac88283efba0fd291797443ba121eb, type: 3}
+  speedMultiplier: 0
+  healthAddition: 0
 --- !u!82 &5631799268405447924
 AudioSource:
   m_ObjectHideFlags: 0

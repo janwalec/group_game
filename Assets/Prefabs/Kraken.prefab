@@ -324,6 +324,8 @@ MonoBehaviour:
   onHitSound: {fileID: 8300000, guid: 90c6cf9669b7c9f40b37b7fd147240f2, type: 3}
   onDeathSound: {fileID: 8300000, guid: e0296ba9e8f266c4d8a6df4df6560481, type: 3}
   damageParticles: {fileID: 3679879074604123835, guid: 8eac88283efba0fd291797443ba121eb, type: 3}
+  speedMultiplier: 0
+  healthAddition: 0
   krakenDeflectSound: {fileID: 8300000, guid: ff53481e88bc2504a998fccb206b0cdb, type: 3}
 --- !u!114 &6533019741185963818
 MonoBehaviour:
