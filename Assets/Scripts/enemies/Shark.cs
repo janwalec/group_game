@@ -10,24 +10,12 @@ public class Shark : EnemyController
         //sets the starting destination on the closest waypoint and the final destination as the rum
         base.health = 15;
         base.speed = 1.15f;
-        ApplyHealthAddition();
+        base.ApplyHealthAddition();
+        base.ApplySpeedMultiplication();
         Prepare();
     }
 
-    private void ApplyHealthAddition()
-    {
-        // Ensure EnemyManager exists
-        if (EnemyManager.Instance != null)
-        {
-            int additionalHealth = EnemyManager.Instance.HealthAddition;
-            base.health += additionalHealth; // Add the global health addition to the base health
-            Debug.Log($"{name} Final Health: {base.health}");
-        }
-        else
-        {
-            Debug.LogWarning("EnemyManager is not present in the scene.");
-        }
-    }
+   
     public override void Move()
     {
 

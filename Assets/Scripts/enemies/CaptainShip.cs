@@ -17,25 +17,13 @@ public class CaptainShip : EnemyController
     {
         base.health = 12;
         base.speed = 0.8f;
-        ApplyHealthAddition();
+        base.ApplyHealthAddition();
+        base.ApplySpeedMultiplication();
         Prepare();
         StartCoroutine(SpawnEnemyRoutine());  
     }
 
-    private void ApplyHealthAddition()
-    {
-        // Ensure EnemyManager exists
-        if (EnemyManager.Instance != null)
-        {
-            int additionalHealth = EnemyManager.Instance.HealthAddition;
-            base.health += additionalHealth; // Add the global health addition to the base health
-            Debug.Log($"{name} Final Health: {base.health}");
-        }
-        else
-        {
-            Debug.LogWarning("EnemyManager is not present in the scene.");
-        }
-    }
+    
 
     public void StartSpawningEnemies()
     {

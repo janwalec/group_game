@@ -23677,6 +23677,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthAddition: 10
+  speedMultiplication: 1
 --- !u!4 &2112370894
 Transform:
   m_ObjectHideFlags: 0

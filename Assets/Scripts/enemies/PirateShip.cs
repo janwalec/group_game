@@ -8,24 +8,12 @@ public class NormalShip : EnemyController
     private void Start()
     {
         base.speed = 1f;
+        base.ApplySpeedMultiplication();
         Prepare();
 
     }
 
-    private void ApplyHealthAddition()
-    {
-        
-        if (EnemyManager.Instance != null)
-        {
-            int additionalHealth = EnemyManager.Instance.HealthAddition;
-            base.health += additionalHealth; // Add the global health addition to the base health
-            Debug.Log($"{name} Final Health: {base.health}");
-        }
-        else
-        {
-            Debug.LogWarning("EnemyManager is not present in the scene.");
-        }
-    }
+  
 
     public void setHealth(int hp)
     {
@@ -47,7 +35,7 @@ public class NormalShip : EnemyController
         health = 5 + card_value;
         base.health = health;
         changeText(health.ToString());
-        ApplyHealthAddition();
+        base.ApplyHealthAddition();
         //Debug.Log("Initialized health with card value " + card_value + ". New health: " + health);
     }
 

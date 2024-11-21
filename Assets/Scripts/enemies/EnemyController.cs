@@ -28,6 +28,35 @@ public class EnemyController : MonoBehaviour
     private float delay = 1f;
     public int priceForKill = 20;
 
+    protected void ApplyHealthAddition()
+    {
+        // Ensure EnemyManager exists
+        if (EnemyManager.Instance != null)
+        {
+            int additionalHealth = EnemyManager.Instance.HealthAddition;
+            health += additionalHealth; // Add the global health addition to the base health
+            Debug.Log($"{name} Final Health: {health}");
+        }
+        else
+        {
+            Debug.LogWarning("EnemyManager is not present in the scene.");
+        }
+    }
+
+    protected void ApplySpeedMultiplication()
+    {
+        // Ensure EnemyManager exists
+        if (EnemyManager.Instance != null)
+        {
+            float additionalSpeed = EnemyManager.Instance.SpeedMultiplication;
+            speed += additionalSpeed; // Add the global health addition to the base health
+            Debug.Log($"{name} Final speed: {speed}");
+        }
+        else
+        {
+            Debug.LogWarning("EnemyManager is not present in the scene.");
+        }
+    }
     protected void adjust_base_speed()
     {
       

@@ -18,7 +18,8 @@ public class Mermaid : EnemyController
         base.health = 10;
         base.speed = 1f;
 
-        ApplyHealthAddition();
+        base.ApplyHealthAddition();
+        base.ApplySpeedMultiplication();
         Prepare();
         changeText(health.ToString());
 
@@ -32,20 +33,7 @@ public class Mermaid : EnemyController
        
         StartCoroutine(StealthCycle());
     }
-    private void ApplyHealthAddition()
-    {
-       
-        if (EnemyManager.Instance != null)
-        {
-            int additionalHealth = EnemyManager.Instance.HealthAddition;
-            base.health += additionalHealth; // Add the global health addition to the base health
-            Debug.Log($"{name} Final Health: {base.health}");
-        }
-        else
-        {
-            Debug.LogWarning("EnemyManager is not present in the scene.");
-        }
-    }
+   
     public override void Move()
     {
 
