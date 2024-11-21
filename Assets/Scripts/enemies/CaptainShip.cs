@@ -6,8 +6,8 @@ public class CaptainShip : EnemyController
 {
     private bool isSlowed = false;
     public GameObject pirateShipPrefab;
-    private Vector3 spawnOffset = new Vector3(1f, -1f, 0f);  // Offset to spawn enemies down-right of the CaptainShip
-    private float spawnInterval = 10f;  // Interval to spawn new enemies
+    private Vector3 spawnOffset = new Vector3(1f, -1f, 0f);  
+    private float spawnInterval = 10f;  
     private float initialDelay = 10f;   // Initial delay before starting the spawn routine
     private List<Transform> enemies;
     private EnemyWave wave;
@@ -15,17 +15,28 @@ public class CaptainShip : EnemyController
 
     public void Start()
     {
-        //this.wave = wave; // Set the reference to EnemyWave
         base.health = 12;
         base.speed = 0.8f;
-        if (speedMultiplier != 0)
-        {
-            base.adjust_base_speed();
-        }
-        base.adjust_base_health();
+        ApplyHealthAddition();
         Prepare();
         StartCoroutine(SpawnEnemyRoutine());  
     }
+
+    private void ApplyHealthAddition()
+    {
+        // Ensure EnemyManager exists
+        if (EnemyManager.Instance != null)
+        {
+            int additionalHealth = EnemyManager.Instance.HealthAddition;
+            base.health += additionalHealth; // Add the global health addition to the base health
+            Debug.Log($"{name} Final Health: {base.health}");
+        }
+        else
+        {
+            Debug.LogWarning("EnemyManager is not present in the scene.");
+        }
+    }
+
     public void StartSpawningEnemies()
     {
         StartCoroutine(SpawnEnemyRoutine());  
@@ -88,7 +99,7 @@ public class CaptainShip : EnemyController
         {
             Vector3 spawnPosition = transform.position + spawnOffset;
             GameObject newPirateShip = Instantiate(pirateShipPrefab, spawnPosition, Quaternion.identity);
-            Transform pirateBoat = newPirateShip.transform.Find("Pirate_Boat");
+            Transform pirateBoat = newPirateShip.transform.Find("EnemyShip");
             NormalShip normalShip = pirateBoat.GetComponent<NormalShip>();
             EnemyWave.Instance.AddEnemy(pirateBoat);
             if (normalShip != null)

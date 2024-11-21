@@ -17,11 +17,8 @@ public class Mermaid : EnemyController
 
         base.health = 10;
         base.speed = 1f;
-        if (speedMultiplier != 0)
-        {
-            base.adjust_base_speed();
-        }
-        base.adjust_base_health();
+
+        ApplyHealthAddition();
         Prepare();
         changeText(health.ToString());
 
@@ -32,10 +29,23 @@ public class Mermaid : EnemyController
             Debug.LogError("SpriteRenderer component is missing from Mermaid!");
         }
 
-        // Start the stealth cycle coroutine
+       
         StartCoroutine(StealthCycle());
     }
-
+    private void ApplyHealthAddition()
+    {
+       
+        if (EnemyManager.Instance != null)
+        {
+            int additionalHealth = EnemyManager.Instance.HealthAddition;
+            base.health += additionalHealth; // Add the global health addition to the base health
+            Debug.Log($"{name} Final Health: {base.health}");
+        }
+        else
+        {
+            Debug.LogWarning("EnemyManager is not present in the scene.");
+        }
+    }
     public override void Move()
     {
 

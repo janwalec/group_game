@@ -1,26 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 public class NormalShip : EnemyController
 {
     private void Start()
     {
-        //sets the starting destination on the closest waypoint and the final destination as the rum
-        base.speed = 1.25f;
-        if (speedMultiplier != 0)
-        { 
-            base.adjust_base_speed();
-        }
-
-        base.adjust_base_health();
-
+        base.speed = 1f;
         Prepare();
+
+    }
+
+    private void ApplyHealthAddition()
+    {
+        
+        if (EnemyManager.Instance != null)
+        {
+            int additionalHealth = EnemyManager.Instance.HealthAddition;
+            base.health += additionalHealth; // Add the global health addition to the base health
+            Debug.Log($"{name} Final Health: {base.health}");
+        }
+        else
+        {
+            Debug.LogWarning("EnemyManager is not present in the scene.");
+        }
     }
 
     public void setHealth(int hp)
     {
-        this.health = hp;
+        base.health = hp;
     }
 
     public override void Move()
@@ -38,6 +47,7 @@ public class NormalShip : EnemyController
         health = 5 + card_value;
         base.health = health;
         changeText(health.ToString());
+        ApplyHealthAddition();
         //Debug.Log("Initialized health with card value " + card_value + ". New health: " + health);
     }
 

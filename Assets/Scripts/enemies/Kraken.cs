@@ -11,12 +11,23 @@ public class Kraken : EnemyController
     {
         base.speed = 1f;
         base.health = 20;
-        if (speedMultiplier != 0)
-        {
-            base.adjust_base_speed();
-        }
-        base.adjust_base_health();
+        ApplyHealthAddition();
         Prepare();
+    }
+
+    private void ApplyHealthAddition()
+    {
+        
+        if (EnemyManager.Instance != null)
+        {
+            int additionalHealth = EnemyManager.Instance.HealthAddition;
+            base.health += additionalHealth; 
+            Debug.Log($"{name} Final Health: {base.health}");
+        }
+        else
+        {
+            Debug.LogWarning("EnemyManager is not present in the scene.");
+        }
     }
 
     public override void Move()
