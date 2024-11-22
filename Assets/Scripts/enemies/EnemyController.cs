@@ -12,6 +12,7 @@ public class EnemyController : MonoBehaviour
 {
     protected int health;
     protected float speed;
+    protected float normalSpeed;
     protected GameObject[] waypoints;
     protected int currentWaypoint = 0;
     protected Vector2 finalDestination;
@@ -23,8 +24,8 @@ public class EnemyController : MonoBehaviour
     [SerializeField] protected AudioClip onHitSound;
     [SerializeField] protected AudioClip onDeathSound;
     [SerializeField] protected ParticleSystem damageParticles;
-    [SerializeField] protected float speedMultiplier = 1.0f;
-    [SerializeField] protected int healthAddition = 10;
+    //[SerializeField] protected float speedMultiplier = 1.0f;
+    //[SerializeField] protected int healthAddition = 10;
     private float delay = 1f;
     public int priceForKill = 20;
 
@@ -49,33 +50,26 @@ public class EnemyController : MonoBehaviour
         if (EnemyManager.Instance != null)
         {
             float additionalSpeed = EnemyManager.Instance.SpeedMultiplication;
-            speed += additionalSpeed; // Add the global health addition to the base health
+            speed *= additionalSpeed; // Add the global speed gain
             Debug.Log($"{name} Final speed: {speed}");
+            
+            //Save its normalspeed
+            normalSpeed = speed;
         }
         else
         {
             Debug.LogWarning("EnemyManager is not present in the scene.");
         }
     }
-    protected void adjust_base_speed()
-    {
-      
-        this.speed = this.speed * speedMultiplier;
-    }
-    protected void adjust_base_health()
-    {
-
-        this.health = this.health + healthAddition;
-    }
 
 
     private void OnValidate()
     {
         
-        this.speed = this.speed * speedMultiplier;
-        Debug.Log("Speed after adjusting in game is:" + this.speed);
-        this.health = this.health + healthAddition;
-        Debug.Log("Health after adjusting in game is:" + this.health);
+        //this.speed = this.speed * speedMultiplier;
+        //Debug.Log("Speed after adjusting in game is:" + this.speed);
+        //this.health = this.health + healthAddition;
+        //Debug.Log("Health after adjusting in game is:" + this.health);
 
     }
 
@@ -99,11 +93,15 @@ public class EnemyController : MonoBehaviour
     }
     protected virtual IEnumerator SlowDown(float newSpeed)
     {
-        
-        speed = newSpeed; 
+        float cappedNewSpeed = newSpeed;
+        if (newSpeed > 1f)
+        {
+            cappedNewSpeed = 1f;
+        }
+        speed *= cappedNewSpeed; 
         //Debug.Log("Enemy speed: " + speed);
-        yield return new WaitForSeconds(1f);  
-
+        yield return new WaitForSeconds(1f);
+        speed = normalSpeed;
     }
     private void Awake()
     {

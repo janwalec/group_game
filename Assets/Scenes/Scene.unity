@@ -21308,8 +21308,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frameImage: {fileID: 683506705}
   objectType: 0
-  onSelectSound: {fileID: 0}
-  onSellSound: {fileID: 0}
+  onSelectSound: {fileID: 8300000, guid: c378b6ba8cdbb6543b12084bf5d95767, type: 3}
+  onSellSound: {fileID: 8300000, guid: 61011a96651ef774c9dccb541e52fdb5, type: 3}
 --- !u!1 &1917839350 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6771443158487007283, guid: 91a1ec60ebc37cb00aa3b65a4a783507, type: 3}
@@ -23677,7 +23677,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthAddition: 10
-  speedMultiplication: 1
+  speedMultiplication: 0.8
 --- !u!4 &2112370894
 Transform:
   m_ObjectHideFlags: 0
@@ -23970,6 +23970,10 @@ PrefabInstance:
       propertyPath: m_Color.a
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5438444550270076524, guid: 91a1ec60ebc37cb00aa3b65a4a783507, type: 3}
+      propertyPath: onSellSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 61011a96651ef774c9dccb541e52fdb5, type: 3}
     - target: {fileID: 6298028461599045990, guid: 91a1ec60ebc37cb00aa3b65a4a783507, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -24107,6 +24111,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 32
       objectReference: {fileID: 0}
+    - target: {fileID: 5053246030012671416, guid: a21c8cb6608375f47aa2e421bee69ad2, type: 3}
+      propertyPath: onSellSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 61011a96651ef774c9dccb541e52fdb5, type: 3}
     - target: {fileID: 7711502858553484301, guid: a21c8cb6608375f47aa2e421bee69ad2, type: 3}
       propertyPath: m_Type
       value: 0
@@ -24268,6 +24276,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 32
       objectReference: {fileID: 0}
+    - target: {fileID: 2388138069461430951, guid: d603eced938853b2798c73a770e6a0db, type: 3}
+      propertyPath: onSellSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 61011a96651ef774c9dccb541e52fdb5, type: 3}
     - target: {fileID: 5834698130197246040, guid: d603eced938853b2798c73a770e6a0db, type: 3}
       propertyPath: m_Type
       value: 0
