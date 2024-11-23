@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
         enemiesHp[1].Add(30);
 
         cardRollManager.setTotalHp(enemiesHp[0][0]);
-        cardRollManager.setBiggestEnemyValue(11); //Biggest enemy for first level is mermaid (11). It will increase by 1 in future waves.
+        cardRollManager.setBiggestEnemyValue(11); //Biggest enemy for first level is shark (11). It will increase by 1 in future waves.
         roundWonCanvas.enabled = false;
 
         //NextLevel();
