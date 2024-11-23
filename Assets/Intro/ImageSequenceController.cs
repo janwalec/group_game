@@ -25,9 +25,8 @@ public class ImageSequenceController : MonoBehaviour
         
         // Get the AudioSource component
         audioSource = GetComponent<AudioSource>();
-        
-        // Show the first image
-        ShowNextImage();
+
+        StartCoroutine(StartAfterDelay());
     }
 
     void Update()
@@ -42,6 +41,15 @@ public class ImageSequenceController : MonoBehaviour
 
             ShowNextImage();
         }
+    }
+
+    private IEnumerator StartAfterDelay()
+    {
+        // Wait for the specified delay
+        yield return new WaitForSeconds(1.0f);
+        
+        // Show the first image
+        ShowNextImage();
     }
 
     void ShowNextImage()
