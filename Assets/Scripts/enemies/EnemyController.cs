@@ -100,7 +100,7 @@ public class EnemyController : MonoBehaviour
         }
         speed *= cappedNewSpeed; 
         //Debug.Log("Enemy speed: " + speed);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         speed = normalSpeed;
     }
     private void Awake()

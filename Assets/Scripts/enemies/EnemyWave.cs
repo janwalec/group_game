@@ -90,7 +90,9 @@ public class EnemyWave : MonoBehaviour
     public void SpawnEnemies(List<int> drawnCards)
     {
         int numberOfEnemies = drawnCards.Count;
-        float yOffset = ((maxY - minY) / (numberOfEnemies + 1)) * spaceMultiplier;
+
+        
+        bool isSecondMap = GameManager.instance.currentLevel == 1; // Second map starts at level 1
 
         minX = spawnPoint.position.x + 7;
 
@@ -98,55 +100,44 @@ public class EnemyWave : MonoBehaviour
         {
             int card = drawnCards[i];
 
-            // Calculate positions for each boat or mermaid
-            float yPos = minY + (i + 1) * yOffset;
-            float xPos = minX + (i + 1) * 6;
+          
+            float yPos = isSecondMap ? 0 : minY + (i + 1) * ((maxY - minY) / (numberOfEnemies + 1)) * spaceMultiplier; // if second map then y=0
+            float xPos = minX + (i + 1) * 5;
             Vector3 spawnPosition = new Vector3(xPos, yPos, spawnPoint.position.z);
 
             GameObject newEnemy;
 
-            if (card == 13) 
+            if (card == 13)
             {
-                xPos = minX + xOffset * 0.02f; 
-                spawnPosition = new Vector3(xPos, yPos, spawnPoint.position.z);
+                spawnPosition.x = minX + xOffset * 0.02f;
                 newEnemy = Instantiate(captainShipPrefab, spawnPosition, spawnPoint.rotation);
                 Transform captainShip = newEnemy.transform.Find("CaptainShip");
                 enemies.Add(captainShip);
-                if(captainShip != null)
+                if (captainShip != null)
                 {
                     Debug.Log("Instantiated captain ship");
-                    CaptainShip captainShip2 = captainShip.GetComponent<CaptainShip>();
-      
-                }           
+                }
             }
             else if (card == 11)
             {
-                xPos = minX + xOffset * 0.02f;
-                spawnPosition = new Vector3(xPos, yPos, spawnPoint.position.z);
                 newEnemy = Instantiate(sharkPrefab, spawnPosition, spawnPoint.rotation);
                 Debug.Log("Spawning shark at position: " + spawnPosition + " for card value: " + card);
                 enemies.Add(newEnemy.transform.Find("Shark"));
             }
             else if (card == 12)
             {
-                xPos = minX + xOffset * 0.02f;
-                spawnPosition = new Vector3(xPos, yPos, spawnPoint.position.z);
                 newEnemy = Instantiate(mermaidPrefab, spawnPosition, spawnPoint.rotation);
                 Debug.Log("Spawning mermaid at position: " + spawnPosition + " for card value: " + card);
                 enemies.Add(newEnemy.transform.Find("Mermaid"));
             }
             else if (card == 14)
             {
-                xPos = minX + xOffset * 0.02f;
-                spawnPosition = new Vector3(xPos, yPos, spawnPoint.position.z);
                 newEnemy = Instantiate(krakenPrefab, spawnPosition, spawnPoint.rotation);
                 Debug.Log("Spawning kraken at position: " + spawnPosition + " for card value: " + card);
                 enemies.Add(newEnemy.transform.Find("Kraken"));
             }
             else
             {
-                //xPos = minX + 8 * 0.01f;
-                //spawnPosition = new Vector3(xPos, yPos, spawnPoint.position.z);
                 newEnemy = Instantiate(shipPrefab, spawnPosition, spawnPoint.rotation);
 
                 // Get the NormalShip component from the Pirate_Boat child
@@ -169,8 +160,9 @@ public class EnemyWave : MonoBehaviour
                 {
                     Debug.LogError("Pirate_Boat child not found on the instantiated EnemyShip prefab!");
                 }
-
             }
         }
     }
+
+
 }

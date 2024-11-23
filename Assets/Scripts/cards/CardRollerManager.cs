@@ -157,6 +157,7 @@ public class CardRollManager : MonoBehaviour
         // Roll cards without displaying them
         while (drawnTotal < hp && rollingCards)
         {
+
             RollCard();
             yield return null; // No delay between rolls in the logic
         }
@@ -258,42 +259,87 @@ public class CardRollManager : MonoBehaviour
     }
 
 
-    void RollCard()
-    {
+   void RollCard()
+{
         audioSource.PlayOneShot(cardFlip, audioSource.volume);
-
 
         int remainingHP = hp - drawnTotal;
 
-
-        // Special case: If remaining HP matches one of the possible card values, force that value
-        //Debug.Log("Biggest enemy possible by index: "+ biggestCardIndex);
-        if (remainingHP >= 2 && remainingHP <= biggestCardIndex + 2)
+ 
+        if (remainingHP >= 2 && remainingHP <= biggestCardIndex + 2 )
         {
-            randomCardIndex = remainingHP - 2;  // Force the card value to exactly match the remaining HP
+            randomCardIndex = remainingHP - 2;
             drawnCards.Add(remainingHP);
             drawnTotal += remainingHP;
-
-
             Debug.Log("Forced exact match. Rolled Card: " + remainingHP + " | Total HP: " + drawnTotal);
             return;
         }
 
-
-        do
+        List<int> validCardIndices = new List<int>();
+        for (int i = 0; i <= biggestCardIndex; i++)
         {
-            randomCardIndex = Random.Range(0, biggestCardIndex);
+            int cardValue = i + 2; 
+            if (cardValue <= remainingHP) 
+            {
+                validCardIndices.Add(i);
+            }
         }
-        while ((randomCardIndex + 2) > remainingHP);
 
+        // If no valid cards remain, force an exact match
+        if (validCardIndices.Count == 0)
+        {
+            randomCardIndex = remainingHP - 2;
+            drawnCards.Add(remainingHP);
+            drawnTotal += remainingHP;
+            Debug.Log("Forced exact match. Rolled Card: " + remainingHP + " | Total HP: " + drawnTotal);
+            return;
+        }
 
-        drawnCards.Add(randomCardIndex + 2);
-        drawnTotal += (randomCardIndex + 2); // Add card value (index + 2)
+        // Prioritize bigger cards using weighted random selection
+        int selectedIndex = WeightedRandom(validCardIndices);
 
+        // Add the selected card value to the drawn cards
+        randomCardIndex = selectedIndex;
+        int selectedCardValue = randomCardIndex + 2;
 
-        Debug.Log("Rolled Card: " + (randomCardIndex + 2) + " | Total HP: " + drawnTotal);
+        drawnCards.Add(selectedCardValue);
+        drawnTotal += selectedCardValue;
+
+        Debug.Log($"Rolled Card: {selectedCardValue} | Total HP: {drawnTotal}");
     }
-}
 
+
+
+    int WeightedRandom(List<int> validIndices)
+    {
+        // Generate weights favoring bigger indices
+        int totalWeight = 0;
+        List<int> weights = new List<int>();
+
+        foreach (int index in validIndices)
+        {
+            int weight = (index + 1) * 2; // Weight grows with index (e.g., 2, 4, 6, ...)
+            weights.Add(weight);
+            totalWeight += weight;
+        }
+
+        // Roll a random number within the total weight
+        int randomWeight = Random.Range(0, totalWeight);
+
+        // Determine the selected index based on weights
+        int cumulativeWeight = 0;
+        for (int i = 0; i < validIndices.Count; i++)
+        {
+            cumulativeWeight += weights[i];
+            if (randomWeight < cumulativeWeight)
+            {
+                return validIndices[i];
+            }
+        }
+
+        return validIndices[validIndices.Count - 1]; // Fallback to the last index
+    }
+
+}
 
 

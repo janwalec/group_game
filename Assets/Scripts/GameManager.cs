@@ -23,8 +23,8 @@ public class GameManager : MonoBehaviour
     public GameObject settingsUI;
 
     private const int levelsNum = 2;
-    private int currentLevel = 0;
-    private int currentWave = 0;
+    public int currentLevel = 0;
+    public int currentWave = 0;
     private int[] waves = new int[levelsNum];
     private List<List<int>> enemiesHp = new List<List<int>>();      //to set the power of each wave in each level
 

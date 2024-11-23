@@ -7,7 +7,7 @@ public class CaptainShip : EnemyController
     private bool isSlowed = false;
     public GameObject pirateShipPrefab;
     private Vector3 spawnOffset = new Vector3(1f, -1f, 0f);  
-    private float spawnInterval = 10f;  
+    private float spawnInterval = 15f;  
     private float initialDelay = 10f;   // Initial delay before starting the spawn routine
     private List<Transform> enemies;
     private EnemyWave wave;
@@ -39,7 +39,7 @@ public class CaptainShip : EnemyController
 
         speed = newSpeed;  // Apply slowing effect factor to speed
         Debug.Log("Enemy speed: " + speed);
-        yield return new WaitForSeconds(1f);  // Slow effect lasts for 3 seconds
+        yield return new WaitForSeconds(2f);  // Slow effect lasts for 3 seconds
     }
 
     public override void Move()
