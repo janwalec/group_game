@@ -262,77 +262,37 @@ public class CardRollManager : MonoBehaviour
     {
         audioSource.PlayOneShot(cardFlip, audioSource.volume);
 
+
         int remainingHP = hp - drawnTotal;
 
+
         // Special case: If remaining HP matches one of the possible card values, force that value
+        //Debug.Log("Biggest enemy possible by index: "+ biggestCardIndex);
         if (remainingHP >= 2 && remainingHP <= biggestCardIndex + 2)
         {
             randomCardIndex = remainingHP - 2;  // Force the card value to exactly match the remaining HP
             drawnCards.Add(remainingHP);
             drawnTotal += remainingHP;
 
+
             Debug.Log("Forced exact match. Rolled Card: " + remainingHP + " | Total HP: " + drawnTotal);
             return;
         }
 
-       
-        List<int> validCardIndices = new List<int>();
-        List<int> weights = new List<int>();
-        int totalWeight = 0;
 
-        for (int i = 0; i <= biggestCardIndex; i++)
+        do
         {
-            int cardValue = i + 2; // Convert index to card value
-            if (cardValue <= remainingHP)
-            {
-                validCardIndices.Add(i);
-
-               
-                int weight = cardValue * cardValue; // Weight grows quadratically with card value
-                weights.Add(weight);
-                totalWeight += weight;
-            }
+            randomCardIndex = Random.Range(0, biggestCardIndex);
         }
+        while ((randomCardIndex + 2) > remainingHP);
 
-        
-        if (validCardIndices.Count == 0)
-        {
-            Debug.LogWarning("No valid cards left to draw.");
-            return;
-        }
 
-       
-        int selectedIndex = WeightedRandom(validCardIndices, weights, totalWeight);
+        drawnCards.Add(randomCardIndex + 2);
+        drawnTotal += (randomCardIndex + 2); // Add card value (index + 2)
 
-        // Add the selected card value to the drawn cards
-        randomCardIndex = selectedIndex;
-        int selectedCardValue = randomCardIndex + 2;
 
-        drawnCards.Add(selectedCardValue);
-        drawnTotal += selectedCardValue;
-
-        Debug.Log($"Weighted Roll: Card {selectedCardValue} selected. Total HP: {drawnTotal}");
+        Debug.Log("Rolled Card: " + (randomCardIndex + 2) + " | Total HP: " + drawnTotal);
     }
-
-    int WeightedRandom(List<int> validIndices, List<int> weights, int totalWeight)
-    {
-        // Generate a random number within the total weight
-        int randomWeight = Random.Range(0, totalWeight);
-
-        // Determine the selected index based on weights
-        int cumulativeWeight = 0;
-        for (int i = 0; i < validIndices.Count; i++)
-        {
-            cumulativeWeight += weights[i];
-            if (randomWeight < cumulativeWeight)
-            {
-                return validIndices[i];
-            }
-        }
-
-        return validIndices[validIndices.Count - 1]; // Fallback to the last index
-    }
-
 }
 
 
