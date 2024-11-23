@@ -26,7 +26,7 @@ public class CardRollManager : MonoBehaviour
     AudioSource audioSource;
     [SerializeField] protected AudioClip cardFlip;
     [SerializeField] protected AudioClip krakenOmen;
-    
+
     public Font customFont; // Reference to the custom TMP font asset
 
 
@@ -72,7 +72,7 @@ public class CardRollManager : MonoBehaviour
         {
             constrainedBiggestEnemyValue = biggestEnemyValue;
         }
-        
+
         //
         biggestCardIndex = constrainedBiggestEnemyValue - 2;
     }
@@ -180,22 +180,22 @@ public class CardRollManager : MonoBehaviour
             Debug.Log("Showing Card in Display: " + cardValue);
 
 
-    
+
             yield return new WaitForSeconds(1.0f);
 
             //Kraken has a special sound for giving boss vibes.
-            if(cardValue == 14){audioSource.PlayOneShot(krakenOmen);}
-            
+            if (cardValue == 14) { audioSource.PlayOneShot(krakenOmen); }
+
             GameObject newCard = Instantiate(cardPrefab, cardColumn); // Create a new card
             Image cardImage = newCard.GetComponent<Image>();
             if (cardImage != null)
             {
-                cardImage.sprite = cardSprites[cardIndex]; 
+                cardImage.sprite = cardSprites[cardIndex];
             }
 
 
             Debug.Log("Moved Card to Column: " + cardValue);
-            
+
             // Hide the CardDisplay so it looks like the card is moved to the side. 
             cardDisplay.gameObject.SetActive(false);
 
@@ -203,7 +203,7 @@ public class CardRollManager : MonoBehaviour
             // Wait before showing the next card
             yield return new WaitForSeconds(0.5f);
         }
-        
+
         yield return showBonusHPCard();
 
         // Hide the CardDisplay after all cards are moved
@@ -220,7 +220,7 @@ public class CardRollManager : MonoBehaviour
         cardDisplay.gameObject.SetActive(true); // Ensure the CardDisplay is visible
         cardDisplay.sprite = bonusHPCardSprite;
         audioSource.PlayOneShot(cardFlip, audioSource.volume);
-        
+
         //Also show the round's bonus HP card.
         GameObject bonusHPCard = Instantiate(cardPrefab, cardColumn); // Create a new card
         Image bonusHPCardImage = bonusHPCard.GetComponent<Image>();
@@ -228,7 +228,7 @@ public class CardRollManager : MonoBehaviour
         {
             bonusHPCardImage.sprite = bonusHPCardSprite;
         }
-        
+
         // Create a new Text component
         GameObject textObject = new GameObject("BonusHPText");
         textObject.transform.SetParent(bonusHPCard.transform);
@@ -238,7 +238,7 @@ public class CardRollManager : MonoBehaviour
         Text bonusHPCardText = textObject.AddComponent<Text>();
         if (EnemyManager.Instance != null)
         {
-            
+
             bonusHPCardText.text = "+" + EnemyManager.Instance.HealthAddition;
         }
         else
@@ -250,9 +250,9 @@ public class CardRollManager : MonoBehaviour
         bonusHPCardText.fontSize = 60; // Adjust the font size as needed
         bonusHPCardText.alignment = TextAnchor.MiddleCenter;
         bonusHPCardText.rectTransform.sizeDelta = bonusHPCard.GetComponent<RectTransform>().sizeDelta; // Make sure it covers the card
-        
+
         bonusHPCardText.color = new Color(55f / 255f, 55f / 255f, 71f / 255f);
-        
+
         // Wait before showing the next card
         return new WaitForSeconds(0.5f);
     }
@@ -268,7 +268,7 @@ public class CardRollManager : MonoBehaviour
 
         // Special case: If remaining HP matches one of the possible card values, force that value
         //Debug.Log("Biggest enemy possible by index: "+ biggestCardIndex);
-        if (remainingHP >= 2 && remainingHP <= biggestCardIndex+2)
+        if (remainingHP >= 2 && remainingHP <= biggestCardIndex + 2)
         {
             randomCardIndex = remainingHP - 2;  // Force the card value to exactly match the remaining HP
             drawnCards.Add(remainingHP);
@@ -294,7 +294,6 @@ public class CardRollManager : MonoBehaviour
         Debug.Log("Rolled Card: " + (randomCardIndex + 2) + " | Total HP: " + drawnTotal);
     }
 }
-
 
 
 

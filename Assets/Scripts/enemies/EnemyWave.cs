@@ -92,7 +92,7 @@ public class EnemyWave : MonoBehaviour
         int numberOfEnemies = drawnCards.Count;
         float yOffset = ((maxY - minY) / (numberOfEnemies + 1)) * spaceMultiplier;
 
-        minX = spawnPoint.position.x;
+        minX = spawnPoint.position.x + 7;
 
         for (int i = 0; i < numberOfEnemies; i++)
         {
@@ -100,7 +100,7 @@ public class EnemyWave : MonoBehaviour
 
             // Calculate positions for each boat or mermaid
             float yPos = minY + (i + 1) * yOffset;
-            float xPos = minX + (i + 1) * 12;
+            float xPos = minX + (i + 1) * 6;
             Vector3 spawnPosition = new Vector3(xPos, yPos, spawnPoint.position.z);
 
             GameObject newEnemy;
