@@ -157,7 +157,6 @@ public class CardRollManager : MonoBehaviour
         // Roll cards without displaying them
         while (drawnTotal < hp && rollingCards)
         {
-
             RollCard();
             yield return null; // No delay between rolls in the logic
         }
@@ -259,44 +258,51 @@ public class CardRollManager : MonoBehaviour
     }
 
 
-   void RollCard()
-{
+    void RollCard()
+    {
         audioSource.PlayOneShot(cardFlip, audioSource.volume);
 
         int remainingHP = hp - drawnTotal;
 
- 
-        if (remainingHP >= 2 && remainingHP <= biggestCardIndex + 2 )
+        // Special case: If remaining HP matches one of the possible card values, force that value
+        if (remainingHP >= 2 && remainingHP <= biggestCardIndex + 2)
         {
-            randomCardIndex = remainingHP - 2;
+            randomCardIndex = remainingHP - 2;  // Force the card value to exactly match the remaining HP
             drawnCards.Add(remainingHP);
             drawnTotal += remainingHP;
+
             Debug.Log("Forced exact match. Rolled Card: " + remainingHP + " | Total HP: " + drawnTotal);
             return;
         }
 
+       
         List<int> validCardIndices = new List<int>();
+        List<int> weights = new List<int>();
+        int totalWeight = 0;
+
         for (int i = 0; i <= biggestCardIndex; i++)
         {
-            int cardValue = i + 2; 
-            if (cardValue <= remainingHP) 
+            int cardValue = i + 2; // Convert index to card value
+            if (cardValue <= remainingHP)
             {
                 validCardIndices.Add(i);
+
+               
+                int weight = cardValue * cardValue; // Weight grows quadratically with card value
+                weights.Add(weight);
+                totalWeight += weight;
             }
         }
 
-        // If no valid cards remain, force an exact match
+        
         if (validCardIndices.Count == 0)
         {
-            randomCardIndex = remainingHP - 2;
-            drawnCards.Add(remainingHP);
-            drawnTotal += remainingHP;
-            Debug.Log("Forced exact match. Rolled Card: " + remainingHP + " | Total HP: " + drawnTotal);
+            Debug.LogWarning("No valid cards left to draw.");
             return;
         }
 
-        // Prioritize bigger cards using weighted random selection
-        int selectedIndex = WeightedRandom(validCardIndices);
+       
+        int selectedIndex = WeightedRandom(validCardIndices, weights, totalWeight);
 
         // Add the selected card value to the drawn cards
         randomCardIndex = selectedIndex;
@@ -305,25 +311,12 @@ public class CardRollManager : MonoBehaviour
         drawnCards.Add(selectedCardValue);
         drawnTotal += selectedCardValue;
 
-        Debug.Log($"Rolled Card: {selectedCardValue} | Total HP: {drawnTotal}");
+        Debug.Log($"Weighted Roll: Card {selectedCardValue} selected. Total HP: {drawnTotal}");
     }
 
-
-
-    int WeightedRandom(List<int> validIndices)
+    int WeightedRandom(List<int> validIndices, List<int> weights, int totalWeight)
     {
-        // Generate weights favoring bigger indices
-        int totalWeight = 0;
-        List<int> weights = new List<int>();
-
-        foreach (int index in validIndices)
-        {
-            int weight = (index + 1) * 2; // Weight grows with index (e.g., 2, 4, 6, ...)
-            weights.Add(weight);
-            totalWeight += weight;
-        }
-
-        // Roll a random number within the total weight
+        // Generate a random number within the total weight
         int randomWeight = Random.Range(0, totalWeight);
 
         // Determine the selected index based on weights
@@ -341,5 +334,6 @@ public class CardRollManager : MonoBehaviour
     }
 
 }
+
 
 
