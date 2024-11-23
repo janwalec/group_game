@@ -10232,6 +10232,7 @@ MonoBehaviour:
   drawnCards: 
   enemyWave: {fileID: 2110637934}
   cardFlip: {fileID: 8300000, guid: c378b6ba8cdbb6543b12084bf5d95767, type: 3}
+  krakenOmen: {fileID: 8300000, guid: 9b2bfbd7423c139419541be032f54219, type: 3}
 --- !u!82 &675279745
 AudioSource:
   m_ObjectHideFlags: 0

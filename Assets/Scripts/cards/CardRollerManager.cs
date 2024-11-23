@@ -20,6 +20,7 @@ public class CardRollManager : MonoBehaviour
     private bool rollingCards = true; // Flag to control when to stop rolling
     AudioSource audioSource;
     [SerializeField] protected AudioClip cardFlip;
+    [SerializeField] protected AudioClip krakenOmen;
 
 
     //bool rolled = false;
@@ -149,8 +150,9 @@ public class CardRollManager : MonoBehaviour
     
             yield return new WaitForSeconds(1.0f);
 
-
-     
+            //Kraken has a special sound for giving boss vibes.
+            if(cardValue == 14){audioSource.PlayOneShot(krakenOmen);}
+            
             GameObject newCard = Instantiate(cardPrefab, cardColumn); // Create a new card
             Image cardImage = newCard.GetComponent<Image>();
             if (cardImage != null)
