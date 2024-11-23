@@ -195,7 +195,7 @@ public class EnemyController : MonoBehaviour
 
             if (spriteRenderer != null)
             {
-                StartCoroutine(FlashColor(Color.red, 0.1f)); // Flash to red for 0.1 seconds uncomment if you want to try this one out and comment the other one
+                StartCoroutine(FlashColor(Color.red, 0.05f)); // Flash to red for 0.1 seconds uncomment if you want to try this one out and comment the other one
                 //StartCoroutine(FadeEffect(0.3f));
             }
         }

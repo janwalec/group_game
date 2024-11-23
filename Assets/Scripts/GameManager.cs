@@ -53,10 +53,10 @@ public class GameManager : MonoBehaviour
         waves[0] = 2;
         waves[1] = 2;
         enemiesHp[0].Add(10);
-        enemiesHp[0].Add(10);
+        enemiesHp[0].Add(20);
        // enemiesHp[0].Add(10);
         enemiesHp[1].Add(20);
-        enemiesHp[1].Add(20);
+        enemiesHp[1].Add(30);
 
         cardRollManager.setTotalHp(enemiesHp[0][0]);
         roundWonCanvas.enabled = false;

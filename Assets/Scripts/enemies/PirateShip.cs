@@ -32,7 +32,7 @@ public class NormalShip : EnemyController
     }
     public void InitializeHealth(int card_value)
     {
-        health = 5 + card_value;
+        health = card_value;
         base.health = health;
         changeText(health.ToString());
         base.ApplyHealthAddition();
