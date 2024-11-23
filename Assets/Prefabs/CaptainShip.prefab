@@ -32,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 16.550962, y: 8.157166, z: 16.736559}
-  m_LocalScale: {x: 0.75, y: 0.75, z: 1}
+  m_LocalScale: {x: 0.65, y: 0.65, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2735668951663106459}
@@ -121,8 +121,7 @@ MonoBehaviour:
   onHitSound: {fileID: 8300000, guid: 90c6cf9669b7c9f40b37b7fd147240f2, type: 3}
   onDeathSound: {fileID: 8300000, guid: 49ceca12ff5649548bfd728fafe18c5d, type: 3}
   damageParticles: {fileID: 3679879074604123835, guid: 0a7e322324d49d222b74c330b0d05f46, type: 3}
-  speedMultiplier: 0
-  healthAddition: 0
+  priceForKill: 20
   pirateShipPrefab: {fileID: 363901193533818090, guid: 951e26852c28fcf4391e54d94be2d91c, type: 3}
 --- !u!70 &4728761504912030367
 CapsuleCollider2D:
@@ -310,7 +309,7 @@ RectTransform:
   m_GameObject: {fileID: 1619664153698976378}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1421382459137636074}
@@ -319,7 +318,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 3.61, y: 1.76}
+  m_AnchoredPosition: {x: 2.8, y: 1.76}
   m_SizeDelta: {x: 2.536, y: 1.955}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &1284560779916052459
@@ -513,7 +512,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0.5376587, y: 5.970337, z: 194.84583, w: 41.211304}
+  m_margin: {x: 0.5376587, y: 5.970337, z: 198.30963, w: 42.804153}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
