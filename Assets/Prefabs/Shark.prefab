@@ -199,10 +199,9 @@ MonoBehaviour:
   canvas: {fileID: 8588637886311211665}
   sfxMixerGroup: {fileID: 0}
   onHitSound: {fileID: 8300000, guid: 90c6cf9669b7c9f40b37b7fd147240f2, type: 3}
-  onDeathSound: {fileID: 8300000, guid: 911165b9f363e984aad88f4f5cfd7174, type: 3}
+  onDeathSound: {fileID: 8300000, guid: 699ffd1d3aea38a46853133cc0bf3ea1, type: 3}
   damageParticles: {fileID: 3679879074604123835, guid: 8eac88283efba0fd291797443ba121eb, type: 3}
-  speedMultiplier: 0
-  healthAddition: 0
+  priceForKill: 20
 --- !u!114 &2438946775115272504
 MonoBehaviour:
   m_ObjectHideFlags: 0
