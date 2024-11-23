@@ -5,12 +5,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Random = UnityEngine.Random;
 
 
 public class CardRollManager : MonoBehaviour
 {
     public Sprite[] cardSprites;  // Array to hold card sprites (2-10, A, J, Q, K)
+    public Sprite bonusHPCardSprite;
     public Image cardDisplay;
     public Transform cardColumn;  // Vertical Layout Group for card placement
     public GameObject cardPrefab; // Prefab for dynamically instantiated cards
@@ -24,6 +26,8 @@ public class CardRollManager : MonoBehaviour
     AudioSource audioSource;
     [SerializeField] protected AudioClip cardFlip;
     [SerializeField] protected AudioClip krakenOmen;
+    
+    public Font customFont; // Reference to the custom TMP font asset
 
 
     //bool rolled = false;
@@ -191,12 +195,16 @@ public class CardRollManager : MonoBehaviour
 
 
             Debug.Log("Moved Card to Column: " + cardValue);
+            
+            // Hide the CardDisplay so it looks like the card is moved to the side. 
+            cardDisplay.gameObject.SetActive(false);
 
 
             // Wait before showing the next card
             yield return new WaitForSeconds(0.5f);
         }
-
+        
+        yield return showBonusHPCard();
 
         // Hide the CardDisplay after all cards are moved
         cardDisplay.gameObject.SetActive(false);
@@ -207,6 +215,47 @@ public class CardRollManager : MonoBehaviour
         GameManager.instance.Prepare();
     }
 
+    private object showBonusHPCard()
+    {
+        cardDisplay.gameObject.SetActive(true); // Ensure the CardDisplay is visible
+        cardDisplay.sprite = bonusHPCardSprite;
+        audioSource.PlayOneShot(cardFlip, audioSource.volume);
+        
+        //Also show the round's bonus HP card.
+        GameObject bonusHPCard = Instantiate(cardPrefab, cardColumn); // Create a new card
+        Image bonusHPCardImage = bonusHPCard.GetComponent<Image>();
+        if (bonusHPCardImage != null)
+        {
+            bonusHPCardImage.sprite = bonusHPCardSprite;
+        }
+        
+        // Create a new Text component
+        GameObject textObject = new GameObject("BonusHPText");
+        textObject.transform.SetParent(bonusHPCard.transform);
+        textObject.transform.localPosition = Vector3.zero; // Center the text object
+
+        // Add and configure the Text component
+        Text bonusHPCardText = textObject.AddComponent<Text>();
+        if (EnemyManager.Instance != null)
+        {
+            
+            bonusHPCardText.text = "+" + EnemyManager.Instance.HealthAddition;
+        }
+        else
+        {
+            bonusHPCardText.text = "Cannot Get EnemyManager";
+            bonusHPCardText.fontSize = 24;
+        }
+        bonusHPCardText.font = customFont; // Assign the custom font
+        bonusHPCardText.fontSize = 60; // Adjust the font size as needed
+        bonusHPCardText.alignment = TextAnchor.MiddleCenter;
+        bonusHPCardText.rectTransform.sizeDelta = bonusHPCard.GetComponent<RectTransform>().sizeDelta; // Make sure it covers the card
+        
+        bonusHPCardText.color = new Color(55f / 255f, 55f / 255f, 71f / 255f);
+        
+        // Wait before showing the next card
+        return new WaitForSeconds(0.5f);
+    }
 
 
     void RollCard()

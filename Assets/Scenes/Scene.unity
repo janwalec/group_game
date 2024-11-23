@@ -10226,6 +10226,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: dd3349010e78b004489eeebb853ae38e, type: 3}
   - {fileID: 21300000, guid: 59b2b4a6468db9e4d865aa2f558122ae, type: 3}
   - {fileID: 21300000, guid: 36cb556f8e708f8459c7c13dd3ec2bb2, type: 3}
+  bonusHPCardSprite: {fileID: 21300000, guid: 3017835e293771e40a70f2dd2b8d161d, type: 3}
   cardDisplay: {fileID: 683506705}
   cardColumn: {fileID: 764946901}
   cardPrefab: {fileID: 2311513019763302355, guid: bf3711124c24f834e9dc8302b9e00f4b, type: 3}
@@ -10233,6 +10234,7 @@ MonoBehaviour:
   enemyWave: {fileID: 2110637934}
   cardFlip: {fileID: 8300000, guid: c378b6ba8cdbb6543b12084bf5d95767, type: 3}
   krakenOmen: {fileID: 8300000, guid: 9b2bfbd7423c139419541be032f54219, type: 3}
+  customFont: {fileID: 12800000, guid: d538b234d2501fd4882ee19c6359c13b, type: 3}
 --- !u!82 &675279745
 AudioSource:
   m_ObjectHideFlags: 0
