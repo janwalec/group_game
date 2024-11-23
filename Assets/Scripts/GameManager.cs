@@ -59,6 +59,7 @@ public class GameManager : MonoBehaviour
         enemiesHp[1].Add(30);
 
         cardRollManager.setTotalHp(enemiesHp[0][0]);
+        cardRollManager.setBiggestEnemyValue(11); //Biggest enemy for first level is mermaid (11). It will increase by 1 in future waves.
         roundWonCanvas.enabled = false;
 
         //NextLevel();
@@ -253,6 +254,7 @@ public class GameManager : MonoBehaviour
             Wait();
             inGameUI.UpdateRound(currentLevel, currentWave);
             cardRollManager.setTotalHp(enemiesHp[currentLevel][currentWave]);
+            cardRollManager.setBiggestEnemyValue(cardRollManager.getBiggestEnemyValue()+1); //Increase biggest enemy to be faced.
             cardRollManager.StartRolling();
             inGameUI.UpdateGoldAmount(MarketManager.instance.Gold);
             
@@ -267,6 +269,7 @@ public class GameManager : MonoBehaviour
         currentWave++;
         inGameUI.UpdateRound(currentLevel, currentWave);
         cardRollManager.setTotalHp(enemiesHp[currentLevel][currentWave]);
+        cardRollManager.setBiggestEnemyValue(cardRollManager.getBiggestEnemyValue()+1); //Increase biggest possible enemy to be faced.
         cardRollManager.StartRolling();
         
     }

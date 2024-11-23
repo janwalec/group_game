@@ -1,9 +1,11 @@
 
 
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using Random = UnityEngine.Random;
 
 
 public class CardRollManager : MonoBehaviour
@@ -17,6 +19,7 @@ public class CardRollManager : MonoBehaviour
     private int hp = 50;  // Target HP
     private int drawnTotal = 0;  // Total drawn value so far
     private int randomCardIndex = 0;
+    private int biggestCardIndex = 8;
     private bool rollingCards = true; // Flag to control when to stop rolling
     AudioSource audioSource;
     [SerializeField] protected AudioClip cardFlip;
@@ -47,6 +50,32 @@ public class CardRollManager : MonoBehaviour
     public void setTotalHp(int totalHp)
     {
         this.hp = totalHp;
+    }
+
+    //Let GameManager set who's the biggest enemy that we can pull from the deck.
+    public void setBiggestEnemyValue(int biggestEnemyValue)
+    {
+        int constrainedBiggestEnemyValue;
+        if (biggestEnemyValue > 14)
+        {
+            constrainedBiggestEnemyValue = 14;
+        }
+        else if (biggestEnemyValue < 2)
+        {
+            constrainedBiggestEnemyValue = 2;
+        }
+        else
+        {
+            constrainedBiggestEnemyValue = biggestEnemyValue;
+        }
+        
+        //
+        biggestCardIndex = constrainedBiggestEnemyValue - 2;
+    }
+
+    public int getBiggestEnemyValue()
+    {
+        return biggestCardIndex + 2;
     }
 
 
@@ -189,7 +218,8 @@ public class CardRollManager : MonoBehaviour
 
 
         // Special case: If remaining HP matches one of the possible card values, force that value
-        if (remainingHP >= 2 && remainingHP <= 14)
+        //Debug.Log("Biggest enemy possible by index: "+ biggestCardIndex);
+        if (remainingHP >= 2 && remainingHP <= biggestCardIndex+2)
         {
             randomCardIndex = remainingHP - 2;  // Force the card value to exactly match the remaining HP
             drawnCards.Add(remainingHP);
@@ -203,7 +233,7 @@ public class CardRollManager : MonoBehaviour
 
         do
         {
-            randomCardIndex = Random.Range(0, cardSprites.Length);
+            randomCardIndex = Random.Range(0, biggestCardIndex);
         }
         while ((randomCardIndex + 2) > remainingHP);
 
