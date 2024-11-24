@@ -1055,6 +1055,8 @@ MonoBehaviour:
   levelWonUI: {fileID: 900086883}
   pauseUI: {fileID: 1993430781}
   settingsUI: {fileID: 1595945495}
+  currentLevel: 0
+  currentWave: 0
   cardRollManager: {fileID: 675279744}
   rums:
   - {fileID: 1875844354}

@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
         SetGameState(GameState.GS_WAIT);
         waves[0] = 2;
         waves[1] = 2;
-        enemiesHp[0].Add(10);
+        enemiesHp[0].Add(15);
         enemiesHp[0].Add(20);
        // enemiesHp[0].Add(10);
         enemiesHp[1].Add(20);

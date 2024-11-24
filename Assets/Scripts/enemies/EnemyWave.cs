@@ -22,7 +22,7 @@ public class EnemyWave : MonoBehaviour
     {
         get
         {
-            if(_instance == null)
+            if (_instance == null)
             {
                 _instance = new EnemyWave();
                 _instance = FindObjectOfType<EnemyWave>();
@@ -32,7 +32,7 @@ public class EnemyWave : MonoBehaviour
                 }
             }
             return _instance;
-            
+
         }
     }
 
@@ -57,7 +57,7 @@ public class EnemyWave : MonoBehaviour
         }
         else
         {
-//            Debug.Log("Enemies remaining: " + enemies.Count);
+            //            Debug.Log("Enemies remaining: " + enemies.Count);
         }
     }
 
@@ -79,7 +79,7 @@ public class EnemyWave : MonoBehaviour
 
     public void AddEnemy(Transform enemy)
     {
-        enemies.Add(enemy);   
+        enemies.Add(enemy);
     }
     private bool areAllEnemiesDefeated()
     {
@@ -91,7 +91,7 @@ public class EnemyWave : MonoBehaviour
     {
         int numberOfEnemies = drawnCards.Count;
 
-        
+
         bool isSecondMap = GameManager.instance.currentLevel == 1; // Second map starts at level 1
 
         minX = spawnPoint.position.x + 7;
@@ -100,7 +100,7 @@ public class EnemyWave : MonoBehaviour
         {
             int card = drawnCards[i];
 
-          
+
             float yPos = isSecondMap ? 0 : minY + (i + 1) * ((maxY - minY) / (numberOfEnemies + 1)) * spaceMultiplier; // if second map then y=0
             float xPos = minX + (i + 1) * 5;
             Vector3 spawnPosition = new Vector3(xPos, yPos, spawnPoint.position.z);

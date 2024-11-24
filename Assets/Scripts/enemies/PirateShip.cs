@@ -47,3 +47,5 @@ public class NormalShip : EnemyController
         base.Die();
     }*/
 }
+
+
