@@ -52,6 +52,8 @@ public class ShopManager : MonoBehaviour
     }
 
     void Awake() {
+        audioSource = GetComponent<AudioSource>();
+
         cannonCard.SetActive(false);
         diceCard.SetActive(false);
         coinCard.SetActive(false);
@@ -60,12 +62,10 @@ public class ShopManager : MonoBehaviour
         this.diceCardText = diceCard.GetComponentInChildren<TextMeshProUGUI>();
         this.coinCardText = coinCard.GetComponentInChildren<TextMeshProUGUI>();
         
-        Debug.Log(cannonCardText);
 
         GameManager.instance.setShopManager(this);
         initStarting();
         
-        audioSource = GetComponent<AudioSource>();
     }
 
 
