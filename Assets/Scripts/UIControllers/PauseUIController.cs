@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
 
 class PauseUIController : MonoBehaviour
 {
@@ -14,6 +15,7 @@ class PauseUIController : MonoBehaviour
         // Find the button by its name
         VisualElement resumeButton = root.Q<VisualElement>("ResumeButton");
         VisualElement settingsButton = root.Q<VisualElement>("SettingsButton");
+        VisualElement mainMenuButton = root.Q<VisualElement>("Button");
         //PrintAllElements(root);
 
         // Add a click event listener to the button
@@ -24,6 +26,11 @@ class PauseUIController : MonoBehaviour
         if (settingsButton != null)
         {
             settingsButton.RegisterCallback<ClickEvent>(ev => OnSettingsButtonClick());
+        }
+
+        if (mainMenuButton != null)
+        {
+            mainMenuButton.RegisterCallback<ClickEvent>(evt => OnMainMenuClick());
         }
 
 
@@ -37,6 +44,11 @@ class PauseUIController : MonoBehaviour
     private void OnSettingsButtonClick()
     {
         GameManager.instance.Settings();
+    }
+    
+    private void OnMainMenuClick()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
     
 }

@@ -10,6 +10,8 @@ class SettingsUIController : MonoBehaviour
     private SliderInt sfxSlider;
     public AudioMixer audioMixer;
 
+    
+
     private void OnEnable()
     {
         root = GetComponent<UIDocument>().rootVisualElement;
@@ -18,35 +20,38 @@ class SettingsUIController : MonoBehaviour
         {
             backButton.RegisterCallback<ClickEvent>(ev => OnBackButtonClick());
         }
-        
         musicSlider = root.Q<SliderInt>("MusicSlider");
         sfxSlider = root.Q<SliderInt>("SFXSlider");
         
-        // Set initial values if needed
-        musicSlider.value = Mathf.RoundToInt(MapAudioMixerToSlider("MusicVolume"));
+        //Set sliders according to current level.
         sfxSlider.value = Mathf.RoundToInt(MapAudioMixerToSlider("SFXVolume"));
+        musicSlider.value = Mathf.RoundToInt(MapAudioMixerToSlider("MusicVolume"));
         
         musicSlider.RegisterValueChangedCallback(evt => SetMusicVolume(evt.newValue));
         sfxSlider.RegisterValueChangedCallback(evt => SetSFXVolume(evt.newValue));
     }
     private void OnBackButtonClick()
     {
+        //Save changes
+        PlayerPrefs.SetInt("MusicVolume", musicSlider.value);
+        PlayerPrefs.SetInt("SFXVolume", sfxSlider.value);
+        
         GameManager.instance.SetPreviousState();
     }
     
-    private void SetMusicVolume(int value)
+    public void SetMusicVolume(int value)
     {
         float mappedValue = MapSliderToAudioMixer(value);
         audioMixer.SetFloat("MusicVolume", mappedValue);
     }
 
-    private void SetSFXVolume(int value)
+    public void SetSFXVolume(int value)
     {
         float mappedValue = MapSliderToAudioMixer(value);
         audioMixer.SetFloat("SFXVolume", mappedValue);
     }
 
-    private float MapSliderToAudioMixer(int sliderValue)
+    public float MapSliderToAudioMixer(int sliderValue)
     {
         // Custom mapping
         if (sliderValue == 0)
@@ -65,7 +70,7 @@ class SettingsUIController : MonoBehaviour
         }
     }
 
-    private float MapAudioMixerToSlider(string parameterName)
+    public float MapAudioMixerToSlider(string parameterName)
     {
         float value;
         audioMixer.GetFloat(parameterName, out value);

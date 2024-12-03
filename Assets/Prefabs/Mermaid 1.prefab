@@ -271,8 +271,7 @@ MonoBehaviour:
   onHitSound: {fileID: 8300000, guid: 90c6cf9669b7c9f40b37b7fd147240f2, type: 3}
   onDeathSound: {fileID: 8300000, guid: 911165b9f363e984aad88f4f5cfd7174, type: 3}
   damageParticles: {fileID: 3679879074604123835, guid: 8eac88283efba0fd291797443ba121eb, type: 3}
-  speedMultiplier: 0
-  healthAddition: 0
+  priceForKill: 0
 --- !u!82 &5631799268405447924
 AudioSource:
   m_ObjectHideFlags: 0
@@ -282,7 +281,7 @@ AudioSource:
   m_GameObject: {fileID: 6542645333151716760}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 1518868163146938194, guid: 181095fe62d2a5d4f83e51a828a64d5b, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
