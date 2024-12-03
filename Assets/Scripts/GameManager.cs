@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject levelWonUI;
     public GameObject pauseUI;
     public GameObject settingsUI;
+    
+    [SerializeField] private EnemyManager enemyManager;
 
     private const int levelsNum = 2;
     public int currentLevel = 0;
@@ -50,20 +52,29 @@ public class GameManager : MonoBehaviour
             enemiesHp.Add(new List<int>());
         }
         SetGameState(GameState.GS_WAIT);
-        waves[0] = 2;
-        waves[1] = 2;
-        enemiesHp[0].Add(15);
-        enemiesHp[0].Add(20);
-       // enemiesHp[0].Add(10);
+        waves[0] = 3;
+        waves[1] = 3;
+        
+        enemiesHp[0].Add(5);
+        enemiesHp[0].Add(13); 
+        enemiesHp[0].Add(22);
+        
         enemiesHp[1].Add(20);
+        enemiesHp[1].Add(24);
         enemiesHp[1].Add(30);
 
         cardRollManager.setTotalHp(enemiesHp[0][0]);
         cardRollManager.setBiggestEnemyValue(11); //Biggest enemy for first level is shark (11). It will increase by 1 in future waves.
         roundWonCanvas.enabled = false;
 
+        if (enemyManager != null)
+        {
+            enemyManager.SetHealthAddition(5);
+        }
+        
         //NextLevel();
-
+        PlayerPrefs.SetInt("Level", currentLevel+1); // Save current level to PlayerPrefs
+        PlayerPrefs.Save();
     }
 
 
@@ -253,11 +264,14 @@ public class GameManager : MonoBehaviour
             currentWave = 0;
             Wait();
             inGameUI.UpdateRound(currentLevel, currentWave);
+            PlayerPrefs.SetInt("Level", currentLevel+1); // Save current level to PlayerPrefs
+            PlayerPrefs.Save();
             cardRollManager.setTotalHp(enemiesHp[currentLevel][currentWave]);
             cardRollManager.setBiggestEnemyValue(cardRollManager.getBiggestEnemyValue()+1); //Increase biggest enemy to be faced.
             cardRollManager.StartRolling();
             inGameUI.UpdateGoldAmount(MarketManager.instance.Gold);
-            
+            //Increase bonus health by 5
+            enemyManager.SetHealthAddition(enemyManager.getHealthAddition()+5);
         }
         
         
@@ -271,6 +285,9 @@ public class GameManager : MonoBehaviour
         cardRollManager.setTotalHp(enemiesHp[currentLevel][currentWave]);
         cardRollManager.setBiggestEnemyValue(cardRollManager.getBiggestEnemyValue()+1); //Increase biggest possible enemy to be faced.
         cardRollManager.StartRolling();
+        
+        PlayerPrefs.SetInt("Wave", currentWave+1); // Save current wave to PlayerPrefs
+        PlayerPrefs.Save();
         
     }
  

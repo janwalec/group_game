@@ -7,6 +7,7 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private int healthAddition = 10;
     [SerializeField] private float speedMultiplication = 1.0f; // default values 
 
+    
     public int HealthAddition => healthAddition;
     public float SpeedMultiplication => speedMultiplication;
 
@@ -22,5 +23,15 @@ public class EnemyManager : MonoBehaviour
 
        
         DontDestroyOnLoad(gameObject);
+    }
+
+    public void SetHealthAddition(int health)
+    {
+        healthAddition = health;
+    }
+
+    public int getHealthAddition()
+    {
+        return healthAddition;
     }
 }

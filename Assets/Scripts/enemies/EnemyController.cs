@@ -27,7 +27,8 @@ public class EnemyController : MonoBehaviour
     //[SerializeField] protected float speedMultiplier = 1.0f;
     //[SerializeField] protected int healthAddition = 10;
     private float delay = 1f;
-    public int priceForKill = 20;
+    public int priceForKill;
+    private bool isDying = false;
 
     protected void ApplyHealthAddition()
     {
@@ -89,7 +90,8 @@ public class EnemyController : MonoBehaviour
 
         finalDestination = GameManager.instance.getRumPosition();
         changeText(health.ToString());
-        
+        priceForKill = health;
+
     }
     protected virtual IEnumerator SlowDown(float newSpeed)
     {
@@ -205,6 +207,10 @@ public class EnemyController : MonoBehaviour
 
     public virtual IEnumerator Die()
     {
+        
+        if (isDying) yield break; //If it already is dying, just do nothing.
+        isDying = true;
+        
         //Slow down
         StartCoroutine(SlowDown(0f));
         
@@ -216,6 +222,8 @@ public class EnemyController : MonoBehaviour
         if(onDeathSound != null)
             audioSource.PlayOneShot(onDeathSound, audioSource.volume);
         
+        // Notify subscribers that this enemy has been killed
+        GameEvents.EnemyKilled(priceForKill);
         
         Debug.Log("Enemy has died.");
         yield return new WaitForSeconds(delay);

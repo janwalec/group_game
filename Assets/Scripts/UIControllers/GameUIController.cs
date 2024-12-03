@@ -5,6 +5,7 @@ class GameUIController : MonoBehaviour
 {
     private VisualElement root;  // Root element of the UI Document
     Label goldAmount;
+    Label points;
     Label roundNumber;
     Button pauseButton;
     VisualElement readyButton;
@@ -21,6 +22,7 @@ class GameUIController : MonoBehaviour
         root = GetComponent<UIDocument>().rootVisualElement;
 
         goldAmount = root.Q<Label>("GoldAmountLabel");
+        points = root.Q<Label>("PointsAmt");
         roundNumber = root.Q<Label>("RoundNumber");
         readyButton = root.Q<VisualElement>("ReadyButton");
         pauseButton = root.Q<Button>("PauseButton");
@@ -116,5 +118,10 @@ class GameUIController : MonoBehaviour
     {
         //Debug.Log("updating " + level + wave);
         roundNumber.text = (level+1).ToString() + "-" + (wave+1).ToString();
+    }
+
+    public void UpdatePoints(int score)
+    {
+        points.text = score.ToString();
     }
 }
