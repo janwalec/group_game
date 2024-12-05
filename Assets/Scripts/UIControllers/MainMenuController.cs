@@ -14,6 +14,7 @@ class MainMenuController : MonoBehaviour
         // Find the button by its name
         VisualElement startGameButton = root.Q<VisualElement>("startGameButton");
         VisualElement startIntroButton = root.Q<VisualElement>("startIntroButton");
+        VisualElement settingsButton = root.Q<VisualElement>("SettingsButton");
 
         //PrintAllElements(root);
 
@@ -26,6 +27,10 @@ class MainMenuController : MonoBehaviour
         {
             startIntroButton.RegisterCallback<ClickEvent>(ev => OnStartIntroButtonClick());
         }
+        if (settingsButton != null)
+        {
+            settingsButton.RegisterCallback<ClickEvent>(ev => OnSettingsButtonClick());
+        }
 
 
     }
@@ -37,5 +42,9 @@ class MainMenuController : MonoBehaviour
     private void OnStartIntroButtonClick()
     {
         MainMenuGameManager.instance.Intro();
+    }
+    private void OnSettingsButtonClick()
+    {
+        MainMenuGameManager.instance.Settings();
     }
 }

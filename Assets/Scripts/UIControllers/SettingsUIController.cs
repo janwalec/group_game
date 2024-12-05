@@ -35,8 +35,14 @@ class SettingsUIController : MonoBehaviour
         //Save changes
         PlayerPrefs.SetInt("MusicVolume", musicSlider.value);
         PlayerPrefs.SetInt("SFXVolume", sfxSlider.value);
-        
-        GameManager.instance.SetPreviousState();
+        if (GameManager.instance != null)
+        {
+            GameManager.instance.SetPreviousState();
+        }
+        else if (MainMenuGameManager.instance != null)
+        {
+            MainMenuGameManager.instance.Settings();
+        }
     }
     
     public void SetMusicVolume(int value)
