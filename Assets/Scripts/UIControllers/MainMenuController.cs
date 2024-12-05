@@ -15,6 +15,7 @@ class MainMenuController : MonoBehaviour
         VisualElement startGameButton = root.Q<VisualElement>("startGameButton");
         VisualElement startIntroButton = root.Q<VisualElement>("startIntroButton");
         VisualElement settingsButton = root.Q<VisualElement>("SettingsButton");
+        Label highScoreLabel = root.Q<Label>("ScoreAmtLabel");
 
         //PrintAllElements(root);
 
@@ -32,6 +33,10 @@ class MainMenuController : MonoBehaviour
             settingsButton.RegisterCallback<ClickEvent>(ev => OnSettingsButtonClick());
         }
 
+        if (highScoreLabel != null)
+        {
+            highScoreLabel.text = PlayerPrefs.GetInt("PlayerScore", 0).ToString();
+        }
 
     }
  
@@ -47,4 +52,5 @@ class MainMenuController : MonoBehaviour
     {
         MainMenuGameManager.instance.Settings();
     }
+    
 }
