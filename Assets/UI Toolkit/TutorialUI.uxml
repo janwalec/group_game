@@ -9,10 +9,10 @@
         </ui:VisualElement>
         <ui:VisualElement style="flex-grow: 1; background-color: rgb(233, 228, 219);">
             <ui:Label tabindex="-1" text="Tutorial Text..." parse-escape-sequences="true" display-tooltip-when-elided="true" name="TutorialText" style="font-size: 28px; -unity-font: url(&quot;project://database/Assets/UI%20Toolkit/YoungSerif-Regular.ttf?fileID=12800000&amp;guid=d538b234d2501fd4882ee19c6359c13b&amp;type=3#YoungSerif-Regular&quot;); -unity-font-definition: initial; white-space: normal; text-overflow: clip; flex-grow: 0; padding-top: 4px; padding-right: 8px; padding-bottom: 2px; padding-left: 8px; flex-shrink: 1;" />
-            <ui:VisualElement name="TutorialImage" style="flex-grow: 1; -unity-background-scale-mode: scale-to-fit;" />
+            <ui:VisualElement name="TutorialImage" style="flex-grow: 1; -unity-background-scale-mode: scale-to-fit; margin-top: 8px; margin-right: 8px; margin-bottom: 8px; margin-left: 8px;" />
             <ui:VisualElement style="flex-grow: 0; flex-direction: row; justify-content: space-around; align-self: stretch; flex-shrink: 0; align-items: center;">
-                <ui:Button text="&lt;" parse-escape-sequences="true" display-tooltip-when-elided="true" name="PreviousButton" class="Button" />
-                <ui:Button text="&gt;" parse-escape-sequences="true" display-tooltip-when-elided="true" name="NextButton" class="Button" />
+                <ui:Button text="&lt;" parse-escape-sequences="true" display-tooltip-when-elided="true" name="PreviousButton" class="Button flip-button menu_button" />
+                <ui:Button text="Next &gt;" parse-escape-sequences="true" display-tooltip-when-elided="true" name="NextButton" class="Button flip-button menu_button" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
