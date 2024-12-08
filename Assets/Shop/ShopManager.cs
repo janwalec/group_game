@@ -155,11 +155,12 @@ public class ShopManager : MonoBehaviour
         }
     }
 
-
-    
-
     void PurchaseItem(ShopItem item)
     {
+        if (MarketManager.instance.Gold < item.price)
+        {
+            return;
+        }
         Debug.Log("Purchased " + item.itemName + " for " + item.price);
         audioSource.PlayOneShot(onBuySound);
         

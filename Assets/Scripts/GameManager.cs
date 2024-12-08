@@ -253,12 +253,13 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            MarketManager.instance.earnGold(50); //Earn some gold for the next level.
             //chainControler.resetAnimations();
             Debug.Log(currentLevel + " now");
             levelsLayout[currentLevel].SetActive(false);
             ++currentLevel;
             levelsLayout[currentLevel].SetActive(true);
-            chainControler.RemoveAll();
+            chainControler.RemoveAll(); //TODO: Also needs to remove un-chained items on the tiles!
             EnemyPathManager.Instance.NextLevel();
             Debug.Log(currentLevel + " now2");
             currentWave = 0;

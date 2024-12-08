@@ -1884,7 +1884,7 @@ MonoBehaviour:
   diceCard: {fileID: 710972289}
   coinCard: {fileID: 140121523}
   startingCannons: 1
-  startingDice: 0
+  startingDice: 1
   startingCoins: 1
   cannonsBought: 0
   diceBought: 0

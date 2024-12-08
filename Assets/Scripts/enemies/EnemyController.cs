@@ -29,6 +29,7 @@ public class EnemyController : MonoBehaviour
     private float delay = 1f;
     public int priceForKill;
     private bool isDying = false;
+    private bool isTakingDamage = false;
 
     protected void ApplyHealthAddition()
     {
@@ -235,6 +236,8 @@ public class EnemyController : MonoBehaviour
     // Flash the SpriteRenderer color
     private IEnumerator FlashColor(Color flashColor, float duration)
     {
+        if (isTakingDamage) yield break; //If it already is dying, just do nothing.
+        isTakingDamage = true;
         Color originalColor = spriteRenderer.color;
 
         
@@ -245,6 +248,7 @@ public class EnemyController : MonoBehaviour
 
         // Revert to the original color
         spriteRenderer.color = originalColor;
+        isTakingDamage = false;
     }
 
 

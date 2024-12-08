@@ -53,12 +53,12 @@ public class MarketItemController : MonoBehaviour
                 audioSource.PlayOneShot(onSelectSound, audioSource.volume);
             //informs the tilemap what kind of object is currently selected 
             //and chenges its color to inform the user
-            if (MarketManager.instance.canAfford(objectType))
-            {
+            //if (MarketManager.instance.canAfford(objectType)) //OUTCOMMENTED THIS BECAUSE IT IS FROM THE OLD MARKET.
+            //{
                 GameManager.instance.getTilemap().selectObject(this);
                 if(frameImage != null)
                     frameImage.color = new Color(frameImage.color.r - 0.1f, frameImage.color.g, frameImage.color.b - 0.1f);
-            }
+            //}
         }
     }
 
