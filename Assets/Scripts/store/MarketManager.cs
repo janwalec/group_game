@@ -17,7 +17,7 @@ public class MarketManager : MonoBehaviour
     {
         get => gold;
     }
-    private const int GOLD_AT_BEGINNING = 1000;
+    private const int GOLD_AT_BEGINNING = 10;
     private Dictionary<Items, int> prices = new Dictionary<Items, int>();
     public Dictionary<Items, int> Prices
     {
@@ -34,10 +34,6 @@ public class MarketManager : MonoBehaviour
         prices.Add(Items.COIN, 10);
         goldAmount.text = gold.ToString();
         gameUIController.UpdateGoldAmount(Gold);
-    }
-    void Update()
-    {
-
     }
     public void spendGold(Items item)
     {
@@ -73,6 +69,16 @@ public class MarketManager : MonoBehaviour
             }
         }
         return false;
+    }
+    
+    void Update()
+    {
+        // Check if the 'g' key is pressed
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            // Call the earnGold function with 1000 as the argument
+            earnGold(1000);
+        }
     }
 
 }
