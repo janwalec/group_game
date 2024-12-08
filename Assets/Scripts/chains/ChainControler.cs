@@ -584,6 +584,31 @@ public class ChainControler : MonoBehaviour
                     curr.Value.modifier.ResetAnimation();
                     curr.Value.modifier.deactivateCanvas();
                 }
+                /*else
+                {
+                    //Determine direction of previous.
+
+                    if (curr.Previous.Value == curr.Value.GetNeighbourAt(0))
+                        //direction = ChainGenerator.Direction.TOP_LEFT;
+                        curr.Value.cannon.setSlowingEffect(newSpeed);
+                    else if (curr.Previous.Value == curr.Value.GetNeighbourAt(1))
+                        //direction = ChainGenerator.Direction.TOP_RIGHT;
+                        curr.Value.cannon.setSlowingEffect(newSpeed);
+                    else if (curr.Previous.Value == curr.Value.GetNeighbourAt(2))
+                        //direction = ChainGenerator.Direction.MIDDLE_LEFT;
+                        Debug.Log("CHAIN INPUT MIDDLE LEFT");
+                    else if (curr.Previous.Value == curr.Value.GetNeighbourAt(3))
+                        //direction = ChainGenerator.Direction.MIDDLE_RIGHT;
+                        Debug.Log("CHAIN INPUT MIDDLE RIGHT");
+                    else if (curr.Previous.Value == curr.Value.GetNeighbourAt(4))
+                        //direction = ChainGenerator.Direction.BOTTOM_LEFT;
+                        Debug.Log("CHAIN INPUT BOTTOM LEFT");
+                    else
+                        //direction = ChainGenerator.Direction.BOTTOM_RIGHT;
+                        Debug.Log("CHAIN INPUT BOTTOM RIGHT");
+                            
+                }*/
+
                 resetAnimations();
                 if (curr.Previous == null)
                 {
@@ -614,6 +639,12 @@ public class ChainControler : MonoBehaviour
                             curr.Value.cannon.setExtraShootingDamage(currChain.chainSum);
                             curr.Value.cannon.setSlowingEffect(newSpeed);
                         }
+                        //if(curr.Value.tileType. == MyTile.TileType.CANNON)
+                        
+                        
+                        
+                        
+                        
                         //StartCoroutine(curr.Value.cannon.Shoot());
                         //curr.Value.cannon.Shoot();
                         curr.Value.cannon.activateCanvas();

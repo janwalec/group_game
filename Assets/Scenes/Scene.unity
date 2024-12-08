@@ -786,6 +786,7 @@ MonoBehaviour:
   audioSource: {fileID: 305949296}
   onBattleStartSound: {fileID: 8300000, guid: e312ef3199376de4b9d9f04d80658041, type: 3}
   shopUIDocument: {fileID: 461877437}
+  tutorialWindow: {fileID: 560845293}
 --- !u!82 &305949296
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1655,6 +1656,119 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &560845289
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 560845292}
+  - component: {fileID: 560845291}
+  - component: {fileID: 560845293}
+  - component: {fileID: 560845294}
+  m_Layer: 5
+  m_Name: UITutorialWindow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &560845291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 560845289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: b3edbac48ab0b784a9e564555102575f, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: e8ccb6828e72e3d42bb37e8275bd052a, type: 3}
+  m_SortingOrder: 3
+--- !u!4 &560845292
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 560845289}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &560845293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 560845289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f075e72d7197ee546bd484e257a8accc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tutorialSteps:
+  - text: Place your coins and dice in a series behind the cannon using the left
+      mouse button and drag from the cannon using the right mouse button.
+    image: {fileID: 0}
+    video: {fileID: 32900000, guid: 440a9d8760e54fe49a0742916a973871, type: 3}
+  - text: Coins always multiply the value and dice add. Multiplication is prioritized.
+    image: {fileID: 0}
+    video: {fileID: 32900000, guid: 7868aad88cb600e4aa27a1e4387b2942, type: 3}
+  - text: Chains can be rearranged and branched out into multiple cannons.
+    image: {fileID: 0}
+    video: {fileID: 32900000, guid: ad107c4dca43ea64197b7e922fbdbf76, type: 3}
+  - text: Visit the shop for more items! Gold is achieved when defeating enemies.
+    image: {fileID: 0}
+    video: {fileID: 32900000, guid: 1bc726655c5ce1149b8d10b86731de18, type: 3}
+  videoPlayer: {fileID: 560845294}
+--- !u!328 &560845294
+VideoPlayer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 560845289}
+  m_Enabled: 1
+  m_VideoClip: {fileID: 32900000, guid: 440a9d8760e54fe49a0742916a973871, type: 3}
+  m_TargetCameraAlpha: 1
+  m_TargetCamera3DLayout: 0
+  m_TargetCamera: {fileID: 0}
+  m_TargetTexture: {fileID: 0}
+  m_TimeReference: 0
+  m_TargetMaterialRenderer: {fileID: 0}
+  m_TargetMaterialProperty: <noninit>
+  m_RenderMode: 2
+  m_AspectRatio: 2
+  m_DataSource: 0
+  m_TimeUpdateMode: 2
+  m_PlaybackSpeed: 1
+  m_AudioOutputMode: 2
+  m_TargetAudioSources:
+  - {fileID: 0}
+  m_DirectAudioVolumes:
+  - 1
+  m_Url: 
+  m_EnabledAudioTracks: 01
+  m_DirectAudioMutes: 00
+  m_ControlledAudioTrackCount: 1
+  m_PlayOnAwake: 1
+  m_SkipOnDrop: 1
+  m_Looping: 1
+  m_WaitForFirstFrame: 1
+  m_FrameReadyEventEnabled: 0
+  m_VideoShaders: []
 --- !u!1 &585671845
 GameObject:
   m_ObjectHideFlags: 0
@@ -24524,3 +24638,4 @@ SceneRoots:
   - {fileID: 2112370894}
   - {fileID: 1552651606}
   - {fileID: 1138977423}
+  - {fileID: 560845292}

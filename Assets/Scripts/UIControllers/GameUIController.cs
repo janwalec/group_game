@@ -1,3 +1,4 @@
+using System.Resources;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -8,6 +9,7 @@ class GameUIController : MonoBehaviour
     Label points;
     Label roundNumber;
     Button pauseButton;
+    private Button tutorialButton;
     VisualElement readyButton;
     VisualElement shopButton;
     
@@ -15,6 +17,7 @@ class GameUIController : MonoBehaviour
     [SerializeField] AudioClip onBattleStartSound;
     
     public UIDocument shopUIDocument;
+    public TutorialWindow tutorialWindow;
 
 
     private void OnEnable()
@@ -26,6 +29,7 @@ class GameUIController : MonoBehaviour
         roundNumber = root.Q<Label>("RoundNumber");
         readyButton = root.Q<VisualElement>("ReadyButton");
         pauseButton = root.Q<Button>("PauseButton");
+        tutorialButton = root.Q<Button>("TutorialButton");
         shopButton = root.Q<VisualElement>("GoldAmt");
 
         // Add a click event listener to the button
@@ -42,11 +46,21 @@ class GameUIController : MonoBehaviour
         {
             shopButton.RegisterCallback<ClickEvent>(ev => OnShopButtonClick());
         }
+
+        if (tutorialButton != null)
+        {
+            tutorialButton.RegisterCallback<ClickEvent>(ev => OnTutorialButtonClick());
+        }
         
         audioSource = GetComponent<AudioSource>();
 
     }
- 
+
+    private void OnTutorialButtonClick()
+    {
+        tutorialWindow.ToggleTutorialWindow();
+    }
+
     private void OnReadyButtonClick()
     {
         Debug.Log("READY");
