@@ -60,18 +60,23 @@ public class RumController : MonoBehaviour
                 if (hit.collider != null)
                 {
                     
-                    if (hit.collider.GetComponent<Kraken>() != null)
+                    var kraken = hit.collider.GetComponent<Kraken>();
+                    if (kraken != null)
                     {
-                        krakenEnemies++;
+                        if (!kraken.isEnemyDying())  // Check if the Kraken enemy is dying
+                        {
+                            krakenEnemies++;
+                        }
                     }
-                    else
+                    var enemy = hit.collider.GetComponent<EnemyController>();
+                    if (enemy != null && !enemy.isEnemyDying())  // Check if the regular enemy is dying
                     {
                         regularEnemies++;
                     }
                 }
             }
 
-
+            //for each hit, check if it IsEnemyDying(), and if so, TakeDamage().
             TakeDamage(regularEnemies, krakenEnemies);
         }
         else

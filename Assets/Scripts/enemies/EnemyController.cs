@@ -5,6 +5,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.UI;
 using UnityEngine.UIElements;
 using static UnityEngine.InputManagerEntry;
 
@@ -26,7 +27,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] protected ParticleSystem damageParticles;
     //[SerializeField] protected float speedMultiplier = 1.0f;
     //[SerializeField] protected int healthAddition = 10;
-    private float delay = 1f;
+    private float delay = 1.5f;
     public int priceForKill;
     private bool isDying = false;
     private bool isTakingDamage = false;
@@ -183,7 +184,7 @@ public class EnemyController : MonoBehaviour
     {
         health -= dmg;
         health = health < 0 ? 0 : health;
-        changeText(health.ToString());
+        if(!isDying) changeText(health.ToString());
         Instantiate(damageParticles, this.transform.position, Quaternion.identity);
 
         if (health <= 0)
@@ -211,6 +212,8 @@ public class EnemyController : MonoBehaviour
         
         if (isDying) yield break; //If it already is dying, just do nothing.
         isDying = true;
+        
+        ShowGoldText(priceForKill);
         
         //Slow down
         StartCoroutine(SlowDown(0f));
@@ -291,4 +294,41 @@ public class EnemyController : MonoBehaviour
         TextMeshProUGUI textComponent = canvas.GetComponentInChildren<TextMeshProUGUI>();
         textComponent.text = newText;
     }
+    
+    private void ShowGoldText(int goldDropped)
+    {
+        changeText("+" + goldDropped);
+        TextMeshProUGUI textComponent = canvas.GetComponentInChildren<TextMeshProUGUI>();
+        textComponent.color = Color.yellow;
+        
+        StartCoroutine(MoveAndFadeText(textComponent));
+    }
+    
+    private IEnumerator MoveAndFadeText(TextMeshProUGUI textComponent)
+    {
+        float moveDuration = 0.8f;
+
+        Vector2 originalPosition = textComponent.transform.position;
+        Color originalColor = textComponent.color;
+        float elapsedTime = 0f;
+
+        // Move up
+        while (elapsedTime < moveDuration)
+        {
+            textComponent.transform.position = originalPosition + Vector2.up * 0.2f * (elapsedTime / moveDuration);
+            elapsedTime += Time.deltaTime;
+            textComponent.color = new Color(originalColor.r, originalColor.g, originalColor.b, Mathf.Lerp(1f, 0.5f, elapsedTime / moveDuration));
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // Optionally, disable the text component after fading out
+        textComponent.gameObject.SetActive(false);
+    }
+
+    public bool isEnemyDying()
+    {
+        return isDying;
+    }
+
 }
