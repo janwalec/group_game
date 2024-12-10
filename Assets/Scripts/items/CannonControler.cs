@@ -65,10 +65,33 @@ public class CannonController : MovableItem
 
         if (hits.Length > 0)
         {
-            int idx = rand.Next(0,hits.Length-1);
-            target = hits[idx].transform;   
+            // Shuffle the hits array
+            hits = ShuffleArray(hits);
+
+            for (int i = 0; i < hits.Length; i++)
+            {
+                // Get the EnemyController component
+                EnemyController enemyController = hits[i].transform.GetComponent<EnemyController>();
+                if (enemyController != null && !enemyController.isEnemyDying())
+                {
+                    target = hits[i].transform;
+                    break; // Found a valid target, break out of the loop
+                }
+            }
         }
-        
+    }
+    
+    private T[] ShuffleArray<T>(T[] array)
+    {
+        System.Random random = new System.Random();
+        for (int i = array.Length - 1; i > 0; i--)
+        {
+            int j = random.Next(0, i + 1);
+            T temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+        }
+        return array;
     }
 
     public void setSlowingEffect(float newSpeed)
@@ -153,8 +176,9 @@ public class CannonController : MovableItem
                 
                 if (shootingDamage > 30)
                     audioSource.PlayOneShot(shotHard, audioSource.volume);
-                else
-                    audioSource.PlayOneShot(shotMedium, audioSource.volume);
+                else if (shootingDamage == 1)
+                    audioSource.PlayOneShot(shotFlot, audioSource.volume);
+                else audioSource.PlayOneShot(shotMedium, audioSource.volume);
                 GameObject new_object = ItemPool.SharedInstance.GetPooledCannonBall();
                 if (new_object != null)
                 {   
@@ -169,7 +193,9 @@ public class CannonController : MovableItem
                     {
                         cb.setDirection(target);
                         cb.setDamage(getShootingDamage());
-                        cb.setSlowingEffect(slowedSpeed);
+                        cb.setSlowingEffect(slowedSpeed); //Set slowing effect
+                        cb.setBouncy(true); //SET BOUNCY EFFECT.
+                        cb.SetHasGoldMultiplier(true); //Set gold multiplier.
                         //Debug.Log("Damage of shot " + getShootingDamage() + " " + this.GetHashCode());
                         //Debug.Log("Position: " + target.position);
                     }
@@ -179,10 +205,6 @@ public class CannonController : MovableItem
 
 
                 }
-            }
-            else
-            {
-                audioSource.PlayOneShot(shotFlot, audioSource.volume);
             }
             //wait few seconds before the next shot
             yield return new WaitForSeconds(delay);

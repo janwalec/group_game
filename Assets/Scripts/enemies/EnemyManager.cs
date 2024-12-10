@@ -6,10 +6,17 @@ public class EnemyManager : MonoBehaviour
 
     [SerializeField] private int healthAddition = 10;
     [SerializeField] private float speedMultiplication = 1.0f; // default values 
+    [SerializeField] private float goldBonusFactor = 0.5f;
 
     
     public int HealthAddition => healthAddition;
     public float SpeedMultiplication => speedMultiplication;
+    
+    public float GoldBonusFactor
+    {
+        get => goldBonusFactor;
+        set => goldBonusFactor = value;
+    }
 
     private void Awake()
     {

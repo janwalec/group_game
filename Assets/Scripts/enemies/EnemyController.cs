@@ -1,3 +1,4 @@
+using System;
 using BarthaSzabolcs.Tutorial_SpriteFlash;
 using System.Collections;
 using System.Collections.Generic;
@@ -27,10 +28,12 @@ public class EnemyController : MonoBehaviour
     [SerializeField] protected ParticleSystem damageParticles;
     //[SerializeField] protected float speedMultiplier = 1.0f;
     //[SerializeField] protected int healthAddition = 10;
-    private float delay = 1.5f;
+    private float delay = 2f;
     public int priceForKill;
     private bool isDying = false;
     private bool isTakingDamage = false;
+    private int lastDamageTaken = 0;
+    private bool lastHitHasGoldMultiplier;
 
     protected void ApplyHealthAddition()
     {
@@ -167,10 +170,24 @@ public class EnemyController : MonoBehaviour
         {
             int damage = other.GetComponent<CannonBallController>().getDamage();
             float newSpeed = other.GetComponent<CannonBallController>().getSlowingEffect();
-            
+            bool isBouncy = other.GetComponent<CannonBallController>().IsBouncy();
+
+            bool finised = false;
+            CannonBallController cb = other.GetComponent<CannonBallController>();
+            lastDamageTaken = damage;
+            lastHitHasGoldMultiplier = cb.GetHasGoldMultiplier();
+            if (isBouncy)
+            {
+                cb.FindNewEnemyBounce(this.gameObject);
+                finised = true;
+            }
+            else
+            {
+                finised = cb.deactivate();
+            }
 
             //makes sure that the cannon ball is deactivated before destroying an enemy object
-            bool finised = other.GetComponent<CannonBallController>().deactivate();
+            //finised = other.GetComponent<CannonBallController>().deactivate();
             if (finised)
             {
                 TakeDamage(damage);
@@ -212,8 +229,16 @@ public class EnemyController : MonoBehaviour
         
         if (isDying) yield break; //If it already is dying, just do nothing.
         isDying = true;
+    
+        //Calculate how much gold should be dropped. Overwritten if there is a goldMultiplier.
+        int goldToDrop = priceForKill;
+        if (lastHitHasGoldMultiplier)
+        {
+            goldToDrop = Mathf.RoundToInt(lastDamageTaken * EnemyManager.Instance.GoldBonusFactor) + priceForKill;
+        }
         
-        ShowGoldText(priceForKill);
+        
+        ShowGoldText(goldToDrop, true);
         
         //Slow down
         StartCoroutine(SlowDown(0f));
@@ -295,9 +320,10 @@ public class EnemyController : MonoBehaviour
         textComponent.text = newText;
     }
     
-    private void ShowGoldText(int goldDropped)
+    private void ShowGoldText(int goldDropped, bool hadMultiplier)
     {
-        changeText("+" + goldDropped);
+        String prefix = hadMultiplier ? "++" : "+";
+        changeText(prefix + goldDropped);
         TextMeshProUGUI textComponent = canvas.GetComponentInChildren<TextMeshProUGUI>();
         textComponent.color = Color.yellow;
         
