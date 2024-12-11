@@ -42,7 +42,7 @@ class MainMenuController : MonoBehaviour
 
         if (highScoreLabel != null)
         {
-            highScoreLabel.text = PlayerPrefs.GetInt("PlayerScore", 0).ToString();
+            highScoreLabel.text = PlayerPrefs.GetInt("HighScore", 0).ToString();
         }
 
         if (quitButton != null)

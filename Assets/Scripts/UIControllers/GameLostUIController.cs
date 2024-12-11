@@ -45,7 +45,7 @@ class GameLostUIController : MonoBehaviour
             mainMenuButton.RegisterCallback<ClickEvent>(ev => OnMainMenuClick());
         }
         
-
+        checkForNewHighScore();
 
     }
  
@@ -59,4 +59,12 @@ class GameLostUIController : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
+    private void checkForNewHighScore()
+    {
+        int score = PlayerPrefs.GetInt("PlayerScore", 0); // Default to 0 if not found
+        if (score > PlayerPrefs.GetInt("HighScore", 0))
+        {
+            PlayerPrefs.SetInt("HighScore", score);
+        }
+    }
 }

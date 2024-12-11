@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -14,14 +15,36 @@ public class ScoreManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject); // Persist across scenes
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
         else
         {
             Destroy(gameObject);
         }
     }
+    
+    // This method will be called whenever a new scene is loaded
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "Scene") // Check if the loaded scene is "Scene"
+        {
+            if (inGameUI == null)
+            {
+                inGameUI = FindObjectOfType<GameUIController>(); // Find the in-game UI in the scene
+            }
+        }
+    }
+    
+    private void OnDestroy()
+    {
+        if (Instance == this)
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded; // Unsubscribe when the object is destroyed
+        }
+    }
     private void OnEnable()
     {
+        if (inGameUI == null) inGameUI = FindObjectOfType<GameUIController>();
         // Subscribe to the event
         GameEvents.OnEnemyKilled += AddScore;
     }
@@ -51,5 +74,10 @@ public class ScoreManager : MonoBehaviour
         {
             inGameUI.UpdatePoints(score);
         }
+    }
+
+    public void resetScore()
+    {
+        score = 0;
     }
 }

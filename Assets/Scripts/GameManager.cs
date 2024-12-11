@@ -44,6 +44,9 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        //
+        ScoreManager.Instance.resetScore();
+        
         levelsLayout[0].SetActive(true);
         Debug.Log("Start");
         for (int i = 0; i <  levelsNum; i++)
