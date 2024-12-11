@@ -67,6 +67,8 @@ public class MarketItemController : MonoBehaviour
 
         //TODO
         audioSource.PlayOneShot(onSellSound, audioSource.volume);
+
+        Debug.Log("Sell called.");
         
         if (objectType == MarketManager.Items.CANNON) {
             shopManager.useCard("Cannon");

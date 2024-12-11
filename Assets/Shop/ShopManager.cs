@@ -29,6 +29,8 @@ public class ShopManager : MonoBehaviour
     public int cannonsBought = 0, diceBought = 0, coinsBought = 0;
 
     Label goldAmount;
+
+    [SerializeField] private MarketManager marketManager;
     
     AudioSource audioSource;
     [SerializeField] AudioClip onBuySound;
@@ -99,12 +101,16 @@ public class ShopManager : MonoBehaviour
         //transform.localScale = Vector3.zero;
     }
 
-  /*  public void OnOpened()
+    public void OnOpen()
     {
         var root = shopUIDocument.rootVisualElement;
+        //If already open, just close.
+        if(root.style.display == DisplayStyle.Flex) {root.style.display = DisplayStyle.None; return;}
+        //Show and re-render.
         root.style.display = DisplayStyle.Flex;
+        PopulateShop();
     }
-    */
+    
     public void UpdateGoldAmount(int value)
     {
         if (goldAmount == null)
@@ -114,6 +120,7 @@ public class ShopManager : MonoBehaviour
 
     void PopulateShop()
     {
+        shopScrollView.Clear();
         int itemsPerRow = 2;
         var row = new VisualElement();
         row.style.flexDirection = FlexDirection.Row;
@@ -147,12 +154,34 @@ public class ShopManager : MonoBehaviour
 
             priceLabel.text = item.price.ToString();
 
+            
+            
             // Add click event listener to buyButton
             buyButton.RegisterCallback<ClickEvent>(evt => PurchaseItem(item));
 
             // Add the item element to the current row
             row.Add(itemElement);
+            
+            // Disable the priceLabel if not enough money
+            if (!HasEnoughMoney(item.price))
+            {
+                buyButton.SetEnabled(false);
+            }
+            else
+            {
+                buyButton.SetEnabled(true);
+            }
         }
+    }
+
+    private bool HasEnoughMoney(int price)
+    {
+        if (marketManager != null)
+        {
+            Debug.Log("Market Manager gold: " + marketManager.Gold + " price: " + price);
+            return marketManager.Gold >= price;
+        }
+        return false;
     }
 
     void PurchaseItem(ShopItem item)
@@ -163,6 +192,8 @@ public class ShopManager : MonoBehaviour
         }
         Debug.Log("Purchased " + item.itemName + " for " + item.price);
         audioSource.PlayOneShot(onBuySound);
+        
+        
         
         // Add purchase logic here
         switch (item.itemName) {
@@ -188,7 +219,8 @@ public class ShopManager : MonoBehaviour
                 MarketManager.instance.spendGold(MarketManager.Items.COIN);
                 break;
         }
-        
+        //Re-render the shop.
+        PopulateShop();
 
     }
 

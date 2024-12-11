@@ -17,6 +17,7 @@ class GameUIController : MonoBehaviour
     [SerializeField] AudioClip onBattleStartSound;
     
     public UIDocument shopUIDocument;
+    public ShopManager shopManager;
     public TutorialWindow tutorialWindow;
 
 
@@ -86,8 +87,8 @@ class GameUIController : MonoBehaviour
 
     private void OnShopButtonClick()
     {
-        //shopUIDocument.SetActive(!shopUIDocument.activeSelf);
-        shopUIDocument.rootVisualElement.style.display = DisplayStyle.Flex;
+        shopManager.OnOpen();
+        //shopUIDocument.rootVisualElement.style.display = DisplayStyle.Flex;
     }
 
 
