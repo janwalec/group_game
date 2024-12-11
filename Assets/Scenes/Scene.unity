@@ -786,6 +786,7 @@ MonoBehaviour:
   audioSource: {fileID: 305949296}
   onBattleStartSound: {fileID: 8300000, guid: e312ef3199376de4b9d9f04d80658041, type: 3}
   shopUIDocument: {fileID: 461877437}
+  shopManager: {fileID: 622088105}
   tutorialWindow: {fileID: 560845293}
 --- !u!82 &305949296
 AudioSource:
@@ -1889,6 +1890,7 @@ MonoBehaviour:
   cannonsBought: 0
   diceBought: 0
   coinsBought: 0
+  marketManager: {fileID: 1601653990}
   onBuySound: {fileID: 8300000, guid: 86786595e2b4d8b4cbeb1b648163a029, type: 3}
 --- !u!4 &622088106
 Transform:
@@ -23888,6 +23890,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthAddition: 10
   speedMultiplication: 0.8
+  goldBonusFactor: 0.5
 --- !u!4 &2112370894
 Transform:
   m_ObjectHideFlags: 0
