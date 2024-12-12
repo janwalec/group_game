@@ -529,13 +529,13 @@ public class ChainControler : MonoBehaviour
             }
                 
 
-            float slowing_effect;
+            //float slowing_effect;
             LinkedListNode<MyTile> curr = currChain.tileChain.Last;
             LinkedListNode<MyTile> temp = currChain.tileChain.Last;
-            float minSlowingFactor = 0.2f;
-            float maxSlowingFactor = 0.8f;
-            float newSpeed = 1.5f;
-            bool isSlowed = false;
+            //float minSlowingFactor = 0.2f;
+            //float maxSlowingFactor = 0.8f;
+            //float newSpeed = 1.5f;
+            //bool isSlowed = false;
 
             while (curr != null)
             {
@@ -544,7 +544,7 @@ public class ChainControler : MonoBehaviour
                     curr.Value.modifier.Roll();
                     if (curr != null && curr.Next != null)
                     {
-                        if (curr.Value.tileType == MyTile.TileType.DICE && curr.Next.Value.tileType == MyTile.TileType.DICE)
+                        /*if (curr.Value.tileType == MyTile.TileType.DICE && curr.Next.Value.tileType == MyTile.TileType.DICE)
                         {
                             isSlowed = true;
                             Debug.Log("Found 2 dice");
@@ -562,7 +562,7 @@ public class ChainControler : MonoBehaviour
                             }
                             // this shouldn't be hardcoded
                             Debug.Log($"Dice sum:{slowing_effect}, new speed:{newSpeed}");
-                        }
+                        }*/
                     }
 
                     curr.Value.modifier.calculateCurrentTotal(curr.Next == null ? null : curr.Next.Value.modifier);
@@ -584,30 +584,6 @@ public class ChainControler : MonoBehaviour
                     curr.Value.modifier.ResetAnimation();
                     curr.Value.modifier.deactivateCanvas();
                 }
-                /*else
-                {
-                    //Determine direction of previous.
-
-                    if (curr.Previous.Value == curr.Value.GetNeighbourAt(0))
-                        //direction = ChainGenerator.Direction.TOP_LEFT;
-                        curr.Value.cannon.setSlowingEffect(newSpeed);
-                    else if (curr.Previous.Value == curr.Value.GetNeighbourAt(1))
-                        //direction = ChainGenerator.Direction.TOP_RIGHT;
-                        curr.Value.cannon.setSlowingEffect(newSpeed);
-                    else if (curr.Previous.Value == curr.Value.GetNeighbourAt(2))
-                        //direction = ChainGenerator.Direction.MIDDLE_LEFT;
-                        Debug.Log("CHAIN INPUT MIDDLE LEFT");
-                    else if (curr.Previous.Value == curr.Value.GetNeighbourAt(3))
-                        //direction = ChainGenerator.Direction.MIDDLE_RIGHT;
-                        Debug.Log("CHAIN INPUT MIDDLE RIGHT");
-                    else if (curr.Previous.Value == curr.Value.GetNeighbourAt(4))
-                        //direction = ChainGenerator.Direction.BOTTOM_LEFT;
-                        Debug.Log("CHAIN INPUT BOTTOM LEFT");
-                    else
-                        //direction = ChainGenerator.Direction.BOTTOM_RIGHT;
-                        Debug.Log("CHAIN INPUT BOTTOM RIGHT");
-                            
-                }*/
 
                 resetAnimations();
                 if (curr.Previous == null)
@@ -626,24 +602,78 @@ public class ChainControler : MonoBehaviour
                             }
                         }
                         //curr.Value.cannon.setShootingDamage(myChains[myChains.Count - 1].chainSum);
-
+                        
+                        bool hasNoModifiersInChain = false;
                         if (currChain.tileChain.Count == 1)
                         {
                             Debug.Log("Just one");
+                            hasNoModifiersInChain = true;
                             yield return new WaitForSeconds(singleCannonExtraDelay);
                             curr.Value.cannon.setDamageAsBaseDamage();
-                            curr.Value.cannon.setSlowingEffect(newSpeed);
+                            //curr.Value.cannon.setSlowingEffect(newSpeed);
                         }
                         else
                         {
                             curr.Value.cannon.setExtraShootingDamage(currChain.chainSum);
-                            curr.Value.cannon.setSlowingEffect(newSpeed);
+                            //curr.Value.cannon.setSlowingEffect(newSpeed);
                         }
                         //if(curr.Value.tileType. == MyTile.TileType.CANNON)
-                        
-                        
-                        
-                        
+
+                        if (!hasNoModifiersInChain && curr.Next != null)
+                        {
+                            if (curr.Next.Value == curr.Value.GetNeighbourAt(0))
+                                //direction = ChainGenerator.Direction.TOP_LEFT;
+                            {
+                                curr.Value.cannon.resetEffects();
+                                curr.Value.cannon.setHasSlowingEffect(true);
+                                //curr.Value.cannon.setSlowingEffect(newSpeed);
+                                Debug.Log("CHAIN INPUT TOP LEFT");
+                            }
+                            else if (curr.Next.Value == curr.Value.GetNeighbourAt(1))
+                                //direction = ChainGenerator.Direction.TOP_RIGHT;
+                            {
+                                curr.Value.cannon.resetEffects();
+                                curr.Value.cannon.setHasSlowingEffect(true);
+                                //curr.Value.cannon.setSlowingEffect(newSpeed);
+                                Debug.Log("CHAIN INPUT TOP RIGHT");
+                            }
+                                
+                            else if (curr.Next.Value == curr.Value.GetNeighbourAt(2))
+                                //direction = ChainGenerator.Direction.MIDDLE_LEFT;
+                            {
+                                Debug.Log("CHAIN INPUT MIDDLE LEFT");
+                                curr.Value.cannon.resetEffects();
+                                curr.Value.cannon.setIsBouncy(true);
+                            }
+                            else if (curr.Next.Value == curr.Value.GetNeighbourAt(3))
+                                //direction = ChainGenerator.Direction.MIDDLE_RIGHT;
+                            {
+                                Debug.Log("CHAIN INPUT MIDDLE RIGHT");
+                                curr.Value.cannon.resetEffects();
+                                curr.Value.cannon.setIsBouncy(true);
+                            }
+                            else if (curr.Next.Value == curr.Value.GetNeighbourAt(4))
+                                //direction = ChainGenerator.Direction.BOTTOM_LEFT;
+                            {
+                                Debug.Log("CHAIN INPUT BOTTOM LEFT");
+                                curr.Value.cannon.resetEffects();
+                                curr.Value.cannon.setHasBonus(true);
+                            }
+                            else if (curr.Next.Value == curr.Value.GetNeighbourAt(5))
+                                //direction = ChainGenerator.Direction.BOTTOM_RIGHT;
+                            {
+                                Debug.Log("CHAIN INPUT BOTTOM RIGHT");
+                                curr.Value.cannon.resetEffects();
+                                curr.Value.cannon.setHasBonus(true);
+                            }
+                            else
+                            {
+                                Debug.Log("No modifier input on cannon, but detected some.");
+                            }
+                        } else
+                        {
+                            Debug.Log("No modifier input on cannon");
+                        }
                         
                         //StartCoroutine(curr.Value.cannon.Shoot());
                         //curr.Value.cannon.Shoot();

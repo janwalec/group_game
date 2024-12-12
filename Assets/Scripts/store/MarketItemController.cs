@@ -55,9 +55,9 @@ public class MarketItemController : MonoBehaviour
             //and chenges its color to inform the user
             //if (MarketManager.instance.canAfford(objectType)) //OUTCOMMENTED THIS BECAUSE IT IS FROM THE OLD MARKET.
             //{
-                GameManager.instance.getTilemap().selectObject(this);
-                if(frameImage != null)
-                    frameImage.color = new Color(frameImage.color.r - 0.1f, frameImage.color.g, frameImage.color.b - 0.1f);
+            GameManager.instance.getTilemap().selectObject(this);
+            if(frameImage != null)
+                frameImage.color = new Color(frameImage.color.r - 0.1f, frameImage.color.g, frameImage.color.b - 0.1f);
             //}
         }
     }

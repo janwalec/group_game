@@ -8,7 +8,7 @@ public class CannonBallController : MonoBehaviour
 
     private float speed = 8f;
     private int range = 50;
-    private float newSlowedSpeed;
+    private float newSlowedSpeed = 1.0f;
     private Transform enemyToFollow;
     private int damage = 1;
     private bool isBouncy;
@@ -49,6 +49,7 @@ public class CannonBallController : MonoBehaviour
     public void setBouncy(bool willBounce)
     {
         this.isBouncy = willBounce;
+        Debug.Log("The cb wasBouncy: " + isBouncy);
     }
 
     public bool IsBouncy()
@@ -149,6 +150,9 @@ public class CannonBallController : MonoBehaviour
     {
         gameObject.SetActive(false);
         hasBounced = false; //Reset hasBounced.
+        isBouncy = false; //Reset isBouncy
+        hasGoldMultiplier = false; //Reset multiplier
+        newSlowedSpeed = 1.0f; //Reset slow
         return true;
     }
     public void setDamage(int damage_)

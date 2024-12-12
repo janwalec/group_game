@@ -22,6 +22,9 @@ public class CannonController : MovableItem
     private int shootingDamage;
     private int baseDamage = 1;
     private float slowedSpeed;
+    private bool isBouncy;
+    private bool hasGoldBonus;
+    private bool hasSlowing;
     public Canvas canvas;
     protected AudioSource audioSource;
     [SerializeField] protected AudioClip shotFlot;
@@ -94,11 +97,33 @@ public class CannonController : MovableItem
         return array;
     }
 
+    public void resetEffects()
+    {
+        setHasSlowingEffect(false);
+        setHasBonus(false);
+        setIsBouncy(false);
+    }
+
     public void setSlowingEffect(float newSpeed)
     {
 
         this.slowedSpeed = newSpeed;
         //Debug.Log("Slowing enemy for:" + newSpeed);
+    }
+
+    public void setHasSlowingEffect(bool hasSlowing)
+    {
+        this.hasSlowing = hasSlowing;
+    }
+
+    public void setIsBouncy(bool isBouncy)
+    {
+        this.isBouncy = isBouncy;
+    }
+    
+    public void setHasBonus(bool hasBonus)
+    {
+        this.hasGoldBonus = hasBonus;
     }
 
     public int getBaseDamage()
@@ -193,9 +218,10 @@ public class CannonController : MovableItem
                     {
                         cb.setDirection(target);
                         cb.setDamage(getShootingDamage());
-                        cb.setSlowingEffect(slowedSpeed); //Set slowing effect
-                        cb.setBouncy(true); //SET BOUNCY EFFECT.
-                        cb.SetHasGoldMultiplier(true); //Set gold multiplier.
+                        if(isBouncy) cb.setBouncy(true); //SET BOUNCY EFFECT.
+                        if(hasSlowing) cb.setSlowingEffect(calculateSlowingEffect(getShootingDamage())); //Set slowing effect
+                        if(hasGoldBonus)cb.SetHasGoldMultiplier(true); //Set gold multiplier.
+                        
                         //Debug.Log("Damage of shot " + getShootingDamage() + " " + this.GetHashCode());
                         //Debug.Log("Position: " + target.position);
                     }
@@ -268,6 +294,24 @@ public class CannonController : MovableItem
     public void deactivateCanvas()
     {
         canvas.gameObject.SetActive(false);
+    }
+
+    private float calculateSlowingEffect(int damage)
+    {
+        // Define the minimum and maximum slowing factors
+        float minSlowingFactor = 0.2f;
+        float maxSlowingFactor = 1.0f;
+
+        // Ensure the damage is at least 1 to avoid division by zero or negative values
+        damage = Mathf.Max(damage, 1);
+
+        // Calculate the interpolation factor (normalized value between 0 and 1)
+        float t = (damage - 1) / 49.0f; // 49 because damage ranges from 1 to 50 (inclusive)
+
+        // Calculate the slowing effect using linear interpolation
+        float slowingEffect = Mathf.Lerp(maxSlowingFactor, minSlowingFactor, t);
+
+        return slowingEffect;
     }
 
     //.

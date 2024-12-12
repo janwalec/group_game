@@ -171,7 +171,7 @@ public class EnemyController : MonoBehaviour
             int damage = other.GetComponent<CannonBallController>().getDamage();
             float newSpeed = other.GetComponent<CannonBallController>().getSlowingEffect();
             bool isBouncy = other.GetComponent<CannonBallController>().IsBouncy();
-
+            Debug.Log("The cb wasBouncy: " + isBouncy);
             bool finised = false;
             CannonBallController cb = other.GetComponent<CannonBallController>();
             lastDamageTaken = damage;
@@ -238,7 +238,7 @@ public class EnemyController : MonoBehaviour
         }
         
         
-        ShowGoldText(goldToDrop, true);
+        ShowGoldText(goldToDrop, lastHitHasGoldMultiplier);
         
         //Slow down
         StartCoroutine(SlowDown(0f));
