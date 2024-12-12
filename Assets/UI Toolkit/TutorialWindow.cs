@@ -135,21 +135,30 @@ public class TutorialWindow : MonoBehaviour
 
     private void UpdateTutorialStep()
     {
+        tutorialImageContainer.Clear();
         var step = tutorialSteps[currentStep];
         tutorialText.text = step.text;
         
-        //Insert here:
-        tutorialImage.sprite = step.image;
-        
-        // Handle video playback
-        if (step.video != null)
+        if (step.image != null) //IMAGE
         {
+            tutorialImage = new Image();
+            tutorialImageContainer.Add(tutorialImage);
+            tutorialImage.sprite = step.image;
+            videoPlayer.Stop();
+            var videoImage = tutorialImageContainer.Query<VisualElement>().First();
+            videoImage.style.backgroundImage = null;
+        }
+        else if (step.video != null) //VIDEO
+        {
+            var videoImage = new Image();
+            tutorialImageContainer.Add(videoImage);
             Debug.Log("Trying to play video");
             videoPlayer.clip = step.video;
             videoPlayer.Play();
         }
         else
         {
+            tutorialImageContainer.Clear();
             videoPlayer.Stop();
         }
         // Convert RenderTexture to Texture2D
@@ -167,7 +176,7 @@ public class TutorialWindow : MonoBehaviour
         previousButton.SetEnabled(currentStep > 0);
         nextButton.SetEnabled(currentStep < tutorialSteps.Count - 1);
     }
-    
+
     private void OnCloseShopButtonClick()
     {
         root.style.display = DisplayStyle.None;
