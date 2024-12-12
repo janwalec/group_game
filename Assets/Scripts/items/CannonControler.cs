@@ -30,7 +30,7 @@ public class CannonController : MovableItem
     [SerializeField] protected AudioClip shotFlot;
     [SerializeField] protected AudioClip shotMedium;
     [SerializeField] protected AudioClip shotHard;
-
+    public GameObject bonus;
     public ParticleSystem shootingParticles;
     protected System.Random rand = new System.Random();
 
@@ -40,6 +40,7 @@ public class CannonController : MovableItem
         base.Start();
         shootingDamage = 2;
         deactivateCanvas();
+        EraseBonusIcon();
     }
 
    void Awake()
@@ -300,7 +301,7 @@ public class CannonController : MovableItem
     {
         // Define the minimum and maximum slowing factors
         float minSlowingFactor = 0.2f;
-        float maxSlowingFactor = 1.0f;
+        float maxSlowingFactor = 0.8f;
 
         // Ensure the damage is at least 1 to avoid division by zero or negative values
         damage = Mathf.Max(damage, 1);
@@ -315,5 +316,43 @@ public class CannonController : MovableItem
     }
 
     //.
+    
+    public void SetBonusIcon(ChainGenerator.Direction direction)
+    {
+        Debug.Log("Setting bonus icon");
+        String position = "";
+        switch (direction)
+        {
+            case ChainGenerator.Direction.MIDDLE_LEFT:
+                position = "MiddleLeft";
+                break;
+            case ChainGenerator.Direction.MIDDLE_RIGHT:
+                position = "MiddleRight";
+                break;
+            case ChainGenerator.Direction.BOTTOM_LEFT:
+                position = "BottomLeft";
+                break;
+            case ChainGenerator.Direction.BOTTOM_RIGHT:
+                position = "BottomRight";
+                break;
+            case ChainGenerator.Direction.TOP_LEFT:
+                position = "TopLeft";
+                break;
+            case ChainGenerator.Direction.TOP_RIGHT:
+                position = "TopRight";
+                break;
+        }
+        bonus.transform.Find(position).gameObject.SetActive(true);
+        Debug.Log("Found bonus icon: " + bonus.transform.Find(position).gameObject.name);
+    }
+
+    public void EraseBonusIcon()
+    {
+        int childrenNum = bonus.transform.childCount;
+        for (int i = 0; i < childrenNum; i++)
+        {
+            bonus.transform.GetChild(i).gameObject.SetActive(false);
+        }
+    }
 }
 

@@ -622,49 +622,61 @@ public class ChainControler : MonoBehaviour
                         if (!hasNoModifiersInChain && curr.Next != null)
                         {
                             if (curr.Next.Value == curr.Value.GetNeighbourAt(0))
-                                //direction = ChainGenerator.Direction.TOP_LEFT;
+                                
                             {
+                                //var direction = ChainGenerator.Direction.TOP_LEFT;
                                 curr.Value.cannon.resetEffects();
                                 curr.Value.cannon.setHasSlowingEffect(true);
                                 //curr.Value.cannon.setSlowingEffect(newSpeed);
                                 Debug.Log("CHAIN INPUT TOP LEFT");
+                                //curr.Value.cannon.SetBonusIcon(direction);
                             }
                             else if (curr.Next.Value == curr.Value.GetNeighbourAt(1))
-                                //direction = ChainGenerator.Direction.TOP_RIGHT;
+                                
                             {
+                                //var direction = ChainGenerator.Direction.TOP_RIGHT;
                                 curr.Value.cannon.resetEffects();
                                 curr.Value.cannon.setHasSlowingEffect(true);
                                 //curr.Value.cannon.setSlowingEffect(newSpeed);
                                 Debug.Log("CHAIN INPUT TOP RIGHT");
+                                //curr.Value.cannon.SetBonusIcon(direction);
                             }
                                 
                             else if (curr.Next.Value == curr.Value.GetNeighbourAt(2))
-                                //direction = ChainGenerator.Direction.MIDDLE_LEFT;
+                                
                             {
+                                //var direction = ChainGenerator.Direction.MIDDLE_LEFT;
                                 Debug.Log("CHAIN INPUT MIDDLE LEFT");
                                 curr.Value.cannon.resetEffects();
                                 curr.Value.cannon.setIsBouncy(true);
+                                //curr.Value.cannon.SetBonusIcon(direction);
                             }
                             else if (curr.Next.Value == curr.Value.GetNeighbourAt(3))
-                                //direction = ChainGenerator.Direction.MIDDLE_RIGHT;
+                               
                             {
+                                //var direction = ChainGenerator.Direction.MIDDLE_RIGHT;
                                 Debug.Log("CHAIN INPUT MIDDLE RIGHT");
                                 curr.Value.cannon.resetEffects();
                                 curr.Value.cannon.setIsBouncy(true);
+                                //curr.Value.cannon.SetBonusIcon(direction);
                             }
                             else if (curr.Next.Value == curr.Value.GetNeighbourAt(4))
                                 //direction = ChainGenerator.Direction.BOTTOM_LEFT;
                             {
+                                //var direction = ChainGenerator.Direction.BOTTOM_LEFT;
                                 Debug.Log("CHAIN INPUT BOTTOM LEFT");
                                 curr.Value.cannon.resetEffects();
                                 curr.Value.cannon.setHasBonus(true);
+                                //curr.Value.cannon.SetBonusIcon(direction);
                             }
                             else if (curr.Next.Value == curr.Value.GetNeighbourAt(5))
-                                //direction = ChainGenerator.Direction.BOTTOM_RIGHT;
+                                
                             {
+                                //var direction = ChainGenerator.Direction.BOTTOM_RIGHT;
                                 Debug.Log("CHAIN INPUT BOTTOM RIGHT");
                                 curr.Value.cannon.resetEffects();
                                 curr.Value.cannon.setHasBonus(true);
+                                //curr.Value.cannon.SetBonusIcon(direction);
                             }
                             else
                             {
@@ -777,7 +789,22 @@ public class ChainControler : MonoBehaviour
         while (curr.Previous != null)
         {
             if (curr.Previous.Value.tileType == MyTile.TileType.CANNON)
+            { //ADDING BONUS
+                if (curr.Previous.Value == curr.Value.GetNeighbourAt(0))
+                    direction = ChainGenerator.Direction.BOTTOM_RIGHT;
+                else if (curr.Previous.Value == curr.Value.GetNeighbourAt(1))
+                    direction = ChainGenerator.Direction.BOTTOM_LEFT;
+                else if (curr.Previous.Value == curr.Value.GetNeighbourAt(2))
+                    direction = ChainGenerator.Direction.MIDDLE_RIGHT;
+                else if (curr.Previous.Value == curr.Value.GetNeighbourAt(3))
+                    direction = ChainGenerator.Direction.MIDDLE_LEFT;
+                else if (curr.Previous.Value == curr.Value.GetNeighbourAt(4))
+                    direction = ChainGenerator.Direction.TOP_RIGHT;
+                else
+                    direction = ChainGenerator.Direction.TOP_LEFT;
+                curr.Previous.Value.cannon.SetBonusIcon(direction);
                 break;
+            }
 
             if (curr.Value.tileType == MyTile.TileType.DICE && curr.Previous.Value.tileType == MyTile.TileType.DICE)
                 operation = ChainGenerator.Operation.ADDITION;
@@ -814,6 +841,9 @@ public class ChainControler : MonoBehaviour
             if (tile.tileType == MyTile.TileType.DICE || tile.tileType == MyTile.TileType.COIN)
             {
                 tile.modifier.EraseOperations();
+            } else if (tile.tileType == MyTile.TileType.CANNON)
+            {
+                tile.cannon.EraseBonusIcon();
             }
         }
     }
