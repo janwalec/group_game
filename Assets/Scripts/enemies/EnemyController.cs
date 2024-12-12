@@ -247,12 +247,12 @@ public class EnemyController : MonoBehaviour
         StartCoroutine(FadeEffect(0.5f));
         
         //Drop gold
-        MarketManager.instance.earnGold(priceForKill);
+        MarketManager.instance.earnGold(goldToDrop);
         if(onDeathSound != null)
             audioSource.PlayOneShot(onDeathSound, audioSource.volume);
         
         // Notify subscribers that this enemy has been killed
-        GameEvents.EnemyKilled(priceForKill);
+        GameEvents.EnemyKilled(goldToDrop);
         
         Debug.Log("Enemy has died.");
         yield return new WaitForSeconds(delay);

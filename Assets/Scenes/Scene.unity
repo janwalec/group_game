@@ -1730,6 +1730,9 @@ MonoBehaviour:
   - text: Chains can be rearranged and branched out into multiple cannons.
     image: {fileID: 0}
     video: {fileID: 32900000, guid: ad107c4dca43ea64197b7e922fbdbf76, type: 3}
+  - text: Modifier Direction Bonus
+    image: {fileID: 21300000, guid: a27f46651c1219743a7b9915ae7b2bb9, type: 3}
+    video: {fileID: 0}
   - text: Visit the shop for more items! Gold is achieved when defeating enemies.
     image: {fileID: 0}
     video: {fileID: 32900000, guid: 1bc726655c5ce1149b8d10b86731de18, type: 3}
