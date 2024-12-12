@@ -24183,6 +24183,10 @@ PrefabInstance:
       propertyPath: m_Color.a
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4139813465791099589, guid: 91a1ec60ebc37cb00aa3b65a4a783507, type: 3}
+      propertyPath: m_Name
+      value: CannonButton
+      objectReference: {fileID: 0}
     - target: {fileID: 5438444550270076524, guid: 91a1ec60ebc37cb00aa3b65a4a783507, type: 3}
       propertyPath: onSellSound
       value: 
@@ -24328,6 +24332,10 @@ PrefabInstance:
       propertyPath: onSellSound
       value: 
       objectReference: {fileID: 8300000, guid: 61011a96651ef774c9dccb541e52fdb5, type: 3}
+    - target: {fileID: 7175196535127911126, guid: a21c8cb6608375f47aa2e421bee69ad2, type: 3}
+      propertyPath: m_Name
+      value: DiceButton
+      objectReference: {fileID: 0}
     - target: {fileID: 7711502858553484301, guid: a21c8cb6608375f47aa2e421bee69ad2, type: 3}
       propertyPath: m_Type
       value: 0
@@ -24493,6 +24501,10 @@ PrefabInstance:
       propertyPath: onSellSound
       value: 
       objectReference: {fileID: 8300000, guid: 61011a96651ef774c9dccb541e52fdb5, type: 3}
+    - target: {fileID: 2446858012209577349, guid: d603eced938853b2798c73a770e6a0db, type: 3}
+      propertyPath: m_Name
+      value: CoinButton
+      objectReference: {fileID: 0}
     - target: {fileID: 5834698130197246040, guid: d603eced938853b2798c73a770e6a0db, type: 3}
       propertyPath: m_Type
       value: 0
