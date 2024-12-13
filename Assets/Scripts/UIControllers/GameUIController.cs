@@ -15,6 +15,7 @@ class GameUIController : MonoBehaviour
     
     public AudioSource audioSource;
     [SerializeField] AudioClip onBattleStartSound;
+    [SerializeField] AudioClip clickSound;
     
     public UIDocument shopUIDocument;
     public ShopManager shopManager;
@@ -59,6 +60,7 @@ class GameUIController : MonoBehaviour
 
     private void OnTutorialButtonClick()
     {
+        //audioSource.PlayOneShot(clickSound);
         tutorialWindow.ToggleTutorialWindow();
     }
 
@@ -75,6 +77,7 @@ class GameUIController : MonoBehaviour
 
     private void OnPauseButtonClick()
     {
+        audioSource.PlayOneShot(clickSound);
         GameManager.instance.PauseMenu();
     }
 
@@ -87,6 +90,7 @@ class GameUIController : MonoBehaviour
 
     private void OnShopButtonClick()
     {
+        audioSource.PlayOneShot(clickSound);
         shopManager.OnOpen();
         //shopUIDocument.rootVisualElement.style.display = DisplayStyle.Flex;
     }

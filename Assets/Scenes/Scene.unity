@@ -785,6 +785,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 305949296}
   onBattleStartSound: {fileID: 8300000, guid: e312ef3199376de4b9d9f04d80658041, type: 3}
+  clickSound: {fileID: 8300000, guid: 08fd87e7a4be65942b48997c9205ded2, type: 3}
   shopUIDocument: {fileID: 461877437}
   shopManager: {fileID: 622088105}
   tutorialWindow: {fileID: 560845293}
@@ -1669,6 +1670,7 @@ GameObject:
   - component: {fileID: 560845291}
   - component: {fileID: 560845293}
   - component: {fileID: 560845294}
+  - component: {fileID: 560845295}
   m_Layer: 5
   m_Name: UITutorialWindow
   m_TagString: Untagged
@@ -1736,7 +1738,13 @@ MonoBehaviour:
   - text: Visit the shop for more items! Gold is achieved when defeating enemies.
     image: {fileID: 0}
     video: {fileID: 32900000, guid: 1bc726655c5ce1149b8d10b86731de18, type: 3}
+  - text: The incoming wave of enemies is represented as cards. Some of them have
+      special abilities!
+    image: {fileID: 0}
+    video: {fileID: 32900000, guid: 1bc726655c5ce1149b8d10b86731de18, type: 3}
   videoPlayer: {fileID: 560845294}
+  audioSource: {fileID: 560845295}
+  clickSound: {fileID: 8300000, guid: 08fd87e7a4be65942b48997c9205ded2, type: 3}
 --- !u!328 &560845294
 VideoPlayer:
   m_ObjectHideFlags: 0
@@ -1773,6 +1781,102 @@ VideoPlayer:
   m_WaitForFirstFrame: 1
   m_FrameReadyEventEnabled: 0
   m_VideoShaders: []
+--- !u!82 &560845295
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 560845289}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 1518868163146938194, guid: 181095fe62d2a5d4f83e51a828a64d5b, type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &585671845
 GameObject:
   m_ObjectHideFlags: 0
@@ -1895,6 +1999,7 @@ MonoBehaviour:
   coinsBought: 0
   marketManager: {fileID: 1601653990}
   onBuySound: {fileID: 8300000, guid: 86786595e2b4d8b4cbeb1b648163a029, type: 3}
+  onCloseSound: {fileID: 8300000, guid: 08fd87e7a4be65942b48997c9205ded2, type: 3}
 --- !u!4 &622088106
 Transform:
   m_ObjectHideFlags: 0
@@ -10344,10 +10449,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a565c700e84b51b48b8eac670eaab721, type: 3}
   - {fileID: 21300000, guid: 727ec954c6b87d84780097328fd57183, type: 3}
   - {fileID: 21300000, guid: fd9d02ad55072544f9e4d5e66bc1cb8b, type: 3}
-  - {fileID: 21300000, guid: 7b78fcdfa68431d468c6720fa53e30a3, type: 3}
-  - {fileID: 21300000, guid: dd3349010e78b004489eeebb853ae38e, type: 3}
+  - {fileID: 21300000, guid: d838afab5892d284d9a0b7ad10e65540, type: 3}
+  - {fileID: 21300000, guid: 865089f296b9e9a418f905684abe4fcc, type: 3}
   - {fileID: 21300000, guid: 59b2b4a6468db9e4d865aa2f558122ae, type: 3}
-  - {fileID: 21300000, guid: 36cb556f8e708f8459c7c13dd3ec2bb2, type: 3}
+  - {fileID: 21300000, guid: da6a1c5e46b2f654fbc1c87a1021372b, type: 3}
   bonusHPCardSprite: {fileID: 21300000, guid: 20405c16ac067324aa198c507952fe1b, type: 3}
   cardDisplay: {fileID: 683506705}
   cardColumn: {fileID: 764946901}

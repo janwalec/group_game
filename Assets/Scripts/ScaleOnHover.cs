@@ -8,7 +8,8 @@ public class ScaleOnHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     private Vector3 targetScale;
     private Coroutine scaleCoroutine;
     private GameObject hoverCopy; // Store the copy of the hovered element
-
+    private AudioSource audioSource; // Reference to the AudioSource
+    public AudioClip hoverSound; // The sound to play on hover
     public float scaleMultiplier = 1.8f; // The multiplier for the scale
     public float duration = 0.1f; // Duration of the scaling animation
 
@@ -24,7 +25,11 @@ public class ScaleOnHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         {
             StopCoroutine(scaleCoroutine);
         }
-
+        // Play the hover sound if an AudioSource is set
+        if (audioSource != null && hoverSound != null)
+        {
+            audioSource.Play(); // Play the hover sound
+        }
         // Create a copy of the hovered element
         hoverCopy = Instantiate(gameObject, transform.parent.parent);
         hoverCopy.transform.SetAsLastSibling(); // Make sure it's on top of other elements

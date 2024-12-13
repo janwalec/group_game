@@ -34,6 +34,7 @@ public class ShopManager : MonoBehaviour
     
     AudioSource audioSource;
     [SerializeField] AudioClip onBuySound;
+    [SerializeField] private AudioClip onCloseSound;
 
     void initStarting() {
         if (startingCannons > 0) {
@@ -95,6 +96,7 @@ public class ShopManager : MonoBehaviour
     
     private void OnCloseShopButtonClick()
     {
+        audioSource.PlayOneShot(onCloseSound);
         //shop.SetActive(!shop.activeSelf);
         var root = shopUIDocument.rootVisualElement;
         root.style.display = DisplayStyle.None;

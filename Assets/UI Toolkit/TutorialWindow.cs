@@ -18,6 +18,8 @@ public class TutorialWindow : MonoBehaviour
     [SerializeField] private VideoPlayer videoPlayer;
     private int currentStep = 0;
 
+    public AudioSource audioSource;
+    [SerializeField] private AudioClip clickSound;
     private Label tutorialText;
     private VisualElement tutorialImageContainer;
     private Image tutorialImage;
@@ -135,6 +137,7 @@ public class TutorialWindow : MonoBehaviour
 
     private void UpdateTutorialStep()
     {
+        audioSource.PlayOneShot(clickSound);
         tutorialImageContainer.Clear();
         var step = tutorialSteps[currentStep];
         tutorialText.text = step.text;
@@ -179,6 +182,7 @@ public class TutorialWindow : MonoBehaviour
 
     private void OnCloseShopButtonClick()
     {
+        audioSource.PlayOneShot(clickSound);
         root.style.display = DisplayStyle.None;
         //transform.localScale = Vector3.zero;
     }
