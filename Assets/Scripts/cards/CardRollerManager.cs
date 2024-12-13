@@ -192,6 +192,11 @@ public class CardRollManager : MonoBehaviour
             {
                 cardImage.sprite = cardSprites[cardIndex];
             }
+            // Generate a random Z-rotation offset between -10 and +10 degrees
+            float randomZRotation = Random.Range(-10f, 10f);
+
+            // Apply the new Z-rotation to the card (keep the existing rotation on X and Y)
+            newCard.transform.rotation = Quaternion.Euler(newCard.transform.rotation.eulerAngles.x, newCard.transform.rotation.eulerAngles.y, randomZRotation);
 
 
             Debug.Log("Moved Card to Column: " + cardValue);
@@ -247,7 +252,7 @@ public class CardRollManager : MonoBehaviour
             bonusHPCardText.fontSize = 24;
         }
         bonusHPCardText.font = customFont; // Assign the custom font
-        bonusHPCardText.fontSize = 60; // Adjust the font size as needed
+        bonusHPCardText.fontSize = 48; // Adjust the font size as needed
         bonusHPCardText.alignment = TextAnchor.MiddleCenter;
         bonusHPCardText.rectTransform.sizeDelta = bonusHPCard.GetComponent<RectTransform>().sizeDelta; // Make sure it covers the card
 
