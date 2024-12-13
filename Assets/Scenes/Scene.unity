@@ -1738,10 +1738,9 @@ MonoBehaviour:
   - text: Visit the shop for more items! Gold is achieved when defeating enemies.
     image: {fileID: 0}
     video: {fileID: 32900000, guid: 1bc726655c5ce1149b8d10b86731de18, type: 3}
-  - text: The incoming wave of enemies is represented as cards. Some of them have
-      special abilities!
-    image: {fileID: 0}
-    video: {fileID: 32900000, guid: 1bc726655c5ce1149b8d10b86731de18, type: 3}
+  - text: Incoming enemy wave
+    image: {fileID: 21300000, guid: 4dba7a7c0ca65c341b91db7f26f4e1c0, type: 3}
+    video: {fileID: 0}
   videoPlayer: {fileID: 560845294}
   audioSource: {fileID: 560845295}
   clickSound: {fileID: 8300000, guid: 08fd87e7a4be65942b48997c9205ded2, type: 3}
@@ -24204,6 +24203,10 @@ PrefabInstance:
       propertyPath: m_PresetInfoIsWorld
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1426092953240724802, guid: 0a411bfa04797e848baaed45b88e610c, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.000012740493
+      objectReference: {fileID: 0}
     - target: {fileID: 4712310421617820539, guid: 0a411bfa04797e848baaed45b88e610c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -24255,6 +24258,14 @@ PrefabInstance:
     - target: {fileID: 4831531353965716011, guid: 0a411bfa04797e848baaed45b88e610c, type: 3}
       propertyPath: pitchIncrement
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494211787566832099, guid: 0a411bfa04797e848baaed45b88e610c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494211787566832099, guid: 0a411bfa04797e848baaed45b88e610c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9114654380883393293, guid: 0a411bfa04797e848baaed45b88e610c, type: 3}
       propertyPath: m_Name

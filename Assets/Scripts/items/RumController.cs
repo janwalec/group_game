@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RumController : MonoBehaviour
 {
@@ -15,7 +16,8 @@ public class RumController : MonoBehaviour
     [SerializeField] AudioClip onDamageSound;
     [SerializeField] AudioClip onLossSound;
     private double krakenMultiplier = 2.0;  // Kraken consumes rum at twice the normal rate
-    
+
+    private Slider healthBar;
     //SFX
     public float pitchIncrement = 0.5f;   // Amount by which to increase the pitch each time
     public float maxPitch = 3.0f;         // Maximum pitch value to prevent it from increasing indefinitely
@@ -35,6 +37,20 @@ public class RumController : MonoBehaviour
             tileOccupied = true;
         }
         changeText(HPInt.ToString());
+        
+        Debug.Log("Finding healthbar slider...");
+        // Find the Slider component in the children of the current GameObject
+        healthBar = GetComponentInChildren<Slider>();
+        // If the Slider is found, set its maxValue
+        if (healthBar != null)
+        {
+            healthBar.maxValue = HPInt;
+            healthBar.value = HPInt; // Initialize the slider with current health value
+        }
+        else
+        {
+            Debug.LogError("Slider component not found in children!");
+        }
     }
 
 
@@ -106,6 +122,7 @@ public class RumController : MonoBehaviour
             HPInt--;
             HPLoss = 0;
             changeText(HPInt.ToString());
+            healthBar.value = HPInt;
         }
         
         if(HPInt <= 0)

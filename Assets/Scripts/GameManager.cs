@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
         waves[0] = 3;
         waves[1] = 3;
         
-        enemiesHp[0].Add(5);
+        enemiesHp[0].Add(16);
         enemiesHp[0].Add(13); 
         enemiesHp[0].Add(22);
         
