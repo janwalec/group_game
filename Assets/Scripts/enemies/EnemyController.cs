@@ -9,6 +9,7 @@ using UnityEngine.Audio;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 using static UnityEngine.InputManagerEntry;
+using Slider = UnityEngine.UI.Slider;
 
 public class EnemyController : MonoBehaviour
 {
@@ -34,6 +35,8 @@ public class EnemyController : MonoBehaviour
     private bool isTakingDamage = false;
     private int lastDamageTaken = 0;
     private bool lastHitHasGoldMultiplier;
+    
+    private Slider healthBar;
 
     protected void ApplyHealthAddition()
     {
@@ -81,7 +84,6 @@ public class EnemyController : MonoBehaviour
 
     private void Start()
     {
-
         
     }
 
@@ -96,6 +98,17 @@ public class EnemyController : MonoBehaviour
         finalDestination = GameManager.instance.getRumPosition();
         changeText(health.ToString());
         priceForKill = health;
+        
+        // If the Slider is found, set its maxValue
+        if (healthBar != null)
+        {
+            healthBar.maxValue = health;
+            healthBar.value = health; // Initialize the slider with current health value
+        }
+        else
+        {
+            Debug.LogError("Slider component not found in children!");
+        }
 
     }
     protected virtual IEnumerator SlowDown(float newSpeed)
@@ -126,6 +139,11 @@ public class EnemyController : MonoBehaviour
         {
             Debug.LogError("SpriteRenderer not found in Enemy or its children!");
         }
+        
+        Debug.Log("Finding healthbar slider...");
+        // Find the Slider component in the children of the current GameObject
+        healthBar = GetComponentInChildren<Slider>();
+
     }
     private void Update()
     {
@@ -201,7 +219,10 @@ public class EnemyController : MonoBehaviour
     {
         health -= dmg;
         health = health < 0 ? 0 : health;
-        if(!isDying) changeText(health.ToString());
+        if(!isDying) {
+            changeText(health.ToString());
+            healthBar.value = health;
+        }
         Instantiate(damageParticles, this.transform.position, Quaternion.identity);
 
         if (health <= 0)
