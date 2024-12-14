@@ -148,6 +148,9 @@ public class CannonBallController : MonoBehaviour
     }
     public bool deactivate()
     {
+        ParticleSystem cbParticles = GetComponentInChildren<ParticleSystem>();
+        ParticleSystem.MainModule main = cbParticles.main;
+        main.startColor = Color.white;
         gameObject.SetActive(false);
         hasBounced = false; //Reset hasBounced.
         isBouncy = false; //Reset isBouncy

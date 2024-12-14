@@ -217,20 +217,32 @@ public class CannonController : MovableItem
                     CannonBallController cb = new_object.GetComponent<CannonBallController>();
                     if (cb != null && target != null)
                     {
+                        ParticleSystem cbParticles = cb.gameObject.GetComponentInChildren<ParticleSystem>();
+                        ParticleSystem.MainModule main = cbParticles.main;
                         cb.setDirection(target);
                         cb.setDamage(getShootingDamage());
-                        if(isBouncy) cb.setBouncy(true); //SET BOUNCY EFFECT.
-                        if(hasSlowing) cb.setSlowingEffect(calculateSlowingEffect(getShootingDamage())); //Set slowing effect
-                        if(hasGoldBonus)cb.SetHasGoldMultiplier(true); //Set gold multiplier.
+                        if (isBouncy)
+                        {
+                            cb.setBouncy(true); //SET BOUNCY EFFECT.
+                            main.startColor = new Color(219 / 255f, 113 / 255f, 25 / 255f, 0.8f); //ORANGE
+                        }
+
+                        if (hasSlowing)
+                        {
+                            cb.setSlowingEffect(calculateSlowingEffect(getShootingDamage())); //Set slowing effect
+                            main.startColor = new Color(76 / 255f, 110 / 255f, 229 / 255f, 0.8f); //BLUE
+                        }
+
+                        if (hasGoldBonus)
+                        {
+                            cb.SetHasGoldMultiplier(true); //Set gold multiplier.
+                            main.startColor = new Color(232 / 255f, 201 / 255f, 75 / 255f, 0.8f); //GOLDEN
+                        }
                         
-                        //Debug.Log("Damage of shot " + getShootingDamage() + " " + this.GetHashCode());
-                        //Debug.Log("Position: " + target.position);
                     }
-                    
 
                     new_object.SetActive(true);
-
-
+                    
                 }
             }
             //wait few seconds before the next shot
