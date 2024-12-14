@@ -7,6 +7,8 @@ class MainMenuController : MonoBehaviour
     private VisualElement root;  // Root element of the UI Document
     private Label skipLabel;
     private Coroutine showLabelCoroutine;
+    public AudioSource audioSource;
+    [SerializeField] private AudioClip click;
     private void OnEnable()
     {
         // Get the root of the visual tree from the UIDocument component
@@ -86,14 +88,17 @@ class MainMenuController : MonoBehaviour
  
     private void OnStartGameButtonClick()
     {
+        audioSource.PlayOneShot(click);
         MainMenuGameManager.instance.Play();
     }
     private void OnStartIntroButtonClick()
     {
+        audioSource.PlayOneShot(click);
         MainMenuGameManager.instance.Intro();
     }
     private void OnSettingsButtonClick()
     {
+        audioSource.PlayOneShot(click);
         MainMenuGameManager.instance.Settings();
     }
     private void OnQuitButtonClick()
