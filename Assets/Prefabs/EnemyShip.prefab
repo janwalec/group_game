@@ -379,6 +379,7 @@ MonoBehaviour:
   sfxMixerGroup: {fileID: 0}
   onHitSound: {fileID: 8300000, guid: 90c6cf9669b7c9f40b37b7fd147240f2, type: 3}
   onDeathSound: {fileID: 8300000, guid: 49ceca12ff5649548bfd728fafe18c5d, type: 3}
+  dropGold: {fileID: 8300000, guid: 1d666b9c783887d44ac4bf1e26b1b9dc, type: 3}
   damageParticles: {fileID: 3679879074604123835, guid: 0a7e322324d49d222b74c330b0d05f46, type: 3}
   priceForKill: 0
 --- !u!82 &1795512289641629181

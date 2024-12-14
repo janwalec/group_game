@@ -26,6 +26,8 @@ public class EnemyController : MonoBehaviour
     public AudioMixerGroup sfxMixerGroup;
     [SerializeField] protected AudioClip onHitSound;
     [SerializeField] protected AudioClip onDeathSound;
+    [SerializeField] protected AudioClip dropGold;
+
     [SerializeField] protected ParticleSystem damageParticles;
     //[SerializeField] protected float speedMultiplier = 1.0f;
     //[SerializeField] protected int healthAddition = 10;
@@ -257,11 +259,13 @@ public class EnemyController : MonoBehaviour
         int goldToDrop = priceForKill;
         if (lastHitHasGoldMultiplier)
         {
-            goldToDrop = Mathf.RoundToInt(lastDamageTaken * EnemyManager.Instance.GoldBonusFactor) + priceForKill;
+            int bonus = Mathf.RoundToInt(lastDamageTaken * EnemyManager.Instance.GoldBonusFactor);
+            goldToDrop = bonus + priceForKill;
+            //Wait for 0.8 seconds, then call ShowGoldText with (bonus)
+            StartCoroutine(DelayedShowGoldText(bonus, 0.5f));
         }
         
-        
-        ShowGoldText(goldToDrop, lastHitHasGoldMultiplier);
+        ShowGoldText(priceForKill);
         
         //Slow down
         StartCoroutine(SlowDown(0f));
@@ -343,19 +347,26 @@ public class EnemyController : MonoBehaviour
         textComponent.text = newText;
     }
     
-    private void ShowGoldText(int goldDropped, bool hadMultiplier)
+    private void ShowGoldText(int goldDropped)
     {
-        String prefix = hadMultiplier ? "++" : "+";
-        changeText(prefix + goldDropped);
         TextMeshProUGUI textComponent = canvas.GetComponentInChildren<TextMeshProUGUI>();
+        //textComponent.gameObject.SetActive(true);
+        changeText("+" + goldDropped);
         textComponent.color = Color.yellow;
         
         StartCoroutine(MoveAndFadeText(textComponent));
     }
     
+    private IEnumerator DelayedShowGoldText(int bonus, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        ShowGoldText(bonus);
+    }
+    
     private IEnumerator MoveAndFadeText(TextMeshProUGUI textComponent)
     {
-        float moveDuration = 0.8f;
+        
+        float moveDuration = 0.5f;
 
         Vector2 originalPosition = textComponent.transform.position;
         Color originalColor = textComponent.color;
@@ -370,9 +381,8 @@ public class EnemyController : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-
-        // Optionally, disable the text component after fading out
-        textComponent.gameObject.SetActive(false);
+        audioSource.PlayOneShot(dropGold);
+        textComponent.alpha = 0f;
     }
 
     public bool isEnemyDying()
