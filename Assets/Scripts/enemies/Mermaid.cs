@@ -38,12 +38,6 @@ public class Mermaid : EnemyController
    
     public override void Move()
     {
-        //Moves slower under water so it feels a bit more fair?
-        if (isStealthActive)
-        {
-            base.SlowDown(0.5f);
-        }
-
         base.Move();
     }
 
@@ -52,9 +46,11 @@ public class Mermaid : EnemyController
         while (true)
         {
             isStealthActive = true;
+            yield return StartCoroutine(base.SlowDown(0.2f)); //Slow before, so it feels more fair and has a more swimming-like animation
             yield return StartCoroutine(FadeOut());
+            
             yield return new WaitForSeconds(stealthDuration);
-
+            
             yield return StartCoroutine(FadeIn());
             isStealthActive = false;
             yield return new WaitForSeconds(nonStealthDuration);

@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
         waves[0] = 3;
         waves[1] = 3;
         
-        enemiesHp[0].Add(14);
+        enemiesHp[0].Add(5);
         enemiesHp[0].Add(13); 
         enemiesHp[0].Add(22);
         
@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
         enemiesHp[1].Add(30);
 
         cardRollManager.setTotalHp(enemiesHp[0][0]);
-        cardRollManager.setBiggestEnemyValue(14); //Biggest enemy for first level is shark (11). It will increase by 1 in future waves.
+        cardRollManager.setBiggestEnemyValue(11); //Biggest enemy for first level is shark (11). It will increase by 1 in future waves.
         roundWonCanvas.enabled = false;
 
         if (enemyManager != null)
