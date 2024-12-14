@@ -250,6 +250,8 @@ public class EnemyController : MonoBehaviour
         
         if (isDying) yield break; //If it already is dying, just do nothing.
         isDying = true;
+
+        healthBar.gameObject.SetActive(false);
     
         //Calculate how much gold should be dropped. Overwritten if there is a goldMultiplier.
         int goldToDrop = priceForKill;
