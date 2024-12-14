@@ -7,6 +7,7 @@ public class Kraken : EnemyController
     private int threshold = 8;
     private bool canTakeDmg;
     public AudioClip krakenDeflectSound;
+    [SerializeField] private ParticleSystem deflectParticles;
     private void Start()
     {
         base.speed = 1f;
@@ -48,6 +49,7 @@ public class Kraken : EnemyController
         else
         {
             audioSource.PlayOneShot(krakenDeflectSound);
+            Instantiate(deflectParticles, this.transform.position, Quaternion.identity);
         }
     }
 

@@ -10,6 +10,8 @@ public class Mermaid : EnemyController
     private float nonStealthDuration = 3f; // 3 seconds out of stealth
     private float fadeAmount = 0.3f;
     private SpriteRenderer spriteRenderer;
+    [SerializeField] private ParticleSystem splashParticles;
+    [SerializeField] private AudioClip splashSound;
     private bool isStealthActive;
 
     private void Start()
@@ -36,6 +38,11 @@ public class Mermaid : EnemyController
    
     public override void Move()
     {
+        //Moves slower under water so it feels a bit more fair?
+        if (isStealthActive)
+        {
+            base.SlowDown(0.5f);
+        }
 
         base.Move();
     }
@@ -126,6 +133,8 @@ public class Mermaid : EnemyController
         else
         {
             Debug.Log("In stealth mode, can't receive damage");
+            Instantiate(splashParticles, this.transform.position, Quaternion.identity);
+            audioSource.PlayOneShot(splashSound);
         }
 
     }
