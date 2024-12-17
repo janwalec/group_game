@@ -8,7 +8,6 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
-using static UnityEngine.InputManagerEntry;
 using Slider = UnityEngine.UI.Slider;
 
 public class EnemyController : MonoBehaviour

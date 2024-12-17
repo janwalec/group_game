@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Tilemaps;
 
 public enum GameState { GS_PAUSEMENU, GS_BATTLE, GS_LEVEL_COMPLETED, GS_GAME_LOST, GS_GAME_WON, GS_SETTINGS, GS_PREPARE, GS_WAIT }
 
@@ -44,7 +43,9 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        //
+        enemyManager = EnemyManager.Instance;
+        Debug.Log("Got enemyManager:" + enemyManager != null);
+        
         ScoreManager.Instance.resetScore();
         
         //levelsLayout[0].SetActive(true);
@@ -55,14 +56,14 @@ public class GameManager : MonoBehaviour
             enemiesHp.Add(new List<int>());
         }
         SetGameState(GameState.GS_WAIT);
-        waves[0] = 1;
+        waves[0] = 5;
         waves[1] = 5;
         
-        enemiesHp[0].Add(0);
-        //enemiesHp[0].Add(13); 
-        //enemiesHp[0].Add(22);
-        //enemiesHp[0].Add(28);
-        //enemiesHp[0].Add(35);
+        enemiesHp[0].Add(5);
+        enemiesHp[0].Add(13); 
+        enemiesHp[0].Add(22);
+        enemiesHp[0].Add(30);
+        enemiesHp[0].Add(40);
         
         enemiesHp[1].Add(13);
         enemiesHp[1].Add(24);
@@ -71,7 +72,7 @@ public class GameManager : MonoBehaviour
         enemiesHp[1].Add(50);
 
         cardRollManager.setTotalHp(enemiesHp[0][0]);
-        cardRollManager.setBiggestEnemyValue(13); //Biggest enemy for first level is shark (11). It will increase by 1 in future waves.
+        cardRollManager.setBiggestEnemyValue(11); //Biggest enemy for first level is shark (11). It will increase by 1 in future waves.
         roundWonCanvas.enabled = false;
         
         if (enemyManager != null)
@@ -126,10 +127,10 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyUp(KeyCode.S))
+        /*if (Input.GetKeyUp(KeyCode.S))
         {
             NextLevel();
-        }
+        }*/
     }
 
     public void Awake()

@@ -2,7 +2,6 @@ using System;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.PlasticSCM.Editor.WebApi;
 using System.Linq;
 
 public class Chain
