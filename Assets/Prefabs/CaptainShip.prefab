@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 337247547386500754}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 16.550962, y: 8.157166, z: 16.736559}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.65, y: 0.65, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -116,6 +116,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e35f6301f59bc44dbed412c96a97be3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waypoints: []
+  currentWaypoint: 0
   canvas: {fileID: 1284560779916052459}
   sfxMixerGroup: {fileID: 0}
   onHitSound: {fileID: 8300000, guid: 90c6cf9669b7c9f40b37b7fd147240f2, type: 3}
@@ -123,6 +125,7 @@ MonoBehaviour:
   dropGold: {fileID: 8300000, guid: 1d666b9c783887d44ac4bf1e26b1b9dc, type: 3}
   damageParticles: {fileID: 3679879074604123835, guid: 0a7e322324d49d222b74c330b0d05f46, type: 3}
   priceForKill: 20
+  shipType: Generic Enemy
   pirateShipPrefab: {fileID: 363901193533818090, guid: 951e26852c28fcf4391e54d94be2d91c, type: 3}
 --- !u!70 &4728761504912030367
 CapsuleCollider2D:
@@ -708,7 +711,7 @@ Transform:
   m_GameObject: {fileID: 4417231062439923467}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.0490383, y: 0.8828341, z: -16.736559}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

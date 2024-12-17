@@ -109,7 +109,10 @@ public class EnemyWave : MonoBehaviour
 
             if (card == 13)
             {
-                spawnPosition.x = minX + xOffset * 0.02f;
+                //Vector3 spawnPositionCaptain = new Vector3(1, -5.5f, spawnPoint.position.z);
+                //spawnPositionCaptain = isSecondMap ? spawnPositionCaptain : spawnPosition;
+                spawnPosition.x = isSecondMap ? spawnPosition.x += 3.5f : spawnPosition.x;
+                
                 newEnemy = Instantiate(captainShipPrefab, spawnPosition, spawnPoint.rotation);
                 Transform captainShip = newEnemy.transform.Find("CaptainShip");
                 enemies.Add(captainShip);
@@ -120,18 +123,24 @@ public class EnemyWave : MonoBehaviour
             }
             else if (card == 11)
             {
+                //spawnPosition.x = spawnPosition.x - 11;
+                //spawnPosition.y = spawnPosition.y - 5.5f;
                 newEnemy = Instantiate(sharkPrefab, spawnPosition, spawnPoint.rotation);
                 Debug.Log("Spawning shark at position: " + spawnPosition + " for card value: " + card);
                 enemies.Add(newEnemy.transform.Find("Shark"));
             }
             else if (card == 12)
             {
+                //spawnPosition.x = spawnPosition.x - 11;
+                //spawnPosition.y = spawnPosition.y - 5.5f;
                 newEnemy = Instantiate(mermaidPrefab, spawnPosition, spawnPoint.rotation);
                 Debug.Log("Spawning mermaid at position: " + spawnPosition + " for card value: " + card);
                 enemies.Add(newEnemy.transform.Find("Mermaid"));
             }
             else if (card == 14)
             {
+                //spawnPosition.x = spawnPosition.x - 11;
+                //spawnPosition.y = spawnPosition.y - 5.5f;
                 newEnemy = Instantiate(krakenPrefab, spawnPosition, spawnPoint.rotation);
                 Debug.Log("Spawning kraken at position: " + spawnPosition + " for card value: " + card);
                 enemies.Add(newEnemy.transform.Find("Kraken"));
@@ -149,6 +158,8 @@ public class EnemyWave : MonoBehaviour
                     if (normalShip != null)
                     {
                         normalShip.InitializeHealth(card);
+                     
+                        //normalShip.InitializeWaypoints(EnemyPathManager.Instance.getRandomPath(), 0); 
                         Debug.Log($"Spawned ship with card value {card}. Assigned health: {normalShip.GetHealth()} at position: {spawnPosition}");
                     }
                     else

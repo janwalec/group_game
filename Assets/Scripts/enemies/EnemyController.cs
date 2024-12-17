@@ -16,8 +16,8 @@ public class EnemyController : MonoBehaviour
     protected int health;
     protected float speed;
     protected float normalSpeed;
-    protected GameObject[] waypoints;
-    protected int currentWaypoint = 0;
+    public GameObject[] waypoints;
+    public int currentWaypoint = 0;
     protected Vector2 finalDestination;
     protected Vector2 currentDestination;
     public Canvas canvas;
@@ -37,8 +37,8 @@ public class EnemyController : MonoBehaviour
     private bool isTakingDamage = false;
     private int lastDamageTaken = 0;
     private bool lastHitHasGoldMultiplier;
-    
-    private Slider healthBar;
+    public string shipType = "Generic Enemy";
+    protected Slider healthBar;
 
     protected void ApplyHealthAddition()
     {
@@ -176,6 +176,7 @@ public class EnemyController : MonoBehaviour
             {
                 currentWaypoint = (currentWaypoint + 1 % waypoints.Length);
                 currentDestination = waypoints[currentWaypoint].GetComponentInParent<Transform>().position;
+                Debug.Log($"{shipType} Next Waypoint Destination: " + currentDestination); // Include shipType in log
             }
         }
         //transform.position = Vector2.MoveTowards(transform.position, currentDestination, speed * Time.deltaTime);
@@ -219,6 +220,8 @@ public class EnemyController : MonoBehaviour
 
     public virtual void TakeDamage(int dmg)
     {
+
+        Debug.Log($"{name} took damage: {dmg}, current health: {health}");
         health -= dmg;
         health = health < 0 ? 0 : health;
         if(!isDying) {
@@ -226,6 +229,8 @@ public class EnemyController : MonoBehaviour
             healthBar.value = health;
         }
         Instantiate(damageParticles, this.transform.position, Quaternion.identity);
+
+        print("HP is" + health);
 
         if (health <= 0)
         {

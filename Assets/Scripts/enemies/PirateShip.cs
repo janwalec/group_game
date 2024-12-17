@@ -9,11 +9,34 @@ public class NormalShip : EnemyController
     {
         base.speed = 1f;
         base.ApplySpeedMultiplication();
-        Prepare();
+        this.Prepare();
 
     }
 
-  
+
+
+    protected override void Prepare()
+    {
+        //waypoints = EnemyPathManager.Instance.getRandomPath();
+        //currentDestination = waypoints[currentWaypoint].GetComponentInParent<Transform>().position;
+
+
+        finalDestination = GameManager.instance.getRumPosition();
+        changeText(health.ToString());
+        priceForKill = health;
+
+        // If the Slider is found, set its maxValue
+        if (healthBar != null)
+        {
+            healthBar.maxValue = health;
+            healthBar.value = health; // Initialize the slider with current health value
+        }
+        else
+        {
+            Debug.LogError("Slider component not found in children!");
+        }
+
+    }
 
     public void setHealth(int hp)
     {
@@ -26,9 +49,16 @@ public class NormalShip : EnemyController
         base.Move();
     }
 
-    public  int GetHealth()
+    public int GetHealth()
     {
         return base.health;
+    }
+
+    public void InitializeWaypoints(GameObject[] newWaypoints, int startPoint)
+    {
+        waypoints = newWaypoints;
+        currentWaypoint = startPoint;
+        currentDestination = waypoints[currentWaypoint].transform.position;
     }
     public void InitializeHealth(int card_value)
     {
@@ -40,12 +70,12 @@ public class NormalShip : EnemyController
     }
 
 
-   /* public override void Die()
-    {
+    /* public override void Die()
+     {
 
-        Debug.Log("Normal boat has been destroyed.");
-        base.Die();
-    }*/
+         Debug.Log("Normal boat has been destroyed.");
+         base.Die();
+     }*/
 }
 
 

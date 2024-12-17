@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class CaptainShip : EnemyController
 {
@@ -8,7 +10,7 @@ public class CaptainShip : EnemyController
     public GameObject pirateShipPrefab;
     private Vector3 spawnOffset = new Vector3(1f, -1f, 0f);  
     private float spawnInterval = 15f;  
-    private float initialDelay = 10f;   // Initial delay before starting the spawn routine
+    private float initialDelay = 5f;   // Initial delay before starting the spawn routine
     private List<Transform> enemies;
     private EnemyWave wave;
     private GameObject shipPrefab;
@@ -24,7 +26,6 @@ public class CaptainShip : EnemyController
     }
 
     
-
     public void StartSpawningEnemies()
     {
         StartCoroutine(SpawnEnemyRoutine());  
@@ -49,31 +50,30 @@ public class CaptainShip : EnemyController
 
     private IEnumerator SpawnEnemyRoutine()
     {
-        Debug.Log("SpawnEnemyRoutine coroutine started. Waiting for initial delay...");
+        // Wait until the game state is GS_BATTLE
+        while (GameManager.instance.currentGameState != GameState.GS_BATTLE)
+        {
+            yield return null;  // Wait until the next frame before checking again
+        }
+
+        // Log when the game enters battle state
+        Debug.Log("Game has entered GS_BATTLE state, starting initial delay...");
+
+        // Initial delay after entering battle state
         yield return new WaitForSeconds(initialDelay);
 
-        Debug.Log("Initial delay complete. First ship instantiation starting now.");
+        Debug.Log("Initial delay complete. Starting to spawn enemies...");
 
         while (health > 0)  // Continue spawning as long as CaptainShip is alive
         {
-            // Check if the game is in the battle state before spawning
-            if (GameManager.instance.currentGameState == GameState.GS_BATTLE)
-            {
-                Debug.Log("Spawning a new pirate ship at time: " + Time.time);
-                SpawnEnemy();
-            }
-            else
-            {
-                // Wait a short time before checking the game state again
-                Debug.Log("Game is not in battle state. Pausing spawning...");
-                yield return new WaitForSeconds(0.5f);
-                continue; // Skip to the next iteration
-            }
+            Debug.Log("Spawning a new pirate ship at time: " + Time.time);
+            SpawnEnemy();
 
             // Wait for the spawn interval before attempting to spawn again
             yield return new WaitForSeconds(spawnInterval);
         }
     }
+
 
 
     public int GetHealth()
@@ -83,29 +83,39 @@ public class CaptainShip : EnemyController
 
     private void SpawnEnemy()
     {
+        bool isSecondMap = GameManager.instance.currentLevel == 1; // Second map starts at level 1
         if (pirateShipPrefab != null)
         {
-            Vector3 spawnPosition = transform.position + spawnOffset;
+            //Vector3 spawnPosition = transform.position;
+            Vector3 spawnPosition = transform.position;
+            spawnPosition.y = isSecondMap ? spawnPosition.y -= 2.5f : spawnPosition.y;
+            spawnPosition.x = isSecondMap ? spawnPosition.x -= 4.2f : spawnPosition.x;
             GameObject newPirateShip = Instantiate(pirateShipPrefab, spawnPosition, Quaternion.identity);
+            //GameObject newPirateShip = Instantiate(pirateShipPrefab, transform.position, Quaternion.identity);
             Transform pirateBoat = newPirateShip.transform.Find("EnemyShip");
             NormalShip normalShip = pirateBoat.GetComponent<NormalShip>();
             EnemyWave.Instance.AddEnemy(pirateBoat);
+
             if (normalShip != null)
             {
+                GameObject[] remainingWaypoints = new GameObject[waypoints.Length - currentWaypoint];
+                Array.Copy(waypoints, currentWaypoint, remainingWaypoints, 0, remainingWaypoints.Length);
                 normalShip.InitializeHealth(5);
-                
+                normalShip.InitializeWaypoints(remainingWaypoints,0);
+
             }
             else
             {
                 Debug.LogError("NormalShip component not found on the PirateShip prefab.");
             }
 
-            
+
         }
         else
         {
             Debug.LogError("PirateShip prefab is not assigned in the Inspector!");
         }
     }
+
 
 }
