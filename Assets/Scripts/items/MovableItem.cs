@@ -15,6 +15,7 @@ public abstract class MovableItem : MonoBehaviour
     public void OnMouseDown()
     {
         Debug.Log("Modifier clicked!.!");
+        if (GameManager.instance.currentGameState != GameState.GS_PREPARE) return;
         if (!moving)
         {
             prevPosition = transform.position;

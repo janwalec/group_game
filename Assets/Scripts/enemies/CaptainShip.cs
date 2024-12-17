@@ -88,8 +88,8 @@ public class CaptainShip : EnemyController
         {
             //Vector3 spawnPosition = transform.position;
             Vector3 spawnPosition = transform.position;
-            spawnPosition.y = isSecondMap ? spawnPosition.y -= 2.5f : spawnPosition.y;
-            spawnPosition.x = isSecondMap ? spawnPosition.x -= 4.2f : spawnPosition.x;
+            //spawnPosition.y = isSecondMap ? spawnPosition.y -= 2.5f : spawnPosition.y;
+            //spawnPosition.x = isSecondMap ? spawnPosition.x -= 4.2f : spawnPosition.x;
             GameObject newPirateShip = Instantiate(pirateShipPrefab, spawnPosition, Quaternion.identity);
             //GameObject newPirateShip = Instantiate(pirateShipPrefab, transform.position, Quaternion.identity);
             Transform pirateBoat = newPirateShip.transform.Find("EnemyShip");

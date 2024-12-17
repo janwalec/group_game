@@ -94,7 +94,7 @@ public class EnemyWave : MonoBehaviour
 
         bool isSecondMap = GameManager.instance.currentLevel == 1; // Second map starts at level 1
 
-        minX = spawnPoint.position.x + 7;
+        minX = spawnPoint.position.x + 17;
 
         for (int i = 0; i < numberOfEnemies; i++)
         {
@@ -102,7 +102,7 @@ public class EnemyWave : MonoBehaviour
 
 
             float yPos = isSecondMap ? 0 : minY + (i + 1) * ((maxY - minY) / (numberOfEnemies + 1)) * spaceMultiplier; // if second map then y=0
-            float xPos = minX + (i + 1) * 5f;
+            float xPos = minX + (i + 1) * 1.2f; //was float xPos = minX + (i + 1) * 5f;
             Vector3 spawnPosition = new Vector3(xPos, yPos, spawnPoint.position.z);
 
             GameObject newEnemy;
@@ -111,7 +111,7 @@ public class EnemyWave : MonoBehaviour
             {
                 //Vector3 spawnPositionCaptain = new Vector3(1, -5.5f, spawnPoint.position.z);
                 //spawnPositionCaptain = isSecondMap ? spawnPositionCaptain : spawnPosition;
-                spawnPosition.x = isSecondMap ? spawnPosition.x += 3.5f : spawnPosition.x;
+                //spawnPosition.x = isSecondMap ? spawnPosition.x += 3.5f : spawnPosition.x;
                 
                 newEnemy = Instantiate(captainShipPrefab, spawnPosition, spawnPoint.rotation);
                 Transform captainShip = newEnemy.transform.Find("CaptainShip");
@@ -159,7 +159,7 @@ public class EnemyWave : MonoBehaviour
                     {
                         normalShip.InitializeHealth(card);
                      
-                        //normalShip.InitializeWaypoints(EnemyPathManager.Instance.getRandomPath(), 0); 
+                        normalShip.InitializeWaypoints(EnemyPathManager.Instance.getRandomPath(), 0); 
                         Debug.Log($"Spawned ship with card value {card}. Assigned health: {normalShip.GetHealth()} at position: {spawnPosition}");
                     }
                     else

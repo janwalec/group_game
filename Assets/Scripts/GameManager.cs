@@ -66,10 +66,10 @@ public class GameManager : MonoBehaviour
         enemiesHp[0].Add(40);
         
         enemiesHp[1].Add(13);
-        enemiesHp[1].Add(24);
-        enemiesHp[1].Add(30);
+        enemiesHp[1].Add(26);
         enemiesHp[1].Add(40);
         enemiesHp[1].Add(50);
+        enemiesHp[1].Add(60);
 
         cardRollManager.setTotalHp(enemiesHp[0][0]);
         cardRollManager.setBiggestEnemyValue(11); //Biggest enemy for first level is shark (11). It will increase by 1 in future waves.

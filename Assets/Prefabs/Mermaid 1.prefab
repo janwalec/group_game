@@ -209,7 +209,7 @@ Transform:
   m_GameObject: {fileID: 6542645333151716760}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 16.550962, y: 8.157166, z: 16.736559}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -342,6 +342,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caa26c45b48850344962524db7d1407f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waypoints: []
+  currentWaypoint: 0
   canvas: {fileID: 7089516869166743682}
   sfxMixerGroup: {fileID: 0}
   onHitSound: {fileID: 8300000, guid: 90c6cf9669b7c9f40b37b7fd147240f2, type: 3}
@@ -349,6 +351,7 @@ MonoBehaviour:
   dropGold: {fileID: 8300000, guid: 1d666b9c783887d44ac4bf1e26b1b9dc, type: 3}
   damageParticles: {fileID: 3679879074604123835, guid: 8eac88283efba0fd291797443ba121eb, type: 3}
   priceForKill: 0
+  shipType: Generic Enemy
   splashParticles: {fileID: 3679879074604123835, guid: 5f5fb55be0e442d41be2309a244b4c82, type: 3}
   splashSound: {fileID: 8300000, guid: a8289a32824bfe14fa8003a0bb393e7d, type: 3}
 --- !u!82 &5631799268405447924
@@ -472,7 +475,7 @@ Transform:
   m_GameObject: {fileID: 6789827278423058501}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.0490383, y: 0.8828341, z: -16.736559}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
