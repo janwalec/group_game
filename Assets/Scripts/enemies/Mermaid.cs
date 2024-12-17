@@ -46,7 +46,7 @@ public class Mermaid : EnemyController
         while (true)
         {
             isStealthActive = true;
-            yield return StartCoroutine(base.SlowDown(0.2f)); //Slow before, so it feels more fair and has a more swimming-like animation
+            StartCoroutine(base.SlowDown(0.2f)); //Slow before, so it feels more fair and has a more swimming-like animation
             yield return StartCoroutine(FadeOut());
             
             yield return new WaitForSeconds(stealthDuration);

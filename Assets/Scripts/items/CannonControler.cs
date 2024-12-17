@@ -14,9 +14,9 @@ public class CannonController : MovableItem
     //private ArrayList enemies = new ArrayList();
     private Transform target;
     private GameObject enemyTargeted;
-    private float wideRange = 20f;
-    private float narrowRange = 7f;
-    private float mediumRange = 13f;
+    private float wideRange = 15f;//was20
+    private float narrowRange = 5f;//was7
+    private float mediumRange = 10f;//was13
     [SerializeField] private LayerMask enemyMask;
     private float delay = 0.2f;
     private int shootingDamage;

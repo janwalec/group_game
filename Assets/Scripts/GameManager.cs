@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
         //
         ScoreManager.Instance.resetScore();
         
-        levelsLayout[0].SetActive(true);
+        //levelsLayout[0].SetActive(true);
         Debug.Log("Start");
         for (int i = 0; i <  levelsNum; i++)
         {
@@ -55,25 +55,25 @@ public class GameManager : MonoBehaviour
             enemiesHp.Add(new List<int>());
         }
         SetGameState(GameState.GS_WAIT);
-        waves[0] = 5;
+        waves[0] = 1;
         waves[1] = 5;
         
-        enemiesHp[0].Add(5);
-        enemiesHp[0].Add(13); 
-        enemiesHp[0].Add(22);
-        enemiesHp[0].Add(28);
-        enemiesHp[0].Add(35);
+        enemiesHp[0].Add(0);
+        //enemiesHp[0].Add(13); 
+        //enemiesHp[0].Add(22);
+        //enemiesHp[0].Add(28);
+        //enemiesHp[0].Add(35);
         
-        enemiesHp[1].Add(20);
+        enemiesHp[1].Add(13);
         enemiesHp[1].Add(24);
         enemiesHp[1].Add(30);
         enemiesHp[1].Add(40);
         enemiesHp[1].Add(50);
 
         cardRollManager.setTotalHp(enemiesHp[0][0]);
-        cardRollManager.setBiggestEnemyValue(11); //Biggest enemy for first level is shark (11). It will increase by 1 in future waves.
+        cardRollManager.setBiggestEnemyValue(13); //Biggest enemy for first level is shark (11). It will increase by 1 in future waves.
         roundWonCanvas.enabled = false;
-
+        
         if (enemyManager != null)
         {
             enemyManager.SetHealthAddition(5);
@@ -124,6 +124,11 @@ public class GameManager : MonoBehaviour
             {
                 PauseMenu();
             }
+        }
+
+        if (Input.GetKeyUp(KeyCode.S))
+        {
+            NextLevel();
         }
     }
 

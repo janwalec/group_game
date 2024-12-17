@@ -102,7 +102,7 @@ public class EnemyWave : MonoBehaviour
 
 
             float yPos = isSecondMap ? 0 : minY + (i + 1) * ((maxY - minY) / (numberOfEnemies + 1)) * spaceMultiplier; // if second map then y=0
-            float xPos = minX + (i + 1) * 5;
+            float xPos = minX + (i + 1) * 5f;
             Vector3 spawnPosition = new Vector3(xPos, yPos, spawnPoint.position.z);
 
             GameObject newEnemy;

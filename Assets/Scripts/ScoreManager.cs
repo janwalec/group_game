@@ -78,6 +78,6 @@ public class ScoreManager : MonoBehaviour
 
     public void resetScore()
     {
-        score = 0;
+        Score = 0;
     }
 }
