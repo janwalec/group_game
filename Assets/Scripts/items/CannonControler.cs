@@ -199,12 +199,12 @@ public class CannonController : MovableItem
             }while(GameManager.instance.currentGameState != GameState.GS_BATTLE);
             if (shootingDamage != 0)
             {   
-                
-                if (shootingDamage > 30)
+                CannonSoundManager.Instance.PlayCannonSound(shootingDamage);
+                /*if (shootingDamage > 30)
                     audioSource.PlayOneShot(shotHard, audioSource.volume);
                 else if (shootingDamage == 1)
                     audioSource.PlayOneShot(shotFlot, audioSource.volume);
-                else audioSource.PlayOneShot(shotMedium, audioSource.volume);
+                else audioSource.PlayOneShot(shotMedium, audioSource.volume);*/
                 GameObject new_object = ItemPool.SharedInstance.GetPooledCannonBall();
                 if (new_object != null)
                 {   
