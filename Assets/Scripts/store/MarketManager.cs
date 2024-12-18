@@ -24,10 +24,22 @@ public class MarketManager : MonoBehaviour
         get { return prices; }
     }
 
+    void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject); // Optional: to keep the instance persistent across scenes
+        }
+    }
     void Start()
     {
         //sets the initial amount of gold and items' prices
-        instance = this;
+        //instance = this;
         gold = GOLD_AT_BEGINNING;
         prices.Add(Items.DICE, 20);
         prices.Add(Items.CANNON, 30);

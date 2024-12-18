@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     public GameObject settingsUI;
     
     [SerializeField] private EnemyManager enemyManager;
+    [SerializeField] private MarketManager marketManager;
 
     private const int levelsNum = 2;
     public int currentLevel = 0;
@@ -44,7 +45,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         enemyManager = EnemyManager.Instance;
-        Debug.Log("Got enemyManager:" + enemyManager != null);
+        marketManager = MarketManager.instance;
         
         ScoreManager.Instance.resetScore();
         
@@ -187,7 +188,15 @@ public class GameManager : MonoBehaviour
 
         // Update UI based on the state
         pauseUI.SetActive(currentGameState == GameState.GS_PAUSEMENU);
-        inGameUI.gameObject.SetActive(currentGameState == GameState.GS_BATTLE || currentGameState == GameState.GS_PREPARE || currentGameState == GameState.GS_WAIT);
+        bool isInGame = currentGameState == GameState.GS_BATTLE || currentGameState == GameState.GS_PREPARE ||
+                        currentGameState == GameState.GS_WAIT;
+        inGameUI.gameObject.SetActive(isInGame);
+        if (isInGame)
+        {
+            inGameUI.UpdateRound(currentLevel, currentWave);
+            inGameUI.UpdateGoldAmount(marketManager.Gold);
+            inGameUI.UpdatePoints(ScoreManager.Instance.Score);
+        }
         inGameCanvas.enabled = (currentGameState == GameState.GS_PREPARE || currentGameState == GameState.GS_WAIT);
         inGameUI.SetReadyButtonActive(currentGameState == GameState.GS_PREPARE);
         levelWonUI.SetActive(currentGameState == GameState.GS_LEVEL_COMPLETED);
@@ -283,7 +292,7 @@ public class GameManager : MonoBehaviour
             cardRollManager.setTotalHp(enemiesHp[currentLevel][currentWave]);
             cardRollManager.setBiggestEnemyValue(cardRollManager.getBiggestEnemyValue()+1); //Increase biggest enemy to be faced.
             cardRollManager.StartRolling();
-            inGameUI.UpdateGoldAmount(MarketManager.instance.Gold);
+            inGameUI.UpdateGoldAmount(marketManager.Gold);
             //Increase bonus health by 5
             enemyManager.SetHealthAddition(enemyManager.getHealthAddition()+5);
         }

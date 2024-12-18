@@ -55,7 +55,6 @@ class GameUIController : MonoBehaviour
         }
         
         audioSource = GetComponent<AudioSource>();
-
     }
 
     private void OnTutorialButtonClick()
