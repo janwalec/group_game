@@ -106,13 +106,33 @@ public class ShopManager : MonoBehaviour
     public void OnOpen()
     {
         var root = shopUIDocument.rootVisualElement;
+
+        // Check if the game state is GS_BATTLE and abort opening the shop if true
+        if (GameManager.instance.IsBattleState())
+        {
+            Debug.Log("Shop cannot be opened during battle.");
+            return; // Prevents the shop from being opened during battle
+        }
+
         //If already open, just close.
-        if(root.style.display == DisplayStyle.Flex) {root.style.display = DisplayStyle.None; return;}
+        if (root.style.display == DisplayStyle.Flex)
+        {
+            root.style.display = DisplayStyle.None;
+            return;
+        }
+
         //Show and re-render.
         root.style.display = DisplayStyle.Flex;
         PopulateShop();
     }
-    
+
+    public void CloseShop()
+    {
+        var root = shopUIDocument.rootVisualElement;
+        root.style.display = DisplayStyle.None;
+        audioSource.PlayOneShot(onCloseSound);
+    }
+
     public void UpdateGoldAmount(int value)
     {
         if (goldAmount == null)

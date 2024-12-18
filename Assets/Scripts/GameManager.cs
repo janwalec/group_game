@@ -87,7 +87,11 @@ public class GameManager : MonoBehaviour
     }
 
 
-   
+    public bool IsBattleState()
+    {
+        return currentGameState == GameState.GS_BATTLE;
+    }
+
     public Vector2 getRumPosition()
     {
         return rums[currentLevel].transform.position;
@@ -168,6 +172,11 @@ public class GameManager : MonoBehaviour
         // Handle visibility of CardColumn
         if (state == GameState.GS_BATTLE)
         {
+            // Close the shop if entering battle state
+            if (shopManager != null)
+            {
+                shopManager.CloseShop();
+            }
             Debug.Log("Entering GS_BATTLE: Hiding column.");
             cardRollManager.ClearCards(); // This hides the column
             cardRollManager.cardColumn.gameObject.SetActive(false); // Explicitly hide it
