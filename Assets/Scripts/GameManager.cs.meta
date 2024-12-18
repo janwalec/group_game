@@ -3,7 +3,19 @@ guid: 7010dc3a597e3bd46b0e6a4298a45621
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - inGameCanvas: {instanceID: 0}
+  - roundWonCanvas: {instanceID: 0}
+  - inGameUI: {instanceID: 0}
+  - levelWonUI: {instanceID: 0}
+  - pauseUI: {instanceID: 0}
+  - settingsUI: {instanceID: 0}
+  - coinControllerGameObject: {fileID: 5954576721936697034, guid: cc2e1b38a82335248b0c58f19a3b8c82, type: 3}
+  - enemyManager: {instanceID: 0}
+  - marketManager: {instanceID: 0}
+  - cardRollManager: {instanceID: 0}
+  - chainControler: {instanceID: 0}
+  - shopManager: {instanceID: 0}
   executionOrder: -2
   icon: {instanceID: 0}
   userData: 

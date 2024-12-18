@@ -10,7 +10,7 @@ public class CaptainShip : EnemyController
     public GameObject pirateShipPrefab;
     private Vector3 spawnOffset = new Vector3(1f, -1f, 0f);  
     private float spawnInterval = 15f;  
-    private float initialDelay = 5f;   // Initial delay before starting the spawn routine
+    private float initialDelay = 10f;   // Initial delay before starting the spawn routine
     private List<Transform> enemies;
     private EnemyWave wave;
     private GameObject shipPrefab;

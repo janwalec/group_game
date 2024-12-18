@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject levelWonUI;
     public GameObject pauseUI;
     public GameObject settingsUI;
-    
+    //[SerializeField] private GameObject coinControllerGameObject;
     [SerializeField] private EnemyManager enemyManager;
     [SerializeField] private MarketManager marketManager;
 
@@ -86,6 +86,7 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.Save();
     }
 
+ 
 
     public bool IsBattleState()
     {

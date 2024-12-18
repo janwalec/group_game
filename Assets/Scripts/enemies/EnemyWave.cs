@@ -11,9 +11,9 @@ public class EnemyWave : MonoBehaviour
     public Transform spawnPoint;
     private float minY = -8f;
     private float maxY = 0.5f;
-    public float spaceMultiplier = 2f;
+    private float spaceMultiplier = 5f;
     private float minX;
-    private float xOffset = 7.0f;
+    private float xOffset = 5.0f;
     List<Transform> enemies = new List<Transform>();
 
     private static EnemyWave _instance;
@@ -101,8 +101,8 @@ public class EnemyWave : MonoBehaviour
             int card = drawnCards[i];
 
 
-            float yPos = isSecondMap ? 0 : minY + (i + 1) * ((maxY - minY) / (numberOfEnemies + 1)) * spaceMultiplier; // if second map then y=0
-            float xPos = minX + (i + 1) * 1.2f; //was float xPos = minX + (i + 1) * 5f;
+            float yPos = 0;  // All enemies have the same y position unless it's the second map
+            float xPos = minX + i * xOffset;  // Space out each enemy along the x-axis
             Vector3 spawnPosition = new Vector3(xPos, yPos, spawnPoint.position.z);
 
             GameObject newEnemy;
