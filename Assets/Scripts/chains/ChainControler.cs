@@ -11,9 +11,11 @@ public class Chain
     public List<PooledChain> pooledObjectChain;
     public int chainSum;
     public LineRendererController lineRenderer;
+    
 
     public Color? color;
 
+   
 
     public Chain(LinkedList<MyTile> _tileChain, List<PooledChain> _pooledObjectChain, int ID, Color? color_ = null, int chainSum_ = 0)
     {
@@ -67,6 +69,7 @@ public class Chain
 
 public class ChainControler : MonoBehaviour
 {
+    private List<GameObject> allModifiers = new List<GameObject>();
     private ChainPool chainPool;
     private ChainGenerator chainGenerator;
 
@@ -91,6 +94,18 @@ public class ChainControler : MonoBehaviour
         chainGenerator = FindObjectOfType<ChainGenerator>();
         chainGenerator.OnChainComplete += UpdateObjectsOnChainComplete;
        
+    }
+
+    public void AddModifier(GameObject modifier)
+    {
+        if (!allModifiers.Contains(modifier))
+            allModifiers.Add(modifier);
+    }
+
+    public void RemoveModifier(GameObject modifier)
+    {
+        if (allModifiers.Contains(modifier))
+            allModifiers.Remove(modifier);
     }
 
     //be notified if Chain is added
@@ -777,9 +792,15 @@ public class ChainControler : MonoBehaviour
         {
             deleteChain(id);
         }
-       
+
+        // Handle unchained modifiers
+        foreach (GameObject modifier in allModifiers)
+        {
+            modifier.SetActive(false);  // Make each unchained modifier inactive
+        }
     }
 
+    
     private void AddOperationSigns(LinkedList<MyTile> tempList)
     {
         LinkedListNode<MyTile> curr = tempList.Last;

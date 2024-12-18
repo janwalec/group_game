@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Bullet
   - Rock
+  - Coin
+  - Dice
   layers:
   - Default
   - TransparentFX

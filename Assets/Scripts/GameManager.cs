@@ -13,14 +13,14 @@ public class GameManager : MonoBehaviour
     public GameState currentGameState = GameState.GS_PREPARE;
 
     public static GameManager instance;
-
+    public List<GameObject> prefabInstances = new List<GameObject>();
     public Canvas inGameCanvas;
     public Canvas roundWonCanvas;
     [SerializeField] private GameUIController inGameUI;
     [SerializeField] private GameObject levelWonUI;
     public GameObject pauseUI;
     public GameObject settingsUI;
-    //[SerializeField] private GameObject coinControllerGameObject;
+    [SerializeField] private GameObject coinControllerGameObject;
     [SerializeField] private EnemyManager enemyManager;
     [SerializeField] private MarketManager marketManager;
 
@@ -86,7 +86,49 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.Save();
     }
 
- 
+
+    private void CollectPrefabInstances()
+    {
+        
+        prefabInstances.Clear();
+
+        
+        GameObject[] coinInstances = GameObject.FindGameObjectsWithTag("Coin");
+        foreach (var instance in coinInstances)
+        {
+            prefabInstances.Add(instance);
+            Debug.Log($"Added {instance.name} with tag 'Coin' to prefabInstances.");
+        }
+
+        
+        GameObject[] diceInstances = GameObject.FindGameObjectsWithTag("Dice");
+        foreach (var instance in diceInstances)
+        {
+            prefabInstances.Add(instance);
+            Debug.Log($"Added {instance.name} with tag 'Dice' to prefabInstances.");
+        }
+    }
+
+
+    public void DeactivateOrDestroyAllPrefabs()
+    {
+        
+        CollectPrefabInstances(); 
+
+        foreach (GameObject prefabInstance in prefabInstances)
+        {
+            if (prefabInstance != null)
+            {
+                Debug.Log($"Deactivating {prefabInstance.name}");
+                prefabInstance.SetActive(false);  // Deactivate prefab instance
+
+            }
+        }
+
+        
+        prefabInstances.Clear();
+    }
+
 
     public bool IsBattleState()
     {
@@ -130,6 +172,22 @@ public class GameManager : MonoBehaviour
             else
             {
                 PauseMenu();
+            }
+        }
+
+        if (Input.GetKeyUp(KeyCode.S))
+        {
+            // Check if it's appropriate to switch levels; for example, ensure we're not in battle
+            if (currentGameState != GameState.GS_BATTLE && currentGameState != GameState.GS_GAME_LOST && currentGameState != GameState.GS_GAME_WON)
+            {
+                if (currentLevel < levelsNum - 1)  // Check if there's a next level to switch to
+                {
+                    NextLevel();
+                }
+                else
+                {
+                    Debug.Log("No more levels to switch to.");
+                }
             }
         }
 
@@ -285,13 +343,18 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            
             MarketManager.instance.earnGold(50); //Earn some gold for the next level.
             //chainControler.resetAnimations();
             Debug.Log(currentLevel + " now");
             levelsLayout[currentLevel].SetActive(false);
             ++currentLevel;
             levelsLayout[currentLevel].SetActive(true);
+            if (coinControllerGameObject != null)
+                coinControllerGameObject.SetActive(false);
             chainControler.RemoveAll(); //TODO: Also needs to remove un-chained items on the tiles!
+            DeactivateOrDestroyAllPrefabs();
+
             EnemyPathManager.Instance.NextLevel();
             Debug.Log(currentLevel + " now2");
             currentWave = 0;
