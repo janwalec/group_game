@@ -10,7 +10,7 @@ public class Kraken : EnemyController
     [SerializeField] private ParticleSystem deflectParticles;
     private void Start()
     {
-        base.speed = 1f;
+        base.speed = 1.3f;
         base.health = 14;
         base.ApplyHealthAddition();
         base.ApplySpeedMultiplication();

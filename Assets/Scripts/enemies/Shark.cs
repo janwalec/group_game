@@ -9,7 +9,7 @@ public class Shark : EnemyController
     {
         //sets the starting destination on the closest waypoint and the final destination as the rum
         base.health = 11;
-        base.speed = 1.4f;
+        base.speed = 1.82f;
         base.ApplyHealthAddition();
         base.ApplySpeedMultiplication();
         Prepare();

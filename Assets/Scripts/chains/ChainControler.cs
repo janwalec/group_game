@@ -79,7 +79,7 @@ public class ChainControler : MonoBehaviour
 
     public delegate void KeyPressAction();
 
-    private float rollingDelay = 1f;
+    private float rollingDelay = 0.7f;
     private float singleCannonExtraDelay = 2.5f;
 
 

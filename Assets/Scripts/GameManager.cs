@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private EnemyManager enemyManager;
     [SerializeField] private MarketManager marketManager;
 
-    private const int levelsNum = 2;
+    private const int levelsNum = 5;
     public int currentLevel = 0;
     public int currentWave = 0;
     private int[] waves = new int[levelsNum];
@@ -57,20 +57,50 @@ public class GameManager : MonoBehaviour
             enemiesHp.Add(new List<int>());
         }
         SetGameState(GameState.GS_WAIT);
-        waves[0] = 5;
-        waves[1] = 5;
         
+        
+        
+
+        waves[0] = 3;
+        waves[1] = 5;
+        waves[2] = 5;
+        waves[3] = 9;
+        waves[4] = 4;
+
+        //TO FAST
         enemiesHp[0].Add(5);
         enemiesHp[0].Add(13); 
-        enemiesHp[0].Add(22);
-        enemiesHp[0].Add(30);
-        enemiesHp[0].Add(40);
+        enemiesHp[0].Add(24);
         
         enemiesHp[1].Add(13);
         enemiesHp[1].Add(26);
         enemiesHp[1].Add(40);
         enemiesHp[1].Add(50);
         enemiesHp[1].Add(60);
+        
+        enemiesHp[2].Add(13);
+        enemiesHp[2].Add(26);
+        enemiesHp[2].Add(40);
+        enemiesHp[2].Add(50);
+        enemiesHp[2].Add(60);
+
+        enemiesHp[3].Add(5);
+        enemiesHp[3].Add(5);
+        enemiesHp[3].Add(5);
+        enemiesHp[3].Add(10);
+        enemiesHp[3].Add(10);
+        enemiesHp[3].Add(10);
+        enemiesHp[3].Add(10);
+        enemiesHp[3].Add(15);
+        enemiesHp[3].Add(15);
+
+        enemiesHp[4].Add(30);
+        enemiesHp[4].Add(35);
+        enemiesHp[4].Add(40);
+        enemiesHp[4].Add(50);
+        
+        
+       
 
         cardRollManager.setTotalHp(enemiesHp[0][0]);
         cardRollManager.setBiggestEnemyValue(11); //Biggest enemy for first level is shark (11). It will increase by 1 in future waves.
@@ -328,8 +358,12 @@ public class GameManager : MonoBehaviour
 
     public void PlayAgain()
     {
-        SetGameState(GameState.GS_PREPARE);
+        Debug.Log("RESTARTING IN GM");
         SceneManager.LoadScene("Scene");
+        marketManager.RestartMarketManager();
+        
+        SetGameState(GameState.GS_PREPARE);
+        
     }
 
     //TODO
