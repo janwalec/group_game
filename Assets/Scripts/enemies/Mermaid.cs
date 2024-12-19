@@ -18,7 +18,7 @@ public class Mermaid : EnemyController
     {
 
         base.health = 12;
-        base.speed = 1f;
+        base.speed = 1.3f;
 
         base.ApplyHealthAddition();
         base.ApplySpeedMultiplication();

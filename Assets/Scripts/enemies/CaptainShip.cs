@@ -18,7 +18,7 @@ public class CaptainShip : EnemyController
     public void Start()
     {
         base.health = 13;
-        base.speed = 0.8f;
+        base.speed = 1.04f;
         base.ApplyHealthAddition();
         base.ApplySpeedMultiplication();
         Prepare();
