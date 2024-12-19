@@ -47,6 +47,17 @@ public class MarketManager : MonoBehaviour
         goldAmount.text = gold.ToString();
         gameUIController.UpdateGoldAmount(Gold);
     }
+
+    public void RestartMarketManager() {
+        Debug.Log("RESTARTING IN MARKET MANAGER");
+        gold = GOLD_AT_BEGINNING;
+        goldAmount.text = gold.ToString();
+        
+        shopManager.RestartShopManager();
+        shopManager.UpdateGoldAmount(gold);
+        gameUIController.UpdateGoldAmount(gold);
+    }
+
     public void spendGold(Items item)
     {
         gold -= prices[item];

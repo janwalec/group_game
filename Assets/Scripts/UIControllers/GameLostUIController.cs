@@ -51,7 +51,7 @@ class GameLostUIController : MonoBehaviour
  
     private void OnPlayAgainButtonClick()
     {
-        GameLostManager.instance.Play();
+        GameManager.instance.PlayAgain();
     }
 
     private void OnMainMenuClick()

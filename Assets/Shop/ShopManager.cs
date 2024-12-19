@@ -36,6 +36,13 @@ public class ShopManager : MonoBehaviour
     [SerializeField] AudioClip onBuySound;
     [SerializeField] private AudioClip onCloseSound;
 
+    public void RestartShopManager() {
+        Debug.Log("RESTARTING IN SHOP MANAGER");
+        cannonsBought = startingCannons;
+        diceBought = startingDice;
+        coinsBought = startingCoins;
+    }
+
     void initStarting() {
         if (startingCannons > 0) {
             cannonCard.SetActive(true);
