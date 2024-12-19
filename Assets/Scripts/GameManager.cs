@@ -60,42 +60,23 @@ public class GameManager : MonoBehaviour
         
         
         
+
         waves[0] = 3;
         waves[1] = 5;
         waves[2] = 5;
         waves[3] = 9;
         waves[4] = 4;
-        
-        /*
-        enemiesHp[0].Add(5);
-        enemiesHp[0].Add(13); 
-        enemiesHp[0].Add(22);
-        enemiesHp[0].Add(30);
-        enemiesHp[0].Add(40);
-        
-        enemiesHp[1].Add(13);
-        enemiesHp[1].Add(26);
-        enemiesHp[1].Add(40);
-        enemiesHp[1].Add(50);
-        enemiesHp[1].Add(60);
-        
-        enemiesHp[2].Add(13);
-        enemiesHp[2].Add(26);
-        enemiesHp[2].Add(40);
-        enemiesHp[2].Add(50);
-        enemiesHp[2].Add(60);
-        */
 
         //TO FAST
         enemiesHp[0].Add(5);
         enemiesHp[0].Add(13); 
-        enemiesHp[0].Add(22);
         enemiesHp[0].Add(24);
         
         enemiesHp[1].Add(13);
         enemiesHp[1].Add(26);
         enemiesHp[1].Add(40);
         enemiesHp[1].Add(50);
+        enemiesHp[1].Add(60);
         
         enemiesHp[2].Add(13);
         enemiesHp[2].Add(26);
@@ -117,7 +98,7 @@ public class GameManager : MonoBehaviour
         enemiesHp[4].Add(35);
         enemiesHp[4].Add(40);
         enemiesHp[4].Add(50);
-        enemiesHp[4].Add(60);
+        
         
        
 
