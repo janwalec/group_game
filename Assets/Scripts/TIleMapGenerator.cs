@@ -7,6 +7,7 @@ using System;
 using UnityEngine.UIElements;
 using Unity.VisualScripting;
 using System.ComponentModel;
+using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class MyTile {
     public enum TileType { WATER, LAND, ROCK, CANNON, DICE, COIN}
@@ -23,6 +24,7 @@ public class MyTile {
     public TileType tileType;
     public ModifierController modifier;
     public CannonController cannon;
+
  
     public MyTile(int y, int x, TileBase tile, TileType tileType) {
         this.y = y;
@@ -93,6 +95,10 @@ public class TIleMapGenerator : MonoBehaviour
     private MarketItemController selector;
     // Start is called before the first frame update
 
+    [SerializeField] private GameObject miniCannon;
+    [SerializeField] private GameObject miniDice;
+    [SerializeField] private GameObject miniCoin;
+    CircleRendererController miniCannonCircle;
     void Start() {
         audioSource = GetComponent<AudioSource>();
         tm = GetComponent<Tilemap>();
@@ -104,6 +110,7 @@ public class TIleMapGenerator : MonoBehaviour
         this.y_max = bounds.yMax;
         this.x_min = bounds.xMin;
         this.x_max = bounds.xMax;
+
 
         tilesArray = new MyTile[size_y, size_x];
 
@@ -136,8 +143,17 @@ public class TIleMapGenerator : MonoBehaviour
         CreateTileNeighbours();
         Debug.Log("instance in tilemap" + (GameManager.instance == null));
         GameManager.instance.setTilemap(this);
+
+        miniCannonCircle = miniCannon.GetComponentInChildren<CircleRendererController>();
+        DeactivateMinis();
     }
 
+    private void DeactivateMinis()
+    {
+        miniCannon.SetActive(false);
+        miniCoin.SetActive(false);
+        miniDice.SetActive(false);
+    }
     //finds the neighbours of a tile
     void CreateTileNeighbours() {
         for (int i = y_min; i < y_max; i++) {
@@ -237,6 +253,28 @@ public class TIleMapGenerator : MonoBehaviour
     {
         selector = selector_;
 
+        if(selector.getObjectType() == MarketManager.Items.CANNON)
+        {
+            miniCannon.SetActive(true);
+        }
+        else if (selector.getObjectType() == MarketManager.Items.DICE)
+        {
+            miniDice.SetActive(true);
+        }
+        if (selector.getObjectType() == MarketManager.Items.COIN)
+        {
+            miniCoin.SetActive(true);
+        }
+
+    }
+
+    public void ActivateMiniCannon()
+    {
+        miniCannon.SetActive(true);
+    }
+    public void DeactivateMiniCannon()
+    {
+        miniCannon.SetActive(false);
     }
 
     public Vector3 getWorldPosition(Vector3Int gridPosition)
@@ -292,6 +330,7 @@ public class TIleMapGenerator : MonoBehaviour
         {
             selector.unselectObject();
             selector = null;
+            DeactivateMinis();
             return false;
         }
 
@@ -335,11 +374,13 @@ public class TIleMapGenerator : MonoBehaviour
                 }
                 selector.unselectObject();
                 selector = null;
+                DeactivateMinis();
                 return true;
             }
         }
         selector.unselectObject();
         selector = null;
+        DeactivateMinis();
         return false;
     }
 
@@ -358,6 +399,28 @@ public class TIleMapGenerator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        float speed = 30.0f;
+        if (miniCannon.activeSelf)
+        {
+            
+            miniCannon.transform.position = Vector2.MoveTowards(miniCannon.transform.position,
+                Camera.main.ScreenToWorldPoint(Input.mousePosition), speed * Time.deltaTime);
+            miniCannonCircle.SetUpLine(miniCannon.transform, 15.0f);
+
+        }
+        if (miniCoin.activeSelf)
+        {
+            miniCoin.transform.position = Vector2.MoveTowards(miniCoin.transform.position,
+               Camera.main.ScreenToWorldPoint(Input.mousePosition), speed * Time.deltaTime);
+        }
+
+        if (miniDice.activeSelf)
+        {
+            miniDice.transform.position = Vector2.MoveTowards(miniDice.transform.position,
+               Camera.main.ScreenToWorldPoint(Input.mousePosition), speed * Time.deltaTime);
+        }
+
+
         /*
        
         if (Input.GetMouseButtonDown(0))

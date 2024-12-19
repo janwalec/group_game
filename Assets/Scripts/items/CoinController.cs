@@ -43,5 +43,12 @@ public class CoinController: ModifierController
         
     }
 
-
+    public override void ActivateMiniVersion()
+    {
+        gameObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+    }
+    public override void DeactivateMiniVersion()
+    {
+        gameObject.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+    }
 }

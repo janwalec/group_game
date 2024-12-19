@@ -33,6 +33,8 @@ public class CannonController : MovableItem
     public GameObject bonus;
     public ParticleSystem shootingParticles;
     protected System.Random rand = new System.Random();
+    //[SerializeField] private CircleRendererController circleRendererController;
+    
 
 
     void Start()
@@ -41,13 +43,15 @@ public class CannonController : MovableItem
         shootingDamage = 2;
         deactivateCanvas();
         EraseBonusIcon();
+      
     }
 
-   void Awake()
+    void Awake()
     {
         animator = animatedObject.GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
         findTarget();
+        
 
     }
 
@@ -365,6 +369,17 @@ public class CannonController : MovableItem
         {
             bonus.transform.GetChild(i).gameObject.SetActive(false);
         }
+    }
+
+    public override void ActivateMiniVersion()
+    {
+        gameObject.transform.localScale = new Vector3(0.01f, 0.01f, 0.01f);
+        GameManager.instance.getTilemap().ActivateMiniCannon();
+    }
+    public override void DeactivateMiniVersion()
+    {
+        gameObject.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+        GameManager.instance.getTilemap().DeactivateMiniCannon();
     }
 }
 

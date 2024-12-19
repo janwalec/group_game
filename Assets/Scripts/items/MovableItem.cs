@@ -12,6 +12,9 @@ public abstract class MovableItem : MonoBehaviour
         
        
     }
+
+    public abstract void ActivateMiniVersion();
+    public abstract void DeactivateMiniVersion();
     public void OnMouseDown()
     {
         Debug.Log("Modifier clicked!.!");
@@ -19,10 +22,14 @@ public abstract class MovableItem : MonoBehaviour
         if (!moving)
         {
             prevPosition = transform.position;
+            ActivateMiniVersion ();
+            //gameObject.SetActive(false);
         }
         if(moving)
         {
+            //gameObject.SetActive(true);
             PutDown();
+            DeactivateMiniVersion ();
         }
         moving = !moving;
     }

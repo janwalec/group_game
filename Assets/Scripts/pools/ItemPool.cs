@@ -13,6 +13,7 @@ public class ItemPool : MonoBehaviour
     public List<GameObject> pooledCannon = new List<GameObject>();
     public List<GameObject> pooledCannonBall = new List<GameObject>();
     public List<GameObject> pooledLineRenderer = new List<GameObject>();
+    public List<GameObject> pooledCircleRenderer = new List<GameObject>();
 
     
     
@@ -21,6 +22,7 @@ public class ItemPool : MonoBehaviour
     public GameObject cannonToPool;
     public GameObject cannonBallToPool;
     public GameObject lineRendererToPool;
+    public GameObject circleRendererToPool;
 
 
 
@@ -29,6 +31,7 @@ public class ItemPool : MonoBehaviour
     public int cannonAmountToPool;
     public int cannonBallAmountToPool;
     public int lineRenderAmountToPool;
+
 
     void Awake()
     {
@@ -56,6 +59,7 @@ public class ItemPool : MonoBehaviour
         //Debug.Log(this.pooledCoin.GetHashCode() + "a2s");
         for (int i = 0; i < amountToPool; i++)
         {
+            Debug.Log("i: " + i);
             tmp = Instantiate(objectToPool);
             tmp.SetActive(false);
             pooledObjects.Add(tmp);
@@ -86,7 +90,8 @@ public class ItemPool : MonoBehaviour
 
 
 
-    
+
+
 
     public GameObject GetPooledObject(List<GameObject> pooledObjects, int amountToPool)
     {
