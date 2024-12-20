@@ -19892,8 +19892,8 @@ MonoBehaviour:
   cardRollManager: {fileID: 675279744}
   rums:
   - {fileID: 1875844354}
-  - {fileID: 1769488469}
   - {fileID: 1672515749}
+  - {fileID: 1769488469}
   - {fileID: 1527633705}
   - {fileID: 1156231827}
   chainControler: {fileID: 647878485}
