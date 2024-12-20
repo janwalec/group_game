@@ -337,7 +337,7 @@ public class GameManager : MonoBehaviour
     public void GameWon()
     {
         SetGameState(GameState.GS_GAME_WON);
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("GameWon");
     }
 
     public void PlayAgain()
