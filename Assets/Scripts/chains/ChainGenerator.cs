@@ -73,14 +73,34 @@ public class ChainGenerator : MonoBehaviour
     }
 
     //clear temp list if not dragging
+
+    public bool checkDoubleCannon() {
+        bool prevWasCannon = false;
+        foreach(MyTile t in tempList) {
+            if (t.tileType == MyTile.TileType.CANNON) {
+                if(prevWasCannon) {
+                    Debug.Log("DOUBLE CANNON");
+                    return true;
+                }
+                prevWasCannon = true;
+            } else {
+                prevWasCannon = false;
+            }
+        }
+        return false;
+    }
+
     public void playerStoppedDragging() {
         currentPoints.Clear();
         currentlyCreated.SetUpLine(currentPoints);
-        audioSource.PlayOneShot(onChainCreatedSound);
-        listOfChains.Add(tempList);
-        //AddOperationSigns();
-        NotifyChainComplete();
-        //Debug.Log("cleared");
+        if(!checkDoubleCannon()) {
+            audioSource.PlayOneShot(onChainCreatedSound);
+            listOfChains.Add(tempList);
+            //AddOperationSigns();
+            NotifyChainComplete();
+            //Debug.Log("cleared");
+        }
+        
         
         tempList.Clear();
     }
