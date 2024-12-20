@@ -35,6 +35,7 @@ public class CardRollManager : MonoBehaviour
 
     void Start()
     {
+        cardColumn = GameObject.Find("CardColumn").GetComponent<RectTransform>();
         // Automatically roll cards when the game starts with a delay between each roll
         StartRolling();
     }

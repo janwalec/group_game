@@ -19900,8 +19900,8 @@ MonoBehaviour:
   shopManager: {fileID: 622088105}
   levelsLayout:
   - {fileID: 1475225589}
-  - {fileID: 1370824131}
   - {fileID: 460099976}
+  - {fileID: 1370824131}
   - {fileID: 733679052}
   - {fileID: 1590325900}
 --- !u!4 &407846232
@@ -48245,7 +48245,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 056a154ade950714db43edf50d32d828, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goldAmount: {fileID: 1940667636}
   gameUIController: {fileID: 305949295}
   shopManager: {fileID: 622088105}
 --- !u!4 &1601653991
@@ -63735,6 +63734,10 @@ PrefabInstance:
     - target: {fileID: 5494211787566832099, guid: 0a411bfa04797e848baaed45b88e610c, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8819422581567008191, guid: 0a411bfa04797e848baaed45b88e610c, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9114654380883393293, guid: 0a411bfa04797e848baaed45b88e610c, type: 3}
       propertyPath: m_Name

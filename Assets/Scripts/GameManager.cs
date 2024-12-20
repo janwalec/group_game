@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        cardRollManager.cardColumn = GameObject.Find("CardColumn").GetComponent<RectTransform>();
         enemyManager = EnemyManager.Instance;
         marketManager = MarketManager.instance;
         
@@ -259,7 +260,7 @@ public class GameManager : MonoBehaviour
         else if (state == GameState.GS_PREPARE || state == GameState.GS_WAIT)
         {
             Debug.Log("Entering GS_PREPARE or GS_WAIT: Showing column.");
-            cardRollManager.cardColumn.gameObject.SetActive(true); // Ensure column is visible
+            if(cardRollManager.cardColumn != null)cardRollManager.cardColumn.gameObject.SetActive(true); // Ensure column is visible
         }
 
         // Save the previous state if transitioning from non-pause and non-settings

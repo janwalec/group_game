@@ -51,7 +51,8 @@ class GameLostUIController : MonoBehaviour
  
     private void OnPlayAgainButtonClick()
     {
-        GameManager.instance.PlayAgain();
+        //GameManager.instance.PlayAgain();
+        SceneManager.LoadScene("Scene");
     }
 
     private void OnMainMenuClick()

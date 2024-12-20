@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MarketManager : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class MarketManager : MonoBehaviour
 
     public enum Items { CANNON, DICE, COIN, NONE }
     private int gold;
-    public TMP_Text goldAmount;
+    //public TMP_Text goldAmount;
 
     [SerializeField] private GameUIController gameUIController;
     [SerializeField] private ShopManager shopManager;
@@ -33,7 +34,19 @@ public class MarketManager : MonoBehaviour
         else
         {
             instance = this;
+            gameUIController = GameObject.Find("UIOverlay").GetComponent<GameUIController>();
+            shopManager = GameObject.Find("ShopManager").GetComponent<ShopManager>();
             DontDestroyOnLoad(gameObject); // Optional: to keep the instance persistent across scenes
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+    }
+    
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "Scene") // Check if the loaded scene is "Scene"
+        {
+            if(gameUIController == null) gameUIController = GameObject.Find("UIOverlay").GetComponent<GameUIController>();
+            if(shopManager == null) shopManager = GameObject.Find("ShopManager").GetComponent<ShopManager>();
         }
     }
     void Start()
@@ -44,14 +57,14 @@ public class MarketManager : MonoBehaviour
         prices.Add(Items.DICE, 20);
         prices.Add(Items.CANNON, 30);
         prices.Add(Items.COIN, 10);
-        goldAmount.text = gold.ToString();
+        //goldAmount.text = gold.ToString();
         gameUIController.UpdateGoldAmount(Gold);
     }
 
     public void RestartMarketManager() {
         Debug.Log("RESTARTING IN MARKET MANAGER");
         gold = GOLD_AT_BEGINNING;
-        goldAmount.text = gold.ToString();
+        //goldAmount.text = gold.ToString();
         
         shopManager.RestartShopManager();
         shopManager.UpdateGoldAmount(gold);
