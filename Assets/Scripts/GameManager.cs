@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
         cardRollManager.cardColumn = GameObject.Find("CardColumn").GetComponent<RectTransform>();
         enemyManager = EnemyManager.Instance;
         marketManager = MarketManager.instance;
+        marketManager.RestartMarketManager();
         
         ScoreManager.Instance.resetScore();
         
