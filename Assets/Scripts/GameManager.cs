@@ -192,6 +192,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        /*
         if (Input.GetKeyUp(KeyCode.S))
         {
             // Check if it's appropriate to switch levels; for example, ensure we're not in battle
@@ -206,12 +207,8 @@ public class GameManager : MonoBehaviour
                     Debug.Log("No more levels to switch to.");
                 }
             }
-        }
-
-        /*if (Input.GetKeyUp(KeyCode.S))
-        {
-            NextLevel();
         }*/
+
     }
 
     public void Awake()

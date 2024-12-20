@@ -7,7 +7,7 @@ public class Mermaid : EnemyController
 {
     private bool stealth;
     private float stealthDuration = 1f;  // 1 seconds in stealth
-    private float nonStealthDuration = 3f; // 3 seconds out of stealth
+    private float nonStealthDuration = 4.5f; // 5 seconds out of stealth
     private float fadeAmount = 0.3f;
     private SpriteRenderer spriteRenderer;
     [SerializeField] private ParticleSystem splashParticles;
