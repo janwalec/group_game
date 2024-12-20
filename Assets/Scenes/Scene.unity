@@ -585,7 +585,7 @@ GameObject:
   m_Component:
   - component: {fileID: 77575995}
   m_Layer: 0
-  m_Name: Path 3
+  m_Name: Path 3_lvl4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20397,7 +20397,7 @@ GameObject:
   m_Component:
   - component: {fileID: 490571334}
   m_Layer: 0
-  m_Name: Path2
+  m_Name: Path2_lvl4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21365,7 +21365,7 @@ GameObject:
   m_Component:
   - component: {fileID: 639055067}
   m_Layer: 0
-  m_Name: Path2
+  m_Name: Path2_lvl3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31239,7 +31239,7 @@ GameObject:
   m_Component:
   - component: {fileID: 842254286}
   m_Layer: 0
-  m_Name: Path1
+  m_Name: Path1_lvl3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40193,13 +40193,13 @@ MonoBehaviour:
   - {fileID: 1799979774}
   - {fileID: 1411966849}
   allPathsLv2:
-  - {fileID: 842254285}
-  - {fileID: 639055066}
-  - {fileID: 1349465477}
-  allPathsLv3:
   - {fileID: 1669760940}
   - {fileID: 490571333}
   - {fileID: 77575994}
+  allPathsLv3:
+  - {fileID: 842254285}
+  - {fileID: 639055066}
+  - {fileID: 1349465477}
   allPathsLv4:
   - {fileID: 2073974612}
   - {fileID: 2053134758}
@@ -46143,7 +46143,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1349465478}
   m_Layer: 0
-  m_Name: Path 3
+  m_Name: Path 3_lvl3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48510,7 +48510,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1669760941}
   m_Layer: 0
-  m_Name: Path1
+  m_Name: Path1_lvl4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
