@@ -299,7 +299,7 @@ public class TIleMapGenerator : MonoBehaviour
                 {
                     tile.modifier.OnMouseDown();
                 }
-                else
+                else if(tile.tileType == MyTile.TileType.CANNON)
                 {
                     tile.cannon.OnMouseDown();
                 }
@@ -400,24 +400,51 @@ public class TIleMapGenerator : MonoBehaviour
     void Update()
     {
         float speed = 30.0f;
+        
+        // Get the mouse position in screen coordinates
+        Vector3 mouseScreenPosition = Input.mousePosition;
+
+        // Convert the mouse position to world coordinates
+        Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(mouseScreenPosition);
+
         if (miniCannon.activeSelf)
         {
             
-            miniCannon.transform.position = Vector2.MoveTowards(miniCannon.transform.position,
-                Camera.main.ScreenToWorldPoint(Input.mousePosition), speed * Time.deltaTime);
+            // Ensure the z position is correct (assuming the z position of miniCannon is 0)
+            mouseWorldPosition.z = miniCannon.transform.position.z;
+
+            // Set the position of the miniCannon to the mouse world position
+            miniCannon.transform.position = mouseWorldPosition;
+
+            //miniCannon.transform.position = Vector2.MoveTowards(miniCannon.transform.position,
+                //Camera.main.ScreenToWorldPoint(Input.mousePosition), speed * Time.deltaTime);
             miniCannonCircle.SetUpLine(miniCannon.transform, 15.0f);
 
         }
         if (miniCoin.activeSelf)
         {
+            // Ensure the z position is correct (assuming the z position of miniCannon is 0)
+            mouseWorldPosition.z = miniCoin.transform.position.z;
+
+            // Set the position of the miniCannon to the mouse world position
+            miniCoin.transform.position = mouseWorldPosition;
+
+            /*
             miniCoin.transform.position = Vector2.MoveTowards(miniCoin.transform.position,
-               Camera.main.ScreenToWorldPoint(Input.mousePosition), speed * Time.deltaTime);
+               Camera.main.ScreenToWorldPoint(Input.mousePosition), speed * Time.deltaTime);*/
         }
 
         if (miniDice.activeSelf)
         {
-            miniDice.transform.position = Vector2.MoveTowards(miniDice.transform.position,
-               Camera.main.ScreenToWorldPoint(Input.mousePosition), speed * Time.deltaTime);
+            // Ensure the z position is correct (assuming the z position of miniCannon is 0)
+            mouseWorldPosition.z = miniDice.transform.position.z;
+
+            // Set the position of the miniCannon to the mouse world position
+            miniDice.transform.position = mouseWorldPosition;
+
+            
+            /*miniDice.transform.position = Vector2.MoveTowards(miniDice.transform.position,
+               Camera.main.ScreenToWorldPoint(Input.mousePosition), speed * Time.deltaTime);*/
         }
 
 

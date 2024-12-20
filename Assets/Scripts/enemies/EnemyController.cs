@@ -41,6 +41,7 @@ public class EnemyController : MonoBehaviour
 
     protected void ApplyHealthAddition()
     {
+        priceForKill = health;
         // Ensure EnemyManager exists
         if (EnemyManager.Instance != null)
         {
@@ -98,7 +99,7 @@ public class EnemyController : MonoBehaviour
 
         finalDestination = GameManager.instance.getRumPosition();
         changeText(health.ToString());
-        priceForKill = health;
+        
         
         // If the Slider is found, set its maxValue
         if (healthBar != null)
@@ -278,7 +279,10 @@ public class EnemyController : MonoBehaviour
         StartCoroutine(FadeEffect(0.5f));
         
         //Drop gold
-        MarketManager.instance.earnGold(goldToDrop);
+        if (MarketManager.instance != null)
+        {
+            MarketManager.instance.earnGold(goldToDrop);
+        }
         if(onDeathSound != null)
             audioSource.PlayOneShot(onDeathSound, audioSource.volume);
         

@@ -62,45 +62,31 @@ public class GameManager : MonoBehaviour
         
 
         waves[0] = 3;
-        waves[1] = 5;
-        waves[2] = 5;
-        waves[3] = 9;
-        waves[4] = 4;
+        waves[1] = 3;
+        waves[2] = 3;
+        waves[3] = 3;
+        waves[4] = 3;
 
         //TO FAST
-        enemiesHp[0].Add(5);
-        enemiesHp[0].Add(13); 
-        enemiesHp[0].Add(24);
+        enemiesHp[0].Add(10);
+        enemiesHp[0].Add(20); 
+        enemiesHp[0].Add(35);
         
-        enemiesHp[1].Add(13);
+        enemiesHp[1].Add(15);
         enemiesHp[1].Add(26);
         enemiesHp[1].Add(40);
-        enemiesHp[1].Add(50);
-        enemiesHp[1].Add(60);
         
-        enemiesHp[2].Add(13);
-        enemiesHp[2].Add(26);
-        enemiesHp[2].Add(40);
-        enemiesHp[2].Add(50);
-        enemiesHp[2].Add(60);
+        enemiesHp[2].Add(20);
+        enemiesHp[2].Add(32);
+        enemiesHp[2].Add(45);
+        
+        enemiesHp[3].Add(22);
+        enemiesHp[3].Add(35);
+        enemiesHp[3].Add(48);
 
-        enemiesHp[3].Add(5);
-        enemiesHp[3].Add(5);
-        enemiesHp[3].Add(5);
-        enemiesHp[3].Add(10);
-        enemiesHp[3].Add(10);
-        enemiesHp[3].Add(10);
-        enemiesHp[3].Add(10);
-        enemiesHp[3].Add(15);
-        enemiesHp[3].Add(15);
-
-        enemiesHp[4].Add(30);
-        enemiesHp[4].Add(35);
+        enemiesHp[4].Add(25);
         enemiesHp[4].Add(40);
-        enemiesHp[4].Add(50);
-        
-        
-       
+        enemiesHp[4].Add(60);
 
         cardRollManager.setTotalHp(enemiesHp[0][0]);
         cardRollManager.setBiggestEnemyValue(11); //Biggest enemy for first level is shark (11). It will increase by 1 in future waves.
@@ -378,7 +364,7 @@ public class GameManager : MonoBehaviour
         else
         {
             
-            MarketManager.instance.earnGold(50); //Earn some gold for the next level.
+            //MarketManager.instance.earnGold(50); //Earn some gold for the next level.
             //chainControler.resetAnimations();
             Debug.Log(currentLevel + " now");
             levelsLayout[currentLevel].SetActive(false);
@@ -397,7 +383,8 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetInt("Level", currentLevel+1); // Save current level to PlayerPrefs
             PlayerPrefs.Save();
             cardRollManager.setTotalHp(enemiesHp[currentLevel][currentWave]);
-            cardRollManager.setBiggestEnemyValue(cardRollManager.getBiggestEnemyValue()+1); //Increase biggest enemy to be faced.
+            cardRollManager.setBiggestEnemyValue(cardRollManager.getBiggestEnemyValue()-1); //Decrease biggest enemy to be faced when level changes so u have a chance to catch up.
+            Debug.Log("Biggest possible enemy now: " + cardRollManager.getBiggestEnemyValue().ToString());
             cardRollManager.StartRolling();
             inGameUI.UpdateGoldAmount(marketManager.Gold);
             //Increase bonus health by 5
