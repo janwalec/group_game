@@ -37,6 +37,7 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private AudioClip onCloseSound;
 
     public void RestartShopManager() {
+        marketManager = MarketManager.instance;
         Debug.Log("RESTARTING IN SHOP MANAGER");
         cannonsBought = startingCannons;
         diceBought = startingDice;
