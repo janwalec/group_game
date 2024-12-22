@@ -12,8 +12,7 @@ public class Kraken : EnemyController
     {
         base.speed = 1.0f;
         base.health = 14;
-        base.ApplyHealthAddition();
-        base.ApplySpeedMultiplication();
+        base.Start();
         Prepare();
     }
 

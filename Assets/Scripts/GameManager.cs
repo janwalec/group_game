@@ -69,19 +69,19 @@ public class GameManager : MonoBehaviour
         waves[3] = 3;
         waves[4] = 3;
         
-        enemiesHp[0].Add(15);
-        enemiesHp[0].Add(22); 
-        enemiesHp[0].Add(35);
+        enemiesHp[0].Add(18);
+        enemiesHp[0].Add(32); 
+        enemiesHp[0].Add(40);
         
-        enemiesHp[1].Add(15);
-        enemiesHp[1].Add(26);
-        enemiesHp[1].Add(40);
+        enemiesHp[1].Add(20);
+        enemiesHp[1].Add(32);
+        enemiesHp[1].Add(42);
         
-        enemiesHp[2].Add(20);
-        enemiesHp[2].Add(32);
-        enemiesHp[2].Add(45);
+        enemiesHp[2].Add(22);
+        enemiesHp[2].Add(34);
+        enemiesHp[2].Add(46);
         
-        enemiesHp[3].Add(22);
+        enemiesHp[3].Add(13);
         enemiesHp[3].Add(35);
         enemiesHp[3].Add(48);
 
@@ -362,7 +362,7 @@ public class GameManager : MonoBehaviour
         else
         {
             
-            MarketManager.instance.earnGold(30); //Earn some gold for the next level.
+            MarketManager.instance.earnGold(30+(currentLevel*5)); //Earn some gold for the next level.
             //chainControler.resetAnimations();
             Debug.Log(currentLevel + " now");
             levelsLayout[currentLevel].SetActive(false);

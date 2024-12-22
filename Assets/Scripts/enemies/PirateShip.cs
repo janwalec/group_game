@@ -10,7 +10,6 @@ public class NormalShip : EnemyController
         base.speed = 1.0f;
         base.ApplySpeedMultiplication();
         this.Prepare();
-
     }
 
 
@@ -23,7 +22,6 @@ public class NormalShip : EnemyController
 
         finalDestination = GameManager.instance.getRumPosition();
         changeText(health.ToString());
-        priceForKill = health;
 
         // If the Slider is found, set its maxValue
         if (healthBar != null)
@@ -65,7 +63,7 @@ public class NormalShip : EnemyController
         health = card_value;
         base.health = health;
         changeText(health.ToString());
-        base.ApplyHealthAddition();
+        base.Start();
         //Debug.Log("Initialized health with card value " + card_value + ". New health: " + health);
     }
 

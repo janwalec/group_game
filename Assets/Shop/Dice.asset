@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Dice
   m_EditorClassIdentifier: 
   itemName: Dice
-  price: 20
+  price: 15
   icon: {fileID: 21300000, guid: 8ac02952d8445dd4aa98baae6fc8b281, type: 3}

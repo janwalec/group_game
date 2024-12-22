@@ -18,7 +18,7 @@ public class MarketManager : MonoBehaviour
     {
         get => gold;
     }
-    private const int GOLD_AT_BEGINNING = 0;
+    private const int GOLD_AT_BEGINNING = 30;
     private Dictionary<Items, int> prices = new Dictionary<Items, int>();
     public Dictionary<Items, int> Prices
     {
@@ -54,9 +54,9 @@ public class MarketManager : MonoBehaviour
         //sets the initial amount of gold and items' prices
         //instance = this;
         gold = GOLD_AT_BEGINNING;
-        prices.Add(Items.DICE, 20);
-        prices.Add(Items.CANNON, 30);
-        prices.Add(Items.COIN, 10);
+        prices.Add(Items.DICE, 15);
+        prices.Add(Items.CANNON, 20);
+        prices.Add(Items.COIN, 5);
         //goldAmount.text = gold.ToString();
         gameUIController.UpdateGoldAmount(Gold);
     }

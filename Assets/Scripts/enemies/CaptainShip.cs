@@ -19,8 +19,9 @@ public class CaptainShip : EnemyController
     {
         base.health = 13;
         base.speed = 0.7f;
-        base.ApplyHealthAddition();
-        base.ApplySpeedMultiplication();
+        base.Start();
+        //base.ApplyHealthAddition();
+        //base.ApplySpeedMultiplication();
         Prepare();
         StartCoroutine(SpawnEnemyRoutine());  
     }

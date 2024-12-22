@@ -40,9 +40,19 @@ public class EnemyController : MonoBehaviour
     protected Slider healthBar;
     private List<float> activeSlowFactors = new List<float>();
 
+    
+    protected virtual void Start()
+    {
+        Debug.Log($"Enemy HP: {health}");
+        priceForKill = health;
+        Debug.Log($"priceForKill: {priceForKill}");
+        ApplyHealthAddition();
+        ApplySpeedMultiplication();
+        Debug.Log($"priceForKillAfter: {priceForKill}");
+    }
     protected void ApplyHealthAddition()
     {
-        priceForKill = health;
+        //priceForKill = health;
         // Ensure EnemyManager exists
         if (EnemyManager.Instance != null)
         {
@@ -84,13 +94,6 @@ public class EnemyController : MonoBehaviour
         //Debug.Log("Health after adjusting in game is:" + this.health);
 
     }
-
-    private void Start()
-    {
-        
-    }
-
- 
 
     protected virtual void Prepare()
     {
@@ -283,7 +286,7 @@ public class EnemyController : MonoBehaviour
         
         if (isDying) yield break; //If it already is dying, just do nothing.
         isDying = true;
-
+        Debug.Log($"priceForKillAfterDeath: {priceForKill}");
         healthBar.gameObject.SetActive(false);
     
         //Calculate how much gold should be dropped. Overwritten if there is a goldMultiplier.
