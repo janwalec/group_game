@@ -157,7 +157,7 @@ public class EnemyWave : MonoBehaviour
                     NormalShip normalShip = pirateBoat.GetComponent<NormalShip>();
                     if (normalShip != null)
                     {
-                        normalShip.InitializeHealth(card);
+                        normalShip.InitializeHealth(card, true);
                      
                         normalShip.InitializeWaypoints(EnemyPathManager.Instance.getRandomPath(), 0); 
                         Debug.Log($"Spawned ship with card value {card}. Assigned health: {normalShip.GetHealth()} at position: {spawnPosition}");

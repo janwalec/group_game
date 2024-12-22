@@ -43,12 +43,9 @@ public class EnemyController : MonoBehaviour
     
     protected virtual void Start()
     {
-        Debug.Log($"Enemy HP: {health}");
         priceForKill = health;
-        Debug.Log($"priceForKill: {priceForKill}");
         ApplyHealthAddition();
         ApplySpeedMultiplication();
-        Debug.Log($"priceForKillAfter: {priceForKill}");
     }
     protected void ApplyHealthAddition()
     {

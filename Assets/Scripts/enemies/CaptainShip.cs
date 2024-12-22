@@ -73,15 +73,10 @@ public class CaptainShip : EnemyController
 
     private void SpawnEnemy()
     {
-        bool isSecondMap = GameManager.instance.currentLevel == 1; // Second map starts at level 1
         if (pirateShipPrefab != null)
         {
-            //Vector3 spawnPosition = transform.position;
             Vector3 spawnPosition = transform.position;
-            //spawnPosition.y = isSecondMap ? spawnPosition.y -= 2.5f : spawnPosition.y;
-            //spawnPosition.x = isSecondMap ? spawnPosition.x -= 4.2f : spawnPosition.x;
             GameObject newPirateShip = Instantiate(pirateShipPrefab, spawnPosition, Quaternion.identity);
-            //GameObject newPirateShip = Instantiate(pirateShipPrefab, transform.position, Quaternion.identity);
             Transform pirateBoat = newPirateShip.transform.Find("EnemyShip");
             NormalShip normalShip = pirateBoat.GetComponent<NormalShip>();
             EnemyWave.Instance.AddEnemy(pirateBoat);
@@ -90,7 +85,7 @@ public class CaptainShip : EnemyController
             {
                 GameObject[] remainingWaypoints = new GameObject[waypoints.Length - currentWaypoint];
                 Array.Copy(waypoints, currentWaypoint, remainingWaypoints, 0, remainingWaypoints.Length);
-                normalShip.InitializeHealth(5);
+                normalShip.InitializeHealth(5, false);
                 normalShip.InitializeWaypoints(remainingWaypoints,0);
 
             }

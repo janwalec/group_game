@@ -44,6 +44,8 @@ class GameUIController : MonoBehaviour
         
         if (fastForwardButton != null)
         {
+            // Register the callback for key press
+            fastForwardButton.RegisterCallback<KeyDownEvent>(OnKeyDown);
             registerFFButton();
             UpdateFFButtonVisibility();
         }
@@ -173,7 +175,7 @@ class GameUIController : MonoBehaviour
         {
             // Add a click event listener to the button
             fastForwardButton.RegisterCallback<ClickEvent>(ev => ToggleFastForward());
-                
+            
             // Set the button text initially
             UpdateFFButtonText();
             Debug.Log("ff.button was registered");
@@ -181,6 +183,15 @@ class GameUIController : MonoBehaviour
         else
         {
             Debug.LogError("Button FastForward not found in the UI.");
+        }
+    }
+    
+    private void OnKeyDown(KeyDownEvent ev)
+    {
+        // Check if the F key is pressed
+        if (ev.keyCode == KeyCode.F)
+        {
+            ToggleFastForward();
         }
     }
     void UpdateFFButtonText()

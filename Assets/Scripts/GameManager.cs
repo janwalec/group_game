@@ -77,13 +77,13 @@ public class GameManager : MonoBehaviour
         enemiesHp[1].Add(32);
         enemiesHp[1].Add(42);
         
-        enemiesHp[2].Add(22);
-        enemiesHp[2].Add(34);
-        enemiesHp[2].Add(46);
+        enemiesHp[2].Add(12);
+        enemiesHp[2].Add(30);
+        enemiesHp[2].Add(40);
         
         enemiesHp[3].Add(13);
         enemiesHp[3].Add(35);
-        enemiesHp[3].Add(48);
+        enemiesHp[3].Add(45);
 
         enemiesHp[4].Add(25);
         enemiesHp[4].Add(40);
@@ -179,7 +179,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         //Debug.Log("Update");
-        if (Input.GetKeyUp(KeyCode.P))
+        if (Input.GetKeyUp(KeyCode.P) || Input.GetKeyUp(KeyCode.Escape))
         {
         
             if (currentGameState == GameState.GS_PAUSEMENU)

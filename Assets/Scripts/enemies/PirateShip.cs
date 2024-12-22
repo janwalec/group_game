@@ -58,13 +58,13 @@ public class NormalShip : EnemyController
         currentWaypoint = startPoint;
         currentDestination = waypoints[currentWaypoint].transform.position;
     }
-    public void InitializeHealth(int card_value)
+    public void InitializeHealth(int card_value, bool withBonusHealth)
     {
         health = card_value;
         base.health = health;
+        priceForKill = health;
         changeText(health.ToString());
-        base.Start();
-        //Debug.Log("Initialized health with card value " + card_value + ". New health: " + health);
+        if(withBonusHealth)base.Start();
     }
 
 
