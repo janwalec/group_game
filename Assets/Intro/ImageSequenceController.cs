@@ -33,7 +33,7 @@ public class ImageSequenceController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (currentImageIndex > images.Length - 1)
+            if (currentImageIndex > images.Length - 2)
             {
                 MainMenuGameManager.instance.Play();
                 return;
