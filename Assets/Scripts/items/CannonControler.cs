@@ -82,8 +82,16 @@ public class CannonController : MovableItem
                 EnemyController enemyController = hits[i].transform.GetComponent<EnemyController>();
                 if (enemyController != null && !enemyController.isEnemyDying())
                 {
-                    target = hits[i].transform;
-                    break; // Found a valid target, break out of the loop
+                    // Cast a ray from our position to the potential target
+                    Vector2 direction = hits[i].transform.position - transform.position;
+                    RaycastHit2D rockHit = Physics2D.Raycast(transform.position, direction, direction.magnitude, LayerMask.GetMask("Rock"));
+
+                    // If the ray does not hit a rock, set the target
+                    if (rockHit.collider == null)
+                    {
+                        target = hits[i].transform;
+                        break; // Found a valid target with no rock in the way, break out of the loop
+                    }
                 }
             }
         }

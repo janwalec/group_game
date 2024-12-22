@@ -187,8 +187,10 @@ class GameUIController : MonoBehaviour
     {
         if (fastForwardButton != null)
         {
+            
             // Change the button text based on whether the fast forward is on or off
-            fastForwardButton.text = TimeController.instance.isFastForwarding ? ">" : ">>";
+            TimeController tc = TimeController.instance;
+            if(tc != null)fastForwardButton.text = tc.isFastForwarding ? ">" : ">>";
         }
     }
     void ToggleFastForward()
