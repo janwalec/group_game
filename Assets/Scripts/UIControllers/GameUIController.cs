@@ -11,6 +11,7 @@ class GameUIController : MonoBehaviour
     Button pauseButton;
     private Button tutorialButton;
     VisualElement readyButton;
+    private Button fastForwardButton;
     VisualElement shopButton;
     
     public AudioSource audioSource;
@@ -30,6 +31,7 @@ class GameUIController : MonoBehaviour
         points = root.Q<Label>("PointsAmt");
         roundNumber = root.Q<Label>("RoundNumber");
         readyButton = root.Q<VisualElement>("ReadyButton");
+        fastForwardButton = root.Q<Button>("FastForward");
         pauseButton = root.Q<Button>("PauseButton");
         tutorialButton = root.Q<Button>("TutorialButton");
         shopButton = root.Q<VisualElement>("GoldAmt");
@@ -39,6 +41,12 @@ class GameUIController : MonoBehaviour
         {
             readyButton.RegisterCallback<ClickEvent>(ev => OnReadyButtonClick());
         }
+        
+        if (fastForwardButton != null)
+        {
+            UpdateFFButtonVisibility();
+        }
+        
         if (pauseButton != null)
         {
             pauseButton.RegisterCallback<ClickEvent>(ev => OnPauseButtonClick());
@@ -108,6 +116,7 @@ class GameUIController : MonoBehaviour
         {
             readyButton.SetEnabled(false);
         }
+        UpdateFFButtonVisibility();
 
     }
 
@@ -124,6 +133,7 @@ class GameUIController : MonoBehaviour
         {
             readyButton.SetEnabled(true);
         }
+        UpdateFFButtonVisibility();
 
     }
 
@@ -141,5 +151,15 @@ class GameUIController : MonoBehaviour
     public void UpdatePoints(int score)
     {
         points.text = score.ToString();
+    }
+    
+    public void UpdateFFButtonVisibility()
+    {
+        if (fastForwardButton != null)
+        {
+            Debug.Log("Setting ff button");
+            // Show the button only when the GameState is GS_BATTLE
+            fastForwardButton.style.display = (GameManager.instance.currentGameState == GameState.GS_BATTLE) ? DisplayStyle.Flex : DisplayStyle.None;
+        }
     }
 }

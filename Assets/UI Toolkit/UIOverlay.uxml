@@ -25,6 +25,7 @@
         <ui:VisualElement name="Middle" style="flex-grow: 1;" />
         <ui:VisualElement name="Bottom" style="flex-grow: 1; flex-direction: row-reverse; align-items: flex-end; justify-content: space-between; margin-top: 8px; margin-right: 8px; margin-bottom: 8px; margin-left: 8px;">
             <ui:Button text="Ready!" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ReadyButton" class="Button ready_button" style="width: 256px; height: 112px; font-size: 42px; border-top-left-radius: 12px; border-top-right-radius: 12px; border-bottom-right-radius: 12px; border-bottom-left-radius: 12px;" />
+            <ui:Button text="&gt;&gt;" parse-escape-sequences="true" display-tooltip-when-elided="true" name="FastForward" class="Button menu_button" style="height: 112px; font-size: 42px; border-top-left-radius: 12px; border-top-right-radius: 12px; border-bottom-right-radius: 12px; border-bottom-left-radius: 12px; padding-right: 20px; padding-left: 20px; width: 112px;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
