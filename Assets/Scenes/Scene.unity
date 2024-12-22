@@ -11235,6 +11235,8 @@ MonoBehaviour:
   shopUIDocument: {fileID: 461877437}
   shopManager: {fileID: 622088105}
   tutorialWindow: {fileID: 560845293}
+  normalColor: {r: 0.16862746, g: 0.18039216, b: 0.32156864, a: 1}
+  hoverColor: {r: 0.18431373, g: 0.2901961, b: 0.48235294, a: 1}
 --- !u!82 &305949296
 AudioSource:
   m_ObjectHideFlags: 0

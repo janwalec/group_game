@@ -36,18 +36,14 @@ public class TimeController : MonoBehaviour
     
     public void ToggleFastForward()
     {
-        Debug.Log("ff.Toggled fast-forward");
         if (isFastForwarding)
         {
             Time.timeScale = normalSpeed;
-            Debug.Log("ff.off");
         }
         else
         {
             Time.timeScale = fastForwardSpeed;
-            Debug.Log("ff.on");
         }
-
         isFastForwarding = !isFastForwarding;
     }
 

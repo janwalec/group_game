@@ -22,6 +22,8 @@ class GameUIController : MonoBehaviour
     public ShopManager shopManager;
     public TutorialWindow tutorialWindow;
 
+    [SerializeField] private Color normalColor;
+    [SerializeField] private Color hoverColor;
 
     private void OnEnable()
     {
@@ -67,7 +69,14 @@ class GameUIController : MonoBehaviour
         
         audioSource = GetComponent<AudioSource>();
     }
-
+    
+    private void SimulateHoverEvent()
+    {
+        // Simulate a hover event to capture the hover color
+        var hoverEvent = new MouseOverEvent();
+        fastForwardButton.SendEvent(hoverEvent);
+    }
+    
     private void OnTutorialButtonClick()
     {
         //audioSource.PlayOneShot(clickSound);
@@ -201,7 +210,12 @@ class GameUIController : MonoBehaviour
             
             // Change the button text based on whether the fast forward is on or off
             TimeController tc = TimeController.instance;
-            if(tc != null)fastForwardButton.text = tc.isFastForwarding ? ">" : ">>";
+            if(tc != null)fastForwardButton.text = tc.isFastForwarding ? ">>" : ">";
+            if (tc != null)
+            {
+                fastForwardButton.style.backgroundColor = tc.isFastForwarding ? hoverColor : normalColor;
+            }
+            
         }
     }
     void ToggleFastForward()

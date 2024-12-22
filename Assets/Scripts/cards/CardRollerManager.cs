@@ -180,9 +180,8 @@ public class CardRollManager : MonoBehaviour
             audioSource.PlayOneShot(cardFlip, audioSource.volume);
             Debug.Log("Showing Card in Display: " + cardValue);
 
-
-
-            yield return new WaitForSeconds(1.0f);
+            float secondsPerCard = 2.0f/(float)drawnCards.Count;
+            yield return new WaitForSeconds(secondsPerCard);
 
             //Kraken has a special sound for giving boss vibes.
             if (cardValue == 14) { audioSource.PlayOneShot(krakenOmen); }
@@ -207,9 +206,9 @@ public class CardRollManager : MonoBehaviour
 
 
             // Wait before showing the next card
-            yield return new WaitForSeconds(0.5f);
+            //yield return new WaitForSeconds(0.5f);
         }
-
+        yield return new WaitForSeconds(0.5f);
         yield return showBonusHPCard();
 
         // Hide the CardDisplay after all cards are moved
@@ -223,6 +222,7 @@ public class CardRollManager : MonoBehaviour
 
     private object showBonusHPCard()
     {
+        
         cardDisplay.gameObject.SetActive(true); // Ensure the CardDisplay is visible
         cardDisplay.sprite = bonusHPCardSprite;
         audioSource.PlayOneShot(cardFlip, audioSource.volume);
@@ -260,7 +260,7 @@ public class CardRollManager : MonoBehaviour
         bonusHPCardText.color = new Color(55f / 255f, 55f / 255f, 71f / 255f);
 
         // Wait before showing the next card
-        return new WaitForSeconds(0.5f);
+        return new WaitForSeconds(0.2f);
     }
 
 

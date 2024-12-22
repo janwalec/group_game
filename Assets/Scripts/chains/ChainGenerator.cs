@@ -42,7 +42,7 @@ public class ChainGenerator : MonoBehaviour
 
     void Update() {
         tilemap = GameManager.instance.getTilemap();
-        if (GameManager.instance.currentGameState == GameState.GS_PREPARE) {
+        if (GameManager.instance.currentGameState == GameState.GS_PREPARE || GameManager.instance.currentGameState == GameState.GS_WAIT) {
             
 
 

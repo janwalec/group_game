@@ -18,49 +18,56 @@ public abstract class MovableItem : MonoBehaviour
     public void OnMouseDown()
     {
         Debug.Log("Modifier clicked!.!");
-        if (GameManager.instance.currentGameState != GameState.GS_PREPARE) return;
+        if (GameManager.instance.currentGameState != GameState.GS_PREPARE && GameManager.instance.currentGameState != GameState.GS_WAIT)
+        {
+            return;
+        }
+
         if (!moving)
         {
+            // Remove the chain immediately when picking up the item
+            GameManager.instance.chainControler.deleteChainByElement(this);
+
             prevPosition = transform.position;
-            ActivateMiniVersion ();
-            //gameObject.SetActive(false);
+            ActivateMiniVersion();
+            // gameObject.SetActive(false);  // If you want to hide the original item, uncomment this
         }
-        if(moving)
+
+        if (moving)
         {
-            //gameObject.SetActive(true);
+            //gameObject.SetActive(true); // If you hide the original, you can make it visible again here
             PutDown();
-            DeactivateMiniVersion ();
+            DeactivateMiniVersion();
         }
+
         moving = !moving;
     }
 
     public void Update()
     {
-        if(moving)
+        if (moving)
         {
-            
             Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mouseWorldPos.z += Camera.main.nearClipPlane;
             transform.position = mouseWorldPos;
-
         }
     }
 
     private void PutDown()
     {
-        
         TIleMapGenerator tm = GameManager.instance.getTilemap();
         tm.selectObject(selector);
+
         if (!tm.PlaceAnItem(this.gameObject))
         {
             transform.position = prevPosition;
         }
         else
         {
-            GameManager.instance.chainControler.deleteChainByElement(this);
+            // When placing the item, no need to delete the chain again since it's already deleted on pick up
             tm.releaseTile(tm.getTileFromMousePosition(prevPosition));
         }
-        //Vector3Int gridPosition = tm.WorldToCell(mouseWorldPos);
     }
+
 
 }
