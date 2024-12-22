@@ -44,6 +44,7 @@ class GameUIController : MonoBehaviour
         
         if (fastForwardButton != null)
         {
+            registerFFButton();
             UpdateFFButtonVisibility();
         }
         
@@ -133,6 +134,7 @@ class GameUIController : MonoBehaviour
         {
             readyButton.SetEnabled(true);
         }
+        
         UpdateFFButtonVisibility();
 
     }
@@ -161,5 +163,38 @@ class GameUIController : MonoBehaviour
             // Show the button only when the GameState is GS_BATTLE
             fastForwardButton.style.display = (GameManager.instance.currentGameState == GameState.GS_BATTLE) ? DisplayStyle.Flex : DisplayStyle.None;
         }
+    }
+    private void registerFFButton()
+    {
+        // Find the button with the name "#FastForward" (the '#' is optional, depending on your UXML)
+        fastForwardButton = root.Q<Button>("FastForward");
+
+        if (fastForwardButton != null)
+        {
+            // Add a click event listener to the button
+            fastForwardButton.RegisterCallback<ClickEvent>(ev => ToggleFastForward());
+                
+            // Set the button text initially
+            UpdateFFButtonText();
+            Debug.Log("ff.button was registered");
+        }
+        else
+        {
+            Debug.LogError("Button FastForward not found in the UI.");
+        }
+    }
+    void UpdateFFButtonText()
+    {
+        if (fastForwardButton != null)
+        {
+            // Change the button text based on whether the fast forward is on or off
+            fastForwardButton.text = TimeController.instance.isFastForwarding ? ">" : ">>";
+        }
+    }
+    void ToggleFastForward()
+    {
+        TimeController.instance.ToggleFastForward();
+        // Update the button text based on the fast forward state
+        UpdateFFButtonText();
     }
 }

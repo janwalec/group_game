@@ -362,7 +362,7 @@ public class GameManager : MonoBehaviour
         else
         {
             
-            //MarketManager.instance.earnGold(50); //Earn some gold for the next level.
+            MarketManager.instance.earnGold(30); //Earn some gold for the next level.
             //chainControler.resetAnimations();
             Debug.Log(currentLevel + " now");
             levelsLayout[currentLevel].SetActive(false);
@@ -385,8 +385,8 @@ public class GameManager : MonoBehaviour
             Debug.Log("Biggest possible enemy now: " + cardRollManager.getBiggestEnemyValue().ToString());
             cardRollManager.StartRolling();
             inGameUI.UpdateGoldAmount(marketManager.Gold);
-            //Increase bonus health by 5
-            enemyManager.SetHealthAddition(enemyManager.getHealthAddition()+5);
+            //Increase bonus health by 10
+            enemyManager.SetHealthAddition(enemyManager.getHealthAddition()+10);
         }
         
         
@@ -413,6 +413,9 @@ public class GameManager : MonoBehaviour
         chainControler.resetAnimations();
         chainControler.StopRolling();
         Debug.Log("here2");
+        
+        TimeController.instance.SetNormalSpeed();
+        
         if (waves[currentLevel] == currentWave + 1)
         {
             Debug.Log("Not display");

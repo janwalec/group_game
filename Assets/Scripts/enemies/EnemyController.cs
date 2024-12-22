@@ -290,7 +290,7 @@ public class EnemyController : MonoBehaviour
         int goldToDrop = priceForKill;
         if (lastHitHasGoldMultiplier)
         {
-            int bonus = Mathf.RoundToInt(lastDamageTaken * EnemyManager.Instance.GoldBonusFactor);
+            int bonus = Mathf.RoundToInt(priceForKill * EnemyManager.Instance.GoldBonusFactor);
             goldToDrop = bonus + priceForKill;
             //Wait for 0.8 seconds, then call ShowGoldText with (bonus)
             StartCoroutine(DelayedShowGoldText(bonus, 0.5f));

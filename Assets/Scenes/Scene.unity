@@ -11484,11 +11484,11 @@ MonoBehaviour:
   cannonBallToPool: {fileID: 4557232327468985940, guid: 607b65c95c6a8884fb0b650c79827645, type: 3}
   lineRendererToPool: {fileID: 3992387084176347461, guid: 2bb823f58b5f29047897bbdaa71a5b4b, type: 3}
   circleRendererToPool: {fileID: 0}
-  coinAmountToPool: 10
-  diceAmountToPool: 10
-  cannonAmountToPool: 10
-  cannonBallAmountToPool: 20
-  lineRenderAmountToPool: 10
+  coinAmountToPool: 30
+  diceAmountToPool: 30
+  cannonAmountToPool: 30
+  cannonBallAmountToPool: 30
+  lineRenderAmountToPool: 20
 --- !u!4 &344465321
 Transform:
   m_ObjectHideFlags: 0
@@ -46738,6 +46738,7 @@ MonoBehaviour:
   uiDocument: {fileID: 305949293}
   normalSpeed: 1
   fastForwardSpeed: 3
+  isFastForwarding: 0
 --- !u!4 &1458603158
 Transform:
   m_ObjectHideFlags: 0
@@ -63242,7 +63243,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthAddition: 10
-  speedMultiplication: 0.8
+  speedMultiplication: 1
   goldBonusFactor: 0.5
 --- !u!4 &2112370894
 Transform:

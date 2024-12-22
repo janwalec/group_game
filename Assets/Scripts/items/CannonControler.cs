@@ -316,8 +316,8 @@ public class CannonController : MovableItem
     private float calculateSlowingEffect(int damage)
     {
         // Define the minimum and maximum slowing factors
-        float minSlowingFactor = 0.2f;
-        float maxSlowingFactor = 0.6f;
+        float minSlowingFactor = 0.6f;
+        float maxSlowingFactor = 0.9f;
 
         // Ensure the damage is at least 1 to avoid division by zero or negative values
         damage = Mathf.Max(damage, 1);
