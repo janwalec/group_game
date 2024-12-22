@@ -68,10 +68,9 @@ public class GameManager : MonoBehaviour
         waves[2] = 3;
         waves[3] = 3;
         waves[4] = 3;
-
-        //TO FAST
-        enemiesHp[0].Add(10);
-        enemiesHp[0].Add(20); 
+        
+        enemiesHp[0].Add(15);
+        enemiesHp[0].Add(22); 
         enemiesHp[0].Add(35);
         
         enemiesHp[1].Add(15);
@@ -96,7 +95,7 @@ public class GameManager : MonoBehaviour
         
         if (enemyManager != null)
         {
-            enemyManager.SetHealthAddition(5);
+            enemyManager.SetHealthAddition(10);
         }
         
         //NextLevel();

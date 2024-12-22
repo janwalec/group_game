@@ -18,7 +18,7 @@ public class Mermaid : EnemyController
     {
 
         base.health = 12;
-        base.speed = 1.3f;
+        base.speed = 1.0f;
 
         base.ApplyHealthAddition();
         base.ApplySpeedMultiplication();
@@ -139,4 +139,8 @@ public class Mermaid : EnemyController
         Debug.Log("Mermaid has died.");
         base.Die();
     }*/
+   public bool isInStealth()
+   {
+       return isStealthActive;
+   }
 }

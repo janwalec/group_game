@@ -317,13 +317,13 @@ public class CannonController : MovableItem
     {
         // Define the minimum and maximum slowing factors
         float minSlowingFactor = 0.2f;
-        float maxSlowingFactor = 0.8f;
+        float maxSlowingFactor = 0.6f;
 
         // Ensure the damage is at least 1 to avoid division by zero or negative values
         damage = Mathf.Max(damage, 1);
 
         // Calculate the interpolation factor (normalized value between 0 and 1)
-        float t = (damage - 1) / 49.0f; // 49 because damage ranges from 1 to 50 (inclusive)
+        float t = (damage - 1) / 20f; //
 
         // Calculate the slowing effect using linear interpolation
         float slowingEffect = Mathf.Lerp(maxSlowingFactor, minSlowingFactor, t);

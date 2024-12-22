@@ -18,7 +18,7 @@ public class CaptainShip : EnemyController
     public void Start()
     {
         base.health = 13;
-        base.speed = 1.04f;
+        base.speed = 0.7f;
         base.ApplyHealthAddition();
         base.ApplySpeedMultiplication();
         Prepare();
@@ -30,18 +30,7 @@ public class CaptainShip : EnemyController
     {
         StartCoroutine(SpawnEnemyRoutine());  
     }
-
-    protected override IEnumerator SlowDown(float newSpeed)
-    {
-        if (newSpeed >= this.speed)
-        {
-            newSpeed = this.speed;
-        }
-
-        speed = newSpeed;  // Apply slowing effect factor to speed
-        Debug.Log("Enemy speed: " + speed);
-        yield return new WaitForSeconds(2f);  // Slow effect lasts for 3 seconds
-    }
+    
 
     public override void Move()
     {

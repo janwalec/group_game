@@ -7,7 +7,7 @@ public class NormalShip : EnemyController
 {
     private void Start()
     {
-        base.speed = 1.3f;
+        base.speed = 1.0f;
         base.ApplySpeedMultiplication();
         this.Prepare();
 

@@ -38,6 +38,7 @@ public class EnemyController : MonoBehaviour
     private bool lastHitHasGoldMultiplier;
     public string shipType = "Generic Enemy";
     protected Slider healthBar;
+    private List<float> activeSlowFactors = new List<float>();
 
     protected void ApplyHealthAddition()
     {
@@ -113,18 +114,43 @@ public class EnemyController : MonoBehaviour
         }
 
     }
-    protected virtual IEnumerator SlowDown(float newSpeed)
+    protected virtual IEnumerator SlowDown(float newSpeedFactor)
     {
-        float cappedNewSpeed = newSpeed;
-        if (newSpeed > 1f)
-        {
-            cappedNewSpeed = 1f;
-        }
-        speed *= cappedNewSpeed; 
-        //Debug.Log("Enemy speed: " + speed);
+        // Ensure newSpeedFactor only slows down
+        if (newSpeedFactor > 1f) newSpeedFactor = 1f;
+
+        // Add the new slowing factor to the list
+        activeSlowFactors.Add(newSpeedFactor);
+        UpdateSpeed();
+
+        // Wait for 2 seconds
         yield return new WaitForSeconds(2f);
-        speed = normalSpeed;
+
+        // Remove the slowing factor from the list and update the speed
+        activeSlowFactors.Remove(newSpeedFactor);
+        UpdateSpeed();
     }
+
+    private void UpdateSpeed()
+    {
+        float finalSpeedFactor = 1f;
+
+        // Combine all active slowing factors
+        foreach (float factor in activeSlowFactors)
+        {
+            finalSpeedFactor *= factor;
+        }
+
+        // Ensure the speed never exceeds the normal speed
+        speed = normalSpeed * finalSpeedFactor;
+    }
+
+    // Method to start the slowing effect
+    public void ApplySlowDown(float newSpeedFactor)
+    {
+        StartCoroutine(SlowDown(newSpeedFactor));
+    }
+
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();

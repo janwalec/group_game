@@ -15,8 +15,8 @@ public class RumController : MonoBehaviour
     AudioSource audioSource;
     [SerializeField] AudioClip onDamageSound;
     [SerializeField] AudioClip onLossSound;
-    private double krakenMultiplier = 2.0;  // Kraken consumes rum at twice the normal rate
-
+    private float krakenMultiplier = 2.0f;  // Kraken consumes rum at twice the normal rate
+    private float damageTimer = 0f;
     private Slider healthBar;
     //SFX
     public float pitchIncrement = 0.5f;   // Amount by which to increase the pitch each time
@@ -52,48 +52,58 @@ public class RumController : MonoBehaviour
             Debug.LogError("Slider component not found in children!");
         }
     }
-
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     void Update()
     {
         if (!tileOccupied)
         {
-            
-                GameManager.instance.getTilemap().occupyTile(transform.position);
-                tileOccupied = true;
+            GameManager.instance.getTilemap().occupyTile(transform.position);
+            tileOccupied = true;
         }
 
         RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, range, Vector2.zero, 0f, enemyMask);
-
+        
         if (hits.Length > 0)
         {
+            Debug.Log("Detected Enemy in rum");
             int regularEnemies = 0;
             int krakenEnemies = 0;
 
-          
             foreach (RaycastHit2D hit in hits)
             {
                 if (hit.collider != null)
                 {
-                    
                     var kraken = hit.collider.GetComponent<Kraken>();
-                    if (kraken != null)
+                    if (kraken != null && !kraken.isEnemyDying())
                     {
-                        if (!kraken.isEnemyDying())  // Check if the Kraken enemy is dying
-                        {
-                            krakenEnemies++;
-                        }
+                        krakenEnemies++;
                     }
                     var enemy = hit.collider.GetComponent<EnemyController>();
-                    if (enemy != null && !enemy.isEnemyDying())  // Check if the regular enemy is dying
+                    if (enemy != null && !enemy.isEnemyDying())
                     {
-                        regularEnemies++;
+                        // Check if the enemy is a Mermaid and if it is in stealth
+                        var mermaid = enemy.GetComponent<Mermaid>();
+                        if (mermaid == null || !mermaid.isInStealth())
+                        {
+                            regularEnemies++;
+                        }
                     }
                 }
             }
 
-            //for each hit, check if it IsEnemyDying(), and if so, TakeDamage().
-            TakeDamage(regularEnemies, krakenEnemies);
+            damageTimer += Time.deltaTime;
+
+            // Take damage if a second has passed
+            if (damageTimer >= 1f)
+            {
+                Debug.Log("Tapping rum");
+                TakeDamage(regularEnemies, krakenEnemies);
+                damageTimer = 0f;
+            }
         }
         else
         {
@@ -101,31 +111,30 @@ public class RumController : MonoBehaviour
         }
     }
 
-    private void Awake()
-    {
-        audioSource = GetComponent<AudioSource>();
-    }
     void TakeDamage(int enemiesNum, int krakenEnemies)
     {
-        HPLoss += enemiesNum * 0.01;
+        // Each regular enemy causes 1 damage per second
+        int totalDamage = enemiesNum;
 
-        // Calculate additional HPLoss for Kraken enemies with a higher rate
+        // Each kraken enemy causes additional damage based on the multiplier
+        totalDamage += Mathf.CeilToInt(krakenEnemies * krakenMultiplier);
 
-        HPLoss += krakenEnemies * 0.01 * krakenMultiplier;
+        // Apply the damage
+        HPInt -= totalDamage;
 
-
-        if (HPLoss >= 1)
+        // Play damage sound and update pitch
+        if (totalDamage > 0)
         {
             audioSource.PlayOneShot(onDamageSound);
-            audioSource.pitch = Mathf.Min(audioSource.pitch + pitchIncrement, maxPitch); // Increase pitch but do not exceed maxPitch
-            audioSource.PlayOneShot(onDamageSound);
-            HPInt--;
-            HPLoss = 0;
-            changeText(HPInt.ToString());
-            healthBar.value = HPInt;
+            audioSource.pitch = Mathf.Min(audioSource.pitch + pitchIncrement, maxPitch);
         }
-        
-        if(HPInt <= 0)
+
+        // Update UI
+        changeText(HPInt.ToString());
+        healthBar.value = HPInt;
+
+        // Check for game over
+        if (HPInt <= 0)
         {
             audioSource.pitch = initialPitch;
             audioSource.PlayOneShot(onLossSound);
