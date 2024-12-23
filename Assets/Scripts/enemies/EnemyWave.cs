@@ -13,7 +13,7 @@ public class EnemyWave : MonoBehaviour
     private float maxY = 0.5f;
     private float spaceMultiplier = 5f;
     private float minX;
-    private float xOffset = 5.0f;
+    private float xOffset = 3.5f;
     List<Transform> enemies = new List<Transform>();
 
     private static EnemyWave _instance;

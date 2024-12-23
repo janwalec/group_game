@@ -147,6 +147,7 @@ class GameUIController : MonoBehaviour
         }
         
         UpdateFFButtonVisibility();
+        UpdateFFButtonText();
 
     }
 

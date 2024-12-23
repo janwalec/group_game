@@ -541,53 +541,22 @@ public class ChainControler : MonoBehaviour
                     yield return (rollingDelay);
                 }
             }
-                
-
-            //float slowing_effect;
+            
             LinkedListNode<MyTile> curr = currChain.tileChain.Last;
             LinkedListNode<MyTile> temp = currChain.tileChain.Last;
-            //float minSlowingFactor = 0.2f;
-            //float maxSlowingFactor = 0.8f;
-            //float newSpeed = 1.5f;
-            //bool isSlowed = false;
 
             while (curr != null)
             {
                 if (curr.Value.tileType == MyTile.TileType.COIN || curr.Value.tileType == MyTile.TileType.DICE)
                 {
                     curr.Value.modifier.Roll();
-                    if (curr != null && curr.Next != null)
-                    {
-                        /*if (curr.Value.tileType == MyTile.TileType.DICE && curr.Next.Value.tileType == MyTile.TileType.DICE)
-                        {
-                            isSlowed = true;
-                            Debug.Log("Found 2 dice");
-
-                            slowing_effect = (float)currChain.chainSum;
-
-                            float slowingFactor = Mathf.Lerp(minSlowingFactor, maxSlowingFactor, (slowing_effect - 2) / 10.0f);
-                            if (slowing_effect == 0)
-                            {
-                                newSpeed = 1.5f;
-                            }
-                            else
-                            {
-                                newSpeed = 1.5f * (1.0f - slowingFactor);
-                            }
-                            // this shouldn't be hardcoded
-                            Debug.Log($"Dice sum:{slowing_effect}, new speed:{newSpeed}");
-                        }*/
-                    }
-
                     curr.Value.modifier.calculateCurrentTotal(curr.Next == null ? null : curr.Next.Value.modifier);
                     curr.Value.modifier.ChangeAnimation();
                     curr.Value.modifier.activateCanvas();
-
                     
                     yield return new WaitForSeconds(rollingDelay);
                     if (GameManager.instance.currentGameState != GameState.GS_BATTLE)
                     {
-                        Debug.Log("Waiting");
                         resetAnimations();
                         while (GameManager.instance.currentGameState != GameState.GS_BATTLE)
                         {
@@ -600,7 +569,7 @@ public class ChainControler : MonoBehaviour
                 }
 
                 resetAnimations();
-                if (curr.Previous == null)
+                if (curr.Previous == null) //We are at the end of the chain, meaning it must be a cannon
                 {
                     if (curr.Value.tileType == MyTile.TileType.CANNON)
                     {
@@ -618,11 +587,12 @@ public class ChainControler : MonoBehaviour
                         //curr.Value.cannon.setShootingDamage(myChains[myChains.Count - 1].chainSum);
                         
                         bool hasNoModifiersInChain = false;
+                        yield return new WaitForSeconds(singleCannonExtraDelay);
                         if (currChain.tileChain.Count == 1)
                         {
                             Debug.Log("Just one");
                             hasNoModifiersInChain = true;
-                            yield return new WaitForSeconds(singleCannonExtraDelay);
+                            
                             curr.Value.cannon.setDamageAsBaseDamage();
                             //curr.Value.cannon.setSlowingEffect(newSpeed);
                         }
@@ -641,9 +611,6 @@ public class ChainControler : MonoBehaviour
                                 //var direction = ChainGenerator.Direction.TOP_LEFT;
                                 curr.Value.cannon.resetEffects();
                                 curr.Value.cannon.setHasSlowingEffect(true);
-                                //curr.Value.cannon.setSlowingEffect(newSpeed);
-                                Debug.Log("CHAIN INPUT TOP LEFT");
-                                //curr.Value.cannon.SetBonusIcon(direction);
                             }
                             else if (curr.Next.Value == curr.Value.GetNeighbourAt(1))
                                 
@@ -651,46 +618,34 @@ public class ChainControler : MonoBehaviour
                                 //var direction = ChainGenerator.Direction.TOP_RIGHT;
                                 curr.Value.cannon.resetEffects();
                                 curr.Value.cannon.setHasSlowingEffect(true);
-                                //curr.Value.cannon.setSlowingEffect(newSpeed);
-                                Debug.Log("CHAIN INPUT TOP RIGHT");
-                                //curr.Value.cannon.SetBonusIcon(direction);
                             }
                                 
                             else if (curr.Next.Value == curr.Value.GetNeighbourAt(2))
                                 
                             {
                                 //var direction = ChainGenerator.Direction.MIDDLE_LEFT;
-                                Debug.Log("CHAIN INPUT MIDDLE LEFT");
                                 curr.Value.cannon.resetEffects();
                                 curr.Value.cannon.setIsBouncy(true);
-                                //curr.Value.cannon.SetBonusIcon(direction);
+                                
                             }
                             else if (curr.Next.Value == curr.Value.GetNeighbourAt(3))
                                
                             {
                                 //var direction = ChainGenerator.Direction.MIDDLE_RIGHT;
-                                Debug.Log("CHAIN INPUT MIDDLE RIGHT");
                                 curr.Value.cannon.resetEffects();
                                 curr.Value.cannon.setIsBouncy(true);
-                                //curr.Value.cannon.SetBonusIcon(direction);
                             }
                             else if (curr.Next.Value == curr.Value.GetNeighbourAt(4))
-                                //direction = ChainGenerator.Direction.BOTTOM_LEFT;
                             {
                                 //var direction = ChainGenerator.Direction.BOTTOM_LEFT;
-                                Debug.Log("CHAIN INPUT BOTTOM LEFT");
                                 curr.Value.cannon.resetEffects();
                                 curr.Value.cannon.setHasBonus(true);
-                                //curr.Value.cannon.SetBonusIcon(direction);
                             }
                             else if (curr.Next.Value == curr.Value.GetNeighbourAt(5))
-                                
                             {
                                 //var direction = ChainGenerator.Direction.BOTTOM_RIGHT;
-                                Debug.Log("CHAIN INPUT BOTTOM RIGHT");
                                 curr.Value.cannon.resetEffects();
                                 curr.Value.cannon.setHasBonus(true);
-                                //curr.Value.cannon.SetBonusIcon(direction);
                             }
                             else
                             {
@@ -718,10 +673,8 @@ public class ChainControler : MonoBehaviour
                         }
                         curr.Value.cannon.deactivateCanvas();
                     }
-                    //curr.Value.cannon.setShootingDamage(10);
-
                 }
-                else if (curr.Previous.Previous == null)
+                else if (curr.Previous.Previous == null) //The last modifier in the chain?
                 {
                     currChain.chainSum = curr.Value.modifier.getCurrentTotal();
                 }

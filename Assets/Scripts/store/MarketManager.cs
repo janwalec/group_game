@@ -18,7 +18,7 @@ public class MarketManager : MonoBehaviour
     {
         get => gold;
     }
-    private const int GOLD_AT_BEGINNING = 30;
+    private const int GOLD_AT_BEGINNING = 20;
     private Dictionary<Items, int> prices = new Dictionary<Items, int>();
     public Dictionary<Items, int> Prices
     {

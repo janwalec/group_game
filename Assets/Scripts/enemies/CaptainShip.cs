@@ -9,11 +9,12 @@ public class CaptainShip : EnemyController
     private bool isSlowed = false;
     public GameObject pirateShipPrefab;
     private Vector3 spawnOffset = new Vector3(1f, -1f, 0f);  
-    private float spawnInterval = 15f;  
+    private float spawnInterval = 10f;
     private float initialDelay = 10f;   // Initial delay before starting the spawn routine
     private List<Transform> enemies;
     private EnemyWave wave;
     private GameObject shipPrefab;
+    private int initHealth;
 
     public void Start()
     {
@@ -22,6 +23,7 @@ public class CaptainShip : EnemyController
         base.Start();
         //base.ApplyHealthAddition();
         //base.ApplySpeedMultiplication();
+        initHealth = health;
         Prepare();
         StartCoroutine(SpawnEnemyRoutine());  
     }
@@ -85,7 +87,12 @@ public class CaptainShip : EnemyController
             {
                 GameObject[] remainingWaypoints = new GameObject[waypoints.Length - currentWaypoint];
                 Array.Copy(waypoints, currentWaypoint, remainingWaypoints, 0, remainingWaypoints.Length);
-                normalShip.InitializeHealth(5, false);
+                int childHealth = (int)(initHealth * 0.3f);//Get 20% of captainships initial HP.
+                if (childHealth < 2)
+                {
+                    childHealth = 2;
+                }
+                normalShip.InitializeHealth(childHealth, false);
                 normalShip.InitializeWaypoints(remainingWaypoints,0);
 
             }

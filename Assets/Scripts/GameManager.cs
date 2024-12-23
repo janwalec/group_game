@@ -77,11 +77,11 @@ public class GameManager : MonoBehaviour
         enemiesHp[1].Add(32);
         enemiesHp[1].Add(42);
         
-        enemiesHp[2].Add(12);
-        enemiesHp[2].Add(30);
-        enemiesHp[2].Add(40);
+        enemiesHp[2].Add(22);
+        enemiesHp[2].Add(32);
+        enemiesHp[2].Add(44);
         
-        enemiesHp[3].Add(13);
+        enemiesHp[3].Add(18);
         enemiesHp[3].Add(35);
         enemiesHp[3].Add(45);
 
@@ -282,6 +282,15 @@ public class GameManager : MonoBehaviour
         inGameCanvas.enabled = (currentGameState == GameState.GS_PREPARE || currentGameState == GameState.GS_WAIT);
         inGameUI.SetReadyButtonActive(currentGameState == GameState.GS_PREPARE);
         levelWonUI.SetActive(currentGameState == GameState.GS_LEVEL_COMPLETED);
+        if (currentGameState == GameState.GS_LEVEL_COMPLETED)
+        {
+            int levelCompleteGold = ((currentLevel+1) * 5);
+            LevelWonUIController levelWonUIController = levelWonUI.GetComponent<LevelWonUIController>();
+            levelWonUIController.ShowGoldStatus(MarketManager.instance.Gold, levelCompleteGold);
+            MarketManager.instance.earnGold(levelCompleteGold); //Earn some gold for the next level.
+        }
+
+        
         settingsUI.SetActive(currentGameState == GameState.GS_SETTINGS);
     }
 
@@ -361,8 +370,6 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            
-            MarketManager.instance.earnGold(30+(currentLevel*5)); //Earn some gold for the next level.
             //chainControler.resetAnimations();
             Debug.Log(currentLevel + " now");
             levelsLayout[currentLevel].SetActive(false);

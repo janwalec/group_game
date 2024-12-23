@@ -266,7 +266,7 @@ public class CardRollManager : MonoBehaviour
 
     void RollCard()
     {
-        audioSource.PlayOneShot(cardFlip, audioSource.volume);
+        //audioSource.PlayOneShot(cardFlip, audioSource.volume);
 
 
         int remainingHP = hp - drawnTotal;
