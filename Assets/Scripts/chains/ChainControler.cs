@@ -587,12 +587,11 @@ public class ChainControler : MonoBehaviour
                         //curr.Value.cannon.setShootingDamage(myChains[myChains.Count - 1].chainSum);
                         
                         bool hasNoModifiersInChain = false;
-                        yield return new WaitForSeconds(singleCannonExtraDelay);
+                        
                         if (currChain.tileChain.Count == 1)
                         {
                             Debug.Log("Just one");
                             hasNoModifiersInChain = true;
-                            
                             curr.Value.cannon.setDamageAsBaseDamage();
                             //curr.Value.cannon.setSlowingEffect(newSpeed);
                         }
