@@ -55,7 +55,7 @@ public class MarketManager : MonoBehaviour
         //instance = this;
         gold = GOLD_AT_BEGINNING;
         prices.Add(Items.DICE, 15);
-        prices.Add(Items.CANNON, 20);
+        prices.Add(Items.CANNON, 25);
         prices.Add(Items.COIN, 5);
         //goldAmount.text = gold.ToString();
         gameUIController.UpdateGoldAmount(Gold);

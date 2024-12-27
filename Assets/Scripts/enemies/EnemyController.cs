@@ -257,6 +257,23 @@ public class EnemyController : MonoBehaviour
         Instantiate(damageParticles, this.transform.position, Quaternion.identity);
 
         print("HP is" + health);
+        if (lastHitHasGoldMultiplier)
+        {
+            int bonus = Mathf.RoundToInt(dmg * EnemyManager.Instance.GoldBonusFactor);
+            if (bonus > 0)
+            {
+                //Wait for 0.8 seconds, then call ShowGoldText with (bonus)
+                StartCoroutine(DelayedShowGoldText(bonus, 0.5f));
+                //Drop gold
+                if (MarketManager.instance != null)
+                {
+                    MarketManager.instance.earnGold(bonus);
+                }
+
+                // Notify subscribers that this enemy has been killed
+                GameEvents.EnemyKilled(bonus);
+            }
+        }
 
         if (health <= 0)
         {
@@ -288,15 +305,11 @@ public class EnemyController : MonoBehaviour
     
         //Calculate how much gold should be dropped. Overwritten if there is a goldMultiplier.
         int goldToDrop = priceForKill;
-        if (lastHitHasGoldMultiplier)
-        {
-            int bonus = Mathf.RoundToInt(priceForKill * EnemyManager.Instance.GoldBonusFactor);
-            goldToDrop = bonus + priceForKill;
-            //Wait for 0.8 seconds, then call ShowGoldText with (bonus)
-            StartCoroutine(DelayedShowGoldText(bonus, 0.5f));
-        }
         
         ShowGoldText(priceForKill);
+        // Find the original text component
+        TextMeshProUGUI originalTextComponent = canvas.GetComponentInChildren<TextMeshProUGUI>();
+        originalTextComponent.text = "";
         
         //Slow down
         StartCoroutine(SlowDown(0f));
@@ -383,12 +396,24 @@ public class EnemyController : MonoBehaviour
     
     private void ShowGoldText(int goldDropped)
     {
-        TextMeshProUGUI textComponent = canvas.GetComponentInChildren<TextMeshProUGUI>();
-        //textComponent.gameObject.SetActive(true);
-        changeText("+" + goldDropped);
-        textComponent.color = Color.yellow;
-        
-        StartCoroutine(MoveAndFadeText(textComponent));
+        // Find the original text component
+        TextMeshProUGUI originalTextComponent = canvas.GetComponentInChildren<TextMeshProUGUI>();
+
+        // Create a copy of the text component
+        TextMeshProUGUI textComponentCopy = Instantiate(originalTextComponent, originalTextComponent.transform.parent);
+
+        // Optionally, reset position, scale, and other properties
+        textComponentCopy.transform.localPosition = originalTextComponent.transform.localPosition;
+        textComponentCopy.transform.localScale = originalTextComponent.transform.localScale;
+        textComponentCopy.transform.localRotation = originalTextComponent.transform.localRotation;
+
+        // Set the text and other properties
+        textComponentCopy.gameObject.SetActive(true);
+        textComponentCopy.text = "+" + goldDropped;
+        textComponentCopy.color = Color.yellow;
+
+        // Start the coroutine with the new text component
+        StartCoroutine(MoveAndFadeText(textComponentCopy));
     }
     
     private IEnumerator DelayedShowGoldText(int bonus, float delay)

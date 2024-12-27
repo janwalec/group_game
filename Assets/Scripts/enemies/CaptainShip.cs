@@ -94,6 +94,7 @@ public class CaptainShip : EnemyController
                 }
                 normalShip.InitializeHealth(childHealth, false);
                 normalShip.InitializeWaypoints(remainingWaypoints,0);
+                normalShip.priceForKill = 0;
 
             }
             else

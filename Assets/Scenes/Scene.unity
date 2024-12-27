@@ -63226,7 +63226,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthAddition: 10
   speedMultiplication: 1
-  goldBonusFactor: 0.5
+  goldBonusFactor: 0.2
 --- !u!4 &2112370894
 Transform:
   m_ObjectHideFlags: 0

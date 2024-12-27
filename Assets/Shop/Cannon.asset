@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Cannon
   m_EditorClassIdentifier: 
   itemName: Cannon
-  price: 20
+  price: 25
   icon: {fileID: 21300000, guid: 0bb9ca8f31b7afa40b555bb3d6f8d644, type: 3}

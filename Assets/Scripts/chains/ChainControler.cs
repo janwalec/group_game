@@ -79,7 +79,7 @@ public class ChainControler : MonoBehaviour
 
     public delegate void KeyPressAction();
 
-    private float rollingDelay = 0.7f;
+    private float rollingDelay = 0.5f;
     private float singleCannonExtraDelay = 0.5f;
 
 
@@ -348,7 +348,7 @@ public class ChainControler : MonoBehaviour
         {
             maxChainLeght = newChain.tileChain.Count;
         }
-
+        
         //StartCoroutine(rolling(newChain));
 
     }

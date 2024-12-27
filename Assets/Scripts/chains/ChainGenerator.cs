@@ -84,7 +84,7 @@ public class ChainGenerator : MonoBehaviour
                 }
                 prevWasCannon = true;
             } else {
-                prevWasCannon = false;
+                //prevWasCannon = false;
             }
         }
         return false;
