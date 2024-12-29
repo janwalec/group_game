@@ -110,11 +110,11 @@ public class MarketManager : MonoBehaviour
     void Update()
     {
         // Check if the 'g' key is pressed
-        if (Input.GetKeyDown(KeyCode.G))
-        {
+        //if (Input.GetKeyDown(KeyCode.G))
+        //{
             // Call the earnGold function with 1000 as the argument
-            earnGold(1000);
-        }
+        //    earnGold(1000);
+        //}
     }
 
 }

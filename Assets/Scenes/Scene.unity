@@ -20826,7 +20826,8 @@ MonoBehaviour:
   - text: Coins always multiply the value and dice add. Multiplication is prioritized.
     image: {fileID: 0}
     video: {fileID: 32900000, guid: 7868aad88cb600e4aa27a1e4387b2942, type: 3}
-  - text: Chains can be rearranged and branched out into multiple cannons.
+  - text: Chains can be rearranged and branched out into multiple cannons. Drag from
+      the cannon and release where the chains intersect.
     image: {fileID: 0}
     video: {fileID: 32900000, guid: ad107c4dca43ea64197b7e922fbdbf76, type: 3}
   - text: Modifier Direction Bonus
